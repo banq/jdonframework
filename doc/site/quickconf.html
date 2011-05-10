@@ -1,0 +1,418 @@
+<html><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<!-- #BeginEditable "doctitle" -->
+<title>Jdon Framework</title>  
+<!-- #EndEditable -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="shortcut icon" href="http://www.jdon.com/favicon.ico">
+<!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
+<link href="views.css" rel="stylesheet" type="text/css">
+</head>
+<body bgcolor="#dddddd" text="#000000">
+ <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+
+  <tr> 
+    <td height="11" colspan="7" bgcolor="#FFFFFF" class="bianxian"> 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" height="1" bordercolor="#000000">
+        <tr> 
+          <td> 
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000">
+              <tr> 
+                <td></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    
+    <td bgcolor="#FFFFFF"  valign="top">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          
+         
+          <td valign="top" > 
+            <table width="100%" border="0" cellspacing="2" cellpadding="2">
+              <tr>
+                <td>
+                  <h1>JDon.org</h1>
+				<!-- #BeginEditable "main" --> 
+                  <h2 align="center"><strong>Component/Service Quick Start </strong> </h2>
+                  <p align="center">writer : banq <strong>jegg</strong> </p>
+                  <p align="left">Sample DEMO: <a href="http://www.jdon.com/testWeb/" target="_blank">http://www.jdon.com/testWeb/</a><br>
+Sample Source Download: <a href="https://sourceforge.net/project/showfiles.php?group_id=126953&package_id=138962&release_id=539402">click here(samples-simple.jar)</a></p>
+                  <h3 align="left">The first Jdon Application</h3>
+                  <p>Only need  two  annotations(@Service or @Component):</p>
+                  <p><br>
+                    @Service(&quot;helloService&quot;)<br>
+                    public class HelloServiceImpl implements HelloService <br>
+                  ..</p>
+                  <p>the client call the service's code:</p>
+                  <p>HelloService helloService = (HelloService) WebAppUtil.getService(&quot;helloService&quot;, req);<br>
+                    String result = helloService.hello(myname);<br>
+                  </p>
+                  <p><img src="images/anndi.png" alt="di" width="562" height="431"></p>
+                  <p>all source in JdonFramework/examples/testWeb</p>
+                  <P><strong>More Annotation</strong></P>
+                  <P> @Poolable: get a instance from the class's  object pooing, <a href="http://michael-bien.com/mbien/entry/object_pooling_determinism_vs_throughput" target="_blank">Object Pooling - Determinism vs. Throughput</a><br>
+                      <br>
+                    @Stateful:its instance lifecycle is user session scope <br>
+  <br>
+                    @Singleton: get a singleton instance form the class</P>
+                  <p align="left">&nbsp;</p>
+                  <p align="left"><strong>ABC</strong></p>
+                  <p align="left"><br>
+                    In JdonFramework, there is a configuration XML file that named jdonframework.xml. in it, we can configure our class, the format as below:</p>
+                  <p align="left">&lt;pojoService  name=&quot;your service name &quot;  class=&quot;full class  &quot;/&gt;</p>
+                  <p align="left">or</p>
+                  <p align="left">@Service(&quot;your service name&quot;)</p>
+                  <p>&quot;class&quot; is the class full name, include the package; &quot;name&quot; can be any text that will be used in our client code.</p>
+                  <p>if we have a class<strong> TestServicePOJOImp</strong> as below: </p>
+                  <table width="90%" border="0" bgcolor="#cccccc">
+                    <tbody>
+                      <tr bgcolor="#cccccc">
+                        <td><p>@Poolable<br>
+                          //@Service(&quot;<strong>testService</strong>&quot;)<br>
+                          public class TestServicePOJOImp implements TestService{<br>
+                                <br>
+                          &nbsp;&nbsp;&nbsp;private JdbcDAO jdbcDao;<br>
+                          <br>
+                          &nbsp;&nbsp;&nbsp;public TestServicePOJOImp(JdbcDAO jdbcDao) {<br>
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.jdbcDao = jdbcDao;<br>
+                          &nbsp;&nbsp;&nbsp;}</p>
+                            <p> &nbsp;&nbsp;&nbsp;public void createUser(EventModel em) {<br>
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;....<br>
+                              &nbsp;&nbsp;&nbsp;}<br>
+                              &nbsp;}<br>
+                              <br>
+                              interface TestService code:<br>
+                              <br>
+                              public interface TestService {</p>
+                          <p> &nbsp;&nbsp;&nbsp;void createUser(EventModel em);<br>
+                                <br>
+                            }</p>
+                          <p><br />
+                                <br />
+                                <br />
+                          </p></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>when we finished these codes, we need create a XML file that named jdonframework.xml under project source directotry: </p>
+                  <table width="90%" border="0" bgcolor="#cccccc">
+                    <tbody>
+                      <tr bgcolor="#cccccc">
+                        <td><p><br>
+                          &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br>
+                          &lt;!DOCTYPE app PUBLIC &quot;-//JDON//DTD Framework 2005 1.0 //EN&quot;	&quot;http://www.jdon.com/jdonframework.dtd&quot;&gt;<br>
+                          &lt;app&gt;<br>
+                          &nbsp;&nbsp;&nbsp;&lt;services&gt;<br />
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;pojoService  name=&quot;<strong>testService</strong>&quot;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;class=&quot;<strong>com.jdon.framework.test.service.TestServicePOJOImp</strong>&quot;/&gt;<br>
+                          &nbsp;&nbsp;&nbsp;&lt;/services&gt;<br>
+                          &lt;/app&gt;<br />
+                          <br />
+                          <br />
+                        </p></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>at last, if we invoke <strong>TestServicePOJOImp </strong>in client code such as Jsp/Servlet or struts action,the invoking code as below: </p>
+                  <table width="97%" border="0" bgcolor="#cccccc">
+                    <tbody>
+                      <tr bgcolor="#cccccc">
+                        <td><p><br />
+                          TestService testService = (TestService) WebAppUtil.getService(&quot;testService  &quot;, request);<br>
+                          testService.createUser(em);<br />
+                          <br />
+                        </p></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>so the good point is that: if we replace <strong>TestServicePOJOImp</strong> with <strong>AnotherTestServicePOJOImp</strong> , only need modify  jdonframework.xml, not need change our client codes. </p>
+                  <p>thera is another big good point that Ioc or DI means Dependency Injection, maybe you have find a details about <strong>TestServicePOJOImp</strong> that it has a constructor method: </p>
+                  <p>&nbsp;&nbsp;&nbsp;public TestServicePOJOImp(JdbcDAO jdbcDao) {<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.jdbcDao = jdbcDao;<br>
+  &nbsp;&nbsp;&nbsp;}</p>
+                  <p>if we donot create the JdbcDAO instance, how can we create <strong>TestServicePOJOImp</strong> instance?don't worry, the framework help us and it do these, but we need add a new configuration item in jdonframework.xml, as below: <br>
+                  </p>
+                  <table width="96%" border="0" bgcolor="#cccccc">
+                    <tbody>
+                      <tr bgcolor="#cccccc">
+                        <td><p><br>
+                          &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br>
+                          &lt;!DOCTYPE app PUBLIC &quot;-//JDON//DTD Framework 2005 1.0 //EN&quot;	&quot;http://www.jdon.com/jdonframework.dtd&quot;&gt;<br>
+                          &lt;app&gt;<br>
+                          &nbsp;&nbsp;&nbsp;&lt;services&gt;<br />
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;pojoService  name=&quot;testService&quot;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;class=&quot;com.jdon.framework.test.service.TestServicePOJOImp&quot;/&gt;<br>
+                          <br>
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- new configuration item or annotation @Component in <strong>JdbcDAO</strong> class --&gt;<BR>
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;component   name="<strong>jdbcDAO</strong>" class="<strong>com.jdon.framework.test.dao.JdbcDAO</strong>"/&gt;<br>
+                          &nbsp;&nbsp;&nbsp;&lt;/services&gt;<br>
+                          &lt;/app&gt;<br />
+                          <br />
+                          <br />
+                        </p></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>until now, you maybe have understand JdonFramework what to do.</p>
+                  <p>&nbsp;</p>
+                  <p>&nbsp;</p>
+                  <p>&nbsp;</p>
+                  <h4>How starting the framework? </h4>
+                  <p>there are two ways to starting the framework in our web project.                     </p>
+                  <p>first way: web.xml configuration:</p>
+                  <table width="90%" bgcolor="#cccccc" border="0">
+                    <tbody>
+                      <tr>
+                        <td><p><br />
+                          &lt;context-param&gt;<br />
+                          &nbsp;&nbsp;&nbsp;&lt;param-name&gt; modelmapping-config  &lt;/param-name&gt;<br />
+                          &nbsp;&nbsp;&nbsp;&lt;param-value&gt; jdonframework.xml  &lt;/param-value&gt;<br />
+                          &lt;/context-param&gt;<br />
+                          ……<br />
+                          &lt;listener&gt;<br />
+                          &nbsp;&nbsp;&nbsp;&lt;listener-class&gt;com.jdon.container.startup.ServletContainerListener&lt;/listener-class&gt;<br />
+                          &lt;/listener&gt;<br />
+                        </p></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>second way: struts-config.xml(you must know struts 1.2)</p>
+                  <table width="90%" bgcolor="#cccccc" border="0">
+                    <tbody>
+                      <tr>
+                        <td><p><br />
+                          &lt;plug-in  className=&quot;com.jdon.strutsutil.InitPlugIn&quot;&gt;<br />
+                          &nbsp;&nbsp;&nbsp;&lt;set-property  property=&quot;modelmapping-config&quot; value=&quot;jdonframework.xml&quot;  /&gt;<br />
+                          &lt;/plug-in&gt;</p></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <h3>&nbsp;</h3>
+                  <p>&nbsp;</p>
+                  <p>&nbsp;</p>
+                  <h2>Mor DEATILS</h2>
+                  <h3>Startup the jdonframework</h3>
+                  <p>When using jdon framework at first time, you need to get it started in project   application, since jdon’s CRUD development functions are built on struts1.2, so   if you want to utilize this part of function, you need to employ InitPlugIn   built in Struts to start up jdonframework.xml</p>
+                  At present, JDon has integrated with   Struts’ presentation layer, so you can start up jdonframework.xml by using   plugin in struts. The advantage of doing this is that you can implement the   multi-module development with struts. A struts project may contain several   function modules. Every function module is got involved in several other   components from web page presentation (struts configuration and tiles   configuration), module design to server side persistency. Jdon can start up   jdonframework.xml by using plugin in struts to support this kind of multi-modlue   development.<BR>
+                    <BR>
+                    <strong>Configuration method 1</strong>:<BR>
+                    Jdon framework has provided a   default implementing class to plugin which is com.jdon.strutsutil.IniPlugIn, you   can also implement plugin by the needs of you own. In struts-config.xml (or   other struts module configuration files such as struts-config-admin.xml and so   on), you can configure plugin’s implementing class:<BR>
+                    <BR>
+                    Please see the   following configuration snippet.<BR>
+                    <BR>
+                    <table width="90%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+                      <tr>
+                        <td>&lt;plug-in className="com.jdon.strutsutil.InitPlugIn"&gt; <br>
+                          &lt;set-property property="modelmapping-config" value="jdonframework.xml" /&gt;<br>
+                          &lt;/plug-in&gt; </td>
+                      </tr>
+                    </table>
+                    <BR>
+                    <BR>
+                    The main purpose of InitPlugIn class is to read the   modelmapping-config’s value which is the name of jdonframework configuration   file defined by you. <BR>
+                    <BR>
+                    File name could be arbitrary, for example, you can   use news.jdonframework.xml to represent that jdonframework.xml is under the   package news. com.jdon.app.myframework.xml is representing that myframework.xml   is under the package com.jdon.app.<BR>
+                    Usually, you can put jdonframework.xml in   the web application’s class path, for example, WEB-INF/classess. 
+                    You can   configure more then one jdonfremework.xml in plugin like the   following:<BR>
+                    <BR>
+                    <table width="90%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+                      <tr>
+                        <td><p>&lt;plug-in className="com.jdon.strutsutil.InitPlugIn"&gt;<br>
+                          &lt;set-property property="modelmapping-config" 
+                          value="com.jdon.framework.test.model.models.xml,
+                          com.jdon.framework.test.service.services.xml,
+                          com.jdon.framework.test.dao.dao.xml" /&gt;    <br>
+                          &lt;/plug-in&gt; </p>                        </td>
+                      </tr>
+                    </table>
+                    <BR>
+                    <BR>
+                    Also, you can set them   within their struts-config.xml files respectively.<BR>
+                    <BR>
+                    <strong>Configuration method   2</strong><BR>
+                    If you are not using struts, you can start up jdon framework by setting   web.xml. Here is an   example.<BR>
+                    <BR>
+                    <table width="90%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+                      <tr>
+                        <td><p>&lt;context-param&gt;<br>
+                          &lt;param-name&gt; modelmapping-config &lt;/param-name&gt;<br>
+                          &lt;param-value&gt; jdonframework.xml &lt;/param-value&gt;<br>
+                          &lt;/context-param&gt;<br>
+                          ……<br>
+                          &lt;listener&gt;<br>
+&lt;listener-class&gt;com.jdon.container.startup.ServletContainerListener&lt;/listener-class&gt;<br>
+&lt;/listener&gt;</p>
+                          <p></p></td>
+                      </tr>
+                    </table>
+                    <p>Param-value in the above example could have more than   one value separated by commons like the   following:</p>
+                    <table width="98%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+                      <tr>
+                        <td><p>&lt;context-param&gt;       &lt;param-name&gt;modelmapping-config &lt;/param-name&gt;      &lt;param-value&gt;com.jdon.framework.test.model.models.xml,  com.jdon.framework.test.service.services.xml,  com.jdon.framework.test.dao.dao.xml&lt;/param-value&gt;      &lt;/context-param&gt; </p>
+                            <p></p></td>
+                      </tr>
+                    </table>
+                    <p>models.xml and services.xml dao.xml are multi configuration, sample see JiveJdon3.0 </p>
+                    <p><BR>
+                      Please note, if you are not using struts,   com.jdon.framework.test.model.models.xml within para-name is invalid, yet   com.jdon.framework.test.service.services.xml is still valid, which is set   component container that you can also regard it as components.<BR>
+                      <BR>
+                      <strong>Interceptor configuration</strong> <BR>
+                      <BR>
+                      when you develope a interceptor, 
+                      you need this step. <br>
+                      When Jon framework   is starting up, it will use container.xml and aspect.xml under META-INF in   jdonframework.jar by default. If you need to extend Jdon framework, for example,   you have developed some small components, such as formula functions, chart   components or some general functions and you need load these components as   starting up, or expect them configurable and replaceable as our wish, you can   integreated them into jdon. There are two ways to go. (It is not the   must)<BR>
+                      First Step :<BR>
+                      define you own component configuration file and   interceptor component configuration file, which name much be mycontainer.xml and   myaspect.xml, these two files must be put in the system class path or packed in   your jar file, this jar file could also be deployed together with jdon   framework’s jar file<BR>
+                      <BR>
+                      Second Step:<BR>
+                      You can define it in web.xml in your   web application, here is an   example:</p>
+                    <table width="98%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+                      <tr>
+                        <td><p>&lt;context-param&gt;<br>
+                          &lt;param-name&gt;containerConfigure&lt;/param-name&gt;<br>
+                          &lt;param-value&gt;WEB-INF/mycontainer.xml&lt;/param-value&gt;<br>
+                          &lt;/context-param&gt;<br>
+                          ……<br>
+                          &lt;context-param&gt;<br>
+                          &lt;param-name&gt;aspectConfigure&lt;/param-name&gt;<br>
+                          &lt;param-value&gt;WEB-INF/myaspect.xml&lt;/param-value&gt;<br>
+                          &lt;/context-param&gt;</p>
+                            <p></p>
+                            <p></p></td>
+                      </tr>
+                  </table>
+                    <p>                      So   your mycontainer.xml file and myaspect.xml file must be put in WEB_INF directory   in your web application, yet file names could be arbitrary. In User-defined   configuration file, corresponding settings in container.xml and aspect.xml could   be overwritten; however the setting name should be the same. <BR>
+                    </p>
+                    <p>&nbsp;</p>
+                    <h3>Jdonframework configuration </h3>
+                    <p>In this article, I am   going to show you how to get job done within jdonframework.xml for class   testService.</p>
+                    <p>We called a class instance invoked by client   (Servlet/Jsp/Action) as below.</p>
+                    <table width="98%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+                      <tr>
+                        <td><p>TestService testService = (TestService) WebAppUtil.getService("testService",   request);</p>                            </td>
+                      </tr>
+                    </table>
+                    <p>"testService" is the class name  of &quot;TestService&quot;. it should be configured in jdonframework.xml</p>
+                    <p>&nbsp;</p>
+                    <table width="98%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+                      <tr>
+                        <td><p>&lt;pojoService name=&quot;testService&quot; class=&quot;com.jdon.framework.test.service.TestServicePOJOImp&quot;/&gt;<br>
+                        </p></td>
+                      </tr>
+                    </table>
+                    <p><BR>
+                      There are two types of service class. One   is common java class or JavaBeans, all of which called POJO. The other is   EJB-regulation-complied classes which could be simply called EJB. Any of these   two type class could be used as service class, hence there will be two   corresponding service configurations for POJO and EJB done by pojoService and   ejbService respectively.<BR>
+                      <BR>
+                      <strong>POJOs configuration</strong><BR>
+                      <BR>
+                      There   are two basic properties in pojoService, name and class. Property class is for   putting POJO’s full name. Property Name is used to put the actual service name   invoked in the program, conventionally written as similarly to the class name.   Please see the source code in JdonFrameworkEJB or Ioc under Traning directory of JdonSample. <BR>
+                      POJO Service configuration:                    </p>
+                    <table width="98%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+                      <tr>
+                        <td><p>&lt;pojoService name=&quot;testService&quot; class=&quot;com.jdon.framework.test.service.TestServicePOJOImp&quot;/&gt;<br>
+                          <br>
+                          </p>                        </td>
+                      </tr>
+                    </table>
+                    <p>                      Not all of classes are servered for   the client directly (jsp/Servlet), that is to say some classes are not invoked   by jsp/servlet or presentation frame layer, but invoked by service classes,   these kinds of class we called component class annotated as component in   configuration file. Note: in EJB framework, component class is managed by EJB   container, so you do not need to any configuration in JdonFramework any   more.<BR>
+                      <BR>
+                      POJO Component configuration: 
+                      <!—jdbcDAO is invoked by TestServiceImp and serving for it, -->
+                    </p>
+                    <table width="98%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+                      <tr>
+                        <td><p>&lt;component class=&quot;com.jdon.framework.test.dao.JdbcDAO&quot; name=&quot;jdbcDAO&quot;/&gt;<br>
+                          <br>
+                          </p>                        </td>
+                      </tr>
+                    </table>
+                    <p><BR>
+                    We   often need to define some constants and parameters in some classes, so we can do   like this:</p>
+                    <table width="98%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+                      <tr>
+                        <td><p>&lt;component class=&quot;com.jdon.framework.test.dao.JdbcDAO&quot; name=&quot;jdbcDAO&quot;&gt;<br>
+&lt;constructor value=&quot;java:/TestDS&quot;/&gt;<br>
+&lt;/ component &gt; <br>
+                                <br>
+                        </p></td>
+                      </tr>
+                    </table>
+                    <p><BR>
+                    As you can see, JdbcDao’s constructor has a string parameter.   When you initialize an instance of JdbcDao, String “java:/TestDs”(DataSource JNDI Name) will be passed   into constructor automatically.<BR>
+                    <BR>
+                    By taking advantage of good point above,   we can conveniently utilize xml file to define business logic. For example, we   can defined the email format in jdonframework.xml so that email content could be   altered easily according the customers’ needs. It is much better and flexible   than get this information hard coded in the program.<BR>
+                    <BR>
+                    Here is an   example:</p>
+                    <table width="98%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+                      <tr>
+                        <td><p>&lt;component name=&quot;emailDefine&quot;<br>
+class=&quot;com.jdon.jivejdon.service.imp.account.EmailDefine&quot;&gt; <br>
+&lt;constructor value=&quot;Jdon username and password&quot;/&gt;<br>
+&lt;constructor value=&quot;Welcome on jdon.com. Your account  has been validated. Thank you!&quot;/&gt;<br>
+&lt;constructor value=&quot;Jdon.com &quot;/&gt; <br>
+&lt;constructor value=&quot;Thank you, Jdon team.&quot;/&gt; <br>
+&lt;constructor value=&quot;admin@jdon.com&quot;/&gt;<br>
+&lt;/component&gt;</p>
+                          <p><br>
+                            <br>
+                          </p></td>
+                      </tr>
+                    </table>
+                    <p>&nbsp;</p>
+                  <!-- #EndEditable -->
+			    </td>
+              </tr>
+            </table>			
+          </td>
+		  <td width="200" valign="top"  bgcolor="#FFFFD7"> <table width="100%" border="0" cellspacing="0" cellpadding="3" height="200" align="center">
+      <tr>
+        <td align="right"><table width="100%" height="200" border="0" align="center" cellpadding="3" cellspacing="0" dwcopytype="CopyTableCell">
+            <tr>
+              <td align="left"  valign="top"><p align="center"><a href="http://www.jdon.org"><img src="images/jdone.gif" width="120" height="60" border="0"></a></p>
+                  <p ><B><a href="https://sourceforge.net/projects/jdon/files/" target="_blank">Downloads</a></B></p>
+                  <p ><a href="http://www.slideshare.net/banq/ddd-framework-for-java-jdonframework-2881760"><strong>Architecture</strong></a></p>
+                  <p ><B><a href="doc.htm" target="_blank">Document</a></B></p>
+                  <p ><a href="quickconf.html"><strong>Qucik Start</strong></a> </p>
+                  <p ><a href="steps.html"><strong>Step By Step</strong></a> </p>
+                 
+                  <p ><a href="struts_jdon_jdbc.html"><strong>Sample Application</strong></a> </p>
+                  <p ><B><a href="http://sourceforge.net/projects/jdon/files/JdonFramework-App/" target="_blank">Samples Download</a></B></p>
+                  <p ><B><a href="http://www.jdon.com/testWeb/" target="_blank">Online Demo</a></B></p>
+                  <p ><a href="api/index.html" target="_blank"><strong>API</strong></a><B><a href="http://sourceforge.net/projects/jdon/support" target="_blank"><br>
+                        <br>
+                        Support</a></B></p>
+                  <p ><a href="cn/jdonframework/" target="_blank"><strong>Chinese Site</strong></a> </p>
+                  <p ><a href="http://sourceforge.net/projects/jdon/"><img src="images/sf.gif" alt="sf" width="88" height="31" border="0"></a></p>
+                  <!-- InstanceBeginEditable name="Menu" --> <!-- InstanceEndEditable --> </td>
+            </tr>
+        </table></td>
+        </tr>
+      </table>
+   </td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000"  align="center">
+              <tr>
+                <td></td>
+              </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td height="20" bgcolor="#CAC9BB" align="center">
+  <p><span class="small"><font color="#555555"><br>
+  </font></span></p>
+  </td>
+</tr>
+</table>
+<br>
+<!-- InstanceBeginEditable name="EditRegion3" --><!-- InstanceEndEditable -->
+</body>
+<!-- InstanceEnd --></html>

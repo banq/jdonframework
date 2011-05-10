@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<nodeSet  version="1.1">
+	<node uin="8krugmfzukwbimj6o7tx">
+		<property name="$metaclass" value="UseCaseClassifier20"/>
+		<property name="$name" value="Subject1"/>
+		<node uin="gj7tthfzukwksu-xiuk0j">
+			<property name="$metaclass" value="UseCase20"/>
+			<property name="$name" value="订阅"/>
+		</node>
+		<node uin="gj7tthfzukwym8ictpbd">
+			<property name="$metaclass" value="UseCase20"/>
+			<property name="$name" value="接受通知"/>
+		</node>
+	</node>
+	<node uin="8bho0jfzukwe4dhtwhfi">
+		<property name="$metaclass" value="Actor20"/>
+		<property name="$name" value="订阅者"/>
+		<property name="mod__extends" value="Subject1.订阅"/>
+		<property name="mod__extends" value="Subject1.接受通知"/>
+		<link uin="ieje0rfzukwwmm-2ioiaz">
+			<property name="$metaclass" value="Generalization20"/>
+			<property name="mod__cachedBaseName" value="Subject1.订阅"/>
+			<participant referencedUin="design:node:::8bho0jfzukwe4dhtwhfi" role="Client"></participant>
+			<participant referencedUin="design:node:::gj7tthfzukwksu-xiuk0j:8krugmfzukwbimj6o7tx" role="Supplier"></participant>
+		</link>
+		<link uin="ieje0rfzukxpo6-8i9csg">
+			<property name="$metaclass" value="Generalization20"/>
+			<property name="mod__cachedBaseName" value="Subject1.接受通知"/>
+			<participant referencedUin="design:node:::8bho0jfzukwe4dhtwhfi" role="Client"></participant>
+			<participant referencedUin="design:node:::gj7tthfzukwym8ictpbd:8krugmfzukwbimj6o7tx" role="Supplier"></participant>
+		</link>
+	</node>
+</nodeSet>

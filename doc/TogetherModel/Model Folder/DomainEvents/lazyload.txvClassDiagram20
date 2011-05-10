@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<nodeSet  version="1.1">
+	<view uin="V1hexuhg3jgzl7v-324mlu">
+		<property name="$metaclass" value="ClassDiagram20"/>
+		<property name="$name" value="lazyload"/>
+		<reference referencedUin="jdt:e_class:src:DomainEvents.UserModel">
+			<property name="bounds" value="135,75,129,80"/>
+			<property name="location_set_by_user" value="true"/>
+			<property name="$shortcutReference" value="true"/>
+			<reference referencedUin="jdt:l_ast:src:DomainEvents.UserModel:lnkUserCountValueObject">
+				<property name="sourceAnchor" value="269,150"/>
+				<property name="targetAnchor" value="360,150"/>
+				<property name="bendpoints" value=""/>
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:DomainEvents.UserCountValueObject">
+			<property name="bounds" value="355,75,281,221"/>
+			<property name="location_set_by_user" value="true"/>
+			<property name="$shortcutReference" value="true"/>
+			<property name="bounds_setted_by_user" value="true"/>
+			<reference referencedUin="jdt:l_ast:src:DomainEvents.UserCountValueObject:user">
+				<property name="sourceAnchor" value="360,142"/>
+				<property name="targetAnchor" value="269,142"/>
+			</reference>
+		</reference>
+	</view>
+</nodeSet>

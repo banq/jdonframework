@@ -1,0 +1,36 @@
+<project name="Annotation Test" default="all" basedir="./">
+
+	<target name="all" depends="war">
+		<!-- 
+		<copy file="myweb.war" todir="E:\training\jboss-4.2.2.GA\server\default\deploy" overwrite="true"/>
+   -->
+	</target>
+
+	<path id="master-classpath">
+		<fileset file="../../dist/*.jar" />
+		<fileset file="lib/*.jar" />
+	</path>
+
+
+	<target name="compile">
+		
+		<mkdir dir="bin"/>
+		<javac srcdir="src" destdir="bin" encoding="utf-8" debug="true">
+			<classpath refid="master-classpath" />
+		</javac>
+	</target>
+
+	<target name="war" depends="compile">
+
+		<copy todir="myweb/WEB-INF/classes">
+			<fileset dir="bin">
+			</fileset>
+		</copy>
+		<jar destfile="myweb.war" >
+			<fileset dir="myweb">
+				<include name="**/*"/>
+			</fileset>
+		</jar>
+		<delete dir="bin"/>
+	</target>
+</project>

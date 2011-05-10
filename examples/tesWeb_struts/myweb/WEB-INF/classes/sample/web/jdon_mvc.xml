@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE app PUBLIC "-//JDON//DTD Framework 2005 1.0 //EN"	"http://www.jdon.com/jdonframework.dtd">
+<app>
+  <models>
+   <model key="userId" class ="sample.domain.User">
+      <actionForm name="userActionForm"/>
+      <handler>
+        <service ref="helloService"> 
+          <getMethod name="getUser" />
+          <createMethod name="create" />
+          <updateMethod name="update" />
+          <deleteMethod name="delete" />
+        </service>
+      </handler>
+    </model>
+  </models>
+  
+</app>

@@ -1,0 +1,12 @@
+<web-app id="">
+	<servlet>
+		<servlet-name>Hessian2Jdon</servlet-name>
+		<servlet-class>com.jdon.bussinessproxy.remote.HessianToJdonServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Hessian2Jdon</servlet-name>
+		<url-pattern>/remote/*</url-pattern>
+	</servlet-mapping>
+	
+</web-app>    

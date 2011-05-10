@@ -1,0 +1,43 @@
+<project name="JdonFramework full application" default="all" basedir="./">
+
+	<target name="all" depends="war">
+       <!-- 
+		<copy file="myweb.war" todir="E:\training\jboss-4.2.2.GA\server\default\deploy" overwrite="true"/>
+       -->
+	</target>
+
+	<path id="master-classpath">
+		<fileset file="../../dist/*.jar" />
+		<fileset file="../../strutslib/*.jar" />
+		<fileset file="lib/*.jar" />
+
+	</path>
+
+
+	<target name="compile">
+		<delete dir="bin"/>
+		<mkdir dir="bin"/>
+		<javac srcdir="src" destdir="bin" encoding="utf-8" debug="true">
+			<classpath refid="master-classpath" />
+		</javac>
+		<copy todir="bin" overwrite="true">
+			<fileset dir="src">
+				<include name="**/*.xml" />
+				<include name="**/*.properties" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="war" depends="compile">
+
+		<copy todir="myweb/WEB-INF/classes">
+			<fileset dir="bin">
+			</fileset>
+		</copy>
+		<jar destfile="myweb.war" >
+			<fileset dir="myweb">
+				<include name="**/*"/>
+			</fileset>
+		</jar>
+	</target>
+</project>

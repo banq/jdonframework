@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE taglib
+  PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+  "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+<taglib>
+
+  <tlibversion>1.0</tlibversion>
+  <jspversion>1.1</jspversion>
+  <shortname>MultiPages</shortname>
+  <uri>/WEB-INF/MultiPages.tld</uri>
+  <info></info>
+
+  <tag>
+    <name>pager</name>
+    <tagclass>com.jdon.strutsutil.taglib.MPageTag</tagclass>
+    <info>
+    </info>
+
+ <attribute>
+      <name>actionFormName</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+<attribute>
+<name>action</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>anchor</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>forward</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>href</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>indexed</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>indexId</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>linkName</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>name</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>onblur</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>onclick</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>ondblclick</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>onfocus</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>onkeydown</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>onkeypress</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>onkeyup</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>onmousedown</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>onmousemove</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>onmouseout</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>onmouseover</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>onmouseup</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>page</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>paramId</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>paramName</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>paramProperty</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>paramScope</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>property</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>scope</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>style</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>styleClass</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>styleId</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>tabindex</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>target</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>title</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>titleKey</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+<attribute>
+<name>transaction</name>
+<required>false</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+  </tag>
+
+  <tag>
+    <name>prev</name>
+    <tagclass>com.jdon.strutsutil.taglib.PrevTag</tagclass>
+    <info></info>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>next</name>
+    <tagclass>com.jdon.strutsutil.taglib.NextTag</tagclass>
+    <info></info>
+    <attribute>
+      <name>name</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>index</name>
+    <tagclass>com.jdon.strutsutil.taglib.IndexTag</tagclass>
+    <info>
+    </info>
+     <attribute>
+      <name>displayCount</name>
+      <required>false</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+
+
+
+</taglib>

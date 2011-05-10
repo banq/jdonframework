@@ -1,0 +1,141 @@
+<html><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<!-- #BeginEditable "doctitle" -->
+<title>Jdon Framework</title>  
+<!-- #EndEditable -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="shortcut icon" href="http://www.jdon.com/favicon.ico">
+<!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
+<link href="views.css" rel="stylesheet" type="text/css">
+</head>
+<body bgcolor="#dddddd" text="#000000">
+ <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+
+  <tr> 
+    <td height="11" colspan="7" bgcolor="#FFFFFF" class="bianxian"> 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" height="1" bordercolor="#000000">
+        <tr> 
+          <td> 
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000">
+              <tr> 
+                <td></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    
+    <td bgcolor="#FFFFFF"  valign="top">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          
+         
+          <td valign="top" > 
+            <table width="100%" border="0" cellspacing="2" cellpadding="2">
+              <tr>
+                <td>
+                  <h1>JDon.org</h1>
+				<!-- #BeginEditable "main" --> 
+                  <p>　　</p>
+                  <H3> Command patern for calling services</H3>
+                  <H3>This function is like the ActionController of Ruby on Rails， the function  handles incoming requests from the user's browser and routes   them to the correct method of a <strong>service</strong> class , not a controller class such as Struts's DispatchAction. </H3>
+                  <H3><img src="images/serviceAction.jpg" alt=" " width="421" height="315"></H3>
+                  <p>how to implements? three steps:</p>
+                  <p><strong>First step</strong>: configure your struts-config.xml:</p>
+                  <TABLE cellSpacing=1 cellPadding=1 width="100%" bgColor=#cccccc border=0>
+                    <TBODY>
+                      <TR>
+                        <TD><P>&lt;action path="/aaa" type="<strong>com.jdon.strutsutil.ForwardAction</strong>"　name="aForm" scope="request"validate="false"&gt;</P>
+                            <P>&lt;forward name="<strong>xxxxx</strong>" path="/xxx.jsp"/&gt;</P>
+                          <P>&lt;/action&gt;</P></TD>
+                      </TR>
+                    </TBODY>
+                  </TABLE>
+                  <p>com.jdon.strutsutil.ForwardAction is the a class of jdon framework, <strong>xxxxx</strong> is your browser url parameter. </p>
+                  <p><strong>Second Step</strong>: tell jdon framework:you will call which service(the name of the JavaBeans) :</p>
+                  <TABLE cellSpacing=1 cellPadding=1 width="100%" bgColor=#cccccc border=0>
+                    <TBODY>
+                      <TR>
+                        <TD><P>&lt;model key="primary key of your model" class ="your model class"&gt;<BR>
+                          &lt;actionForm name="aForm"/&gt;<BR>
+                          &lt;handler&gt;<BR>
+                          &lt;service ref="testService" /&gt; &lt;!--the name of  the JavaBeans--&gt;<BR>
+                          &lt;/handler&gt;<BR>
+                          &lt;/model&gt;</P>
+                            <P>&lt;pojoService name="testService" 　　　　 <BR>
+                              class="com.jdon.framework.test.service.TestServicePOJOImp"/&gt;</P>
+                          <P></P></TD>
+                      </TR>
+                    </TBODY>
+                  </TABLE>
+                  <P><strong> Last Step</strong>: code your service interface:</P>
+                  <TABLE cellSpacing=1 cellPadding=1 width="100%" bgColor=#cccccc border=0>
+                    <TBODY>
+                      <TR>
+                        <TD><P>public interface TestService{<BR>
+                          ……<BR>
+                          void xxxxx(EventModel em);<BR>
+                          ……<BR>
+                          }</P>
+                            <P></P></TD>
+                      </TR>
+                    </TBODY>
+                  </TABLE>
+                  <hr>
+                  <p>&nbsp;</p>
+                  <!-- #EndEditable -->
+			    </td>
+              </tr>
+            </table>			
+          </td>
+		  <td width="200" valign="top"  bgcolor="#FFFFD7"> <table width="100%" border="0" cellspacing="0" cellpadding="3" height="200" align="center">
+      <tr>
+        <td align="right"><table width="100%" height="200" border="0" align="center" cellpadding="3" cellspacing="0" dwcopytype="CopyTableCell">
+            <tr>
+              <td align="left"  valign="top"><p align="center"><a href="http://www.jdon.org"><img src="images/jdone.gif" width="120" height="60" border="0"></a></p>
+                  <p ><B><a href="https://sourceforge.net/projects/jdon/files/" target="_blank">Downloads</a></B></p>
+                  <p ><a href="http://www.slideshare.net/banq/ddd-framework-for-java-jdonframework-2881760"><strong>Architecture</strong></a></p>
+                  <p ><B><a href="doc.htm" target="_blank">Document</a></B></p>
+                  <p ><a href="quickconf.html"><strong>Qucik Start</strong></a> </p>
+                  <p ><a href="steps.html"><strong>Step By Step</strong></a> </p>
+                 
+                  <p ><a href="struts_jdon_jdbc.html"><strong>Sample Application</strong></a> </p>
+                  <p ><B><a href="http://sourceforge.net/projects/jdon/files/JdonFramework-App/" target="_blank">Samples Download</a></B></p>
+                  <p ><B><a href="http://www.jdon.com/testWeb/" target="_blank">Online Demo</a></B></p>
+                  <p ><a href="api/index.html" target="_blank"><strong>API</strong></a><B><a href="http://sourceforge.net/projects/jdon/support" target="_blank"><br>
+                        <br>
+                        Support</a></B></p>
+                  <p ><a href="cn/jdonframework/" target="_blank"><strong>Chinese Site</strong></a> </p>
+                  <p ><a href="http://sourceforge.net/projects/jdon/"><img src="images/sf.gif" alt="sf" width="88" height="31" border="0"></a></p>
+                  <!-- InstanceBeginEditable name="Menu" --> <!-- InstanceEndEditable --> </td>
+            </tr>
+        </table></td>
+        </tr>
+      </table>
+   </td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000"  align="center">
+              <tr>
+                <td></td>
+              </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td height="20" bgcolor="#CAC9BB" align="center">
+  <p><span class="small"><font color="#555555"><br>
+  </font></span></p>
+  </td>
+</tr>
+</table>
+<br>
+<!-- InstanceBeginEditable name="EditRegion3" --><!-- InstanceEndEditable -->
+</body>
+<!-- InstanceEnd --></html>

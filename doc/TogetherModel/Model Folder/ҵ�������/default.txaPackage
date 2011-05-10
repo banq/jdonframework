@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<nodeSet  version="1.1">
+	<node uin="-yrgd8eg0ytk6q29l2rhv">
+		<property name="$metaclass" value="SD20_Interaction"/>
+		<property name="$name" value="Interaction"/>
+		<node uin="-y8nsowg0ytpo70grc2ov">
+			<property name="$metaclass" value="SD20_Lifeline"/>
+			<property name="$name" value="Lifeline7"/>
+			<property name="connectableElementName" value="DomainModel"/>
+			<node uin="c87hzvg0ytpzns-6zxke2">
+				<property name="$metaclass" value="SD20_ExecutionSpecification"/>
+				<property name="$name" value="SD20_ExecutionSpecification1"/>
+			</node>
+		</node>
+		<node uin="-y8nsowg0ytpcsfx54fz8">
+			<property name="$metaclass" value="SD20_Lifeline"/>
+			<property name="$name" value="Lifeline6"/>
+			<property name="connectableElementName" value="Service"/>
+			<node uin="c87hzvg0ytpjvm2ilj78">
+				<property name="$metaclass" value="SD20_ExecutionSpecification"/>
+				<property name="$name" value="SD20_ExecutionSpecification1"/>
+				<node uin="l2gqtvg0ytpznc7j05q5">
+					<property name="$metaclass" value="SD20_Int_InvocationSpecification"/>
+					<property name="$name" value="SD20_Int_InvocationSpecification1"/>
+					<property name="receiveExecutionSpecificationPuin" value="design:node:::c87hzvg0ytpzns-6zxke2:-y8nsowg0ytpo70grc2ov:-yrgd8eg0ytk6q29l2rhv"/>
+					<property name="call_cachedSequenceNumber" value="1.1.1.1.1.1"/>
+				</node>
+			</node>
+			<link uin="ieje0rg0ytpznsnx7kub">
+				<property name="$metaclass" value="SD20_Int_CommunicationLink"/>
+				<participant referencedUin="design:node:::-y8nsowg0ytpcsfx54fz8:-yrgd8eg0ytk6q29l2rhv" role="Client"></participant>
+				<participant referencedUin="design:node:::-y8nsowg0ytpo70grc2ov:-yrgd8eg0ytk6q29l2rhv" role="Supplier"></participant>
+			</link>
+		</node>
+		<node uin="-y8nsowg0ytoqr0-ahnsvy">
+			<property name="$metaclass" value="SD20_Lifeline"/>
+			<property name="$name" value="Lifeline5"/>
+			<property name="connectableElementName" value="SessionContextInterceptor"/>
+			<node uin="c87hzvg0ytp6ahrn3oq7">
+				<property name="$metaclass" value="SD20_ExecutionSpecification"/>
+				<property name="$name" value="SD20_ExecutionSpecification1"/>
+				<node uin="l2gqtvg0ytpjv7-9xkkcz">
+					<property name="$metaclass" value="SD20_Int_InvocationSpecification"/>
+					<property name="$name" value="SD20_Int_InvocationSpecification1"/>
+					<property name="receiveExecutionSpecificationPuin" value="design:node:::c87hzvg0ytpjvm2ilj78:-y8nsowg0ytpcsfx54fz8:-yrgd8eg0ytk6q29l2rhv"/>
+					<property name="call_cachedSequenceNumber" value="1.1.1.1.1"/>
+				</node>
+			</node>
+			<link uin="ieje0rg0ytpjvm-ujr0wc">
+				<property name="$metaclass" value="SD20_Int_CommunicationLink"/>
+				<participant referencedUin="design:node:::-y8nsowg0ytoqr0-ahnsvy:-yrgd8eg0ytk6q29l2rhv" role="Client"></participant>
+				<participant referencedUin="design:node:::-y8nsowg0ytpcsfx54fz8:-yrgd8eg0ytk6q29l2rhv" role="Supplier"></participant>
+			</link>
+		</node>
+		<node uin="-y8nsowg0yto3v8-dl9kls">
+			<property name="$metaclass" value="SD20_Lifeline"/>
+			<property name="$name" value="Lifeline4"/>
+			<property name="connectableElementName" value="StatefulInterceptor"/>
+			<node uin="c87hzvg0ytoykpb33ek3">
+				<property name="$metaclass" value="SD20_ExecutionSpecification"/>
+				<property name="$name" value="SD20_ExecutionSpecification1"/>
+				<node uin="l2gqtvg0ytp6ah-wiuf3f">
+					<property name="$metaclass" value="SD20_Int_InvocationSpecification"/>
+					<property name="$name" value="SD20_Int_InvocationSpecification1"/>
+					<property name="receiveExecutionSpecificationPuin" value="design:node:::c87hzvg0ytp6ahrn3oq7:-y8nsowg0ytoqr0-ahnsvy:-yrgd8eg0ytk6q29l2rhv"/>
+					<property name="call_cachedSequenceNumber" value="1.1.1.1"/>
+				</node>
+			</node>
+			<link uin="ieje0rg0ytp6ax-lolnni">
+				<property name="$metaclass" value="SD20_Int_CommunicationLink"/>
+				<participant referencedUin="design:node:::-y8nsowg0yto3v8-dl9kls:-yrgd8eg0ytk6q29l2rhv" role="Client"></participant>
+				<participant referencedUin="design:node:::-y8nsowg0ytoqr0-ahnsvy:-yrgd8eg0ytk6q29l2rhv" role="Supplier"></participant>
+			</link>
+		</node>
+		<node uin="-y8nsowg0ytnt2c-fov41s">
+			<property name="$metaclass" value="SD20_Lifeline"/>
+			<property name="$name" value="Lifeline3"/>
+			<property name="connectableElementName" value="PoolInterceptor"/>
+			<node uin="c87hzvg0ytow4l-tsl92">
+				<property name="$metaclass" value="SD20_ExecutionSpecification"/>
+				<property name="$name" value="SD20_ExecutionSpecification1"/>
+				<node uin="l2gqtvg0ytoyk9pwubjn">
+					<property name="$metaclass" value="SD20_Int_InvocationSpecification"/>
+					<property name="$name" value="SD20_Int_InvocationSpecification1"/>
+					<property name="receiveExecutionSpecificationPuin" value="design:node:::c87hzvg0ytoykpb33ek3:-y8nsowg0yto3v8-dl9kls:-yrgd8eg0ytk6q29l2rhv"/>
+					<property name="call_cachedSequenceNumber" value="1.1.1"/>
+				</node>
+			</node>
+			<link uin="ieje0rg0ytoykp3x1pl0">
+				<property name="$metaclass" value="SD20_Int_CommunicationLink"/>
+				<participant referencedUin="design:node:::-y8nsowg0ytnt2c-fov41s:-yrgd8eg0ytk6q29l2rhv" role="Client"></participant>
+				<participant referencedUin="design:node:::-y8nsowg0yto3v8-dl9kls:-yrgd8eg0ytk6q29l2rhv" role="Supplier"></participant>
+			</link>
+		</node>
+		<node uin="-y8nsowg0ytme9sexlybv">
+			<property name="$metaclass" value="SD20_Lifeline"/>
+			<property name="$name" value="Lifeline2"/>
+			<property name="connectableElementName" value="CacheInterceptor"/>
+			<node uin="c87hzvg0ytnad6vmnf37">
+				<property name="$metaclass" value="SD20_ExecutionSpecification"/>
+				<property name="$name" value="SD20_ExecutionSpecification1"/>
+				<node uin="l2gqtvg0ytow469ys3y">
+					<property name="$metaclass" value="SD20_Int_InvocationSpecification"/>
+					<property name="$name" value="SD20_Int_InvocationSpecification1"/>
+					<property name="receiveExecutionSpecificationPuin" value="design:node:::c87hzvg0ytow4l-tsl92:-y8nsowg0ytnt2c-fov41s:-yrgd8eg0ytk6q29l2rhv"/>
+					<property name="call_cachedSequenceNumber" value="1.1"/>
+				</node>
+			</node>
+			<link uin="ieje0rg0ytow4l-tfg5hv">
+				<property name="$metaclass" value="SD20_Int_CommunicationLink"/>
+				<participant referencedUin="design:node:::-y8nsowg0ytme9sexlybv:-yrgd8eg0ytk6q29l2rhv" role="Client"></participant>
+				<participant referencedUin="design:node:::-y8nsowg0ytnt2c-fov41s:-yrgd8eg0ytk6q29l2rhv" role="Supplier"></participant>
+			</link>
+		</node>
+		<node uin="-y8nsowg0ytk9q5-vj56q">
+			<property name="$metaclass" value="SD20_Lifeline"/>
+			<property name="$name" value="Lifeline1"/>
+			<property name="stereotype" value="Controller"/>
+			<property name="connectableElementName" value="Action/ModelHandler"/>
+			<node uin="l2gqtvg0ytnad6r7wv7r">
+				<property name="$metaclass" value="SD20_Int_InvocationSpecification"/>
+				<property name="$name" value="SD20_Int_InvocationSpecification1"/>
+				<property name="receiveExecutionSpecificationPuin" value="design:node:::c87hzvg0ytnad6vmnf37:-y8nsowg0ytme9sexlybv:-yrgd8eg0ytk6q29l2rhv"/>
+				<property name="call_cachedSequenceNumber" value="1"/>
+			</node>
+			<link uin="ieje0rg0ytnadljhcj3f">
+				<property name="$metaclass" value="SD20_Int_CommunicationLink"/>
+				<participant referencedUin="design:node:::-y8nsowg0ytk9q5-vj56q:-yrgd8eg0ytk6q29l2rhv" role="Client"></participant>
+				<participant referencedUin="design:node:::-y8nsowg0ytme9sexlybv:-yrgd8eg0ytk6q29l2rhv" role="Supplier"></participant>
+			</link>
+		</node>
+	</node>
+</nodeSet>
