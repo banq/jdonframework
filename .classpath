@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="examples/remote_javafx/ext/hessian-3.1.6.jar"/>
+	<classpathentry kind="lib" path="examples/remote_javafx/lib_client/javafxrt.jar"/>
+	<classpathentry kind="lib" path="examples/remote_javafx/web/hello.jar"/>
+	<classpathentry kind="lib" path="j2eelib/hibernate/hibernate-annotations.jar"/>
+	<classpathentry kind="lib" path="j2eelib/hibernate/hibernate3.jar"/>
+	<classpathentry kind="lib" path="j2eelib/jboss-j2ee.jar"/>
+	<classpathentry kind="lib" path="j2eelib/jbosssx.jar"/>
+	<classpathentry kind="lib" path="j2eelib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="j2eelib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="lib/cglib.jar"/>
+	<classpathentry kind="lib" path="lib/commons-pool-1.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/ehcache-1.6.2.jar"/>
+	<classpathentry kind="lib" path="lib/hessian-3.1.6.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-regexp-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/jdom.jar"/>
+	<classpathentry kind="lib" path="lib/junit.jar"/>
+	<classpathentry kind="lib" path="lib/log4j.jar"/>
+	<classpathentry kind="lib" path="strutslib/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="strutslib/commons-collections.jar"/>
+	<classpathentry kind="lib" path="strutslib/commons-digester.jar"/>
+	<classpathentry kind="lib" path="strutslib/commons-fileupload.jar"/>
+	<classpathentry kind="lib" path="strutslib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="strutslib/commons-pool-1.4.jar"/>
+	<classpathentry kind="lib" path="strutslib/commons-validator.jar"/>
+	<classpathentry kind="lib" path="strutslib/jakarta-oro.jar"/>
+	<classpathentry kind="lib" path="strutslib/struts.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/picocontainer-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/scannotation-1.0.2.jar" sourcepath="F:/opensource/scanannotation/scannotation/src/main"/>
+	<classpathentry kind="output" path="classes"/>
+</classpath>
