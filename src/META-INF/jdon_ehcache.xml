@@ -535,7 +535,7 @@
            memoryStoreEvictionPolicy="LRU"
             />
  -->
-   <!-- load all datas In memeory   -->
+   <!-- load all datas In memeory  In-Memory-Data-Grid (IMDG) Elastic Caching -->
    <cache name="jdonCache" maxElementsInMemory="500000" eternal="false" overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="360000" timeToLiveSeconds="360000" memoryStoreEvictionPolicy="LRU" /> 
 
 
