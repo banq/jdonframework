@@ -524,7 +524,7 @@
     If there are more than 10000 elements it will overflow to the
     disk cache, which in this configuration will go to wherever java.io.tmp is
     defined on your system. On a standard Linux system this will be /tmp"
-    -->
+   
     <cache name="jdonCache"
            maxElementsInMemory="10000"
            eternal="false"
@@ -534,7 +534,9 @@
            timeToLiveSeconds="3600"
            memoryStoreEvictionPolicy="LRU"
             />
+ -->
+   <!-- load all datas In memeory   -->
+   <cache name="jdonCache" maxElementsInMemory="500000" eternal="false" overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="360000" timeToLiveSeconds="360000" memoryStoreEvictionPolicy="LRU" /> 
 
-   
 
 </ehcache>
