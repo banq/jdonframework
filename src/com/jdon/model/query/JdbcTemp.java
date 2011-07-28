@@ -76,7 +76,7 @@ public class JdbcTemp {
 				Debug.logVerbose("[JdonFramework]-->in db found it:" + o.getClass().getName(), module);
 			}
 		} catch (SQLException se) {
-			throw new Exception("SQLException: " + se.getMessage());
+			throw new SQLException("SQLException: " + se.getMessage());
 		} catch (Exception ex) {
 			Debug.logError(ex, module);
 			throw new Exception(ex);
@@ -121,7 +121,7 @@ public class JdbcTemp {
 			rs = ps.executeQuery();
 			list = jdbcUtil.extract(rs);
 		} catch (SQLException se) {
-			throw new Exception("SQLException: " + se.getMessage());
+			throw new SQLException("SQLException: " + se.getMessage());
 		} catch (Exception ex) {
 			Debug.logError(ex, module);
 			throw new Exception(ex);
@@ -169,7 +169,7 @@ public class JdbcTemp {
 				} while ((rs.next()) && (--count > 0));
 			}
 		} catch (SQLException se) {
-			throw new Exception("SQLException: " + se.getMessage());
+			throw new SQLException("SQLException: " + se.getMessage());
 		} catch (Exception ex) {
 			Debug.logError(ex, module);
 			throw new Exception(ex);
@@ -209,7 +209,7 @@ public class JdbcTemp {
 
 			ps.executeUpdate();
 		} catch (SQLException se) {
-			throw new Exception("SQLException: " + se.getMessage());
+			throw new SQLException("SQLException: " + se.getMessage());
 		} catch (Exception ex) {
 			Debug.logError(ex, module);
 			throw new Exception(ex);

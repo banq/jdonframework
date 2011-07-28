@@ -1,5 +1,5 @@
 Testsuite: com.jdon.SampleAppTest
-Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 12.525 sec
+Tests run: 3, Failures: 0, Errors: 0, Time elapsed: 11.405 sec
 ------------- Standard Output ---------------
 call A.myMethod1 
 
@@ -52,18 +52,18 @@ name=helloeventMessage=hello
 sayHelloeventMessage=100
 ------------- ---------------- ---------------
 ------------- Standard Error -----------------
-2011-3-3 11:39:59 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
+2011-7-28 8:35:18 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
 少御: Creating a new instance of CacheManager using the diskStorePath "C:\Users\ADMINI~1\AppData\Local\Temp\" which is already used by an existing CacheManager.
-The source of the configuration was InputStream java.io.BufferedInputStream@8046f4.
-The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1299123599495.
+The source of the configuration was InputStream java.io.BufferedInputStream@1402d5a.
+The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1311813318853.
 To avoid this warning consider using the CacheManager factory methods to create a singleton CacheManager or specifying a separate ehcache configuration (ehcache.xml) for each CacheManager instance.
-2011-3-3 11:40:02 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
+2011-7-28 8:35:22 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
 少御: Creating a new instance of CacheManager using the diskStorePath "C:\Users\ADMINI~1\AppData\Local\Temp\" which is already used by an existing CacheManager.
-The source of the configuration was InputStream java.io.BufferedInputStream@8b8a47.
-The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1299123602987.
+The source of the configuration was InputStream java.io.BufferedInputStream@716cb7.
+The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1311813322283.
 To avoid this warning consider using the CacheManager factory methods to create a singleton CacheManager or specifying a separate ehcache configuration (ehcache.xml) for each CacheManager instance.
 ------------- ---------------- ---------------
 
-Testcase: testGetService took 5.019 sec
-Testcase: testDomainEvent took 4.052 sec
-Testcase: testDomainEventSimple took 3.445 sec
+Testcase: testGetService took 4.548 sec
+Testcase: testDomainEvent took 3.417 sec
+Testcase: testDomainEventSimple took 3.43 sec
