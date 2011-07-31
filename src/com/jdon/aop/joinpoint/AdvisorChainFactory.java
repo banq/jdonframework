@@ -113,7 +113,7 @@ public class AdvisorChainFactory {
 		for (Advisor advisor : ejbInterceptorNames) {
 			MethodInterceptor ejbInterceptor = (MethodInterceptor) containerCallback.getContainerWrapper().lookup(advisor.getAdviceName());
 			interceptorsForEJB.add(ejbInterceptor);
-			Debug.logVerbose("[JdonFramework] find ejbService's interceptos size=" + interceptors.size(), module);
+			Debug.logVerbose("[JdonFramework] find ejbService's interceptos size=" + interceptorsForEJB.size(), module);
 		}
 
 	}
@@ -148,7 +148,7 @@ public class AdvisorChainFactory {
 		for (Advisor advisor : pojoInterceptorNames) {
 			MethodInterceptor interceptor = (MethodInterceptor) containerCallback.getContainerWrapper().lookup(advisor.getAdviceName());
 			myinterceptors.add(interceptor);
-			Debug.logVerbose("[JdonFramework] find pojoService's interceptos size=" + interceptors.size(), module);
+			Debug.logVerbose("[JdonFramework] find pojoService's interceptos size=" + myinterceptors.size(), module);
 		}
 		return myinterceptors;
 	}
