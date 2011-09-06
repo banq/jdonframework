@@ -13,10 +13,10 @@
  * limitations under the License.
  * 
  */
-package com.jdon.async.message;
+package com.jdon.async.disruptor;
 
-public interface MessageProcessor {
-	void addMessage(Object o);
+import com.jdon.domain.message.DomainMessage;
 
-	Object getMessage();
+public interface DisruptorListener {
+	void action(DomainMessage domainMessage);
 }

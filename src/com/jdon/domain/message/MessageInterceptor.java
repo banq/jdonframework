@@ -19,6 +19,8 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
 import com.jdon.annotation.model.Send;
+import com.jdon.async.EventMessageFirer;
+import com.jdon.async.future.FutureListener;
 import com.jdon.container.finder.ContainerCallback;
 import com.jdon.util.Debug;
 
@@ -37,12 +39,12 @@ public class MessageInterceptor implements MethodInterceptor {
 	public final static String module = MessageInterceptor.class.getName();
 
 	private ContainerCallback containerCallback;
-	private MessageMediator messageMediator;
+	protected EventMessageFirer eventMessageFirer;
 
-	public MessageInterceptor(ContainerCallback containerCallback, MessageMediator messageMediator) {
+	public MessageInterceptor(ContainerCallback containerCallback, EventMessageFirer eventMessageFirer) {
 		super();
 		this.containerCallback = containerCallback;
-		this.messageMediator = messageMediator;
+		this.eventMessageFirer = eventMessageFirer;
 	}
 
 	public Object invoke(MethodInvocation invocation) throws Throwable {
@@ -51,38 +53,33 @@ public class MessageInterceptor implements MethodInterceptor {
 
 		Send send = invocation.getMethod().getAnnotation(Send.class);
 		String channel = send.value();
-		boolean asyn = send.asyn();
 		Object result = null;
 		try {
-			Object listener = containerCallback.getContainerWrapper().lookup(channel);
-			if (listener == null) {
-				Debug.logError("you must define a class with @Component(" + channel + ") to listern " + invocation.getThis(), module);
-				return invocation.proceed();
-			} else if (!(listener instanceof MessageListener)) {
-				Debug.logError("you must define a class implements  com.jdon.domain.message.MessageListener to listern" + invocation.getThis(),
-						module);
-				return invocation.proceed();
-			}
 
 			result = invocation.proceed();
 
 			DomainMessage message = null;
 			if (result == null) {
-				message = new DomainMessage(result);
+				message = new DomainMessage(null);
 			} else if (!(DomainMessage.class.isAssignableFrom(result.getClass()))) {
-				Debug.logError("your method that with @Send must defines return type is com.jdon.domain.message.DomainMessage  :"
-						+ invocation.getThis(), module);
+				Debug.logError(
+						"your method that with @Send must defines return type is com.jdon.domain.message.DomainMessage  :" + invocation.getThis(),
+						module);
 				return result;
 			} else
 				message = (DomainMessage) result;
 
-			message.setChannel(channel);
-			message.setAsyn(asyn);
-			message.setMessageListener((MessageListener) listener);
-			messageMediator.sendMessage(message);
+			eventMessageFirer.fire(message, send);
+
+			// older queue @Send(myChannl) ==> @Component(myChannl)
+			Object listener = containerCallback.getContainerWrapper().lookup(channel);
+			if (listener != null && listener instanceof FutureListener)
+				eventMessageFirer.fire(message, send, (FutureListener) listener);
+
 		} catch (Exception e) {
 			Debug.logError("invoke error: " + e, module);
 		}
 		return result;
 	}
+
 }

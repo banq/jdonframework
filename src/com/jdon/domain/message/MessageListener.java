@@ -15,8 +15,20 @@
  */
 package com.jdon.domain.message;
 
-public interface MessageListener {
+import com.jdon.async.future.FutureListener;
 
-	abstract void action(DomainMessage DomainMessage);
+/**
+ * MessageListener is for older than v6.3
+ * 
+ * @Send(topicName) ==> @Component(topicName);
+ * 
+ *                  The message accepter class annotated with
+ * @Component(topicName) must implements com.jdon.domain.message.MessageListener
+ * 
+ * 
+ * @author banq
+ * 
+ */
+public interface MessageListener extends FutureListener {
 
 }

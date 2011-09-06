@@ -13,18 +13,27 @@
  * limitations under the License.
  * 
  */
-package com.jdon.sample.test.domain.simplecase;
+package com.jdon.async.future;
 
-import com.jdon.annotation.Consumer;
-import com.jdon.async.disruptor.EventDisruptor;
-import com.jdon.domain.message.DomainEventHandler;
+import com.jdon.domain.message.DomainMessage;
 
-@Consumer("MyModel.findName")
-public class FindNameListener implements DomainEventHandler {
+public class FutureDirector {
 
-	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
-		MyModel myModel = (MyModel) event.getDomainMessage().getEventSource();
-		System.out.println("eventMessage=" + myModel.getId());
-		event.getDomainMessage().setEventResult("eventMessage=" + myModel.getId());
+	private ChannelExecutor channelExecutor;
+
+	public FutureDirector(String maxconcurrentTaskCount) {
+		channelExecutor = new ChannelExecutor(maxconcurrentTaskCount);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.jdon.async.message.MessageMediator#sendMessage(com.jdon.async.message
+	 * .EventMessage)
+	 */
+	public void fire(DomainMessage domainMessage) {
+		channelExecutor.actionListener(domainMessage);
+	}
+
 }

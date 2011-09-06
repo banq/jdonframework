@@ -13,11 +13,16 @@
  * limitations under the License.
  * 
  */
-package com.jdon.domain.message;
+package com.jdon.sample.test.domain.onecase;
 
+import com.jdon.annotation.Consumer;
+import com.jdon.async.disruptor.EventDisruptor;
+import com.jdon.domain.message.DomainEventHandler;
 
-public interface MessageMediator {
-
-	public abstract void sendMessage(DomainMessage em);
-
+@Consumer("mychannel")
+public class CDomainEventHandler implements DomainEventHandler {
+	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
+		System.out.println("CDomainEventHandler Action" + event.getDomainMessage().getEventSource());
+		event.getDomainMessage().setEventResult("CDomainEventHandler=" + event.getDomainMessage().getEventSource());
+	}
 }

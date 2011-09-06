@@ -19,7 +19,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.ThreadPoolExecutor;
 
-import com.jdon.async.message.MessageProcessor;
 import com.jdon.util.Debug;
 
 public class TaskMonitor extends Thread {

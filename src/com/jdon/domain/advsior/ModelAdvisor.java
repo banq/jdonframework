@@ -24,20 +24,21 @@ import com.jdon.domain.proxy.ModelProxyFactory;
 import com.jdon.util.Debug;
 
 /**
- * when a model with a @Introduce annotation is injected to another model,
- * the injected model will be enhanced using cglib.
+ * when a model with a @Introduce annotation is injected to another model, the
+ * injected model will be enhanced using cglib.
  * 
  * for example:
- * @Introduce("message")
- * public class DomainEvent{
  * 
- *    
- * }
+ * @Introduce("message") public class DomainEvent{
  * 
- * as this,the DomainEvent will be enhanced with MessageInterceptor
+ * 
+ *                       }
+ * 
+ *                       as this,the DomainEvent will be enhanced with
+ *                       MessageInterceptor
  * 
  * @author xmuzyu
- *
+ * 
  */
 public class ModelAdvisor {
 	private final static String module = ModelAdvisor.class.getName();
@@ -72,7 +73,7 @@ public class ModelAdvisor {
 				}
 			}
 		} catch (Exception e) {
-			Debug.logError(" getAdviceNameAnnotation" + e, module);
+			Debug.logError(" getAdviceNameAnnotation:" + e, module);
 		}
 		return methodInterceptors;
 	}

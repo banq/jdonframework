@@ -1,10 +1,9 @@
-package com.jdon.async.observer;
+package com.jdon.async.task;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.jdon.async.EventProcessor;
-import com.jdon.async.task.Task;
 
 public class ObservableAdapter {
 

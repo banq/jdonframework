@@ -13,18 +13,20 @@
  * limitations under the License.
  * 
  */
-package com.jdon.sample.test.domain.simplecase;
+package com.jdon.container.annotation.type;
 
-import com.jdon.annotation.Consumer;
-import com.jdon.async.disruptor.EventDisruptor;
-import com.jdon.domain.message.DomainEventHandler;
 
-@Consumer("MyModel.findName")
-public class FindNameListener implements DomainEventHandler {
+public class Utils {
 
-	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
-		MyModel myModel = (MyModel) event.getDomainMessage().getEventSource();
-		System.out.println("eventMessage=" + myModel.getId());
-		event.getDomainMessage().setEventResult("eventMessage=" + myModel.getId());
+	public static Class createClass(String className) {
+		Class classService = null;
+		try {
+			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+			classService = classLoader.loadClass(className);
+		} catch (Exception ex) {
+			System.err.print("[JdonFramework] createClass error:" + ex);
+		}
+		return classService;
 	}
+
 }

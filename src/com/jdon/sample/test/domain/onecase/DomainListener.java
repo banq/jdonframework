@@ -19,6 +19,14 @@ import com.jdon.annotation.Component;
 import com.jdon.domain.message.DomainMessage;
 import com.jdon.domain.message.MessageListener;
 
+/**
+ * acccept Domain message from @Send("mychannel") of @Introduce("message")
+ * 
+ * this is a futureTask message Listener;
+ * 
+ * @author banq
+ * 
+ */
 @Component("mychannel")
 public class DomainListener implements MessageListener {
 	public void action(DomainMessage domainMessage) {

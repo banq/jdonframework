@@ -13,7 +13,7 @@
   <interceptor name="modelCache" class="com.jdon.domain.DomainCacheInterceptor" pointcut="domain" />
   
   <interceptor name="message" class="com.jdon.domain.message.MessageInterceptor" pointcut="model" />
-  
+      
   
   	
 </aspect>

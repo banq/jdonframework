@@ -1,7 +1,7 @@
 package com.jdon.async;
 
-import com.jdon.async.message.MessageProcessor;
-import com.jdon.async.message.QueueMessageProcessor;
+import com.jdon.async.task.MessageProcessor;
+import com.jdon.async.task.QueueMessageProcessor;
 import com.jdon.async.task.Task;
 import com.jdon.async.task.TaskMonitor;
 

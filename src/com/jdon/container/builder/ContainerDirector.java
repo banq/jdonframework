@@ -37,16 +37,6 @@ public class ContainerDirector {
 		this.cb = cb;
 	}
 
-	/**
-	 * prepare the applicaition configure files
-	 * 
-	 * @param configureFileName
-	 */
-	public void prepareAppRoot(String configureFileName) throws Exception {
-		if (!cb.isKernelStartup())
-			cb.registerAppRoot(configureFileName);
-	}
-
 	public void startup() throws StartupException {
 		Debug.logVerbose("[JdonFramework] <======== JdonFramework beigin to startup =========>", module);
 		if (!cb.isKernelStartup())
@@ -83,4 +73,13 @@ public class ContainerDirector {
 
 	}
 
+	/**
+	 * prepare the applicaition configure files
+	 * 
+	 * @param configureFileName
+	 */
+	public void prepareAppRoot(String configureFileName) throws Exception {
+		if (!cb.isKernelStartup())
+			cb.registerAppRoot(configureFileName);
+	}
 }

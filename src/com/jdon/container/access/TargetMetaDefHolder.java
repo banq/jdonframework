@@ -52,6 +52,7 @@ public class TargetMetaDefHolder implements Startable, Serializable {
 		metaDefs.put(name, targetMetaDef);
 	}
 
+	// for reister in container of DefaultContainerBuilder.registerUserService
 	public Map<String, TargetMetaDef> loadMetaDefs() {
 		return metaDefs;
 	}

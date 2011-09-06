@@ -15,15 +15,24 @@
  */
 package com.jdon.domain.message;
 
-import com.jdon.async.message.EventMessage;
+import com.jdon.async.EventMessage;
 
-public class DomainMessage extends EventMessage {
+public class DomainMessage {
 
 	protected Object eventSource;
+	protected EventMessage eventMessage;
 
 	public DomainMessage(Object eventSource) {
 		super();
 		this.eventSource = eventSource;
+	}
+
+	public EventMessage getEventMessage() {
+		return eventMessage;
+	}
+
+	public void setEventMessage(EventMessage eventMessage) {
+		this.eventMessage = eventMessage;
 	}
 
 	public Object getEventSource() {
@@ -35,11 +44,16 @@ public class DomainMessage extends EventMessage {
 	}
 
 	public Object getEventResult() {
-		return super.getEventResult();
+		if (eventMessage == null)
+			System.err.print("eventMessage is null " + eventSource.getClass());
+		return eventMessage.getEventResult();
 	}
 
 	public void setEventResult(Object eventResult) {
-		super.setEventResult(eventResult);
+		if (eventMessage == null)
+			System.err.print("eventMessage is null " + eventSource.getClass());
+
+		eventMessage.setEventResult(eventResult);
 	}
 
 }

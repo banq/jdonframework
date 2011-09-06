@@ -13,24 +13,13 @@
  * limitations under the License.
  * 
  */
-package com.jdon.async.channel;
+package com.jdon.async;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
-import com.jdon.domain.message.MessageListener;
+public interface EventMessage {
 
-public class ChannelListenerHolder {
+	Object getEventResult();
 
-	private Map<String, MessageListener> channels = new ConcurrentHashMap();
-
-	public void addChannelListener(String channel, MessageListener domainListener) {
-		channels.put(channel, domainListener);
-
-	}
-
-	public MessageListener getChannelListener(String channel) {
-		return channels.get(channel);
-	}
+	void setEventResult(Object eventResult);
 
 }

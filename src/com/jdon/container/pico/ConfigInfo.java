@@ -18,6 +18,12 @@ package com.jdon.container.pico;
 import com.jdon.container.ContainerWrapper;
 import com.jdon.container.interceptor.IntroduceInfoHolder;
 
+/**
+ * Informations before or after container is created.
+ * 
+ * @author banq
+ * 
+ */
 public class ConfigInfo {
 
 	private IntroduceInfoHolder introduceInfoHolder;

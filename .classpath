@@ -30,5 +30,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/picocontainer-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/scannotation-1.0.2.jar" sourcepath="F:/opensource/scanannotation/scannotation/src/main"/>
+	<classpathentry kind="lib" path="lib/disruptor-2.0.2.jar" sourcepath="/disruptor"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

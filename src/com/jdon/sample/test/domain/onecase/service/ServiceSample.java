@@ -16,7 +16,7 @@
 package com.jdon.sample.test.domain.onecase.service;
 
 import com.jdon.annotation.Service;
-import com.jdon.async.message.EventMessage;
+import com.jdon.domain.message.DomainMessage;
 import com.jdon.sample.test.domain.onecase.DomainEvent;
 import com.jdon.sample.test.domain.onecase.IServiceSample;
 import com.jdon.sample.test.domain.onecase.repository.Repository;
@@ -40,7 +40,7 @@ public class ServiceSample implements IServiceSample {
 
 		domainEvent2.myMethod1();
 
-		EventMessage message = domainEvent2.myMethod();
+		DomainMessage message = domainEvent2.myMethod();
 		Object result = message.getEventResult();
 		return result;
 

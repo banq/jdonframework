@@ -17,7 +17,7 @@ package com.jdon.sample.test.domain.simplecase;
 
 import com.jdon.annotation.Model;
 import com.jdon.annotation.model.Inject;
-import com.jdon.async.message.EventMessage;
+import com.jdon.domain.message.DomainMessage;
 import com.jdon.sample.test.domain.simplecase.domainservice.MyModelService;
 
 @Model
@@ -40,17 +40,17 @@ public class MyModel {
 		this.id = id;
 	}
 
-	public String getName() {
-		if (this.name == null) {
-			EventMessage message = myModelDomainEvent.asyncFindName(this);
-			this.name = (String) message.getEventResult();
-		}
-		return name;
-	}
-
 	public void setName(String name) {
 
 		this.name = name;
+	}
+
+	public String getName() {
+		if (this.name == null) {
+			DomainMessage message = myModelDomainEvent.asyncFindName(this);
+			this.name = (String) message.getEventResult();
+		}
+		return name;
 	}
 
 	public MyModelDomainEvent getMyModelDomainEvent() {

@@ -13,29 +13,23 @@
  * limitations under the License.
  * 
  */
-package com.jdon.async.message;
+package com.jdon.async.disruptor;
 
-import java.util.concurrent.LinkedBlockingQueue;
+public class DisruptorParams {
 
+	private String RingBufferSize;
 
-public class QueueMessageProcessor implements MessageProcessor {
-	private LinkedBlockingQueue queue;
-
-	public QueueMessageProcessor() {
-		queue = new LinkedBlockingQueue();
+	public DisruptorParams(String ringBufferSize) {
+		super();
+		RingBufferSize = ringBufferSize;
 	}
 
-	public void addMessage(Object o) {
-		queue.add(o);
+	public String getRingBufferSize() {
+		return RingBufferSize;
 	}
 
-	public Object getMessage() {
-		try {
-			return queue.take();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+	public void setRingBufferSize(String ringBufferSize) {
+		RingBufferSize = ringBufferSize;
 	}
 
 }

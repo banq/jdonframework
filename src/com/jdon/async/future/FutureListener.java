@@ -13,29 +13,11 @@
  * limitations under the License.
  * 
  */
-package com.jdon.async.message;
+package com.jdon.async.future;
 
-import com.jdon.async.channel.ChannelExecutor;
 import com.jdon.domain.message.DomainMessage;
-import com.jdon.domain.message.MessageMediator;
 
-public class MessageMediatorImpl implements MessageMediator {
+public interface FutureListener {
 
-	private ChannelExecutor channelExecutor;
-
-	public MessageMediatorImpl(String maxconcurrentTaskCount) {
-		channelExecutor = new ChannelExecutor(maxconcurrentTaskCount);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.jdon.async.message.MessageMediator#sendMessage(com.jdon.async.message
-	 * .EventMessage)
-	 */
-	public void sendMessage(DomainMessage message) {
-		channelExecutor.actionListener(message);
-	}
-
+	void action(DomainMessage domainMessage);
 }

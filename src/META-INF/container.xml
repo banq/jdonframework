@@ -153,11 +153,22 @@
 	
 	<component name="modelProxyInjection" class="com.jdon.domain.model.injection.ModelProxyInjection"></component>
 	
+	<!-- asnc start -->
+	<component name="disruptorParams" class="com.jdon.async.disruptor.DisruptorParams">
+	    <constructor value="8" />
+    </component>
+    
+    <component name="disruptorFactory" class="com.jdon.async.disruptor.DisruptorFactory"></component>
 	
-
-    <component name="messageMediator" class="com.jdon.async.message.MessageMediatorImpl">
+    <component name="futureDirector" class="com.jdon.async.future.FutureDirector">
 			<constructor value="50" />
     </component>
-
+    <component name="eventMessageFirer" class="com.jdon.async.EventMessageFirer"></component>
+	
+    
+    
+    <!-- asnc end -->
+ 
+ 
 
 </components>

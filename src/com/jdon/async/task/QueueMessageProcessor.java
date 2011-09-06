@@ -13,8 +13,30 @@
  * limitations under the License.
  * 
  */
-package com.jdon.async.message;
+package com.jdon.async.task;
 
-public class NullMessage {
+import java.util.concurrent.LinkedBlockingQueue;
+
+
+
+public class QueueMessageProcessor implements MessageProcessor {
+	private LinkedBlockingQueue queue;
+
+	public QueueMessageProcessor() {
+		queue = new LinkedBlockingQueue();
+	}
+
+	public void addMessage(Object o) {
+		queue.add(o);
+	}
+
+	public Object getMessage() {
+		try {
+			return queue.take();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }
