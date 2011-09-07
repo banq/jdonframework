@@ -1,11 +1,12 @@
-JDON FRAMEWORK 6.2  (Octorber 2009)
+JDON FRAMEWORK 6.4 (Octorber 2011)
 ---------------------------------------
-http://www.jdon.com
+http://www.jdon.org
 
 1. INTRODUCTION
 ---------------
 
 Jdon Framework is a web application IOC/DI framework, it combines with rapidity and agility for your web application architecture.
+http://www.jdon.org
 
 2. RELEASE NOTES
 ----------------
@@ -25,7 +26,7 @@ You can run runTest.bat in this dirtectoy to see how to apply JdonFramework.
 
 com.jdon.sample.* show how to fully using JdonFramework.
 
-In the "doc\site" directory there are all documents about how to use.
+In the "doc\english" directory there are all documents about how to use.
 
 In the "doc\chinese" directory there are chinese documents about how to use.
 

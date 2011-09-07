@@ -9,9 +9,8 @@ com.jdon.aop.interceptor
 com.jdon.aop.joinpoint
 com.jdon.aop.reflection
 com.jdon.async
-com.jdon.async.channel
-com.jdon.async.message
-com.jdon.async.observer
+com.jdon.async.disruptor
+com.jdon.async.future
 com.jdon.async.task
 com.jdon.bussinessproxy
 com.jdon.bussinessproxy.dyncproxy
@@ -30,6 +29,7 @@ com.jdon.container
 com.jdon.container.access
 com.jdon.container.access.xml
 com.jdon.container.annotation
+com.jdon.container.annotation.type
 com.jdon.container.builder
 com.jdon.container.config
 com.jdon.container.config.aspect
@@ -54,7 +54,6 @@ com.jdon.controller.service
 com.jdon.domain
 com.jdon.domain.advsior
 com.jdon.domain.message
-com.jdon.domain.model
 com.jdon.domain.model.injection
 com.jdon.domain.proxy
 com.jdon.model
@@ -65,6 +64,7 @@ com.jdon.model.handler
 com.jdon.model.query
 com.jdon.model.query.block
 com.jdon.model.query.cache
+com.jdon.model.util
 com.jdon.persistence
 com.jdon.persistence.hibernate
 com.jdon.persistence.hibernate.util
@@ -91,4 +91,5 @@ com.jdon.strutsutil.treeview
 com.jdon.strutsutil.util
 com.jdon.util
 com.jdon.util.jdom
+com.jdon.util.scanAnnotation
 com.jdon.util.task
