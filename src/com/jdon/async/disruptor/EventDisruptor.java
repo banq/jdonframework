@@ -15,12 +15,11 @@
  */
 package com.jdon.async.disruptor;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-
 import com.jdon.async.EventMessage;
 import com.jdon.domain.message.DomainMessage;
 import com.lmax.disruptor.AbstractEvent;
+import com.lmax.disruptor.AlertException;
+import com.lmax.disruptor.DependencyBarrier;
 import com.lmax.disruptor.RingBuffer;
 
 public class EventDisruptor extends AbstractEvent implements EventMessage {
@@ -33,19 +32,17 @@ public class EventDisruptor extends AbstractEvent implements EventMessage {
 
 	protected Object eventResult;
 
-	protected BlockingQueue resultQueue;
+	protected Object eventReturnResult;
 
-	protected RingBuffer ringBuffer;
-
-	public EventDisruptor() {
-		resultQueue = new LinkedBlockingQueue();
-	}
+	protected RingBuffer<EventDisruptor> ringBuffer;
 
 	public Object getEventResult() {
 		if (over)
 			return eventResult;
 		try {
-			eventResult = resultQueue.take();
+			EventDisruptor resultEvent = fetchResultEvent();
+			if (resultEvent != null)
+				eventResult = resultEvent.getEventReturnResult();
 			over = true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -53,11 +50,29 @@ public class EventDisruptor extends AbstractEvent implements EventMessage {
 		return eventResult;
 	}
 
-	public void setEventResult(Object result) {
+	protected EventDisruptor fetchResultEvent() {
+		EventDisruptor resultEvent = null;
 		try {
-			resultQueue.put(result);
+			DependencyBarrier dependencyBarrier = ringBuffer.newDependencyBarrier();
+			long nextSequence = this.getSequence() + 1L;
+			final long availableSequence = dependencyBarrier.waitFor(nextSequence);
+			if (availableSequence == nextSequence) {
+				resultEvent = ringBuffer.getEvent(availableSequence);
+			}
+		} catch (AlertException e) {
+			e.printStackTrace();
 		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return resultEvent;
+
+	}
+
+	public void setEventResult(Object result) {
+		EventDisruptor eventResult = ringBuffer.nextEvent();
+		eventResult.setEventReturnResult(result);
+		ringBuffer.publish(eventResult);
 	}
 
 	public String getTopic() {
@@ -80,8 +95,20 @@ public class EventDisruptor extends AbstractEvent implements EventMessage {
 		return ringBuffer;
 	}
 
-	public void setRingBuffer(RingBuffer ringBuffer) {
+	public void setRingBuffer(RingBuffer<EventDisruptor> ringBuffer) {
 		this.ringBuffer = ringBuffer;
+	}
+
+	public Object getEventReturnResult() {
+		return eventReturnResult;
+	}
+
+	public void setEventReturnResult(Object eventReturnResult) {
+		this.eventReturnResult = eventReturnResult;
+	}
+
+	public void publish() {
+		ringBuffer.publish(this);
 	}
 
 }

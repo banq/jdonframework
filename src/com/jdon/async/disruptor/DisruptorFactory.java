@@ -49,13 +49,15 @@ public class DisruptorFactory implements EventFactory {
 		this.handlesMap = new ConcurrentHashMap<String, TreeSet<DomainEventHandler>>();
 	}
 
-	private DisruptorWizard createDw() {
-		return new DisruptorWizard<EventDisruptor>(this, Integer.parseInt(RingBufferSize), Executors.newCachedThreadPool(),
-				ClaimStrategy.Option.SINGLE_THREADED, WaitStrategy.Option.YIELDING);
+	private DisruptorWizard createDw(int size) {
+		if (size == 0)
+			size = Integer.parseInt(RingBufferSize);
+		return new DisruptorWizard<EventDisruptor>(this, size + 2, Executors.newCachedThreadPool(), ClaimStrategy.Option.SINGLE_THREADED,
+				WaitStrategy.Option.YIELDING);
 	}
 
 	public DisruptorWizard addEventMessageHandler(String topic, TreeSet<DomainEventHandler> handlers) {
-		DisruptorWizard dw = createDw();
+		DisruptorWizard dw = createDw(handlers.size());
 		EventHandlerGroup eh = null;
 		for (DomainEventHandler handler : handlers) {
 			if (eh == null) {
@@ -120,6 +122,7 @@ public class DisruptorFactory implements EventFactory {
 	public void fire(String topic, EventDisruptor eventDisruptor) {
 		RingBuffer ringBuffer = eventDisruptor.getRingBuffer();
 		ringBuffer.publish(eventDisruptor);
+
 	}
 
 	@Override

@@ -47,7 +47,8 @@ public class EventMessageFirer {
 		eventDisruptor.setTopic(topic);
 		eventDisruptor.setDomainMessage(domainMessage);
 		domainMessage.setEventMessage(eventDisruptor);
-		disruptorFactory.fire(topic, eventDisruptor);
+		eventDisruptor.publish();
+		// disruptorFactory.fire(topic, eventDisruptor);
 	}
 
 }
