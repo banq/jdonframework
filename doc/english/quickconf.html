@@ -80,6 +80,77 @@ Sample Source Download: <a href="https://sourceforge.net/project/showfiles.php?g
                     com.jdon.domain.message.DomainEventHandler</p>
                   <p><img src="images/de2.png" alt="ss" width="667" height="198"></p>
                   <p align="left">&nbsp;</p>
+                  <h3 align="left">DCI </h3>
+                  <div>
+                    <div>DCI: Data, Context, Interactions is a programming paradigm invented by&nbsp;<a href="http://folk.uio.no/trygver/" target="_parent" onClick="window.event.cancelBubble=true;">Trygve Reenskaug</a>. DCI can keep our core model classes very thin. 
+                      logic/behaviour should be kept in roles. 
+                      <p>Domain Events is a behaviour, Event publisher is a the Interactions of Role in DCI, like a interface, and event consumer is the implemention of the interface.</p>
+                      <p>One: Data Model, Domain Model is the DATA of DCI, no logic no behaviour.<br>
+                      </p>
+                      <table width="600" border="0">
+                        <tr>
+                          <td bgcolor="#CCCCCC"><p>&nbsp;</p>
+                            <p>@Model<br />
+                              public class UserModel {</p>
+                            <p> &nbsp; &nbsp;&nbsp; private String userId;<br />
+                              &nbsp; &nbsp;&nbsp; private String name;</p>
+                            <p>&nbsp; &nbsp;&nbsp;  @Inject<br />
+                              &nbsp; &nbsp;&nbsp; private ComputerRole computerRole;</p>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p></td>
+                        </tr>
+                      </table>
+                      <p>Two: Role. Domain event producer is a Role of DCI，it includes the interactions of DCI. </p>
+                      <table width="600" border="0">
+                        <tr>
+                          <td bgcolor="#CCCCCC"><p>&nbsp;</p>
+                            <p>@Introduce(&quot;message&quot;)<br />
+                              public class ComputerRole {</p>
+                            <p> &nbsp; &nbsp;&nbsp; @Send(&quot;computeCount&quot;)<br />
+                              &nbsp; &nbsp;&nbsp; public DomainMessage computeCount(UserModel user) {<br />
+                              &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return new DomainMessage(user);<br />
+                              &nbsp; &nbsp;&nbsp; }</p>
+                            <p> &nbsp; &nbsp;&nbsp; @Send(&quot;saveUser&quot;)<br />
+                              &nbsp; &nbsp;&nbsp; public DomainMessage save(UserModel user) {<br />
+                              &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return new DomainMessage(user);<br />
+                              &nbsp; &nbsp;&nbsp; }</p>
+                            <p>}</p>
+                            <p>&nbsp;</p></td>
+                        </tr>
+                      </table>
+                      <p>Three: Context, In Context,The Role will be injected into the data.</p>
+                      <table width="600" border="0">
+                        <tr>
+                          <td bgcolor="#CCCCCC"><p>public class ComputeContext {</p>
+                            <p> &nbsp; &nbsp;&nbsp;private DomainMessage ageAsyncResult;</p>
+                            <p> &nbsp; &nbsp;&nbsp; public void preloadData(UserModel user) {<br>
+                              &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (ageAsyncResult == null)<br>
+                              &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; ageAsyncResult = user.getUserDomainEvents().computeCount(user);<br>
+                              &nbsp; &nbsp;&nbsp; }</p>
+                            <p> &nbsp; &nbsp;&nbsp; public int loadCountNow(UserModel user) {<br>
+                              &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; preloadData(user);<br>
+                              &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return (Integer) ageAsyncResult.getEventResult();<br>
+                            &nbsp; &nbsp;&nbsp; }</p>
+                            <p> &nbsp; &nbsp;&nbsp; public int loadCountByAsync(UserModel user) {<br>
+                              &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (ageAsyncResult == null)<br>
+                              &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; ageAsyncResult = user.getUserDomainEvents().computeCount(user);<br>
+                              &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; else if (ageAsyncResult != null)<br>
+                              &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return (Integer) ageAsyncResult.getEventResult();<br>
+                            &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return -1;</p>
+                            <p> &nbsp; &nbsp;&nbsp;}</p>
+                            <p>}<br>
+                            </p>
+<p>&nbsp;</p></td>
+                        </tr>
+                      </table>
+                      <p>above all source in: <a href="http://code.google.com/p/jivejdon/downloads/detail?name=SimpleJdonFrameworkTest.rar&amp;can=2&amp;q=">SimpleJdonFrameworkTest.rar</a> </p>
+                      <p>&nbsp;</p>
+<p>&nbsp;</p>
+                    </div>
+                    <div></div>
+                  </div>
+<p align="left">&nbsp;</p>
+                  <p align="left">&nbsp;</p>
                   <h3 align="left">Components</h3>
                   <p> need  two  annotations(@Service or @Component):difference between @Service and @Component is that the @Service  class must have a interface then can be called by outside client beyond jdon.</p>
                   <p><br>
@@ -435,8 +506,8 @@ class=&quot;com.jdon.jivejdon.service.imp.account.EmailDefine&quot;&gt; <br>
                   <p ><a href="steps.html"><strong>Step By Step</strong></a> </p>
                  
                   <p ><a href="struts_jdon_jdbc.html"><strong>Sample Application</strong></a> </p>
-                  <p ><B><a href="http://sourceforge.net/projects/jdon/files/JdonFramework-App/" target="_blank">Samples Download</a></B></p>
                   <p ><B><a href="http://www.jdon.com/testWeb/" target="_blank">Online Demo</a></B></p>
+                  <p ><B><a href="http://code.google.com/p/jivejdon/" target="_blank">jivejdon</a></B></p>
                   <p ><a href="api/index.html" target="_blank"><strong>API</strong></a><B><a href="http://sourceforge.net/projects/jdon/support" target="_blank"><br>
                         <br>
                         Support</a></B></p>

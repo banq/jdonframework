@@ -59,8 +59,8 @@
                   <p ><a href="../steps.html"><strong>Step By Step</strong></a> </p>
                  
                   <p ><a href="../struts_jdon_jdbc.html"><strong>Sample Application</strong></a> </p>
-                  <p ><B><a href="http://sourceforge.net/projects/jdon/files/JdonFramework-App/" target="_blank">Samples Download</a></B></p>
                   <p ><B><a href="http://www.jdon.com/testWeb/" target="_blank">Online Demo</a></B></p>
+                  <p ><B><a href="http://code.google.com/p/jivejdon/" target="_blank">jivejdon</a></B></p>
                   <p ><a href="../api/index.html" target="_blank"><strong>API</strong></a><B><a href="http://sourceforge.net/projects/jdon/support" target="_blank"><br>
                         <br>
                         Support</a></B></p>

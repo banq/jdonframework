@@ -96,7 +96,7 @@
                     <p>As the above diagram description,when  domain models trigger some domain events,the domain event will generate proper  domain message,at last the messageListener will treat with the event,and assist  with the business logic.</p>
                     <p>Domain Event is a Producer-Consumer or Publisher-Subscriber patterns; Asynchronous; topic or queue (1:N or 1:1) ; Domain Model is a producer; it send events or message to the consumers:</p>
                     <p>@Send(topicName) =&gt; @Consumer(topicName);</p>
-                    <p>the Topic mode is powered by <a href="code.google.com/p/disruptor/">disruptor</a>. that is fast concurrent programming framework that introduced by Martin fowler :<a href="http://martinfowler.com/articles/lmax.html" target="_parent" onclick="window.event.cancelBubble=true;">LMAX Architecture</a>.</p>
+                    <p>the Topic mode is powered by <a href="code.google.com/p/disruptor/">disruptor</a>. that is fast concurrent programming framework that introduced by Martin fowler :<a href="http://martinfowler.com/articles/lmax.html" target="_parent" onClick="window.event.cancelBubble=true;">LMAX Architecture</a>.</p>
                     <p>if there are many consumers, their started order is by its class name's alphabetical . such AEventHandler is first be reaction; and then BEventHandler and CEve.......<br>
                     </p>
                     <p><br>
@@ -177,7 +177,12 @@ com.jdon.domain.message.DomainEventHandler</p>
 <p>@Send(topic) ==&gt; @Component(topic);<br>
   the consumer  is a class with @Component(topic) that need implement com.jdon.domain.message.MessageListener,
   Consumer is a future or weight or cron task.</p>
-                    <h2>Aop support</h2>
+<h2>DCI</h2>
+<p>DCI: Data, Context, Interactions is a programming paradigm invented by Trygve Reenskaug. the domain model is a Data, the domain events producer is a Role of DCI, it includes the interactions of DCI. </p>
+<p>JdonFramework's domain model injection function can inject the role into the domain model, such as above the class UserDomainEvents is a Role, it can be injected into the model UserModel.so it help UserModel implements business function ComputeCount. In runtime, The Role UserDomainEvents will be injected into the Data UserModel.<br>
+  <br> 
+  DCI Example:<a href="http://code.google.com/p/jivejdon/downloads/detail?name=SimpleJdonFrameworkTest.rar&amp;can=2&amp;q=">SimpleJdonFrameworkTest.rar</a> </p>
+                  <h2>Aop</h2>
                     <p>Using the  DDD,It is the domain models drive the  technical components to finish the business logics,and in this design style,the  components are just the assistants,which assist the domain models to complete  the business operations.So how the domain models gain the needed  components,Jdonframework use the @Inject and @Component to inject components  and the domain events into models.<br>
                       </p>
                     <p>As the followed diagram illustrates  ,when client invoke the getA(&quot;a&quot;),if Model A with a Introduce,the A  will be enhanced,and the technical component C will also be injected  into the A ,at the same time,when inject the  B,the B will also be enhanced for the @Introduce.</p>
@@ -574,8 +579,8 @@ color=black>　　</FONT>&lt;/services&gt;<br>
                   <p ><a href="steps.html"><strong>Step By Step</strong></a> </p>
                  
                   <p ><a href="struts_jdon_jdbc.html"><strong>Sample Application</strong></a> </p>
-                  <p ><B><a href="http://sourceforge.net/projects/jdon/files/JdonFramework-App/" target="_blank">Samples Download</a></B></p>
                   <p ><B><a href="http://www.jdon.com/testWeb/" target="_blank">Online Demo</a></B></p>
+                  <p ><B><a href="http://code.google.com/p/jivejdon/" target="_blank">jivejdon</a></B></p>
                   <p ><a href="api/index.html" target="_blank"><strong>API</strong></a><B><a href="http://sourceforge.net/projects/jdon/support" target="_blank"><br>
                         <br>
                         Support</a></B></p>

@@ -57,49 +57,64 @@
                   <p>We use a simple &quot;UserModel&quot; application to show how JdonFramework work in a web application, online demo: <a href="http://www.jdon.com/testWeb/" target="_blank">http://www.jdon.com/testWeb/</a>. in this sample, we show how to Create/Read/Update/Delete(CRUD) the UserModel, include pageinate the UserModel collection. This sample source is included in <a href="https://jdon.dev.java.net/servlets/ProjectDocumentList?folderID=9620&expandFolder=9620&folderID=0" target="_blank">JdonFramework source package</a>. </p>
                   <h2>Domain Model</h2>
                   <p>At first, By Evans DDD, we can get a domain Model: UserModel:</p>
-                  <table width="500" border="0" bordercolor="#CCCCCC">
+                  <p>&nbsp;</p>
+                  <table width="600" border="0">
                     <tr>
-                      <td bgcolor="#CCCCCC"><p>@Model<br>
-                        public class UserModel {</p>
-                        <p> &nbsp;&nbsp;&nbsp;private String userId;<br>
-                          &nbsp;&nbsp;&nbsp;private String name;</p>
-                        <p> &nbsp;&nbsp;&nbsp;public UserModel() {</p>
-                        <p> &nbsp;&nbsp;&nbsp;}</p>
-                        <p> &nbsp;&nbsp;&nbsp;public UserModel(String userId, String name) {<br>
-                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.userId = userId;<br>
-                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.name = name;</p>
-                        <p> &nbsp;&nbsp;&nbsp;}</p>
-                        <p> &nbsp;&nbsp;&nbsp;public String getName() {<br>
-                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return name;<br>
-                          &nbsp;&nbsp;&nbsp;}</p>
-                        <p> &nbsp;&nbsp;&nbsp;public void setUserId(String userId) {<br>
-                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.userId = userId;<br>
-                          &nbsp;&nbsp;&nbsp;}</p>
-                        <p> &nbsp;&nbsp;&nbsp;public void setName(String name) {<br>
-                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.name = name;<br>
-                          &nbsp;&nbsp;&nbsp;}</p>
-                        <p> &nbsp;&nbsp;&nbsp;public String getUserId() {<br>
-                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return userId;<br>
-                          &nbsp;&nbsp;&nbsp;}</p>
-                      <p>}</p></td>
+                      <td bgcolor="#CCCCCC"><p>&nbsp;</p>
+                        <p>@Model<br />
+                          public class UserModel {</p>
+                        <p> &nbsp; &nbsp;&nbsp; private String userId;<br />
+                          &nbsp; &nbsp;&nbsp; private String name;</p>
+                        <p>&nbsp; &nbsp;&nbsp;  @Inject<br />
+                          &nbsp; &nbsp;&nbsp; private ComputerRole computerRole;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p></td>
                     </tr>
                   </table>
-                  <p>enable Domain Model in memory:</p>
-                  <table width="500" border="0" bordercolor="#CCCCCC">
+                  <p>Two: Role. Domain event producer is a Role of DCI，it includes the interactions of DCI. </p>
+                  <table width="600" border="0">
                     <tr>
-                      <td bgcolor="#CCCCCC"><p>@Component()<br>
-                        @Introduce(&quot;modelCache&quot;)<br>
-                        public class UserDAOJdbc implements UserRepository{</p>
-                        <p>&nbsp;&nbsp;&nbsp;@Around<br>
-&nbsp;&nbsp;&nbsp;public UserModel getUser(String Id) {</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...... //fetch from key-value stores or relation DB </p>
-                        <p>&nbsp;&nbsp;&nbsp;}</p>
-                        <p>}</p></td>
+                      <td bgcolor="#CCCCCC"><p>&nbsp;</p>
+                        <p>@Introduce(&quot;message&quot;)<br />
+                          public class ComputerRole {</p>
+                        <p> &nbsp; &nbsp;&nbsp; @Send(&quot;computeCount&quot;)<br />
+                          &nbsp; &nbsp;&nbsp; public DomainMessage computeCount(UserModel user) {<br />
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return new DomainMessage(user);<br />
+                          &nbsp; &nbsp;&nbsp; }</p>
+                        <p> &nbsp; &nbsp;&nbsp; @Send(&quot;saveUser&quot;)<br />
+                          &nbsp; &nbsp;&nbsp; public DomainMessage save(UserModel user) {<br />
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return new DomainMessage(user);<br />
+                          &nbsp; &nbsp;&nbsp; }</p>
+                        <p>}</p>
+                        <p>&nbsp;</p></td>
                     </tr>
                   </table>
-                  <p>&nbsp; </p>
-                  <p>enable Domain Events:</p>
-                  <p><img src="images/domain_events.gif" alt="de" width="502" height="600"></p>
+                  <p>Three: Context, In Context,The Role will be injected into the data.</p>
+                  <table width="600" border="0">
+                    <tr>
+                      <td bgcolor="#CCCCCC"><p>public class ComputeContext {</p>
+                        <p> &nbsp; &nbsp;&nbsp;private DomainMessage ageAsyncResult;</p>
+                        <p> &nbsp; &nbsp;&nbsp; public void preloadData(UserModel user) {<br>
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (ageAsyncResult == null)<br>
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; ageAsyncResult = user.getUserDomainEvents().computeCount(user);<br>
+                        &nbsp; &nbsp;&nbsp; }</p>
+                        <p> &nbsp; &nbsp;&nbsp; public int loadCountNow(UserModel user) {<br>
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; preloadData(user);<br>
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return (Integer) ageAsyncResult.getEventResult();<br>
+                          &nbsp; &nbsp;&nbsp; }</p>
+                        <p> &nbsp; &nbsp;&nbsp; public int loadCountByAsync(UserModel user) {<br>
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (ageAsyncResult == null)<br>
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; ageAsyncResult = user.getUserDomainEvents().computeCount(user);<br>
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; else if (ageAsyncResult != null)<br>
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return (Integer) ageAsyncResult.getEventResult();<br>
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return -1;</p>
+                        <p> &nbsp; &nbsp;&nbsp;}</p>
+                        <p>}<br>
+                        </p>
+                        <p>&nbsp;</p></td>
+                    </tr>
+                  </table>
+                  <p>above all source in: <a href="http://code.google.com/p/jivejdon/downloads/detail?name=SimpleJdonFrameworkTest.rar&amp;can=2&amp;q=">SimpleJdonFrameworkTest.rar</a></p>
                   <h2>JSP Web Pages</h2>
                   <p><strong>user.jsp</strong>: For CRUD operations, we only create one jsp named user.jsp, in this jsp, by &quot;action&quot; value, we can finish CRUD operations.</p>
                   <p>&nbsp;</p>
@@ -214,8 +229,8 @@
                   <p ><a href="steps.html"><strong>Step By Step</strong></a> </p>
                  
                   <p ><a href="struts_jdon_jdbc.html"><strong>Sample Application</strong></a> </p>
-                  <p ><B><a href="http://sourceforge.net/projects/jdon/files/JdonFramework-App/" target="_blank">Samples Download</a></B></p>
                   <p ><B><a href="http://www.jdon.com/testWeb/" target="_blank">Online Demo</a></B></p>
+                  <p ><B><a href="http://code.google.com/p/jivejdon/" target="_blank">jivejdon</a></B></p>
                   <p ><a href="api/index.html" target="_blank"><strong>API</strong></a><B><a href="http://sourceforge.net/projects/jdon/support" target="_blank"><br>
                         <br>
                         Support</a></B></p>
