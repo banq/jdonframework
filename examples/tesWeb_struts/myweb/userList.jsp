@@ -15,8 +15,7 @@ User
 <html:errors/>
 <center>
 <h3>JdonFramework Application DEMO
-  <br />note: add above 5 line, you will find other pages (Auto Pagination).
-  <br/>Source Download: <a href="http://www.jdon.com/jdonframework/SimpleJdonFrameworkTest.rar">click here</a>
+  <br />note: add above 5 line, you will find other pages (Auto Pagination).  
 </h3>
 
 <form action="" method="POST" name="listForm" >

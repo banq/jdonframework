@@ -38,7 +38,7 @@
 	<component name="cacheManager"
 		class="com.jdon.controller.cache.CacheManager" />
 
-	<!-- components about model configuration start -->
+	<!-- components about model configuration start 
 
 	<component name="modelHandlerClassFactory"
 		class="com.jdon.model.factory.ModelHandlerClassFactoryXmlImp" />
@@ -51,12 +51,12 @@
 
 	<component name="handlerObjectFactory"
 		class="com.jdon.model.handler.HandlerObjectFactory" />
-
+-->
 	<component name="modelCacheManager"
-		class="com.jdon.model.cache.ModelCacheManager" />
+		class="com.jdon.domain.model.cache.ModelCacheManager" />
 
 	<component name="modelManager"
-		class="com.jdon.model.ModelManagerImp" />
+		class="com.jdon.domain.model.cache.ModelManagerImp" />
 
 	<!-- components about model configuration end -->
 	
@@ -128,7 +128,7 @@
 
 	<!--  components about container entry start -->
 	<component name="sessionContextSetup"
-		class="com.jdon.security.web.HttpRequestUserSetup" />
+		class="com.jdon.container.visitor.http.HttpRequestUserSetup" />
 
 	<component name="serviceAccessor"
 		class="com.jdon.container.access.ServiceAccessorImp" />

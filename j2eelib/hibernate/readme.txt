@@ -1,1 +1,0 @@
-hibernate in this directory only be complied, if you need run, please copy Hibernate3.2+ , size is 2M

@@ -8,9 +8,9 @@
 
 	<path id="master-classpath">
 		<fileset file="../../dist/*.jar" />
-		<fileset file="../../strutslib/*.jar" />
-		<fileset file="lib/*.jar" />
-
+		<fileset file="lib/jeelib/*.jar" />		
+		<fileset file="lib/jfa/*.jar" />
+		<fileset file="lib/struts1/*.jar" />
 	</path>
 
 
@@ -33,6 +33,11 @@
 		<copy todir="myweb/WEB-INF/classes">
 			<fileset dir="bin">
 			</fileset>
+		</copy>
+		<copy todir="myweb/WEB-INF/lib" overwrite="true">
+			<fileset dir="../../dist" />
+					<fileset dir="lib/jfa" />
+					<fileset dir="lib/struts1" />
 		</copy>
 		<jar destfile="myweb.war" >
 			<fileset dir="myweb">

@@ -31,7 +31,6 @@ import com.jdon.controller.context.web.ServletContextWrapper;
 import com.jdon.controller.service.Service;
 import com.jdon.controller.service.ServiceFacade;
 import com.jdon.controller.service.ServiceFactory;
-import com.jdon.model.handler.HandlerMethodMetaArgsFactory;
 import com.jdon.util.Debug;
 
 /**
@@ -182,8 +181,7 @@ public class WebAppUtil {
 		Debug.logVerbose("[JdonFramework] call the method: " + methodName + " for the service: " + serviceName, module);
 		Object result = null;
 		try {
-			HandlerMethodMetaArgsFactory maFactory = new HandlerMethodMetaArgsFactory();
-			MethodMetaArgs methodMetaArgs = maFactory.createDirectMethod(methodName, methodParams);
+			MethodMetaArgs methodMetaArgs = AppUtil.createDirectMethod(methodName, methodParams);
 
 			ServiceFacade serviceFacade = new ServiceFacade();
 			ServletContext sc = request.getSession().getServletContext();
@@ -253,12 +251,13 @@ public class WebAppUtil {
 	 * @param request
 	 * @throws Exception
 	 * 
-	 * public static void addInterceptor(String pointcut, MethodInterceptor
-	 * interceptor, HttpServletRequest request) throws Exception {
-	 * ContainerWrapper cw = getContainer(request); if (cw == null) { throw new
-	 * Exception("Please at first init the JdonFramework!"); } InterceptorsChain
-	 * interceptorsChain = (InterceptorsChain)
-	 * cw.lookup(ComponentKeys.INTERCEPTOR_CHAIN);
-	 * interceptorsChain.addInterceptor(pointcut, interceptor); }
+	 *             public static void addInterceptor(String pointcut,
+	 *             MethodInterceptor interceptor, HttpServletRequest request)
+	 *             throws Exception { ContainerWrapper cw =
+	 *             getContainer(request); if (cw == null) { throw new
+	 *             Exception("Please at first init the JdonFramework!"); }
+	 *             InterceptorsChain interceptorsChain = (InterceptorsChain)
+	 *             cw.lookup(ComponentKeys.INTERCEPTOR_CHAIN);
+	 *             interceptorsChain.addInterceptor(pointcut, interceptor); }
 	 */
 }

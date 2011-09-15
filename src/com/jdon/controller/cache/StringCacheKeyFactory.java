@@ -22,7 +22,7 @@ package com.jdon.controller.cache;
  * 
  * @author banq
  * @version 1.0
- * @see {@link com.jdon.model.cache.ModelCacheKeyFactory}
+ * @see {@link com.jdon.domain.model.cache.ModelCacheKeyFactory}
  *      {@link com.jdon.model.query.cache.BlockCacheKeyFactory}
  */
 public abstract class StringCacheKeyFactory {

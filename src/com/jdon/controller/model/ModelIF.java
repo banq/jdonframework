@@ -39,7 +39,7 @@ import com.jdon.controller.cache.Cacheable;
  * 
  * 
  * @author banq
- * @see  com.jdon.model.cache.ModelCacheManager
+ * @see  com.jdon.domain.model.cache.ModelCacheManager
  */
 public interface ModelIF extends Cacheable, Cloneable, Serializable {
 

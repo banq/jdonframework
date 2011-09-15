@@ -17,18 +17,19 @@ package sample.service;
 
 import sample.domain.User;
 
-import com.jdon.annotation.Component;
+import com.jdon.annotation.Consumer;
+import com.jdon.async.disruptor.EventDisruptor;
 import com.jdon.domain.message.DomainMessage;
-import com.jdon.domain.message.MessageListener;
+import com.jdon.domain.message.DomainEventHandler;
 
-@Component("userMessage")
-public class UserMessageListener implements MessageListener {
+@Consumer("userMessage")
+public class UserMessageListener implements DomainEventHandler {
 
 	@Override
-	public void action(DomainMessage eventMessage) {
-		User user = (User) eventMessage.getEventSource();
+	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
+		User user = (User) event.getDomainMessage().getEventSource();
 		user.setAge(18);
-		eventMessage.setEventResult(18);
+		event.getDomainMessage().setEventResult(18);
 	}
 
 }

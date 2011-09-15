@@ -1,0 +1,118 @@
+/**
+ * Copyright 2003-2006 the original author or authors.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.jdon.domain.model.cache;
+
+import com.jdon.domain.model.injection.ModelProxyInjection;
+import com.jdon.util.Debug;
+
+/**
+ * ModelManager implemention
+ * 
+ * @author banq
+ */
+public class ModelManagerImp implements ModelManager {
+
+	public final static String module = ModelManagerImp.class.getName();
+
+	private final ModelProxyInjection modelProxyInjection;
+	private final ModelCacheManager modelCacheManager;
+
+	public ModelManagerImp(ModelCacheManager modelCacheManager, ModelProxyInjection modelProxyInjection) {
+		this.modelProxyInjection = modelProxyInjection;
+		this.modelCacheManager = modelCacheManager;
+	}
+
+	/**
+	 * add the model to the cache
+	 * 
+	 * @param modelKey
+	 * @param model
+	 */
+	public void addCache(ModelKey modelKey, Object model) {
+		if ((modelKey == null) || (modelKey.getDataKey() == null))
+			return;
+		String modelClassName = null;
+		try {
+			if (modelKey.getModelClass() != null) {
+				modelClassName = modelKey.getModelClass().getName();
+				modelCacheManager.saveCache(modelKey.getDataKey(), modelClassName, model);
+			}
+		} catch (Exception e) {
+			Debug.logError("addCache error:" + e, module);
+		}
+
+	}
+
+	/**
+	 * add the model to the cache
+	 */
+	public void addCache(Object key, String className, Object model) {
+		if (key == null)
+			return;
+		modelCacheManager.saveCache(key, className, model);
+
+	}
+
+	/**
+	 * get the model instance from the cache
+	 */
+
+	public Object getCache(ModelKey modelKey) {
+		String modelClassName = null;
+		if (modelKey.getModelClass() != null) {
+			modelClassName = modelKey.getModelClass().getName();
+			return modelCacheManager.getCache(modelKey.getDataKey(), modelClassName);
+		} else
+			return null;
+
+	}
+
+	/**
+	 * get the model instance from the cache
+	 */
+
+	public Object getCache(Object key, String className) {
+		return modelCacheManager.getCache(key, className);
+
+	}
+
+	/**
+	 * remove the model instance from the cache
+	 */
+
+	public void removeCache(Object dataKey) throws Exception {
+		modelCacheManager.removeCache(dataKey);
+	}
+
+	/**
+	 * clear all models in the cache.
+	 */
+	public void clearCache() {
+		modelCacheManager.clearCache();
+	}
+
+	public boolean isNull(String s) {
+		boolean isNull = false;
+		if (s == null)
+			isNull = true;
+		else if (s.equals(""))
+			isNull = true;
+		else if (s.equals("null"))
+			isNull = true;
+		return isNull;
+	}
+
+}

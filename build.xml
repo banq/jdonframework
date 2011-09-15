@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 
-<project name="Jdon Framework 6.4" default="all" basedir=".">
+<project name="Jdon Framework 6.5" default="all" basedir=".">
 
 	<!-- properies -->
 
 	<property name="j2eelib.dir" value="j2eelib" />
-	<property name="strutslib.dir" value="strutslib" />
+	
 	<property name="src.dir" value="src" />
 	<property name="report.dir" value="report" />
 	<property name="classes.dir" value="classes" />
@@ -13,10 +13,6 @@
 	<property name="dist.dir" value="dist" />
 	<property name="version" value="1.5" />
 	<property name="jar.name" value="jdonFramework.jar" />
-	<property name="struts-support.jar.name" value="jdon-struts1x.jar" />
-	<property name="hibernate-support.jar.name" value="jdon-hibernate3x.jar" />
-	<property name="ehcache-support.jar.name" value="jdon-encahe.jar" />
-	<property name="remote-support.jar.name" value="jdon-remote-hessian.jar" />
 
 	<property name="doc.dir" value="doc/api" />
 	<property name="samples.dir" value="samples" />
@@ -26,9 +22,7 @@
 		<fileset dir="${lib.dir}">
 			<include name="**/*.jar" />
 		</fileset>
-		<fileset file="${strutslib.dir}/*.jar" />
 		<fileset file="${j2eelib.dir}/*.jar" />
-		<fileset file="${j2eelib.dir}/hibernate/*.jar" />
 		<pathelement path="${classes.dir}"/>
 	</path>
 
@@ -36,7 +30,7 @@
 	
 	</target>
 	
-	<target name="finish" depends="pack-remote">
+	<target name="finish" depends="pack">
 
 	</target>
 
@@ -76,12 +70,7 @@
 
 			</fileset>
 		</copy>
-		<copy todir="${classes.dir}/META-INF/tlds" overwrite="true">
-			<fileset dir="${src.dir}/META-INF/tlds">
-				<include name="**/*.tld" />
-
-			</fileset>
-		</copy>
+		
 	</target>
 	
 	<!-- 测试 -->
@@ -118,6 +107,7 @@
 			<exclude name="com/jdon/strutsutil/**" />
 			<exclude name="com/jdon/persistence/**" />
 			<exclude name="com/jdon/bussinessproxy/remote/**/*"/>
+			
 		</jar>
 		<copy todir="${dist.dir}">
 			<fileset dir="${lib.dir}">
@@ -131,30 +121,8 @@
 	</target>
 	
 	<!-- 打包jar -->
-
-	<target name="pack-struts" depends="pack" description="make struts support .jar file">
-		<jar destfile="${dist.dir}/${struts-support.jar.name}"
-			basedir="${classes.dir}" >
-			<include name="com/jdon/strutsutil/**/*"/>
-		</jar>
-
-	</target>
-
-	<target name="pack-hibernate" depends="pack-struts" description="make hibernate support .jar file">
-		<jar destfile="${dist.dir}/${hibernate-support.jar.name}"
-				basedir="${classes.dir}" >
-			<include name="com/jdon/persistence/**/*"/>
-		</jar>
-	</target>
 	
-	<!--  this jar requires hessian.jar -->
-	<target name="pack-remote" depends="pack-hibernate" description="make remote support .jar file">
-			<jar destfile="${dist.dir}/${remote-support.jar.name}"
-					basedir="${classes.dir}" >
-				<include name="com/jdon/bussinessproxy/remote/**/*"/>
-			</jar>
-	</target>
-	
+
 	
 
 	<!-- 输出api文档 -->

@@ -2,7 +2,7 @@ package sample.domain;
 
 import com.jdon.annotation.Model;
 import com.jdon.annotation.model.Inject;
-import com.jdon.async.message.EventMessage;
+import com.jdon.domain.message.DomainMessage;
 
 @Model
 public class User {
@@ -41,7 +41,7 @@ public class User {
 
 	public int getAge() {
 		if (age == 0) {
-			EventMessage message = myDomainEvents.sendMessage(this);
+			DomainMessage message = myDomainEvents.sendMessage(this);
 			int ageResult = (Integer) message.getEventResult();
 			System.out.println("get result " + ageResult);
 		}

@@ -12,7 +12,6 @@ import com.jdon.controller.context.application.DemoSessionWrapper;
 import com.jdon.controller.context.application.MockRequest;
 import com.jdon.controller.service.Service;
 import com.jdon.controller.service.ServiceFacade;
-import com.jdon.model.handler.HandlerMethodMetaArgsFactory;
 import com.jdon.util.Debug;
 
 public class AppUtil extends Application {
@@ -57,8 +56,7 @@ public class AppUtil extends Application {
 		Debug.logVerbose("[JdonFramework] call the method: " + methodName + " for the service: " + serviceName, module);
 		Object result = null;
 		try {
-			HandlerMethodMetaArgsFactory maFactory = new HandlerMethodMetaArgsFactory();
-			MethodMetaArgs methodMetaArgs = maFactory.createDirectMethod(methodName, methodParams);
+			MethodMetaArgs methodMetaArgs = createDirectMethod(methodName, methodParams);
 
 			ServiceFacade serviceFacade = new ServiceFacade();
 			Service service = serviceFacade.getService(this);
@@ -81,6 +79,28 @@ public class AppUtil extends Application {
 	public ContainerWrapper getContainer() throws Exception {
 		ContainerFinderImp scf = new ContainerFinderImp();
 		return scf.findContainer(this);
+	}
+
+	public static MethodMetaArgs createDirectMethod(String methodName, Object[] methodParams) {
+		MethodMetaArgs methodMetaArgs = null;
+		try {
+			if (methodName == null)
+				throw new Exception("no configure method value, but now you call it: ");
+
+			Debug.logVerbose("[JdonFramework] construct " + methodName, module);
+			Class[] paramTypes = new Class[methodParams.length];
+			Object[] p_args = new Object[methodParams.length];
+			for (int i = 0; i < methodParams.length; i++) {
+				paramTypes[i] = methodParams[i].getClass();
+				p_args[i] = methodParams[i];
+				Debug.logVerbose("[JdonFramework], parameter type:" + paramTypes[i] + " and parameter value:" + p_args[i], module);
+			}
+			methodMetaArgs = new MethodMetaArgs(methodName, paramTypes, p_args);
+
+		} catch (Exception ex) {
+			Debug.logError("[JdonFramework] createDirectMethod error: " + ex, module);
+		}
+		return methodMetaArgs;
 	}
 
 }
