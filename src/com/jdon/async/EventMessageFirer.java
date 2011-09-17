@@ -44,6 +44,8 @@ public class EventMessageFirer {
 	public void fire(DomainMessage domainMessage, Send send) {
 		String topic = send.value();
 		EventDisruptor eventDisruptor = disruptorFactory.getEventDisruptor(topic);
+		if (eventDisruptor == null)
+			return;
 		eventDisruptor.setTopic(topic);
 		eventDisruptor.setDomainMessage(domainMessage);
 		domainMessage.setEventMessage(eventDisruptor);

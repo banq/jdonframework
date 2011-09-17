@@ -30,8 +30,7 @@ import com.jdon.domain.message.DomainEventHandler;
 @Consumer("mychannel")
 public class MyDomainEventHandler implements DomainEventHandler {
 	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
-		System.out.println("DomainEventHandler action " + event.getDomainMessage().getEventSource());
-		event.getDomainMessage().setEventResult("DomainEventHandler=" + event.getDomainMessage().getEventSource());
+		System.out.println("MyDomainEventHandler action " + event.getDomainMessage().getEventSource());
 	}
 
 }

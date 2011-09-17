@@ -17,6 +17,6 @@ package com.jdon.sample.test.domain.onecase;
 
 public interface IServiceSample {
 
-	public Object eventPointEntry(String name);
+	public boolean eventPointEntry(String name);
 
 }

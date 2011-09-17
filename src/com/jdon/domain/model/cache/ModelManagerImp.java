@@ -15,7 +15,6 @@
 
 package com.jdon.domain.model.cache;
 
-import com.jdon.domain.model.injection.ModelProxyInjection;
 import com.jdon.util.Debug;
 
 /**
@@ -27,11 +26,9 @@ public class ModelManagerImp implements ModelManager {
 
 	public final static String module = ModelManagerImp.class.getName();
 
-	private final ModelProxyInjection modelProxyInjection;
 	private final ModelCacheManager modelCacheManager;
 
-	public ModelManagerImp(ModelCacheManager modelCacheManager, ModelProxyInjection modelProxyInjection) {
-		this.modelProxyInjection = modelProxyInjection;
+	public ModelManagerImp(ModelCacheManager modelCacheManager) {
 		this.modelCacheManager = modelCacheManager;
 	}
 

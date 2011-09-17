@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="dist/cglib.jar"/>
-	<classpathentry kind="lib" path="dist/commons-pool-1.5.1.jar"/>
-	<classpathentry kind="lib" path="dist/disruptor-2.0.2.jar"/>
-	<classpathentry kind="lib" path="dist/ehcache-1.6.2.jar"/>
-	<classpathentry kind="lib" path="dist/hessian-3.1.6.jar"/>
-	<classpathentry kind="lib" path="dist/jdom.jar"/>
-	<classpathentry kind="lib" path="dist/jdonFramework.jar"/>
-	<classpathentry kind="lib" path="dist/log4j.jar"/>
-	<classpathentry kind="lib" path="dist/picocontainer-1.1.jar"/>
-	<classpathentry kind="lib" path="dist/scannotation-1.0.2.jar"/>
 	<classpathentry kind="lib" path="examples/tesWeb/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="j2eelib/jboss-j2ee.jar"/>
 	<classpathentry kind="lib" path="j2eelib/jbosssx.jar"/>
@@ -25,8 +15,8 @@
 	<classpathentry kind="lib" path="lib/jdom.jar"/>
 	<classpathentry kind="lib" path="lib/junit.jar"/>
 	<classpathentry kind="lib" path="lib/log4j.jar"/>
-	<classpathentry kind="lib" path="lib/picocontainer-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/scannotation-1.0.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/picocontainer-1.1.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

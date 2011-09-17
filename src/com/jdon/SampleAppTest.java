@@ -22,6 +22,7 @@ import com.jdon.container.startup.ContainerSetupScript;
 import com.jdon.controller.AppUtil;
 import com.jdon.controller.context.application.Application;
 import com.jdon.sample.test.component.BInterface;
+import com.jdon.sample.test.dci.RepositoryContext;
 import com.jdon.sample.test.domain.onecase.IServiceSample;
 import com.jdon.sample.test.domain.simplecase.IServiceSampleTwo;
 
@@ -47,8 +48,7 @@ public class SampleAppTest extends TestCase {
 	public void testDomainEvent() {
 
 		IServiceSample serviceSample = (IServiceSample) appUtil.getService("serviceSample");
-		String res = (String) serviceSample.eventPointEntry("hello");
-		Assert.assertEquals(res, "eventMessage=hello");
+		Assert.assertTrue(serviceSample.eventPointEntry("hello"));
 
 	}
 
@@ -56,7 +56,17 @@ public class SampleAppTest extends TestCase {
 
 		IServiceSampleTwo serviceSample = (IServiceSampleTwo) appUtil.getService("serviceSampleTwo");
 		String res = (String) serviceSample.eventPointEntry();
+		System.out.print(res);
 		Assert.assertEquals(res, "sayHelloeventMessage=100");
+
+	}
+
+	public void testDCIDomainEvent() {
+
+		IServiceSampleTwo serviceSample = (IServiceSampleTwo) appUtil.getService("serviceSampleTwo");
+		String res = (String) serviceSample.nameFinderContext();
+		System.out.print(res);
+		Assert.assertEquals(res, "eventMessage=100");
 
 	}
 
@@ -69,22 +79,8 @@ public class SampleAppTest extends TestCase {
 
 		css.prepare("com.jdon.jdonframework.xml", da);
 		AppUtil appUtil = new AppUtil("com.jdon.jdonframework.xml");
-
-		// BInterface b = (BInterface) appUtil.getService("b");
-		// int r = b.bMethod(1);
-		// if (r == 10)
-		// System.out.print("ok");
-		// else
-		// System.out.print("error");
-
-		// IServiceSample serviceSample = (IServiceSample)
-		// appUtil.getService("serviceSample");
-		// System.out.print(serviceSample.eventPointEntry("hello"));
-		IServiceSampleTwo serviceSample = (IServiceSampleTwo) appUtil.getService("serviceSampleTwo");
-		String res = (String) serviceSample.eventPointEntry();
-		System.out.print(res);
-		// Assert.assertEquals(res, "eventMessage=100");
-
+		RepositoryContext repositoryContext = (RepositoryContext) appUtil.getComponentInstance("repositoryContext");
+		repositoryContext.interact();
 	}
 
 	protected void tearDown() throws Exception {

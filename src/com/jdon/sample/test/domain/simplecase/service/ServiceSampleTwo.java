@@ -16,18 +16,23 @@
 package com.jdon.sample.test.domain.simplecase.service;
 
 import com.jdon.annotation.Service;
+import com.jdon.domain.message.DomainMessage;
 import com.jdon.sample.test.domain.simplecase.IServiceSampleTwo;
 import com.jdon.sample.test.domain.simplecase.MyModel;
+import com.jdon.sample.test.domain.simplecase.dci.NameFinderContext;
+import com.jdon.sample.test.domain.simplecase.dci.NameFinderRoleEventsImp;
 import com.jdon.sample.test.domain.simplecase.repository.MyModelRepository;
 
 @Service("serviceSampleTwo")
 public class ServiceSampleTwo implements IServiceSampleTwo {
 
 	private MyModelRepository repository;
+	private NameFinderContext nameFinderContext;
 
-	public ServiceSampleTwo(MyModelRepository repository) {
+	public ServiceSampleTwo(MyModelRepository repository, NameFinderContext nameFinderContext) {
 		super();
 		this.repository = repository;
+		this.nameFinderContext = nameFinderContext;
 	}
 
 	public Object eventPointEntry() {
@@ -35,6 +40,12 @@ public class ServiceSampleTwo implements IServiceSampleTwo {
 		MyModel myModel2 = repository.getModel(new Long(100));
 		return myModel.sayHelloNow() + myModel2.getName();
 
+	}
+
+	public String nameFinderContext() {
+		MyModel myModel = repository.getModel(new Long(100));
+		DomainMessage dm = (DomainMessage) nameFinderContext.interact(myModel, new NameFinderRoleEventsImp());
+		return (String) dm.getEventResult();
 	}
 
 }

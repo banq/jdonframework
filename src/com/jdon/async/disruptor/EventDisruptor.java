@@ -15,6 +15,8 @@
  */
 package com.jdon.async.disruptor;
 
+import java.util.concurrent.TimeUnit;
+
 import com.jdon.async.EventMessage;
 import com.jdon.domain.message.DomainMessage;
 import com.lmax.disruptor.AbstractEvent;
@@ -33,6 +35,9 @@ public class EventDisruptor extends AbstractEvent implements EventMessage {
 	protected Object eventResult;
 
 	protected Object eventReturnResult;
+
+	// MILLISECONDS default is one seconds
+	protected int waitTimeforeturnResult = 5000;
 
 	protected RingBuffer<EventDisruptor> ringBuffer;
 
@@ -55,14 +60,13 @@ public class EventDisruptor extends AbstractEvent implements EventMessage {
 		try {
 			DependencyBarrier dependencyBarrier = ringBuffer.newDependencyBarrier();
 			long nextSequence = this.getSequence() + 1L;
-			final long availableSequence = dependencyBarrier.waitFor(nextSequence);
+			final long availableSequence = dependencyBarrier.waitFor(nextSequence, waitTimeforeturnResult, TimeUnit.MILLISECONDS);
 			if (availableSequence == nextSequence) {
 				resultEvent = ringBuffer.getEvent(availableSequence);
 			}
 		} catch (AlertException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return resultEvent;
@@ -109,6 +113,14 @@ public class EventDisruptor extends AbstractEvent implements EventMessage {
 
 	public void publish() {
 		ringBuffer.publish(this);
+	}
+
+	public int getWaitTimeforeturnResult() {
+		return waitTimeforeturnResult;
+	}
+
+	public void setWaitTimeforeturnResult(int waitTimeforeturnResult) {
+		this.waitTimeforeturnResult = waitTimeforeturnResult;
 	}
 
 }

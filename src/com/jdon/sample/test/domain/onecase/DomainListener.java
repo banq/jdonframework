@@ -30,7 +30,6 @@ import com.jdon.domain.message.MessageListener;
 @Component("mychannel")
 public class DomainListener implements MessageListener {
 	public void action(DomainMessage domainMessage) {
-		System.out.println("eventMessage=" + domainMessage.getEventSource());
-		domainMessage.setEventResult("eventMessage=" + domainMessage.getEventSource());
+		System.out.println("MessageListener=" + domainMessage.getEventSource());
 	}
 }

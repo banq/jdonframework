@@ -33,30 +33,27 @@ import com.jdon.domain.advsior.ModelAdvisor;
 import com.jdon.util.ClassUtil;
 import com.jdon.util.Debug;
 import com.jdon.util.ObjectCreator;
+
 /**
- * This class is responsible for inject the fileds marked with @Inject into
- * the models,if the injected fields are also marked with @Introduce,the 
- * interceptor will be involved again.
+ * This class is responsible for inject the fileds marked with @Inject into the
+ * models,if the injected fields are also marked with @Introduce,the interceptor
+ * will be involved again.
  * 
  * for example:
  * 
  * 
  * public class MyModle{
  * 
- *  @Inject 
- *  MyDomainEvent myDomainEvent;
- *  
- *  @Inject 
- *  MyDomainService MyDomainService;
- * }
+ * @Inject MyDomainEvent myDomainEvent;
  * 
- * @Introduce("message")
- * class MyDomainEvent{
+ * @Inject MyDomainService MyDomainService; }
  * 
- * }
+ * @Introduce("message") class MyDomainEvent{
+ * 
+ *                       }
  * 
  * @author xmuzyu
- *
+ * 
  */
 public class ModelProxyInjection {
 	private final static String module = ModelProxyInjection.class.getName();
@@ -111,8 +108,9 @@ public class ModelProxyInjection {
 			Debug.logError("setter Properties error:" + e + " in" + targetModel.getClass(), module);
 		}
 		if (!found) {
-			Debug.logError("[Jdonframework] found the field with @inject, but there is not getter/setter of the field in the class:"
-					+ targetModel.getClass(), module);
+			Debug.logError(
+					"[Jdonframework] found the field with @inject, but there is not getter/setter of the field in the class:"
+							+ targetModel.getClass(), module);
 		}
 	}
 
