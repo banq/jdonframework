@@ -7,6 +7,8 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import com.jdon.async.disruptor.EventDisruptor;
+
 
 /**
  * 
@@ -38,11 +40,22 @@ import java.lang.annotation.Target;
  * 
  * 4. annotate the consumer class with @Consumer("mytopic");
  * 
- * 5. the consumer class must implements
+ * 5.there are two kind of consumer 
+ * 
+ * (1)the consumer class must implements
  * com.jdon.domain.message.DomainEventHandler
  * 
- * @Consumer("mychannel")
- *public class MyDomainEventHandler implements DomainEventHandler {}
+ * @Consumer("mytopic")
+ *public class MyDomainEventHandler implements DomainEventHandler {
+ *
+ *    public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception{..}
+ *
+ *}
+ * 
+ * 
+ * (2)or the consumer class's method annotated with @onEvent("mytopic")
+ 
+ * 
  * 
  * 
  * Topic/queue(1:N or 1:1):

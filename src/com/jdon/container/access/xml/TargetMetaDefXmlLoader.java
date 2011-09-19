@@ -27,13 +27,12 @@ import com.jdon.controller.config.XmlServiceParser;
 import com.jdon.util.Debug;
 
 /**
- * Load target service meta definition from jdonframework.xml
- * this class is registered in container.xml
+ * Load target service meta definition from jdonframework.xml this class is
+ * registered in container.xml
+ * 
  * @author banq
  */
-public class TargetMetaDefXmlLoader  implements Startable{
-
-	private static final long serialVersionUID = 1L;
+public class TargetMetaDefXmlLoader implements Startable {
 
 	private final static String module = TargetMetaDefXmlLoader.class.getName();
 
@@ -44,8 +43,11 @@ public class TargetMetaDefXmlLoader  implements Startable{
 	private AppConfigureCollection appConfigureFiles;
 
 	/**
-	 * AppConfigureCollection has been registered in com.jdon.container.builder.ContainerRegistry.registerAppConfigureFiles
-	 * and add configure file names by com.jdon.container.builder.DefaultContainerBuilder.addAppConfigureFile
+	 * AppConfigureCollection has been registered in
+	 * com.jdon.container.builder.ContainerRegistry.registerAppConfigureFiles
+	 * and add configure file names by
+	 * com.jdon.container.builder.DefaultContainerBuilder.addAppConfigureFile
+	 * 
 	 * @param appConfigureFiles
 	 */
 	public TargetMetaDefXmlLoader(AppConfigureCollection appConfigureFiles, TargetMetaDefHolder targetMetaDefHolder) {
@@ -67,14 +69,10 @@ public class TargetMetaDefXmlLoader  implements Startable{
 			targetMetaDefHolder.add(pojoMps);
 		}
 	}
-	
-	public void stop(){
+
+	public void stop() {
 		targetMetaDefHolder = null;
 		appConfigureFiles = null;
 	}
-
-
-
-	
 
 }

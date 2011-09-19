@@ -13,18 +13,18 @@
  * limitations under the License.
  * 
  */
-package com.jdon.sample.test.domain.simplecase.domainservice;
+package com.jdon.sample.test.domain.simplecase.repository;
 
-import com.jdon.annotation.Service;
+import com.jdon.annotation.Component;
+import com.jdon.annotation.model.OnEvent;
+import com.jdon.sample.test.domain.simplecase.MyModel;
 
-@Service("myModelService")
-public class MyModelServiceImp implements MyModelService {
+@Component
+public class TestA {
 
-	@Override
-	public String sayHello() {
-		System.out.print("Synchronous sayHello");
-		return "Synchronous sayHello";
-
+	@OnEvent("save")
+	public void todo(MyModel myModel) {
+		System.out.print("No.2 @OnEvent:TestA ." + myModel.getName() + "\n");
 	}
 
 }

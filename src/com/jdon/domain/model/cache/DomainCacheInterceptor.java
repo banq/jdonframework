@@ -13,7 +13,7 @@
  * limitations under the License.
  * 
  */
-package com.jdon.domain;
+package com.jdon.domain.model.cache;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -25,19 +25,17 @@ import org.aopalliance.intercept.MethodInvocation;
 import com.jdon.annotation.pointcut.Around;
 import com.jdon.controller.model.ModelUtil;
 import com.jdon.domain.advsior.ModelAdvisor;
-import com.jdon.domain.model.cache.ModelCacheManager;
-import com.jdon.domain.model.cache.ModelKey;
-import com.jdon.domain.model.cache.ModelManager;
 import com.jdon.domain.model.injection.ModelProxyInjection;
 import com.jdon.util.Debug;
 
 /**
- * aspect.xml : <interceptor name="domainCacheInterceptor"
- * class="com.jdon.domain.DomainCacheInterceptor" pointcut="pojoServices" />
+ * aspect.xml : <interceptor name="modelCache"
+ * class="com.jdon.domain.model.cache.DomainCacheInterceptor" pointcut="domain"
+ * />
  * 
- * in DAO class add:
+ * in Repository/DAO class add:
  * 
- * @Introduce("domainCacheInterceptor") public Class ForumDaoSql{
+ * @Introduce("modelCache") public Class ForumDaoSql{
  * 
  * @Around Forum getForum(Long id){ .... } ...}
  * 

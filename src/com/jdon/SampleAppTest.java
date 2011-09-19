@@ -22,7 +22,6 @@ import com.jdon.container.startup.ContainerSetupScript;
 import com.jdon.controller.AppUtil;
 import com.jdon.controller.context.application.Application;
 import com.jdon.sample.test.component.BInterface;
-import com.jdon.sample.test.dci.RepositoryContext;
 import com.jdon.sample.test.domain.onecase.IServiceSample;
 import com.jdon.sample.test.domain.simplecase.IServiceSampleTwo;
 
@@ -57,7 +56,7 @@ public class SampleAppTest extends TestCase {
 		IServiceSampleTwo serviceSample = (IServiceSampleTwo) appUtil.getService("serviceSampleTwo");
 		String res = (String) serviceSample.eventPointEntry();
 		System.out.print(res);
-		Assert.assertEquals(res, "sayHelloeventMessage=100");
+		Assert.assertEquals(res, "Synchronous sayHello and Asynchronous eventMessage=100");
 
 	}
 
@@ -66,7 +65,15 @@ public class SampleAppTest extends TestCase {
 		IServiceSampleTwo serviceSample = (IServiceSampleTwo) appUtil.getService("serviceSampleTwo");
 		String res = (String) serviceSample.nameFinderContext();
 		System.out.print(res);
-		Assert.assertEquals(res, "eventMessage=100");
+		Assert.assertEquals(res, "Asynchronous eventMessage=100");
+
+	}
+
+	public void testOnEvent() {
+
+		IServiceSampleTwo serviceSample = (IServiceSampleTwo) appUtil.getService("serviceSampleTwo");
+		serviceSample.onEventTest();
+		Assert.assertTrue(true);
 
 	}
 
@@ -79,8 +86,8 @@ public class SampleAppTest extends TestCase {
 
 		css.prepare("com.jdon.jdonframework.xml", da);
 		AppUtil appUtil = new AppUtil("com.jdon.jdonframework.xml");
-		RepositoryContext repositoryContext = (RepositoryContext) appUtil.getComponentInstance("repositoryContext");
-		repositoryContext.interact();
+		IServiceSampleTwo serviceSample = (IServiceSampleTwo) appUtil.getService("serviceSampleTwo");
+		serviceSample.onEventTest();
 	}
 
 	protected void tearDown() throws Exception {

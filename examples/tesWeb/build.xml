@@ -26,6 +26,9 @@
 			<fileset dir="bin">
 			</fileset>
 		</copy>
+		<copy todir="myweb/WEB-INF//lib" overwrite="true">
+            <fileset dir="../../dist"/>
+		</copy>		
 		<jar destfile="myweb.war" >
 			<fileset dir="myweb">
 				<include name="**/*"/>

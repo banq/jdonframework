@@ -21,5 +21,5 @@ public interface MyModelRepository {
 
 	public MyModel getModel(Long key);
 
-	public void save();
+	public void save(MyModel myModel);
 }

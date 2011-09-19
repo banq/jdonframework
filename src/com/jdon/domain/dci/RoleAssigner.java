@@ -17,7 +17,6 @@ package com.jdon.domain.dci;
 
 import net.sf.cglib.proxy.Mixin;
 
-import com.jdon.annotation.Component;
 import com.jdon.annotation.Introduce;
 import com.jdon.annotation.Model;
 import com.jdon.domain.advsior.ModelAdvisor;
@@ -29,17 +28,13 @@ import com.jdon.util.Debug;
  * 
  * in context, the interactions of Role will be assigned to data model;
  * 
- * the component name is roleAssigner;
- * 
- * you can do this class in your application. if you want to use this class in
- * your app, you must deploy this class in your app's WEB-INF.so can be scanned.
- * 
+ * the component name is "roleAssigner";
  * 
  * 
  * @author banq
  * 
  */
-@Component("roleAssigner")
+// @Component("roleAssigner")
 public class RoleAssigner {
 	public final static String module = RoleAssigner.class.getName();
 

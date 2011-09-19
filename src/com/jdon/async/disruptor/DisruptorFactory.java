@@ -23,8 +23,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 
 import com.jdon.container.ContainerWrapper;
+import com.jdon.container.annotation.type.ConsumerLoader;
 import com.jdon.container.finder.ContainerCallback;
+import com.jdon.domain.message.DomainEventDispatchHandler;
 import com.jdon.domain.message.DomainEventHandler;
+import com.jdon.domain.message.consumer.ConsumerMethodHolder;
 import com.jdon.util.Debug;
 import com.lmax.disruptor.AbstractEvent;
 import com.lmax.disruptor.ClaimStrategy;
@@ -36,8 +39,6 @@ import com.lmax.disruptor.wizard.EventHandlerGroup;
 
 public class DisruptorFactory implements EventFactory {
 	public final static String module = DisruptorFactory.class.getName();
-	public final static String TOPICNAME = "TOPIC";
-
 	protected final Map<String, TreeSet<DomainEventHandler>> handlesMap;
 	private String RingBufferSize;
 
@@ -57,10 +58,12 @@ public class DisruptorFactory implements EventFactory {
 	}
 
 	public DisruptorWizard addEventMessageHandler(String topic, TreeSet<DomainEventHandler> handlers) {
+
 		if (handlers.size() == 0) {
 			Debug.logError("[Jdonframework]no found the class annotated with @Consumer(" + topic + ") ", module);
 			return null;
 		}
+
 		DisruptorWizard dw = createDw(handlers.size());
 		EventHandlerGroup eh = null;
 		for (DomainEventHandler handler : handlers) {
@@ -78,6 +81,7 @@ public class DisruptorFactory implements EventFactory {
 		if (handlers == null)// not inited
 		{
 			handlers = loadEvenHandler(topic);
+			handlers = loadOnEventConsumers(topic, handlers);
 			if (handlers.size() == 0) {
 				Debug.logError("[Jdonframework]no found the class annotated with @Consumer(" + topic + ") ", module);
 				return null;
@@ -101,7 +105,37 @@ public class DisruptorFactory implements EventFactory {
 	 * @return
 	 */
 	protected TreeSet<DomainEventHandler> loadEvenHandler(String topic) {
-		TreeSet<DomainEventHandler> ehs = new TreeSet(new Comparator() {
+		TreeSet<DomainEventHandler> ehs = this.getTreeSet();
+		Collection consumers = (Collection) containerWrapper.lookup(ConsumerLoader.TOPICNAME + topic);
+		if (consumers == null || consumers.size() == 0) {
+			Debug.logWarning("[Jdonframework]there is no any consumer class annotated with @Consumer(" + topic + ") ", module);
+			return ehs;
+		}
+		for (Object o : consumers) {
+			String consumerName = (String) o;
+			DomainEventHandler eh = (DomainEventHandler) containerWrapper.getComponentNewInstance(consumerName);
+			ehs.add(eh);
+		}
+
+		return ehs;
+
+	}
+
+	protected TreeSet<DomainEventHandler> loadOnEventConsumers(String topic, TreeSet<DomainEventHandler> ehs) {
+		Collection consumerMethods = (Collection) containerWrapper.lookup(ConsumerLoader.TOPICNAME2 + topic);
+		if (consumerMethods == null)
+			return ehs;
+		for (Object o : consumerMethods) {
+			ConsumerMethodHolder consumerMethodHolder = (ConsumerMethodHolder) o;
+			DomainEventDispatchHandler domainEventDispatchHandler = new DomainEventDispatchHandler(consumerMethodHolder, containerWrapper);
+			ehs.add(domainEventDispatchHandler);
+		}
+		return ehs;
+
+	}
+
+	private TreeSet<DomainEventHandler> getTreeSet() {
+		return new TreeSet(new Comparator() {
 			public int compare(Object num1, Object num2) {
 				String inum1, inum2;
 				inum1 = num1.getClass().getName();
@@ -115,24 +149,6 @@ public class DisruptorFactory implements EventFactory {
 			}
 
 		});
-		Collection consumers = (Collection) containerWrapper.lookup(DisruptorFactory.TOPICNAME + topic);
-		if (consumers == null || consumers.size() == 0) {
-			Debug.logWarning("[Jdonframework]there is no any consumer class annotated with @Consumer(" + topic + ") ", module);
-			return ehs;
-		}
-		for (Object o : consumers) {
-			String consumerName = (String) o;
-			DomainEventHandler eh = (DomainEventHandler) containerWrapper.getComponentNewInstance(consumerName);
-			ehs.add(eh);
-		}
-		return ehs;
-
-	}
-
-	public void fire(String topic, EventDisruptor eventDisruptor) {
-		RingBuffer ringBuffer = eventDisruptor.getRingBuffer();
-		ringBuffer.publish(eventDisruptor);
-
 	}
 
 	@Override

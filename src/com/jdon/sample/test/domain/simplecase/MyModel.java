@@ -53,23 +53,11 @@ public class MyModel {
 		return name;
 	}
 
-	public MyModelDomainEvent getMyModelDomainEvent() {
-		return myModelDomainEvent;
+	public void save() {
+		myModelDomainEvent.save(this);
 	}
 
-	public void setMyModelDomainEvent(MyModelDomainEvent myModelDomainEvent) {
-		this.myModelDomainEvent = myModelDomainEvent;
-	}
-
-	public MyModelService getMyModelServiceCommand() {
-		return myModelServiceCommand;
-	}
-
-	public void setMyModelServiceCommand(MyModelService myModelServiceCommand) {
-		this.myModelServiceCommand = myModelServiceCommand;
-	}
-
-	public String sayHelloNow() {
+	public String sayHelloSynchronous() {
 		return myModelServiceCommand.sayHello();
 	}
 

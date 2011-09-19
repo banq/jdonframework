@@ -145,7 +145,7 @@
 	
 	<component name="domainProxyFactory" class="com.jdon.container.interceptor.ProxyFactory"></component>
 	
-	<component name="domainCacheInterceptor" class="com.jdon.domain.DomainCacheInterceptor"></component>
+	<component name="domainCacheInterceptor" class="com.jdon.domain.model.cache.DomainCacheInterceptor"></component>
 	
 	<component name="modelProxyFactory" class="com.jdon.domain.proxy.ModelProxyFactory"></component>
 	
@@ -169,6 +169,8 @@
     
     <!-- asnc end -->
  
+    <!-- DCI -->
+    <component name="roleAssigner" class="com.jdon.domain.dci.RoleAssigner"/>
  
 
 </components>

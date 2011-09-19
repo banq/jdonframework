@@ -65,8 +65,8 @@ public class JdonPicoContainer implements MutablePicoContainer, Serializable {
 
 	private final Map componentKeyToInstanceCache = new HashMap();
 
-	private final ComponentAdapterFactory componentAdapterFactory;
-	private final PicoContainer parent;
+	private ComponentAdapterFactory componentAdapterFactory;
+	private PicoContainer parent;
 	private final List componentAdapters = new ArrayList();
 
 	// Keeps track of instantiation order.
@@ -428,6 +428,13 @@ public class JdonPicoContainer implements MutablePicoContainer, Serializable {
 			throw new IllegalStateException("Not started");
 		LifecycleVisitor.stop(this);
 		started = false;
+		componentKeyToAdapterCache.clear();
+		componentKeyToInstanceCache.clear();
+		componentAdapters.clear();
+		orderedComponentAdapters.clear();
+		children.clear();
+		componentAdapterFactory = null;
+		parent = null;
 	}
 
 	/**

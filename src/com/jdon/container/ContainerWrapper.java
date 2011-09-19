@@ -24,6 +24,8 @@ import java.util.List;
  */
 public interface ContainerWrapper {
 
+	public String OrignalKey = "OrignalKey";
+
 	/**
 	 * register a component class
 	 * 
@@ -90,7 +92,8 @@ public interface ContainerWrapper {
 	public List getAllInstances();
 
 	/**
-	 * get a component instance from container
+	 * return singleton component instance from container every times it return
+	 * same a instance
 	 * 
 	 * @param name
 	 *            component name
@@ -99,13 +102,38 @@ public interface ContainerWrapper {
 	public Object lookup(String name);
 
 	/**
-	 * when access this method, will return a new component instance it is
-	 * difference with lookup method
+	 * return new component instance from container .every times it return a new
+	 * instance when access this method, will return a new component instance it
+	 * is difference with lookup method.
 	 * 
 	 * @param name
 	 * @return a new component instance
 	 */
 	public Object getComponentNewInstance(String name);
+
+	/**
+	 * register a component instance without proxy
+	 * 
+	 * @param name
+	 * @param componentInstance
+	 */
+	public void registerOriginal(String name, Object componentInstance);
+
+	/**
+	 * return singleton component instance without proxy.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public Object lookupOriginal(String name);
+
+	/**
+	 * return new component instance from container without proxy.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public Object getComponentNewInstanceOriginal(String name);
 
 	/**
 	 * return a component class from container

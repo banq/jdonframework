@@ -13,19 +13,35 @@
  * limitations under the License.
  * 
  */
-package sample.domain;
+package com.jdon.domain.message.consumer;
 
-import com.jdon.annotation.Introduce;
-import com.jdon.annotation.model.Send;
-import com.jdon.domain.message.DomainMessage;
+import java.lang.reflect.Method;
 
-@Introduce("message")
-public class MyDomainEvents {
+public class ConsumerMethodHolder {
 
-	@Send("userMessage")
-	public DomainMessage sendMessage(User user) {
-		return new DomainMessage(user);
+	private String className;
+	private Method method;
 
+	public ConsumerMethodHolder(String className, Method method) {
+		super();
+		this.className = className;
+		this.method = method;
+	}
+
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
+
+	public Method getMethod() {
+		return method;
+	}
+
+	public void setMethod(Method method) {
+		this.method = method;
 	}
 
 }

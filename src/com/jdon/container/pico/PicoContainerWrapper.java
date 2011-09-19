@@ -108,6 +108,14 @@ public class PicoContainerWrapper implements ContainerWrapper {
 		}
 	}
 
+	public synchronized void registerOriginal(String name, Object componentInstance) {
+		try {
+			container.registerComponentInstance(name + ContainerWrapper.OrignalKey, componentInstance);
+		} catch (Exception ex) {
+			Debug.logWarning(" registe error: " + name, module);
+		}
+	}
+
 	public synchronized void register(String name, Class className, String[] constructors) {
 		if (constructors == null) {
 			register(name, className);
@@ -196,8 +204,22 @@ public class PicoContainerWrapper implements ContainerWrapper {
 	public Object lookup(String name) {
 		Object object = container.getComponentInstance(name);
 		if (object == null)
-			Debug.logVerbose("[JdonFramework]Not find the component in container :" + name, module);
+			Debug.logWarning("[JdonFramework]Not find the component in container :" + name, module);
 		return object;
+	}
+
+	public Object lookupOriginal(String name) {
+		Object object = container.getComponentInstance(name + ContainerWrapper.OrignalKey);
+		if (object == null)
+			object = lookup(name);
+		return object;
+	}
+
+	public Object getComponentNewInstanceOriginal(String name) {
+		ComponentAdapter componentAdapter = container.getComponentAdapter(name + ContainerWrapper.OrignalKey);
+		if (componentAdapter == null)
+			return getComponentNewInstance(name);
+		return componentAdapter.getComponentInstance(container);
 	}
 
 	/**
@@ -215,8 +237,10 @@ public class PicoContainerWrapper implements ContainerWrapper {
 
 		Debug.logVerbose("[JdonFramework]getComponentNewInstance: name=" + name, module);
 		ComponentAdapter componentAdapter = container.getComponentAdapter(name);
-		if (componentAdapter == null)
-			Debug.logVerbose("[JdonFramework]Not find the component in container :" + name, module);
+		if (componentAdapter == null) {
+			Debug.logWarning("[JdonFramework]Not find the component in container :" + name, module);
+			return null;
+		}
 		return componentAdapter.getComponentInstance(container);
 	}
 

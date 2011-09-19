@@ -10,7 +10,7 @@
 
   <interceptor name="sessionContextInterceptor" class="com.jdon.aop.interceptor.SessionContextInterceptor" pointcut="pojoServices" />
   
-  <interceptor name="modelCache" class="com.jdon.domain.DomainCacheInterceptor" pointcut="domain" />
+  <interceptor name="modelCache" class="com.jdon.domain.model.cache.DomainCacheInterceptor" pointcut="domain" />
   
   <interceptor name="message" class="com.jdon.domain.message.MessageInterceptor" pointcut="model" />
       

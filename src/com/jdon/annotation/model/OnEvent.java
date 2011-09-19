@@ -13,23 +13,26 @@
  * limitations under the License.
  * 
  */
-package sample.service;
+package com.jdon.annotation.model;
 
-import sample.domain.User;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import com.jdon.annotation.Consumer;
-import com.jdon.async.disruptor.EventDisruptor;
-import com.jdon.domain.message.DomainMessage;
-import com.jdon.domain.message.DomainEventHandler;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
-@Consumer("userMessage")
-public class UserMessageListener implements DomainEventHandler {
-
-	@Override
-	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
-		User user = (User) event.getDomainMessage().getEventSource();
-		user.setAge(18);
-		event.getDomainMessage().setEventResult(18);
-	}
-
+/**
+ * Marks a method as a handler for a domain event sent by @Send;
+ * 
+ * it can be used together with in those classes with @Component or @Service;
+ * 
+ * @author banq
+ * 
+ */
+@Target(METHOD)
+@Retention(RUNTIME)
+@Documented
+public @interface OnEvent {
+	String value();
 }

@@ -38,7 +38,7 @@ public class ServiceSampleTwo implements IServiceSampleTwo {
 	public Object eventPointEntry() {
 		MyModel myModel = repository.getModel(new Long(100));
 		MyModel myModel2 = repository.getModel(new Long(100));
-		return myModel.sayHelloNow() + myModel2.getName();
+		return myModel.sayHelloSynchronous() + " and " + myModel2.getName();
 
 	}
 
@@ -48,4 +48,9 @@ public class ServiceSampleTwo implements IServiceSampleTwo {
 		return (String) dm.getEventResult();
 	}
 
+	public void onEventTest() {
+		MyModel myModel = repository.getModel(new Long(100));
+		myModel.setName("new name");
+		myModel.save();
+	}
 }

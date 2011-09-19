@@ -56,8 +56,14 @@ public class JdonConstructorInjectionComponentAdapter extends ConstructorInjecti
 
 		Object o = constructor.newInstance(parameters);
 		ComponentAdvsior componentAdvsior = (ComponentAdvsior) configInfo.getContainerWrapper().lookup(ComponentAdvsior.NAME);
+		Object proxy = null;
 		if (componentAdvsior != null)
-			o = componentAdvsior.createProxy(o);
-		return o;
+			proxy = componentAdvsior.createProxy(o);
+
+		if (!proxy.getClass().isInstance(o)) {
+			configInfo.getContainerWrapper().registerOriginal((String) this.getComponentKey(), o);
+		}
+
+		return proxy;
 	}
 }

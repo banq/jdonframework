@@ -21,6 +21,7 @@ import com.jdon.annotation.Service;
 import com.jdon.annotation.Singleton;
 import com.jdon.bussinessproxy.meta.POJOTargetMetaDef;
 import com.jdon.bussinessproxy.meta.SingletonPOJOTargetMetaDef;
+import com.jdon.container.ContainerWrapper;
 import com.jdon.container.access.TargetMetaDefHolder;
 import com.jdon.container.annotation.AnnotationHolder;
 import com.jdon.controller.context.AppContextWrapper;
@@ -31,23 +32,25 @@ public class ServiceLoader {
 	public final static String module = ServiceLoader.class.getName();
 
 	AnnotationScaner annotationScaner;
+	ConsumerLoader consumerLoader;
 
-	public ServiceLoader(AnnotationScaner annotationScaner) {
+	public ServiceLoader(AnnotationScaner annotationScaner, ConsumerLoader consumerLoader) {
 		super();
 		this.annotationScaner = annotationScaner;
+		this.consumerLoader = consumerLoader;
 	}
 
-	public void loadAnnotationServices(AnnotationHolder annotationHolder, AppContextWrapper context) {
+	public void loadAnnotationServices(AnnotationHolder annotationHolder, AppContextWrapper context, ContainerWrapper containerWrapper) {
 		Set<String> classes = annotationScaner.getScannedAnnotations(context).get(Service.class.getName());
 		if (classes == null)
 			return;
 		Debug.logVerbose("[JdonFramework] found Annotation components size:" + classes.size(), module);
 		for (Object className : classes) {
-			createAnnotationServiceClass((String) className, annotationHolder);
+			createAnnotationServiceClass((String) className, annotationHolder, containerWrapper);
 		}
 	}
 
-	public void createAnnotationServiceClass(String className, AnnotationHolder annotationHolder) {
+	public void createAnnotationServiceClass(String className, AnnotationHolder annotationHolder, ContainerWrapper containerWrapper) {
 		try {
 			Class cclass = Utils.createClass(className);
 			Service serv = (Service) cclass.getAnnotation(Service.class);
@@ -56,6 +59,8 @@ public class ServiceLoader {
 			String name = UtilValidate.isEmpty(serv.value()) ? cclass.getName() : serv.value();
 			annotationHolder.addComponent(name, cclass);
 			createPOJOTargetMetaDef(name, className, annotationHolder.getTargetMetaDefHolder(), cclass);
+
+			consumerLoader.loadMehtodAnnotations(cclass, containerWrapper);
 		} catch (Exception e) {
 			Debug.logError("[JdonFramework] createAnnotationserviceClass error:" + e, module);
 		}

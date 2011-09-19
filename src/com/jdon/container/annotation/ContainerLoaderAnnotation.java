@@ -45,20 +45,20 @@ public class ContainerLoaderAnnotation {
 		Debug.logVerbose("[JdonFramework] load all Annotation components ", module);
 		annotationHolder = new AnnotationHolder();
 
-		ServiceLoader serviceLoader = new ServiceLoader(annotationScaner);
-		serviceLoader.loadAnnotationServices(annotationHolder, context);
+		ConsumerLoader consumerLoader = new ConsumerLoader(annotationScaner);
+		consumerLoader.loadAnnotationConsumers(annotationHolder, context, containerWrapper);
 
-		ComponentLoader componentLoader = new ComponentLoader(annotationScaner);
-		componentLoader.loadAnnotationComponents(annotationHolder, context);
+		ServiceLoader serviceLoader = new ServiceLoader(annotationScaner, consumerLoader);
+		serviceLoader.loadAnnotationServices(annotationHolder, context, containerWrapper);
+
+		ComponentLoader componentLoader = new ComponentLoader(annotationScaner, consumerLoader);
+		componentLoader.loadAnnotationComponents(annotationHolder, context, containerWrapper);
 
 		InroduceLoader inroduceLoader = new InroduceLoader(annotationScaner, this.configInfo.getIntroduceInfoHolder());
 		inroduceLoader.loadAnnotationIntroduceInfos(annotationHolder, context, containerWrapper);
 
 		InterceptorLoader interceptorLoader = new InterceptorLoader(annotationScaner, configInfo.getIntroduceInfoHolder());
 		interceptorLoader.loadAnnotationInterceptors(annotationHolder, context);
-
-		ConsumerLoader consumerLoader = new ConsumerLoader(annotationScaner);
-		consumerLoader.loadAnnotationConsumers(annotationHolder, context, containerWrapper);
 
 		containerWrapper.register(AnnotationHolder.NAME, annotationHolder);
 		containerWrapper.register(IntroduceInfoHolder.NAME, configInfo.getIntroduceInfoHolder());

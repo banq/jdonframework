@@ -19,6 +19,7 @@ import java.util.Set;
 
 import com.jdon.annotation.Component;
 import com.jdon.bussinessproxy.meta.POJOTargetMetaDef;
+import com.jdon.container.ContainerWrapper;
 import com.jdon.container.annotation.AnnotationHolder;
 import com.jdon.controller.context.AppContextWrapper;
 import com.jdon.util.Debug;
@@ -28,23 +29,25 @@ public class ComponentLoader {
 	public final static String module = ComponentLoader.class.getName();
 
 	AnnotationScaner annotationScaner;
+	ConsumerLoader consumerLoader;
 
-	public ComponentLoader(AnnotationScaner annotationScaner) {
+	public ComponentLoader(AnnotationScaner annotationScaner, ConsumerLoader consumerLoader) {
 		super();
 		this.annotationScaner = annotationScaner;
+		this.consumerLoader = consumerLoader;
 	}
 
-	public void loadAnnotationComponents(AnnotationHolder annotationHolder, AppContextWrapper context) {
+	public void loadAnnotationComponents(AnnotationHolder annotationHolder, AppContextWrapper context, ContainerWrapper containerWrapper) {
 		Set<String> classes = annotationScaner.getScannedAnnotations(context).get(Component.class.getName());
 		if (classes == null)
 			return;
 		Debug.logVerbose("[JdonFramework] found Annotation components size:" + classes.size(), module);
 		for (Object className : classes) {
-			createAnnotationComponentClass((String) className, annotationHolder);
+			createAnnotationComponentClass((String) className, annotationHolder, containerWrapper);
 		}
 	}
 
-	public void createAnnotationComponentClass(String className, AnnotationHolder annotationHolder) {
+	public void createAnnotationComponentClass(String className, AnnotationHolder annotationHolder, ContainerWrapper containerWrapper) {
 		try {
 			Class cclass = Utils.createClass(className);
 			Component cp = (Component) cclass.getAnnotation(Component.class);
@@ -54,6 +57,8 @@ public class ComponentLoader {
 			annotationHolder.addComponent(name, cclass);
 			POJOTargetMetaDef pojoMetaDef = new POJOTargetMetaDef(name, className);
 			annotationHolder.getTargetMetaDefHolder().add(name, pojoMetaDef);
+
+			consumerLoader.loadMehtodAnnotations(cclass, containerWrapper);
 		} catch (Exception e) {
 			Debug.logError("[JdonFramework] createAnnotationComponentClass error:" + e + className, module);
 
