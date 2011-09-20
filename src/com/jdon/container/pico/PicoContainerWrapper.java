@@ -17,6 +17,7 @@ package com.jdon.container.pico;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.Map;
 
 import org.picocontainer.ComponentAdapter;
 import org.picocontainer.MutablePicoContainer;
@@ -38,7 +39,7 @@ import com.jdon.util.Debug;
 public class PicoContainerWrapper implements ContainerWrapper {
 	public final static String module = PicoContainerWrapper.class.getName();
 
-	private final MutablePicoContainer container;
+	private MutablePicoContainer container;
 
 	private volatile boolean start;
 
@@ -108,14 +109,6 @@ public class PicoContainerWrapper implements ContainerWrapper {
 		}
 	}
 
-	public synchronized void registerOriginal(String name, Object componentInstance) {
-		try {
-			container.registerComponentInstance(name + ContainerWrapper.OrignalKey, componentInstance);
-		} catch (Exception ex) {
-			Debug.logWarning(" registe error: " + name, module);
-		}
-	}
-
 	public synchronized void register(String name, Class className, String[] constructors) {
 		if (constructors == null) {
 			register(name, className);
@@ -178,8 +171,11 @@ public class PicoContainerWrapper implements ContainerWrapper {
 		try {
 			container.stop();
 			container.dispose();
-			start = false;
 		} catch (Exception e) {
+			Debug.logError("[JdonFramework] container stop error: " + e, module);
+		} finally {
+			container = null;
+			start = false;
 		}
 	}
 
@@ -209,17 +205,13 @@ public class PicoContainerWrapper implements ContainerWrapper {
 	}
 
 	public Object lookupOriginal(String name) {
-		Object object = container.getComponentInstance(name + ContainerWrapper.OrignalKey);
+		Object object = null;
+		Map orignals = (Map) lookup(ContainerWrapper.OrignalKey);
+		if (orignals != null)
+			object = orignals.get(name);
 		if (object == null)
 			object = lookup(name);
 		return object;
-	}
-
-	public Object getComponentNewInstanceOriginal(String name) {
-		ComponentAdapter componentAdapter = container.getComponentAdapter(name + ContainerWrapper.OrignalKey);
-		if (componentAdapter == null)
-			return getComponentNewInstance(name);
-		return componentAdapter.getComponentInstance(container);
 	}
 
 	/**

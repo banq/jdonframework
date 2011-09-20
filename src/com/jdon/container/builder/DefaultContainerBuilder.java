@@ -24,6 +24,7 @@ import com.jdon.bussinessproxy.meta.POJOTargetMetaDef;
 import com.jdon.container.ContainerWrapper;
 import com.jdon.container.access.TargetMetaDefHolder;
 import com.jdon.container.access.xml.AppConfigureCollection;
+import com.jdon.container.access.xml.TargetMetaDefXmlLoader;
 import com.jdon.container.config.ComponentMetaDef;
 import com.jdon.container.config.ContainerComponents;
 import com.jdon.container.config.aspect.AspectComponentsMetaDef;
@@ -42,7 +43,7 @@ public class DefaultContainerBuilder implements ContainerRegistryBuilder {
 
 	protected final ContainerComponents basicComponents;
 	protected final ContainerComponents aspectConfigComponents;
-	protected final XmlContainerRegistry containerRegistry;
+	protected final XmlContainerRegistry xmlcontainerRegistry;
 	protected final ContainerWrapper containerWrapper;
 	protected volatile boolean startup;
 
@@ -58,7 +59,7 @@ public class DefaultContainerBuilder implements ContainerRegistryBuilder {
 	public DefaultContainerBuilder(ContainerWrapper containerWrapper, ContainerComponents basicComponents, ContainerComponents aspectConfigComponents) {
 		this.basicComponents = basicComponents;
 		this.aspectConfigComponents = aspectConfigComponents;
-		this.containerRegistry = new XmlContainerRegistry(containerWrapper);
+		this.xmlcontainerRegistry = new XmlContainerRegistry(containerWrapper);
 		this.containerWrapper = containerWrapper;
 
 	}
@@ -77,7 +78,7 @@ public class DefaultContainerBuilder implements ContainerRegistryBuilder {
 		try {
 			AppConfigureCollection existedAppConfigureFiles = (AppConfigureCollection) containerWrapper.lookup(AppConfigureCollection.NAME);
 			if (existedAppConfigureFiles == null) {
-				containerRegistry.registerAppRoot();
+				xmlcontainerRegistry.registerAppRoot();
 				existedAppConfigureFiles = (AppConfigureCollection) containerWrapper.lookup(AppConfigureCollection.NAME);
 			}
 			if (!existedAppConfigureFiles.getConfigList().contains(configureFileName)) {
@@ -100,7 +101,7 @@ public class DefaultContainerBuilder implements ContainerRegistryBuilder {
 			while (iter.hasNext()) {
 				String name = (String) iter.next();
 				ComponentMetaDef componentMetaDef = basicComponents.getComponentMetaDef(name);
-				containerRegistry.registerComponentMetaDef(componentMetaDef);
+				xmlcontainerRegistry.registerComponentMetaDef(componentMetaDef);
 			}
 		} catch (Exception ex) {
 			Debug.logError("[JdonFramework] register basiceComponents error:" + ex, module);
@@ -123,7 +124,7 @@ public class DefaultContainerBuilder implements ContainerRegistryBuilder {
 				String name = (String) iter.next();
 				AspectComponentsMetaDef componentMetaDef = (AspectComponentsMetaDef) aspectConfigComponents.getComponentMetaDef(name);
 				// registe into container
-				containerRegistry.registerAspectComponentMetaDef(componentMetaDef);
+				xmlcontainerRegistry.registerAspectComponentMetaDef(componentMetaDef);
 				// got the interceptor instance;
 				// add interceptor instance into InterceptorsChain object
 				existedInterceptorsChain.addInterceptor(componentMetaDef.getPointcut(), name);
@@ -141,6 +142,8 @@ public class DefaultContainerBuilder implements ContainerRegistryBuilder {
 	public void registerUserService() throws Exception {
 		Debug.logVerbose("[JdonFramework] note: registe user pojoservice ", module);
 		try {
+			TargetMetaDefXmlLoader targetMetaDefXmlLoader = (TargetMetaDefXmlLoader) containerWrapper.lookup(ComponentKeys.SERVICE_METALOADER_NAME);
+			targetMetaDefXmlLoader.loadXML();
 			TargetMetaDefHolder targetMetaDefHolder = (TargetMetaDefHolder) containerWrapper.lookup(ComponentKeys.SERVICE_METAHOLDER_NAME);
 			if (targetMetaDefHolder == null)
 				return;
@@ -150,7 +153,7 @@ public class DefaultContainerBuilder implements ContainerRegistryBuilder {
 				String name = (String) iter.next();
 				TargetMetaDef tgm = (TargetMetaDef) metaDefs.get(name);
 				if (!tgm.isEJB()) {
-					containerRegistry.registerPOJOTargetMetaDef((POJOTargetMetaDef) tgm);
+					xmlcontainerRegistry.registerPOJOTargetMetaDef((POJOTargetMetaDef) tgm);
 				}
 			}
 		} catch (Exception ex) {

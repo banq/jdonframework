@@ -2,9 +2,9 @@
 <!DOCTYPE app PUBLIC "-//JDON//DTD Framework 2005 1.0 //EN"	"http://www.jdon.com/jdonframework.dtd">
 <app>
    <services>
-     <!-- can be replaced by @Component in  com.jdon.sample.B or A
-         <pojoService name="b" class="com.jdon.sample.B"/>
-         <pojoService name="a" class="com.jdon.sample.A"/>
-      -->
+     
+         <component name="bb" class="com.jdon.sample.test.BB"/>
+         <component name="aa" class="com.jdon.sample.test.AA"/>
+     
     </services>
 </app>

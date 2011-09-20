@@ -112,28 +112,12 @@ public interface ContainerWrapper {
 	public Object getComponentNewInstance(String name);
 
 	/**
-	 * register a component instance without proxy
-	 * 
-	 * @param name
-	 * @param componentInstance
-	 */
-	public void registerOriginal(String name, Object componentInstance);
-
-	/**
 	 * return singleton component instance without proxy.
 	 * 
 	 * @param name
 	 * @return
 	 */
 	public Object lookupOriginal(String name);
-
-	/**
-	 * return new component instance from container without proxy.
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public Object getComponentNewInstanceOriginal(String name);
 
 	/**
 	 * return a component class from container

@@ -16,9 +16,9 @@
 package com.jdon.aop.interceptor;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.jdon.container.pico.Startable;
 import com.jdon.util.Debug;
@@ -41,7 +41,7 @@ public class InterceptorsChain implements Startable {
 	private final Map<String, List<Advisor>> chain;
 
 	public InterceptorsChain() {
-		chain = new HashMap();
+		chain = new ConcurrentHashMap<String, List<Advisor>>();
 	}
 
 	public void start() {

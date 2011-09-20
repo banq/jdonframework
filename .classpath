@@ -17,6 +17,7 @@
 	<classpathentry kind="lib" path="lib/log4j.jar"/>
 	<classpathentry kind="lib" path="lib/scannotation-1.0.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/picocontainer-1.1.jar" sourcepath="D:/javasource/JdonComponent/picocontainer-1.2-sources/src"/>
+	<classpathentry kind="lib" path="lib/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/picocontainer-1.2.jar" sourcepath="D:/javasource/JdonComponent/picocontainer-1.2-sources/src"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

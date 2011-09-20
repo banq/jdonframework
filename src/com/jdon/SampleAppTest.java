@@ -21,6 +21,7 @@ import junit.framework.TestCase;
 import com.jdon.container.startup.ContainerSetupScript;
 import com.jdon.controller.AppUtil;
 import com.jdon.controller.context.application.Application;
+import com.jdon.sample.test.BB;
 import com.jdon.sample.test.component.BInterface;
 import com.jdon.sample.test.domain.onecase.IServiceSample;
 import com.jdon.sample.test.domain.simplecase.IServiceSampleTwo;
@@ -86,8 +87,8 @@ public class SampleAppTest extends TestCase {
 
 		css.prepare("com.jdon.jdonframework.xml", da);
 		AppUtil appUtil = new AppUtil("com.jdon.jdonframework.xml");
-		IServiceSampleTwo serviceSample = (IServiceSampleTwo) appUtil.getService("serviceSampleTwo");
-		serviceSample.onEventTest();
+		BB bb = (BB) appUtil.getComponentInstance("bb");
+		bb.myDo();
 	}
 
 	protected void tearDown() throws Exception {

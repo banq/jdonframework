@@ -19,45 +19,44 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * the collection for framework application: jdonframework.xml
- * ({@link com.jdon.container.builder.XmlContainerRegistry})
+ * the collection for framework application: jdonframework.xml (
+ * {@link com.jdon.container.builder.XmlContainerRegistry})
  * 
  * @author <a href="mailto:banqiao@jdon.com">banq</a>
- * @see com.jdon.container.builder.XmlContainerRegistry 
- * @see com.jdon.container.builder.DefaultContainerBuilder  addAppConfigureFile
- *
+ * @see com.jdon.container.builder.XmlContainerRegistry
+ * @see com.jdon.container.builder.DefaultContainerBuilder addAppConfigureFile
+ * 
  */
 public class AppConfigureCollection {
-    public final static String CONFIG_NAME = "modelmapping-config";
-    
-    public final static String NAME = "AppConfigureFiles";
-    
-    /**
-     * the filename collection
-     * it's element is the String type, filename.
-     */
-    private final Collection configList ;
-    
-    public AppConfigureCollection() {
-        configList = new ArrayList();
-    }
-    
-    /**
-     * @param configList
-     */
-    public AppConfigureCollection(Collection configList) {
-        this.configList = configList;
-    }
-    
-    public void addConfigList(String configureFileName){
-        configList.add(configureFileName);
-    }
-    
-    /**
-     * @return Returns the configList.
-     */
-    public Collection getConfigList() {
-        return configList;
-    }
-   
+	public final static String CONFIG_NAME = "modelmapping-config";
+
+	public final static String NAME = "AppConfigureFiles";
+
+	/**
+	 * the filename collection it's element is the String type, filename.
+	 */
+	private final Collection configList;
+
+	public AppConfigureCollection() {
+		configList = new ArrayList();
+	}
+
+	/**
+	 * @param configList
+	 */
+	public AppConfigureCollection(Collection configList) {
+		this.configList = configList;
+	}
+
+	public void addConfigList(String configureFileName) {
+		configList.add(configureFileName);
+	}
+
+	/**
+	 * @return Returns the configList.
+	 */
+	public Collection getConfigList() {
+		return configList;
+	}
+
 }
