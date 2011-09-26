@@ -22,8 +22,8 @@ import com.jdon.annotation.Component;
 import com.jdon.annotation.Service;
 import com.jdon.annotation.model.Inject;
 import com.jdon.container.finder.ContainerCallback;
-import com.jdon.domain.advsior.ComponentAdvsior;
 import com.jdon.domain.advsior.ModelAdvisor;
+import com.jdon.util.ClassUtil;
 import com.jdon.util.Debug;
 import com.jdon.util.ObjectCreator;
 
@@ -51,21 +51,23 @@ import com.jdon.util.ObjectCreator;
 public class ModelProxyInjection {
 	private final static String module = ModelProxyInjection.class.getName();
 	private final ModelAdvisor modelAdvisor;
-	private final ComponentAdvsior componentAdvsior;
 	private final ContainerCallback containerCallback;
 
-	public ModelProxyInjection(ModelAdvisor modelAdvisor, ComponentAdvsior componentAdvsior, ContainerCallback containerCallback) {
+	public ModelProxyInjection(ModelAdvisor modelAdvisor, ContainerCallback containerCallback) {
 		super();
 		this.modelAdvisor = modelAdvisor;
-		this.componentAdvsior = componentAdvsior;
 		this.containerCallback = containerCallback;
 	}
 
 	public void injectProperties(Object targetModel) {
+		Class fClass = null;
 		try {
-			for (Field field : targetModel.getClass().getDeclaredFields()) {
+			Field[] fields = ClassUtil.getAllDecaredFields(targetModel.getClass());
+			if (fields == null)
+				return;
+			for (Field field : fields) {
 				if (field.isAnnotationPresent(Inject.class)) {
-					Class fClass = field.getType();
+					fClass = field.getType();
 					Object fieldObject = getInjectObject(targetModel, fClass);
 					if (field.getType().isAssignableFrom(fieldObject.getClass())) {
 						try {
@@ -83,7 +85,7 @@ public class ModelProxyInjection {
 			}
 
 		} catch (Exception e) {
-			Debug.logError("inject Properties error:" + e + " in" + targetModel.getClass(), module);
+			Debug.logError("inject Properties error:" + e + " in " + targetModel.getClass() + "'s field: " + fClass, module);
 		}
 	}
 
@@ -111,15 +113,19 @@ public class ModelProxyInjection {
 		Object o = null;
 		try {
 			List<Object> objects = containerCallback.getContainerWrapper().getComponentInstancesOfType(fClass);
+			// List should be have only one.
 			for (Object instance : objects) {
-				if (isComponent(instance)) {
-					o = instance;
-					break;
-				}
+				// there are two posiible: a component or a proxy,
+				return instance;
+				// if (isComponent(instance)) {
+				// o = instance;
+				// break;
+				// }
 
 			}
-			if (o != null)
-				o = componentAdvsior.createProxy(o);
+			// if (o != null && componentAdvsior.getInterfaces(o.getClass()) !=
+			// null)
+			// o = componentAdvsior.createProxy(o);
 		} catch (Exception e) {
 			Debug.logError("createTargetComponent error:" + e + " in" + targetModel.getClass(), module);
 		}

@@ -58,12 +58,8 @@ public class DisruptorFactory implements EventFactory {
 	}
 
 	public DisruptorWizard addEventMessageHandler(String topic, TreeSet<DomainEventHandler> handlers) {
-
-		if (handlers.size() == 0) {
-			Debug.logError("[Jdonframework]no found the class annotated with @Consumer(" + topic + ") ", module);
+		if (handlers.size() == 0)
 			return null;
-		}
-
 		DisruptorWizard dw = createDw(handlers.size());
 		EventHandlerGroup eh = null;
 		for (DomainEventHandler handler : handlers) {
@@ -83,7 +79,11 @@ public class DisruptorFactory implements EventFactory {
 			handlers = loadEvenHandler(topic);
 			handlers = loadOnEventConsumers(topic, handlers);
 			if (handlers.size() == 0) {
-				Debug.logError("[Jdonframework]no found the class annotated with @Consumer(" + topic + ") ", module);
+				// maybe in @Component(topicName)
+				Object o = containerWrapper.lookup(topic);
+				if (o == null) {
+					Debug.logError("[Jdonframework]no found the class annotated with @Consumer(" + topic + ") ", module);
+				}
 				return null;
 			}
 			handlesMap.put(topic, handlers);

@@ -2,7 +2,6 @@ this sample show how simply developing javaEE program by jdonfamework.
 
 1. only need two annotations:
 
-@Poolable
 @Service(name="helloService")
 public class HelloServiceImpl implements HelloService 
 ..
@@ -17,9 +16,6 @@ HelloService helloService = (HelloService) WebAppUtil.getService("helloService",
 String result = helloService.hello(myname);
 
 
-Using ant compiling this project.
-
-deploy jdonremote.war to your server,such as tomcat: copy the file to tomcat/webapp
 
 http://localhost:8080/myweb/
 

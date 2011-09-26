@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sample.domain.User;
 import sample.service.HelloService;
 
 import com.jdon.controller.WebAppUtil;
@@ -19,10 +20,14 @@ public class MyServlet extends HttpServlet {
 		String myname = req.getParameter("myname");
 		System.out.println("doGet active :" + myname);
 		HelloService helloService = (HelloService) WebAppUtil.getService("helloService", req);
-		String result = helloService.hello(myname);
+		User user = new User();
+		user.setName(myname);
+		user.setUserId("999");
+		helloService.save(user);
+
+		String result = helloService.hello("999");
 
 		resp.getWriter().print("server say hello to:" + result);
 		resp.getWriter().close();
 	}
-
 }

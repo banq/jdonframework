@@ -73,7 +73,8 @@ public class DomainEventDispatchHandler implements DomainEventHandler {
 				i++;
 			}
 			Object o = containerWrapper.lookupOriginal(consumerMethodHolder.getClassName());
-			method.invoke(o, parameters);
+			Object eventResult = method.invoke(o, parameters);
+			event.getDomainMessage().setEventResult(eventResult);
 		} catch (Exception e) {
 			Debug.logError("[Jdonframework]" + consumerMethodHolder.getClassName() + " method with @onEvent error: " + e, module);
 		}

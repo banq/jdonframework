@@ -7,9 +7,6 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import com.jdon.async.disruptor.EventDisruptor;
-
-
 /**
  * 
  * Domain Model should normal live in memory not in database. so cache in memory
@@ -21,50 +18,52 @@ import com.jdon.async.disruptor.EventDisruptor;
  * Domain Model producer /Consumer:
  * 
  * 1. annotate the producer class with @Model and @Introduce("message")
- *@Model
- *@Introduce("message")
- *public class DomainEvent {}
  * 
- * the value "message" of @@Introduce("message") is the om.jdon.domain.message.MessageInterceptor
- * configured in aspect.xml
+ * @Model
+ * @Introduce("message") public class DomainEvent {}
  * 
- * 2. annotate the method with @Send("mytopic") of the producer class;
- * * @Send("mytopic")
- *	public DomainMessage myMethod() {
- *		DomainMessage em = new DomainMessage(this.name);
- *		return em;
- *	}
+ *                       the value "message" of @@Introduce("message") is the
+ *                       om.jdon.domain.message.MessageInterceptor configured in
+ *                       aspect.xml
  * 
- * 3. the "mytopic" value in @Send("mytopic") is equals to the "mytopic" value
- * in @Consumer("mytopic");
+ *                       2. annotate the method with @Send("mytopic") of the
+ *                       producer class; * @Send("mytopic") public DomainMessage
+ *                       myMethod() { DomainMessage em = new
+ *                       DomainMessage(this.name); return em; }
  * 
- * 4. annotate the consumer class with @Consumer("mytopic");
+ *                       3. the "mytopic" value in @Send("mytopic") is equals to
+ *                       the "mytopic" value in @Consumer("mytopic");
  * 
- * 5.there are two kind of consumer 
+ *                       4. annotate the consumer class with
+ *                       @Consumer("mytopic");
  * 
- * (1)the consumer class must implements
- * com.jdon.domain.message.DomainEventHandler
+ *                       5.there are two kind of consumer
  * 
- * @Consumer("mytopic")
- *public class MyDomainEventHandler implements DomainEventHandler {
- *
- *    public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception{..}
- *
- *}
+ *                       (1)the consumer class must implements
+ *                       com.jdon.domain.message.DomainEventHandler
  * 
+ * @Consumer("mytopic") public class MyDomainEventHandler implements
+ *                      DomainEventHandler {
  * 
- * (2)or the consumer class's method annotated with @onEvent("mytopic")
- 
+ *                      public void onEvent(EventDisruptor event, boolean
+ *                      endOfBatch) throws Exception{..}
+ * 
+ *                      }
  * 
  * 
+ *                      (2)or the consumer class's method annotated with
+ *                      @onEvent("mytopic")
  * 
- * Topic/queue(1:N or 1:1):
+ * 
+ * 
+ * 
+ *                      Topic/queue(1:N or 1:1):
  * 
  * @Send(topicName) ==> @Consumer(topicName);
  * 
  * 
  * 
- * under version 6.3 there is a Older queue(1:1):
+ *                  under version 6.3 there is a Older queue(1:1):
  * 
  * @Send(topicName) ==> @Component(topicName);
  * 

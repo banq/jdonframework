@@ -1,5 +1,5 @@
 Testsuite: com.jdon.SampleAppTest
-Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 13.525 sec
+Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 13.44 sec
 ------------- Standard Output ---------------
 call A.myMethod1 
 
@@ -53,33 +53,32 @@ MyDomainEventHandler action hello
 MessageListener=hello
 Synchronous sayHelloAsynchronous eventMessage=100
 Synchronous sayHello and Asynchronous eventMessage=100Asynchronous eventMessage=100
-Asynchronous eventMessage=100No.1 @OnEvent: save dbnew name
-------------- ---------------- ---------------
+Asynchronous eventMessage=100------------- ---------------- ---------------
 ------------- Standard Error -----------------
-2011-9-19 21:18:36 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
+2011-9-26 9:46:43 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
 少御: Creating a new instance of CacheManager using the diskStorePath "C:\Users\ADMINI~1\AppData\Local\Temp\" which is already used by an existing CacheManager.
-The source of the configuration was InputStream java.io.BufferedInputStream@1a68ef9.
-The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1316438316690.
+The source of the configuration was InputStream java.io.BufferedInputStream@fefe3f.
+The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1317001603765.
 To avoid this warning consider using the CacheManager factory methods to create a singleton CacheManager or specifying a separate ehcache configuration (ehcache.xml) for each CacheManager instance.
-2011-9-19 21:18:39 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
+2011-9-26 9:46:46 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
 少御: Creating a new instance of CacheManager using the diskStorePath "C:\Users\ADMINI~1\AppData\Local\Temp\" which is already used by an existing CacheManager.
-The source of the configuration was InputStream java.io.BufferedInputStream@5bb966.
-The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1316438319123.
+The source of the configuration was InputStream java.io.BufferedInputStream@1f2cea2.
+The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1317001606204.
 To avoid this warning consider using the CacheManager factory methods to create a singleton CacheManager or specifying a separate ehcache configuration (ehcache.xml) for each CacheManager instance.
-2011-9-19 21:18:41 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
+2011-9-26 9:46:48 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
 少御: Creating a new instance of CacheManager using the diskStorePath "C:\Users\ADMINI~1\AppData\Local\Temp\" which is already used by an existing CacheManager.
-The source of the configuration was InputStream java.io.BufferedInputStream@70be88.
-The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1316438321588.
+The source of the configuration was InputStream java.io.BufferedInputStream@31f2a7.
+The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1317001608627.
 To avoid this warning consider using the CacheManager factory methods to create a singleton CacheManager or specifying a separate ehcache configuration (ehcache.xml) for each CacheManager instance.
-2011-9-19 21:18:43 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
+2011-9-26 9:46:51 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
 少御: Creating a new instance of CacheManager using the diskStorePath "C:\Users\ADMINI~1\AppData\Local\Temp\" which is already used by an existing CacheManager.
-The source of the configuration was InputStream java.io.BufferedInputStream@1cebc9f.
-The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1316438323928.
+The source of the configuration was InputStream java.io.BufferedInputStream@147358f.
+The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1317001611054.
 To avoid this warning consider using the CacheManager factory methods to create a singleton CacheManager or specifying a separate ehcache configuration (ehcache.xml) for each CacheManager instance.
 ------------- ---------------- ---------------
 
-Testcase: testGetService took 3.525 sec
-Testcase: testDomainEvent took 2.683 sec
-Testcase: testDomainEventSimple took 2.496 sec
-Testcase: testDCIDomainEvent took 2.34 sec
-Testcase: testOnEvent took 2.465 sec
+Testcase: testGetService took 3.578 sec
+Testcase: testDomainEvent took 2.579 sec
+Testcase: testDomainEventSimple took 2.436 sec
+Testcase: testDCIDomainEvent took 2.325 sec
+Testcase: testOnEvent took 2.511 sec

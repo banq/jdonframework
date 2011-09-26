@@ -83,6 +83,8 @@ public class AopClient {
 			throw new Exception(ex);
 		} catch (Throwable ex) {
 			throw new Throwable(ex);
+		} finally {
+			targetMetaRequestsHolder.clear();
 		}
 		return result;
 	}
@@ -98,8 +100,9 @@ public class AopClient {
 	 */
 	public Object invoke(TargetMetaRequest targetMetaRequest, Method method, Object[] args) throws Throwable {
 		targetMetaRequestsHolder.setTargetMetaRequest(targetMetaRequest);
-		Debug.logVerbose("[JdonFramework] enter AOP invoker2 for:" + targetMetaRequest.getTargetMetaDef().getClassName() + " method:"
-				+ method.getName(), module);
+		Debug.logVerbose(
+				"[JdonFramework] enter AOP invoker2 for:" + targetMetaRequest.getTargetMetaDef().getClassName() + " method:" + method.getName(),
+				module);
 
 		Object result = null;
 		MethodInvocation methodInvocation = null;
@@ -113,6 +116,8 @@ public class AopClient {
 			throw new Exception(ex);
 		} catch (Throwable ex) {
 			throw new Throwable(ex);
+		} finally {
+			targetMetaRequestsHolder.clear();
 		}
 		return result;
 

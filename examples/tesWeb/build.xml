@@ -1,9 +1,7 @@
+<?xml version="1.0"?>
 <project name="Annotation Test" default="all" basedir="./">
 
 	<target name="all" depends="war">
-		<!-- 
-		<copy file="myweb.war" todir="E:\training\jboss-4.2.2.GA\server\default\deploy" overwrite="true"/>
-   -->
 	</target>
 
 	<path id="master-classpath">
@@ -28,6 +26,7 @@
 		</copy>
 		<copy todir="myweb/WEB-INF//lib" overwrite="true">
             <fileset dir="../../dist"/>
+			
 		</copy>		
 		<jar destfile="myweb.war" >
 			<fileset dir="myweb">

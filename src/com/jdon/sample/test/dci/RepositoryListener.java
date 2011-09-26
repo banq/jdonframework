@@ -22,6 +22,6 @@ import com.jdon.domain.message.DomainEventHandler;
 @Consumer("save")
 public class RepositoryListener implements DomainEventHandler {
 	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
-		System.out.println("No.3 @Consumer:DCI RepositoryListener Action   \n");
+		System.out.println("\n No.3 @OnEvent:" + this.getClass().getName());
 	}
 }

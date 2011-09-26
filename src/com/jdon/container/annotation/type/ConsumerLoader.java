@@ -31,6 +31,7 @@ import com.jdon.container.annotation.AnnotationHolder;
 import com.jdon.controller.context.AppContextWrapper;
 import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.domain.message.consumer.ConsumerMethodHolder;
+import com.jdon.util.ClassUtil;
 import com.jdon.util.Debug;
 import com.jdon.util.UtilValidate;
 
@@ -88,16 +89,29 @@ public class ConsumerLoader {
 	 */
 
 	public void loadMehtodAnnotations(Class cclass, ContainerWrapper containerWrapper) {
-		for (Method method : cclass.getDeclaredMethods()) {
-			if (method.isAnnotationPresent(OnEvent.class)) {
-				OnEvent onEvent = method.getAnnotation(OnEvent.class);
-				String consumerKey = ConsumerLoader.TOPICNAME2 + onEvent.value();
-				Collection consumerMethods = getContainerConsumers(consumerKey, containerWrapper);
-				String componentname = getConsumerName(cclass);
-				consumerMethods.add(new ConsumerMethodHolder(componentname, method));
+		try {
+			for (Method method : ClassUtil.getAllDecaredMethods(cclass)) {
+				if (method.isAnnotationPresent(OnEvent.class)) {
+					addConsumerMethod(method, cclass, containerWrapper);
+				} else {
+					Method mm = ClassUtil.finddAnnotationForMethod(method, OnEvent.class);
+					if (mm != null) {
+						addConsumerMethod(mm, cclass, containerWrapper);
+					}
+				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
+	}
+
+	private void addConsumerMethod(Method method, Class cclass, ContainerWrapper containerWrapper) {
+		OnEvent onEvent = method.getAnnotation(OnEvent.class);
+		String consumerKey = ConsumerLoader.TOPICNAME2 + onEvent.value();
+		Collection consumerMethods = getContainerConsumers(consumerKey, containerWrapper);
+		String componentname = getConsumerName(cclass);
+		consumerMethods.add(new ConsumerMethodHolder(componentname, method));
 	}
 
 	public Collection getContainerConsumers(String topicKey, ContainerWrapper containerWrapper) {

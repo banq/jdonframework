@@ -70,7 +70,8 @@ public class ComponentAdvsior {
 		try {
 			Class[] interfaces = getInterfaces(o.getClass());
 			if (interfaces == null) {
-				Debug.logError(" Your injected class:" + o.getClass() + " is a @Component/@Service, so the class must has a interface", module);
+				Debug.logError(" Your class:" + o.getClass()
+						+ " has a annotation @Introduce, the class need implement a interface when it be register in container", module);
 				return o;
 			}
 

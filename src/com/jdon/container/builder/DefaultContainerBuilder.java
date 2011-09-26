@@ -137,7 +137,11 @@ public class DefaultContainerBuilder implements ContainerRegistryBuilder {
 	}
 
 	/**
-	 * register user services in jdonframework.xml
+	 * register user services/components in jdonframework.xml
+	 * 
+	 * AnnotationContainerBuilder will override this method, and register
+	 * annotation services or components.
+	 * 
 	 */
 	public void registerUserService() throws Exception {
 		Debug.logVerbose("[JdonFramework] note: registe user pojoservice ", module);

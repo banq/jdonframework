@@ -25,6 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.picocontainer.ComponentAdapter;
 import org.picocontainer.ComponentMonitor;
@@ -65,26 +67,26 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 
 	public final static String module = JdonPicoContainer.class.getName();
 
-	private final Map componentKeyToAdapterCache = new HashMap();
+	private final Map componentKeyToAdapterCache = new ConcurrentHashMap();
 
-	private final Map componentKeyToInstanceCache = new HashMap();
+	private final Map componentKeyToInstanceCache = new ConcurrentHashMap();
 
-	private ComponentAdapterFactory componentAdapterFactory;
-	private PicoContainer parent;
-	private final List componentAdapters = new ArrayList();
+	private final List componentAdapters = new CopyOnWriteArrayList();
 
 	// Keeps track of instantiation order.
-	private final List orderedComponentAdapters = new ArrayList();
+	private final List orderedComponentAdapters = new CopyOnWriteArrayList();
 
 	private LifecycleManager lifecycleManager = new OrderedComponentAdapterLifecycleManager();
-
-	private boolean started = false;
-	private boolean disposed = false;
 
 	private final HashSet children = new HashSet();
 
 	// Keeps track of child containers started status
 	private Set childrenStarted = new HashSet();
+
+	private ComponentAdapterFactory componentAdapterFactory;
+	private PicoContainer parent;
+	private boolean started = false;
+	private boolean disposed = false;
 
 	/**
 	 * Creates a new container with a custom ComponentAdapterFactory and a
@@ -448,15 +450,6 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 		}
 		this.lifecycleManager.stop(this);
 		started = false;
-		for (Object p : componentAdapters) {
-			if (p instanceof JdonConstructorInjectionComponentAdapter) {
-				JdonConstructorInjectionComponentAdapter c = (JdonConstructorInjectionComponentAdapter) p;
-				c.clear();
-			} else if (p instanceof InstanceComponentAdapter) {
-				InstanceComponentAdapter c = (InstanceComponentAdapter) p;
-				c.stop(this);
-			}
-		}
 		componentKeyToAdapterCache.clear();
 		componentKeyToInstanceCache.clear();
 		componentAdapters.clear();
@@ -464,6 +457,15 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 		children.clear();
 		componentAdapterFactory = null;
 		parent = null;
+	}
+
+	public void clearGurad() {
+		for (Object p : this.orderedComponentAdapters) {
+			if (p instanceof JdonConstructorInjectionComponentAdapter) {
+				JdonConstructorInjectionComponentAdapter c = (JdonConstructorInjectionComponentAdapter) p;
+				c.clear();
+			}
+		}
 	}
 
 	private boolean childStarted(PicoContainer child) {

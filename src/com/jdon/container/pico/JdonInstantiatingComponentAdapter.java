@@ -241,9 +241,7 @@ public abstract class JdonInstantiatingComponentAdapter extends AbstractComponen
 	public void clear() {
 		if (verifyingGuard != null) {
 			verifyingGuard.clear();
-			verifyingGuard.clearGuardedContainer();
 		}
-		verifyingGuard = null;
 
 	}
 }

@@ -16,14 +16,13 @@
 package com.jdon.container.pico;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.picocontainer.ComponentAdapter;
-import org.picocontainer.MutablePicoContainer;
 import org.picocontainer.Parameter;
 import org.picocontainer.defaults.ConstantParameter;
-import org.picocontainer.defaults.DefaultPicoContainer;
 
 import com.jdon.container.ContainerWrapper;
 import com.jdon.container.finder.ContainerCallback;
@@ -39,7 +38,7 @@ import com.jdon.util.Debug;
 public class PicoContainerWrapper implements ContainerWrapper {
 	public final static String module = PicoContainerWrapper.class.getName();
 
-	private MutablePicoContainer container;
+	private JdonPicoContainer container;
 
 	private volatile boolean start;
 
@@ -53,37 +52,10 @@ public class PicoContainerWrapper implements ContainerWrapper {
 		registerContainerCallback();
 	}
 
-	public PicoContainerWrapper(MutablePicoContainer container) {
-		this.container = container;
-		registerContainerCallback();
-	}
-
 	public synchronized void registerContainerCallback() {
 		ContainerCallback containerCallback = new ContainerCallback(this);
 		register(ContainerCallback.NAME, containerCallback);
 		register(ComponentAdvsior.NAME, new ComponentAdvsior(containerCallback));
-	}
-
-	/**
-	 * registe a child container in parent container
-	 */
-	public synchronized void registerChild(String name) {
-		try {
-			MutablePicoContainer child = new DefaultPicoContainer(container);
-			register(name, child);
-			// todo: bidirector register, so components can find each other
-			// child.registerComponentInstance(name, container);
-		} catch (Exception ex) {
-			Debug.logWarning(" registe error: " + name, module);
-		}
-	}
-
-	/**
-	 * get the child container from the parent container
-	 */
-	public ContainerWrapper getChild(String name) {
-		MutablePicoContainer child = (MutablePicoContainer) lookup(name);
-		return new PicoContainerWrapper(child);
 	}
 
 	public synchronized void register(String name, Class className) {
@@ -184,8 +156,10 @@ public class PicoContainerWrapper implements ContainerWrapper {
 	}
 
 	public synchronized void setStart(boolean start) {
-		if (start)
+		if (start) {
+			this.container.clearGurad();
 			this.notifyAll();
+		}
 		this.start = start;
 	}
 
@@ -254,7 +228,17 @@ public class PicoContainerWrapper implements ContainerWrapper {
 			Debug.logError("container not start", module);
 			return null;
 		}
-		return container.getComponentInstancesOfType(componentType);
+		List result = new ArrayList();
+		// not use orignal
+		// Map orignals = (Map) lookup(ContainerWrapper.OrignalKey);
+		// if (orignals != null)
+		// for (Object o : orignals.values()) {
+		// if (componentType.isAssignableFrom(o.getClass())) {
+		// result.add(o);
+		// }
+		// }
+		result.addAll(container.getComponentInstancesOfType(componentType));
+		return result;
 	}
 
 }

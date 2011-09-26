@@ -61,12 +61,6 @@ public class JdonConstructorInjectionComponentAdapter extends JdonInstantiatingC
 			this.guardedContainer = container;
 		}
 
-		public void clearGuardedContainer() {
-			if (guardedContainer != null)
-				guardedContainer.stop();
-			guardedContainer = null;
-
-		}
 	}
 
 	private ConfigInfo configInfo;
@@ -133,7 +127,10 @@ public class JdonConstructorInjectionComponentAdapter extends JdonInstantiatingC
 			};
 		}
 		instantiationGuard.setArguments(container);
-		return instantiationGuard.observe(getComponentImplementation());
+		Object result = instantiationGuard.observe(getComponentImplementation());
+		instantiationGuard.clear();
+		return result;
+
 	}
 
 	// overide InstantiatingComponentAdapter 's newInstance
@@ -170,12 +167,7 @@ public class JdonConstructorInjectionComponentAdapter extends JdonInstantiatingC
 		super.clear();
 		if (instantiationGuard != null) {
 			instantiationGuard.clear();
-			instantiationGuard.clearGuardedContainer();
 		}
-		instantiationGuard = null;
-
-		if (sortedMatchingConstructors != null)
-			sortedMatchingConstructors.clear();
 
 	}
 

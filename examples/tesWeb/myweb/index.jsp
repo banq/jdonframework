@@ -11,7 +11,7 @@
 
 <form action="/myweb/myServlet" method="get">
 enter your name:
-<input type="text" name="myname" id="mynameId" value="999">
+<input type="text" name="myname" id="mynameId" value="jdon">
 <input type="submit"/>
 </form>
 

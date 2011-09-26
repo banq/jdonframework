@@ -135,19 +135,4 @@ public interface ContainerWrapper {
 	 */
 	public List getComponentInstancesOfType(Class componentType);
 
-	/**
-	 * register a child container
-	 * 
-	 * @param name
-	 */
-	public void registerChild(String name);
-
-	/**
-	 * get the child container
-	 * 
-	 * @param name
-	 * @return container
-	 */
-	public ContainerWrapper getChild(String name);
-
 }

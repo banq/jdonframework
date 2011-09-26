@@ -16,6 +16,7 @@
 package com.jdon.util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -76,6 +77,76 @@ public class ClassUtil {
 			fields.addAll(Arrays.asList(superClass.getDeclaredFields()));
 		}
 		return fields.toArray(new Field[fields.size()]);
+	}
+
+	public static Class finddAnnotationForMethod(Class clazz, Class annotationClass) {
+		Class[] superClasses = getAllSuperclasses(clazz);
+		if (superClasses != null)
+			for (Class superClass : superClasses) {
+				if (superClass.isAnnotationPresent(annotationClass)) {
+					return superClass;
+				}
+			}
+
+		superClasses = getParentAllInterfaces(clazz);
+		if (superClasses != null)
+			for (Class superClass : superClasses) {
+				if (superClass.isAnnotationPresent(annotationClass)) {
+					return superClass;
+				}
+			}
+		return null;
+
+	}
+
+	public static Method finddAnnotationForMethod(Method m, Class annotationClass) {
+		try {
+			Class[] superClasses = getAllSuperclasses(m.getDeclaringClass());
+			if (superClasses != null)
+				for (Class superClass : superClasses) {
+					for (Method ms : superClass.getDeclaredMethods()) {
+						if (ms.isAnnotationPresent(annotationClass)) {
+							if (ms.getName() == m.getName()) {
+								return ms;
+							}
+						}
+					}
+				}
+
+			superClasses = getParentAllInterfaces(m.getDeclaringClass());
+			if (superClasses != null)
+				for (Class superClass : superClasses) {
+					for (Method ms : superClass.getDeclaredMethods()) {
+						if (ms.isAnnotationPresent(annotationClass)) {
+							if (ms.getName() == m.getName()) {
+								return ms;
+							}
+
+						}
+					}
+				}
+
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+
+	public static Method[] getAllDecaredMethods(Class clazz) {
+		List<Method> methods = new ArrayList<Method>();
+		// fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+
+		Class[] superClasses = getAllSuperclasses(clazz);
+		for (Class superClass : superClasses) {
+			methods.addAll(Arrays.asList(superClass.getDeclaredMethods()));
+		}
+
+		// superClasses = getParentAllInterfaces(clazz);
+		// for (Class superClass : superClasses) {
+		// methods.addAll(Arrays.asList(superClass.getDeclaredMethods()));
+		// }
+		return methods.toArray(new Method[methods.size()]);
 	}
 
 	public static Class[] getAllSuperclasses(Class cls) {
