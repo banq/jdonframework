@@ -86,12 +86,16 @@ public class CacheManager implements Startable {
 	public void putObect(CacheKey ckey, Object value) {
 		if (ckey == null)
 			return;
+		if (cache.contain(ckey.getKey()))
+			return;
 		cache.put(ckey.getKey(), new CacheableWrapper(ckey.getDataKey(), value));
 		Debug.logVerbose("[JdonFramework]<-cache->save cache: " + ckey.getKey() + ", cache size:" + cache.size(), module);
 	}
 
 	public void putObect(String skey, Object value) {
 		if (skey == null)
+			return;
+		if (cache.contain(skey))
 			return;
 		cache.put(skey, new CacheableWrapper(skey, value));
 		Debug.logVerbose("[JdonFramework]<-cache->save cache: " + skey + ", cache size:" + cache.size(), module);

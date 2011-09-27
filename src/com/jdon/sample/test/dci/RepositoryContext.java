@@ -22,14 +22,12 @@ import com.jdon.domain.dci.RoleAssigner;
 public class RepositoryContext {
 	private final RoleAssigner roleAssigner;
 
-	public RepositoryContext(RoleAssigner roleAssigner) {
-		super();
+	public RepositoryContext(RoleAssigner roleAssigner) {		
 		this.roleAssigner = roleAssigner;
 	}
 
 	public void interact() {
 		MyModel myModel = new MyModel();
-
 		RepositoryRoleIF r = (RepositoryRoleIF) roleAssigner.assign(myModel, new RepositoryRole());
 		r.save(myModel);
 

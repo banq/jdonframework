@@ -49,16 +49,13 @@ public class DomainCacheInterceptor implements MethodInterceptor {
 	private final Map<String, String> adviceArounds = new HashMap();
 
 	private final ModelManager modelManager;
-	private final ModelCacheManager modelCacheManager;
 	private final ModelAdvisor modelAdvisor;
 	private final ModelProxyInjection modelProxyInjection;
 
-	public DomainCacheInterceptor(ModelManager modelManager, ModelAdvisor modelAdvisor, ModelCacheManager modelCacheManager,
-			ModelProxyInjection modelProxyInjection) {
+	public DomainCacheInterceptor(ModelManager modelManager, ModelAdvisor modelAdvisor, ModelProxyInjection modelProxyInjection) {
 		super();
 		this.modelManager = modelManager;
 		this.modelAdvisor = modelAdvisor;
-		this.modelCacheManager = modelCacheManager;
 		this.modelProxyInjection = modelProxyInjection;
 	}
 
@@ -104,7 +101,7 @@ public class DomainCacheInterceptor implements MethodInterceptor {
 				// field
 				o = modelAdvisor.createProxy(o);// create the proxy for the
 				// Model
-				modelCacheManager.saveCacheForce(modelKey.getDataKey(), modelKey.getModelClass().getName(), o);
+				modelManager.addCache(modelKey, o);
 				return o;
 			}
 

@@ -17,7 +17,6 @@ package com.jdon.sample.test.domain.simplecase.service;
 
 import com.jdon.annotation.Service;
 import com.jdon.domain.message.DomainMessage;
-import com.jdon.sample.test.domain.simplecase.IServiceSampleTwo;
 import com.jdon.sample.test.domain.simplecase.MyModel;
 import com.jdon.sample.test.domain.simplecase.dci.NameFinderContext;
 import com.jdon.sample.test.domain.simplecase.dci.NameFinderRoleEventsImp;

@@ -66,16 +66,8 @@ public class ModelCacheManager implements Startable {
 		saveToCache(cachKey, model);
 	}
 
-	private void saveToCache(CacheKey cachKey, Object model) {
-		if (ModelUtil.isCachable(model)) {
-			Debug.logVerbose("[JdonFramework]save cache: " + cachKey + " hashCode:" + model.hashCode(), module);
-			cacheManager.putObect(cachKey, model);
-		}
-	}
-
-	public void saveCacheForce(Object dataKey, String modelClassName, Object model) {
-		CacheKey cachKey = cacheKeyFactory.createCacheKey(dataKey.toString(), modelClassName);
-		Debug.logVerbose("[JdonFramework]save cache force: " + cachKey + " hashCode:" + model.hashCode(), module);
+	protected void saveToCache(CacheKey cachKey, Object model) {
+		Debug.logVerbose("[JdonFramework]save cache: " + cachKey + " hashCode:" + model.hashCode(), module);
 		cacheManager.putObect(cachKey, model);
 	}
 

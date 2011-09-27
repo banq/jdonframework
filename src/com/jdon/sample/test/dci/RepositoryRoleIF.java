@@ -15,14 +15,10 @@
  */
 package com.jdon.sample.test.dci;
 
-import com.jdon.annotation.Introduce;
-import com.jdon.annotation.model.Send;
 import com.jdon.domain.message.DomainMessage;
 
-@Introduce("message")
 public interface RepositoryRoleIF {
 
-	@Send("save")
 	public DomainMessage save(MyModel myModel);
 
 }
