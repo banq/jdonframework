@@ -22,7 +22,7 @@ import com.jdon.sample.test.domain.simplecase.MyModel;
 @Component
 public class RepositoryImp2 {
 
-	@OnEvent("save")
+	@OnEvent("saveMyModel")
 	public void todo(MyModel myModel) {
 		System.out.print("\n No.2 @OnEvent:" + this.getClass().getName());
 	}

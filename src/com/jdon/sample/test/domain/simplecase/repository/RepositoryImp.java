@@ -17,6 +17,7 @@ package com.jdon.sample.test.domain.simplecase.repository;
 
 import com.jdon.annotation.Component;
 import com.jdon.annotation.Introduce;
+import com.jdon.annotation.model.OnEvent;
 import com.jdon.annotation.pointcut.Around;
 import com.jdon.sample.test.domain.simplecase.MyModel;
 
@@ -31,6 +32,7 @@ public class RepositoryImp implements MyModelRepository {
 		return mym;
 	}
 
+	@OnEvent("saveMyModel")
 	public void save(MyModel myModel) {
 		System.out.print("\n No.1 @OnEvent:" + this.getClass().getName());
 

@@ -73,7 +73,7 @@ public class ContainerDirector {
 						cb.registerAspectComponents();
 
 						cw.setStart(true);
-						Debug.logInfo(" <========  Jdon Framework started successfully! =========>", module);
+						Debug.logVerbose("Jdon Framework started successfully! ");
 
 						cb.setupAfterStarted();
 

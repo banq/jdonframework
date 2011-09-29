@@ -1,7 +1,7 @@
 <html><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
 <!-- #BeginEditable "doctitle" -->
-<title>DDD/DCI Framework: Jdon Framework</title>  
+<title>DDD DCI CQRS opensource framework: Jdon Framework</title>  
 <!-- #EndEditable -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
@@ -45,6 +45,7 @@
                   <h3 align="left">Latest News</h3>
                   <DIV 
 style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; MARGIN-LEFT: 0px; BORDER-RIGHT-WIDTH: 2px">
+                    <p><a href="http://jivejdon.blogspot.com/2011/09/ddd-dci-and-domain-events-example.html"><strong>DDD DCI and Domain Events example</strong></a></p>
                     <P><STRONG><a href="http://jivejdon.blogspot.com/2011/09/jdon-framework-64-released.html">Jdon Framework_6.4 (Disruptor) released!</a></STRONG> <strong> 09/2011</strong></P>
                     <P>                    Sample DEMO: <a href="http://www.jdon.com/testWeb/" target="_blank">http://www.jdon.com/testWeb/</a><br>
   Source Download: <a href="http://code.google.com/p/jivejdon/downloads/detail?name=SimpleJdonFrameworkTest.rar&can=2&q=#makechanges">click here</a> </P>
@@ -54,7 +55,7 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
                   <H3> Jdon Framework :  DDD Framework </H3>
                                     <DIV 
 style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; MARGIN-LEFT: 0px; BORDER-RIGHT-WIDTH: 2px">
-                    <P>Jdon Framework  is a DDD + DCI + Domain Events framework for java, The domain model   in-memeory  concurrently publishs domain events to the consumers, it can build a CQRS or EDA application, its event engineer is from <a href="http://code.google.com/p/disruptor/">Disruptor</a> that be recommended by <a href="http://martinfowler.com/articles/lmax.html">LMAX Architecture</a> wriiten by Martin Fowler. </P>
+                    <P>Jdon Framework  is a DDD + DCI + Domain Events(Event Sourcing/CQRS) framework for java, The domain model   in-memeory  concurrently publishs domain events to the consumers, it can build a CQRS or EDA application, its event engineer is from <a href="http://code.google.com/p/disruptor/">Disruptor</a> that be recommended by <a href="http://martinfowler.com/articles/lmax.html">LMAX Architecture</a> wriiten by Martin Fowler. </P>
                     <P>DCI:Data Context and Interactions, in JdonFramework, event publisher is a Role, and sending event/message is interactions of the Role, in REST context, the Role will be assigned(Mixin) to data model, so the injected data model can directly publish events to the consumers.</P>
                     <P><a href="http://jivejdon.blogspot.com/2011/09/how-to-enhance-jdon-framework-to-dci.html">REST + DCI + Domain Events for Jdonframework</a></P>
 <P><strong>Domain Events for Evans DDD </strong>:</P>
@@ -72,7 +73,7 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
                       <li>
 Domain-Driven Development, supports in memory model, does the injection of the business logic methods into the domain objects.                      </li>
                       <li>
-                        Event-driven Architecture(EDA) ,asynchronous domain events,concurrency pattern, lazy load                      </li>
+                        Event Sourcing Event-driven Architecture(EDA) ,asynchronous domain events,concurrency pattern, lazy load                      </li>
                       <li>DI and AOP framework, POJO autowiring that implements Dependency Injection, and all components can be replaced, even include the framework itself. introduce any pojo as a inteceptor.</li>
                       <li> Command Query Responsibility Segregation(CQRS/CQS) , support the default implementations for CRUD and   auto paginator for query of large datas .</li>
                       <li>Improve performance of the framework and its applications by plug-in cache.</li>

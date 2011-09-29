@@ -15,13 +15,11 @@
  */
 package com.jdon.sample.test.domain.simplecase.repository;
 
-import com.jdon.annotation.model.OnEvent;
 import com.jdon.sample.test.domain.simplecase.MyModel;
 
 public interface MyModelRepository {
 
 	public MyModel getModel(Long key);
 
-	@OnEvent("save")
 	public void save(MyModel myModel);
 }

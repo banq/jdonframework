@@ -93,11 +93,12 @@ public class ConsumerLoader {
 			for (Method method : ClassUtil.getAllDecaredMethods(cclass)) {
 				if (method.isAnnotationPresent(OnEvent.class)) {
 					addConsumerMethod(method, cclass, containerWrapper);
-				} else {
-					Method mm = ClassUtil.finddAnnotationForMethod(method, OnEvent.class);
-					if (mm != null) {
-						addConsumerMethod(mm, cclass, containerWrapper);
-					}
+					// } else {
+					// Method mm = ClassUtil.finddAnnotationForMethod(method,
+					// OnEvent.class);
+					// if (mm != null) {
+					// addConsumerMethod(mm, cclass, containerWrapper);
+					// }
 				}
 			}
 		} catch (Exception e) {

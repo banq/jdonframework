@@ -27,7 +27,7 @@ public class MyModelDomainEvent {
 		return new DomainMessage(myModel);
 	}
 
-	@Send("save")
+	@Send("saveMyModel")
 	public DomainMessage save(MyModel myModel) {
 		return new DomainMessage(myModel);
 	}

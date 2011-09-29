@@ -19,7 +19,7 @@ import com.jdon.annotation.Consumer;
 import com.jdon.async.disruptor.EventDisruptor;
 import com.jdon.domain.message.DomainEventHandler;
 
-@Consumer("save")
+@Consumer("saveMyModel")
 public class RepositoryListener implements DomainEventHandler {
 	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
 		System.out.println("\n No.3 @OnEvent:" + this.getClass().getName());
