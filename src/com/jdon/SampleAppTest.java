@@ -18,22 +18,16 @@ package com.jdon;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
-import com.jdon.container.startup.ContainerSetupScript;
 import com.jdon.controller.AppUtil;
-import com.jdon.controller.context.application.Application;
 import com.jdon.sample.test.component.BInterface;
 import com.jdon.sample.test.domain.onecase.service.IServiceSample;
 import com.jdon.sample.test.domain.simplecase.service.IServiceSampleTwo;
 
 public class SampleAppTest extends TestCase {
-	ContainerSetupScript css = new ContainerSetupScript();
-	Application da;
 
 	AppUtil appUtil;
 
 	protected void setUp() throws Exception {
-		da = new Application();
-		css.prepare("com.jdon.jdonframework.xml", da);
 		appUtil = new AppUtil("com.jdon.jdonframework.xml");
 	}
 
@@ -81,11 +75,8 @@ public class SampleAppTest extends TestCase {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		ContainerSetupScript css = new ContainerSetupScript();
-		Application da = new Application();
 
-		css.prepare("com.jdon.jdonframework.xml", da);
-		AppUtil appUtil = new AppUtil("com.jdon.jdonframework.xml");
+		AppUtil appUtil = new AppUtil();
 		IServiceSample serviceSample = (IServiceSample) appUtil.getService("serviceSample");
 		String result = serviceSample.eventPointEntry("hello");
 		System.out.print("\n=====" + result + "====\n");
