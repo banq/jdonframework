@@ -37,7 +37,7 @@ public class EventDisruptor extends AbstractEvent implements EventMessage {
 	protected Object eventReturnResult;
 
 	// MILLISECONDS default is one seconds
-	protected int waitTimeforeturnResult = 5000;
+	protected int timeoutforeturnResult = 10000;
 
 	protected RingBuffer<EventDisruptor> ringBuffer;
 
@@ -55,12 +55,44 @@ public class EventDisruptor extends AbstractEvent implements EventMessage {
 		return eventResult;
 	}
 
+	public Object getBlockedEventResult() {
+		if (over)
+			return eventResult;
+		try {
+			EventDisruptor resultEvent = fetchBlockResultEvent();
+			if (resultEvent != null)
+				eventResult = resultEvent.getEventReturnResult();
+			over = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return eventResult;
+	}
+
 	protected EventDisruptor fetchResultEvent() {
 		EventDisruptor resultEvent = null;
 		try {
 			DependencyBarrier dependencyBarrier = ringBuffer.newDependencyBarrier();
 			long nextSequence = this.getSequence() + 1L;
-			final long availableSequence = dependencyBarrier.waitFor(nextSequence, waitTimeforeturnResult, TimeUnit.MILLISECONDS);
+			final long availableSequence = dependencyBarrier.waitFor(nextSequence, timeoutforeturnResult, TimeUnit.MILLISECONDS);
+			if (availableSequence == nextSequence) {
+				resultEvent = ringBuffer.getEvent(availableSequence);
+			}
+		} catch (AlertException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return resultEvent;
+
+	}
+
+	protected EventDisruptor fetchBlockResultEvent() {
+		EventDisruptor resultEvent = null;
+		try {
+			DependencyBarrier dependencyBarrier = ringBuffer.newDependencyBarrier();
+			long nextSequence = this.getSequence() + 1L;
+			final long availableSequence = dependencyBarrier.waitFor(nextSequence);
 			if (availableSequence == nextSequence) {
 				resultEvent = ringBuffer.getEvent(availableSequence);
 			}
@@ -115,12 +147,12 @@ public class EventDisruptor extends AbstractEvent implements EventMessage {
 		ringBuffer.publish(this);
 	}
 
-	public int getWaitTimeforeturnResult() {
-		return waitTimeforeturnResult;
+	public int getTimeoutforeturnResult() {
+		return timeoutforeturnResult;
 	}
 
-	public void setWaitTimeforeturnResult(int waitTimeforeturnResult) {
-		this.waitTimeforeturnResult = waitTimeforeturnResult;
+	public void setTimeoutforeturnResult(int timeoutforeturnResult) {
+		this.timeoutforeturnResult = timeoutforeturnResult;
 	}
 
 }

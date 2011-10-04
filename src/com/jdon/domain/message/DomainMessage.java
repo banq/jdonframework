@@ -43,10 +43,36 @@ public class DomainMessage {
 		this.eventSource = eventSource;
 	}
 
+	/**
+	 * setup time out(MILLISECONDS) value for get a Event Result
+	 * 
+	 * @param timeoutforeturnResult
+	 *            MILLISECONDS
+	 */
+	public void setTimeoutforeturnResult(int timeoutforeturnResult) {
+		eventMessage.setTimeoutforeturnResult(timeoutforeturnResult);
+	}
+
+	/**
+	 * get a Event Result until time out value
+	 * 
+	 * @return Event Result
+	 */
 	public Object getEventResult() {
 		if (eventMessage == null)
 			System.err.print("eventMessage is null " + eventSource.getClass());
 		return eventMessage.getEventResult();
+	}
+
+	/**
+	 * * Blocking until get a Event Result
+	 * 
+	 * @return
+	 */
+	public Object getBlockEventResult() {
+		if (eventMessage == null)
+			System.err.print("eventMessage is null " + eventSource.getClass());
+		return eventMessage.getBlockedEventResult();
 	}
 
 	public void setEventResult(Object eventResult) {

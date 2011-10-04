@@ -229,14 +229,13 @@ public class PicoContainerWrapper implements ContainerWrapper {
 			return null;
 		}
 		List result = new ArrayList();
-		// not use orignal
-		// Map orignals = (Map) lookup(ContainerWrapper.OrignalKey);
-		// if (orignals != null)
-		// for (Object o : orignals.values()) {
-		// if (componentType.isAssignableFrom(o.getClass())) {
-		// result.add(o);
-		// }
-		// }
+		Map orignals = (Map) lookup(ContainerWrapper.OrignalKey);
+		if (orignals != null)
+			for (Object o : orignals.values()) {
+				if (componentType.isAssignableFrom(o.getClass())) {
+					result.add(o);
+				}
+			}
 		result.addAll(container.getComponentInstancesOfType(componentType));
 		return result;
 	}

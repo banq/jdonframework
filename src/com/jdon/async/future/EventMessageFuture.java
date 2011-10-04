@@ -17,6 +17,7 @@ package com.jdon.async.future;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
+import java.util.concurrent.TimeUnit;
 
 import com.jdon.async.EventMessage;
 import com.jdon.domain.message.DomainMessage;
@@ -34,6 +35,9 @@ public class EventMessageFuture implements EventMessage {
 	protected Object eventResult;
 
 	protected boolean over;
+
+	// MILLISECONDS default is one seconds here wait 10seonds
+	protected int timeoutforeturnResult = 10000;
 
 	protected DomainMessage domainMessage;
 
@@ -61,6 +65,22 @@ public class EventMessageFuture implements EventMessage {
 	 * @see com.jdon.async.message.EventMessageHolder#getEventResult()
 	 */
 	public Object getEventResult() {
+		Object result = null;
+		if (over)
+			return eventResult;
+		try {
+			boolean runOk = (Boolean) futureTask.get(timeoutforeturnResult, TimeUnit.MILLISECONDS);
+			if (runOk) {
+				result = this.eventResult;
+			}
+			over = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public Object getBlockedEventResult() {
 		Object result = null;
 		if (over)
 			return eventResult;
@@ -118,6 +138,10 @@ public class EventMessageFuture implements EventMessage {
 
 	public FutureTask getFutureTask() {
 		return futureTask;
+	}
+
+	public void setTimeoutforeturnResult(int timeoutforeturnResult) {
+		this.timeoutforeturnResult = timeoutforeturnResult;
 	}
 
 }

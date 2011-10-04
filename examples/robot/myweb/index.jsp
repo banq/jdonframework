@@ -9,7 +9,8 @@
 </head>
 <body>
 
-this is a demo for <a href="http://jivejdon.blogspot.com/2011/09/ddd-dci-and-domain-events-example.html">DDD DCI and Domain Events example</a>
+this is a demo for english:<a href="http://jivejdon.blogspot.com/2011/09/ddd-dci-and-domain-events-example.html">DDD DCI and Domain Events example</a>
+chinese: http://www.jdon.com/jdonframework/dci.html
 
 <form action="/myweb/myServlet" method="get">
 enter your name:

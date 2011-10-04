@@ -15,10 +15,30 @@
  */
 package com.jdon.async;
 
-
 public interface EventMessage {
 
+	/**
+	 * setup time out(MILLISECONDS) value for get a Event Result
+	 * 
+	 * @param timeoutforeturnResult
+	 *            MILLISECONDS
+	 */
+	void setTimeoutforeturnResult(int timeoutforeturnResult);
+
+	/**
+	 * get a Event Result until time out value: setTimeoutforeturnResult(int
+	 * timeoutforeturnResult)
+	 * 
+	 * @return
+	 */
 	Object getEventResult();
+
+	/**
+	 * Blocking until get a Event Result
+	 * 
+	 * @return
+	 */
+	Object getBlockedEventResult();
 
 	void setEventResult(Object eventResult);
 

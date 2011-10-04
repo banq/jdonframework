@@ -103,7 +103,7 @@ public class ModelProxyInjection {
 			o = ObjectCreator.createObject(fClass);
 			o = modelAdvisor.createProxy(o);
 		} catch (Exception e) {
-			Debug.logError("createTargetObject error:" + e + " in" + targetModel.getClass(), module);
+			Debug.logError("createTargetObject error:" + e + " in " + targetModel.getClass(), module);
 		}
 		return o;
 
@@ -115,17 +115,11 @@ public class ModelProxyInjection {
 			List<Object> objects = containerCallback.getContainerWrapper().getComponentInstancesOfType(fClass);
 			// List should be have only one.
 			for (Object instance : objects) {
-				// there are two posiible: a component or a proxy,
-				return instance;
-				// if (isComponent(instance)) {
-				// o = instance;
-				// break;
-				// }
-
+				o = instance;
+				break;
 			}
-			// if (o != null && componentAdvsior.getInterfaces(o.getClass()) !=
-			// null)
-			// o = componentAdvsior.createProxy(o);
+			if (o != null)
+				o = modelAdvisor.createProxy(o);
 		} catch (Exception e) {
 			Debug.logError("createTargetComponent error:" + e + " in" + targetModel.getClass(), module);
 		}
