@@ -55,7 +55,7 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
                   <H3> Jdon Framework :  DDD Framework </H3>
                                     <DIV 
 style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; MARGIN-LEFT: 0px; BORDER-RIGHT-WIDTH: 2px">
-                    <P>Jdon Framework  is a DDD + DCI + Domain Events(Event Sourcing/CQRS) framework for java, The domain model   in-memeory  concurrently publishs domain events to the consumers, it can build a CQRS or EDA application, its event engineer is from <a href="http://code.google.com/p/disruptor/">Disruptor</a> that be recommended by <a href="http://martinfowler.com/articles/lmax.html">LMAX Architecture</a> wriiten by Martin Fowler. </P>
+                    <P>Jdon Framework  is a DDD + DCI + Domain Events(Event Sourcing/CQRS) framework for java, The domain model   in-memeory  concurrently publishs domain events to the consumers, it can build a CQRS or EDA application, its event engineer is from <a href="http://code.google.com/p/disruptor/">Disruptor</a> that be recommended by <a href="http://martinfowler.com/articles/lmax.html">LMAX Architecture</a> wriiten by Martin Fowler. (Nothing Blocks)</P>
                     <P>DCI:Data Context and Interactions, in JdonFramework, event publisher is a Role, and sending event/message is interactions of the Role, in REST context, the Role will be assigned(Mixin) to data model, so the injected data model can directly publish events to the consumers.</P>
                     <P><a href="http://jivejdon.blogspot.com/2011/09/how-to-enhance-jdon-framework-to-dci.html">REST + DCI + Domain Events for Jdonframework</a></P>
 <P><strong>Domain Events for Evans DDD </strong>:</P>
@@ -71,9 +71,9 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
                     <P>&nbsp;</P>
                     <ol>
                       <li>
-Domain-Driven Development, supports in memory model, does the injection of the business logic methods into the domain objects.                      </li>
+Domain-Driven Development, supports in memory model, does the injection of the business logic methods into the domain objects. supports DCI.                    </li>
                       <li>
-                        Event Sourcing Event-driven Architecture(EDA) ,asynchronous domain events,concurrency pattern, lazy load                      </li>
+                        Event Sourcing:Never blocks ,Nothing blocks, concurrent programming;  Event-driven Architecture(EDA) :asynchronous ,concurrency pattern, lazy load                      </li>
                       <li>DI and AOP framework, POJO autowiring that implements Dependency Injection, and all components can be replaced, even include the framework itself. introduce any pojo as a inteceptor.</li>
                       <li> Command Query Responsibility Segregation(CQRS/CQS) , support the default implementations for CRUD and   auto paginator for query of large datas .</li>
                       <li>Improve performance of the framework and its applications by plug-in cache.</li>
@@ -96,11 +96,6 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
                     <h4>SVN</h4>
                     <P>jivejdon:   <a href="http://code.google.com/p/jivejdon/source/checkout">http://code.google.com/p/jivejdon/source/checkout</a></P>
                     <P>&nbsp;</P>
-                    <h4>中文页面</h4>
-                    <p><a href="http://www.jdon.org/cn/designpatterns/">设计模式</a></p>
-                    <p><a href="http://www.jdon.org/cn/design.htm">建模架构</a></p>
-                    <p><a href="http://www.jdon.org/cn/trainning.htm">培训咨询</a></p>
-                    <p><a href="http://www.jdon.org/cn/jdonframework/">jdon框架</a></p>
                   </DIV>
                   <DIV 
 style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; MARGIN-LEFT: 0px; BORDER-RIGHT-WIDTH: 2px"></DIV>
@@ -140,14 +135,11 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
                   <p ><a href="JdonFramework.ppt"><strong>Architecture</strong></a></p>
                   <p ><B><a href="doc.htm" target="_blank">Document</a></B></p>
                   <p ><a href="quickconf.html"><strong>Qucik Start</strong></a> </p>
-                  <p ><a href="steps.html"><strong>Step By Step</strong></a> </p>
-                 
-                  <p ><a href="struts_jdon_jdbc.html"><strong>Sample Application</strong></a> </p>
-                  <p ><B><a href="http://www.jdon.com/testWeb/" target="_blank">Sample Online Demo</a></B></p>
+                  <p ><a href="http://jivejdon.blogspot.com/"><strong>Blog</strong></a></p>
                   <p ><a href="https://github.com/banq/jdonframework"><strong>Github</strong></a></p>
-                  <p ><B><a href="http://code.google.com/p/jivejdon/" target="_blank">jivejdon</a></B></p>
+<p ><B><a href="http://code.google.com/p/jivejdon/" target="_blank">jivejdon</a></B></p>
                   <p ><a href="http://code.google.com/p/jdonmvc/downloads/list"><strong>JdonMVC</strong></a></p>
-                  <p ><a href="http://jivejdon.blogspot.com/">Blog</a></p>
+                  <p >&nbsp;</p>
                   <p > <a href="http://twitter.com/banqjdon"><img src="http://cdn.dzone.com/links/themes/reader/images/actions/twitter-32x32.png" alt="twwiter"/></a></p>
 <p ><a href="http://sourceforge.net/projects/jdon/"><img src="images/sf.gif" alt="sf" width="88" height="31" border="0"></a></p>
                   <!-- InstanceBeginEditable name="Menu" --> <!-- InstanceEndEditable --> </td>

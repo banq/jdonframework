@@ -1,7 +1,7 @@
 <html><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
 <!-- #BeginEditable "doctitle" -->
-<title>Jdon Framework</title>  
+<title>Jdon Framework Quick start</title>  
 <!-- #EndEditable -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
@@ -270,6 +270,7 @@ Sample Source Download: <a href="https://sourceforge.net/project/showfiles.php?g
                   <p>&nbsp;</p>
                   <p>&nbsp;</p>
                   <h4>How starting the framework? </h4>
+                  <p>If there is no xml, all are annotation, no need this step.</p>
                   <p>there are two ways to starting the framework in our web project.                     </p>
                   <p>first way: web.xml configuration:</p>
                   <table width="90%" bgcolor="#cccccc" border="0">
@@ -306,9 +307,9 @@ Sample Source Download: <a href="https://sourceforge.net/project/showfiles.php?g
                   <table width="90%" bgcolor="#cccccc" border="0">
                     <tbody>
                       <tr>
-                        <td><p>ContainerSetupScript css = new ContainerSetupScript();<br>
-css.prepare(&quot;com.jdon.jdonframework.xml&quot;, da);<br>
-AppUtil appUtill = new AppUtil(&quot;com.jdon.jdonframework.xml&quot;);</p>
+                        <td><p>AppUtil appUtill = new AppUtil(&quot;com.jdon.jdonframework.xml&quot;);<br>
+                          //no xml<br>
+                          //AppUtil appUtill = new AppUtil(); </p>
                           <p>IServiceSample serviceSample = (IServiceSample) appUtil.getService(&quot;serviceSample&quot;);<br>
                             String res = (String) serviceSample.eventPointEntry(&quot;hello&quot;);<br>
                         Assert.assertEquals(res, &quot;eventMessage=hello&quot;);</p></td>
@@ -321,81 +322,18 @@ AppUtil appUtill = new AppUtil(&quot;com.jdon.jdonframework.xml&quot;);</p>
                   <p>&nbsp;</p>
                   <p>&nbsp;</p>
                   <h2>Mor DEATILS</h2>
-                  <h3>Startup the jdonframework</h3>
-                  <p>When using jdon framework at first time, you need to get it started in project   application, since jdon’s CRUD development functions are built on struts1.2, so   if you want to utilize this part of function, you need to employ InitPlugIn   built in Struts to start up jdonframework.xml</p>
-                  At present, JDon has integrated with   Struts’ presentation layer, so you can start up jdonframework.xml by using   plugin in struts. The advantage of doing this is that you can implement the   multi-module development with struts. A struts project may contain several   function modules. Every function module is got involved in several other   components from web page presentation (struts configuration and tiles   configuration), module design to server side persistency. Jdon can start up   jdonframework.xml by using plugin in struts to support this kind of multi-modlue   development.<BR>
+                  <p><BR>
                     <BR>
-                    <strong>Configuration method 1</strong>:<BR>
-                    Jdon framework has provided a   default implementing class to plugin which is com.jdon.strutsutil.IniPlugIn, you   can also implement plugin by the needs of you own. In struts-config.xml (or   other struts module configuration files such as struts-config-admin.xml and so   on), you can configure plugin’s implementing class:<BR>
+                    <strong>Interceptor configuration</strong> <BR>
                     <BR>
-                    Please see the   following configuration snippet.<BR>
+                    when you develope a interceptor, 
+                    you need this step. <br>
+                    When Jon framework   is starting up, it will use container.xml and aspect.xml under META-INF in   jdonframework.jar by default. If you need to extend Jdon framework, for example,   you have developed some small components, such as formula functions, chart   components or some general functions and you need load these components as   starting up, or expect them configurable and replaceable as our wish, you can   integreated them into jdon. There are two ways to go. (It is not the   must)<BR>
+                    First Step :<BR>
+                    define you own component configuration file and   interceptor component configuration file, which name much be mycontainer.xml and   myaspect.xml, these two files must be put in the system class path or packed in   your jar file, this jar file could also be deployed together with jdon   framework’s jar file<BR>
                     <BR>
-                    <table width="90%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
-                      <tr>
-                        <td>&lt;plug-in className="com.jdon.strutsutil.InitPlugIn"&gt; <br>
-                          &lt;set-property property="modelmapping-config" value="jdonframework.xml" /&gt;<br>
-                          &lt;/plug-in&gt; </td>
-                      </tr>
-                    </table>
-                    <BR>
-                    <BR>
-                    The main purpose of InitPlugIn class is to read the   modelmapping-config’s value which is the name of jdonframework configuration   file defined by you. <BR>
-                    <BR>
-                    File name could be arbitrary, for example, you can   use news.jdonframework.xml to represent that jdonframework.xml is under the   package news. com.jdon.app.myframework.xml is representing that myframework.xml   is under the package com.jdon.app.<BR>
-                    Usually, you can put jdonframework.xml in   the web application’s class path, for example, WEB-INF/classess. 
-                    You can   configure more then one jdonfremework.xml in plugin like the   following:<BR>
-                    <BR>
-                    <table width="90%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
-                      <tr>
-                        <td><p>&lt;plug-in className="com.jdon.strutsutil.InitPlugIn"&gt;<br>
-                          &lt;set-property property="modelmapping-config" 
-                          value="com.jdon.framework.test.model.models.xml,
-                          com.jdon.framework.test.service.services.xml,
-                          com.jdon.framework.test.dao.dao.xml" /&gt;    <br>
-                          &lt;/plug-in&gt; </p>                        </td>
-                      </tr>
-                    </table>
-                    <BR>
-                    <BR>
-                    Also, you can set them   within their struts-config.xml files respectively.<BR>
-                    <BR>
-                    <strong>Configuration method   2</strong><BR>
-                    If you are not using struts, you can start up jdon framework by setting   web.xml. Here is an   example.<BR>
-                    <BR>
-                    <table width="90%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
-                      <tr>
-                        <td><p>&lt;context-param&gt;<br>
-                          &lt;param-name&gt; modelmapping-config &lt;/param-name&gt;<br>
-                          &lt;param-value&gt; jdonframework.xml &lt;/param-value&gt;<br>
-                          &lt;/context-param&gt;<br>
-                          ……<br>
-                          &lt;listener&gt;<br>
-&lt;listener-class&gt;com.jdon.container.startup.ServletContainerListener&lt;/listener-class&gt;<br>
-&lt;/listener&gt;</p>
-                          <p></p></td>
-                      </tr>
-                    </table>
-                    <p>Param-value in the above example could have more than   one value separated by commons like the   following:</p>
-                    <table width="98%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
-                      <tr>
-                        <td><p>&lt;context-param&gt;       &lt;param-name&gt;modelmapping-config &lt;/param-name&gt;      &lt;param-value&gt;com.jdon.framework.test.model.models.xml,  com.jdon.framework.test.service.services.xml,  com.jdon.framework.test.dao.dao.xml&lt;/param-value&gt;      &lt;/context-param&gt; </p>
-                            <p></p></td>
-                      </tr>
-                    </table>
-                    <p>models.xml and services.xml dao.xml are multi configuration, sample see JiveJdon3.0 </p>
-                    <p><BR>
-                      Please note, if you are not using struts,   com.jdon.framework.test.model.models.xml within para-name is invalid, yet   com.jdon.framework.test.service.services.xml is still valid, which is set   component container that you can also regard it as components.<BR>
-                      <BR>
-                      <strong>Interceptor configuration</strong> <BR>
-                      <BR>
-                      when you develope a interceptor, 
-                      you need this step. <br>
-                      When Jon framework   is starting up, it will use container.xml and aspect.xml under META-INF in   jdonframework.jar by default. If you need to extend Jdon framework, for example,   you have developed some small components, such as formula functions, chart   components or some general functions and you need load these components as   starting up, or expect them configurable and replaceable as our wish, you can   integreated them into jdon. There are two ways to go. (It is not the   must)<BR>
-                      First Step :<BR>
-                      define you own component configuration file and   interceptor component configuration file, which name much be mycontainer.xml and   myaspect.xml, these two files must be put in the system class path or packed in   your jar file, this jar file could also be deployed together with jdon   framework’s jar file<BR>
-                      <BR>
-                      Second Step:<BR>
-                      You can define it in web.xml in your   web application, here is an   example:</p>
+                    Second Step:<BR>
+                  You can define it in web.xml in your   web application, here is an   example:</p>
                     <table width="98%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
                       <tr>
                         <td><p>&lt;context-param&gt;<br>
@@ -503,14 +441,11 @@ class=&quot;com.jdon.jivejdon.service.imp.account.EmailDefine&quot;&gt; <br>
                   <p ><a href="JdonFramework.ppt"><strong>Architecture</strong></a></p>
                   <p ><B><a href="doc.htm" target="_blank">Document</a></B></p>
                   <p ><a href="quickconf.html"><strong>Qucik Start</strong></a> </p>
-                  <p ><a href="steps.html"><strong>Step By Step</strong></a> </p>
-                 
-                  <p ><a href="struts_jdon_jdbc.html"><strong>Sample Application</strong></a> </p>
-                  <p ><B><a href="http://www.jdon.com/testWeb/" target="_blank">Sample Online Demo</a></B></p>
+                  <p ><a href="http://jivejdon.blogspot.com/"><strong>Blog</strong></a></p>
                   <p ><a href="https://github.com/banq/jdonframework"><strong>Github</strong></a></p>
-                  <p ><B><a href="http://code.google.com/p/jivejdon/" target="_blank">jivejdon</a></B></p>
+<p ><B><a href="http://code.google.com/p/jivejdon/" target="_blank">jivejdon</a></B></p>
                   <p ><a href="http://code.google.com/p/jdonmvc/downloads/list"><strong>JdonMVC</strong></a></p>
-                  <p ><a href="http://jivejdon.blogspot.com/">Blog</a></p>
+                  <p >&nbsp;</p>
                   <p > <a href="http://twitter.com/banqjdon"><img src="http://cdn.dzone.com/links/themes/reader/images/actions/twitter-32x32.png" alt="twwiter"/></a></p>
 <p ><a href="http://sourceforge.net/projects/jdon/"><img src="images/sf.gif" alt="sf" width="88" height="31" border="0"></a></p>
                   <!-- InstanceBeginEditable name="Menu" --> <!-- InstanceEndEditable --> </td>

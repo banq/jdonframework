@@ -1,7 +1,7 @@
 <html><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
 <!-- #BeginEditable "doctitle" -->
-<title>Jdon Framework</title>  
+<title>Jdon Framework document</title>  
 <!-- #EndEditable -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
@@ -182,9 +182,11 @@ com.jdon.domain.message.DomainEventHandler</p>
 <h2>DCI</h2>
 <p>DCI: Data, Context, Interactions is a programming paradigm invented by Trygve Reenskaug. the domain model is a Data, the domain events producer is a Role of DCI, it includes the interactions of DCI. </p>
 <p>Jdon Framework's domain model injection function can inject the role into the domain model, such as above the class UserDomainEvents is a Role, it can be injected into the model UserModel.so it help UserModel implements business function ComputeCount. In runtime, The Role UserDomainEvents will be injected into the Data UserModel.<br>
-  <br> 
+  <br>
+  <a href="http://jivejdon.blogspot.com/2011/09/ddd-dci-and-domain-events-example.html"><strong>DDD DCI and Domain Events example</strong></a> </p>
+<p><br> 
   DCI Example:<a href="http://code.google.com/p/jivejdon/downloads/detail?name=SimpleJdonFrameworkTest.rar&amp;can=2&amp;q=">SimpleJdonFrameworkTest.rar</a> </p>
-                  <h2>Aop</h2>
+<h2>AOP</h2>
                     <p>Using the  DDD,It is the domain models drive the  technical components to finish the business logics,and in this design style,the  components are just the assistants,which assist the domain models to complete  the business operations.So how the domain models gain the needed  components,Jdon framework use the @Inject and @Component to inject components  and the domain events into models.<br>
                       </p>
                     <p>As the followed diagram illustrates  ,when client invoke the getA(&quot;a&quot;),if Model A with a Introduce,the A  will be enhanced,and the technical component C will also be injected  into the A ,at the same time,when inject the  B,the B will also be enhanced for the @Introduce.</p>
@@ -295,76 +297,8 @@ com.jdon.domain.message.DomainEventHandler</p>
                       here is the system demo:<a href="http://www.jdon.com:8080/testWeb/" target="_blank">http://www.jdon.com:8080/testWeb/</a> </P>
                     <P>More details in <B><a href="doc.htm" target="_blank">Architecture Document</a></B> <a href="steps.html" target="_blank">Step by Step develop a Jdon application</a></P>
                     <h2>&nbsp;</h2>
-                    <h2>&nbsp;</h2>
-                    <h2><strong>Comparison with EJB2/EJB3/Spring 1.x/Jdon </strong></h2>
-                    <table width="100%"  border="0" cellspacing="1" cellpadding="1">
-                        <tr>
-                          <td bgcolor="#CCCCCC"><table width="100%"  border="0">
-                              <tr>
-                                <td width="16%">&nbsp;</td>
-                                <td width="28%">EJB2/EJB3</td>
-                                <td width="29%">Spring Framework </td>
-                                <td width="27%">Jdon Framework </td>
-                              </tr>
-                              <tr bgcolor="#FFFFFF">
-                                <td align="center" bgcolor="#999999"> loose coupling </td>
-                                <td>EJB3 supports Application POJO</td>
-                                <td> supports Application POJO，but the framework
-                                  itself is not managed in a ioc.</td>
-                                <td>supports Application POJO，and the framework
-                                itself is  managed in a ioc.</td>
-                              </tr>
-                              <tr bgcolor="#FFFFFF">
-                                <td align="center" bgcolor="#999999">full-stack</td>
-                                <td>more full-stack</td>
-                                <td>full-stack</td>
-                                <td>less full-stack</td>
-                              </tr>
-                              <tr bgcolor="#FFFFFF">
-                                <td align="center" bgcolor="#999999">stand-alone<br>                                  </td>
-                                <td>no location transparency<br>
-                                performance trap </td>
-                                <td>location transparency</td>
-                                <td>location transparency, and the performance
-                                  of the framework's components are optimized.excellent
-                                  stand-alone performance. </td>
-                              </tr>
-                              <tr bgcolor="#FFFFFF">
-                                <td align="center" bgcolor="#999999">scalablity</td>
-                                <td><p>supports cluster.</p></td>
-                                <td>not supports cluster, but can support EJB, </td>
-                                <td>not supports cluster,but can be a proxy of
-                                EJB. </td>
-                              </tr>
-                              <tr bgcolor="#FFFFFF">
-                                <td align="center" bgcolor="#999999">RAD Tool </td>
-                                <td>need business IDE Tool </td>
-                                <td>autowiring is not default core function,
-                                  when there are hundreds of beans, many time
-                                  will spent on taking care of their invocation
-                                  relations. </td>
-                                <td>simple but powerful, support core autowiring,
-                                  donot take care of the beans invovation relations. </td>
-                              </tr>
-                              <tr bgcolor="#FFFFFF">
-                                <td align="center" bgcolor="#999999">system</td>
-                                <td>large system or medium system. </td>
-                                <td>medium and small system </td>
-                                <td>small and medium system</td>
-                              </tr>
-                              <tr bgcolor="#FFFFFF">
-                                <td align="center" bgcolor="#999999">weight<br>
-                                lightweight</td>
-                                <td>weight,but banting.</td>
-                                <td>lightweight, but maybe being fat </td>
-                                <td>lightweight, always simple but quick and
-                                  powerful </td>
-                              </tr>
-                          </table></td>
-                        </tr>
-                  </table>
-                      <h2><strong>Comparison with Ruby on Rails </strong></h2>
-                      <p class="style2"><img src="http://www.jdon.com/jdonframework/images/ror.jpg" width="565" height="252" alt="ror"></p>
+                    <h2><strong>Comparison with Ruby on Rails </strong></h2>
+<p class="style2"><img src="http://www.jdon.com/jdonframework/images/ror.jpg" width="565" height="252" alt="ror"></p>
                       <h2><strong>Domain Driven Development </strong></h2>
                       <p>　　When we develop a J2EE application with Jdon Framework,at first we must finish domain object 's design, and then  copy the domain object(Model) to presentation layer's ModelForm, and persistence Model in Hibernate/iBatis. Boundary Object = Domain Object = Entity Object(BO).</p>
                    
@@ -561,9 +495,14 @@ color=black>　　</FONT>&lt;/services&gt;<br>
                     and then transfer to EJB container, Jdon's container only
                     affect the POJO services.</P>
                   <P>　　now chinese document is available: <a href="http://www.jdon.com/jdonframework/JdonFramework.pdf">click here </a></P>
-                  <p>　　welcome you join our english document team. </p>
-                  <p align="center">&nbsp;</p>
+                  <p>　　welcome you join our english document team.</p>
                   <p>&nbsp;</p>
+                  <p>old version  :</p>
+                  <p> <a href="http://www.jdon.org/steps.html"><strong>Step By Step</strong></a></p>
+                  <p><a href="http://www.jdon.org/struts_jdon_jdbc.html"><strong>How to develop Struts-Jdon-JDBC Application</strong></a></p>
+                  <p><a href="http://www.jdon.org/command.html"><strong>Command patern for calling services</strong></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
                   <!-- #EndEditable -->
 			    </td>
               </tr>
@@ -578,14 +517,11 @@ color=black>　　</FONT>&lt;/services&gt;<br>
                   <p ><a href="JdonFramework.ppt"><strong>Architecture</strong></a></p>
                   <p ><B><a href="doc.htm" target="_blank">Document</a></B></p>
                   <p ><a href="quickconf.html"><strong>Qucik Start</strong></a> </p>
-                  <p ><a href="steps.html"><strong>Step By Step</strong></a> </p>
-                 
-                  <p ><a href="struts_jdon_jdbc.html"><strong>Sample Application</strong></a> </p>
-                  <p ><B><a href="http://www.jdon.com/testWeb/" target="_blank">Sample Online Demo</a></B></p>
+                  <p ><a href="http://jivejdon.blogspot.com/"><strong>Blog</strong></a></p>
                   <p ><a href="https://github.com/banq/jdonframework"><strong>Github</strong></a></p>
-                  <p ><B><a href="http://code.google.com/p/jivejdon/" target="_blank">jivejdon</a></B></p>
+<p ><B><a href="http://code.google.com/p/jivejdon/" target="_blank">jivejdon</a></B></p>
                   <p ><a href="http://code.google.com/p/jdonmvc/downloads/list"><strong>JdonMVC</strong></a></p>
-                  <p ><a href="http://jivejdon.blogspot.com/">Blog</a></p>
+                  <p >&nbsp;</p>
                   <p > <a href="http://twitter.com/banqjdon"><img src="http://cdn.dzone.com/links/themes/reader/images/actions/twitter-32x32.png" alt="twwiter"/></a></p>
 <p ><a href="http://sourceforge.net/projects/jdon/"><img src="images/sf.gif" alt="sf" width="88" height="31" border="0"></a></p>
                   <!-- InstanceBeginEditable name="Menu" --> <!-- InstanceEndEditable --> </td>

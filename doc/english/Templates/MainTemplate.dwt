@@ -56,14 +56,11 @@
                   <p ><a href="../JdonFramework.ppt"><strong>Architecture</strong></a></p>
                   <p ><B><a href="../doc.htm" target="_blank">Document</a></B></p>
                   <p ><a href="../quickconf.html"><strong>Qucik Start</strong></a> </p>
-                  <p ><a href="../steps.html"><strong>Step By Step</strong></a> </p>
-                 
-                  <p ><a href="../struts_jdon_jdbc.html"><strong>Sample Application</strong></a> </p>
-                  <p ><B><a href="http://www.jdon.com/testWeb/" target="_blank">Sample Online Demo</a></B></p>
+                  <p ><a href="http://jivejdon.blogspot.com/"><strong>Blog</strong></a></p>
                   <p ><a href="https://github.com/banq/jdonframework"><strong>Github</strong></a></p>
-                  <p ><B><a href="http://code.google.com/p/jivejdon/" target="_blank">jivejdon</a></B></p>
+<p ><B><a href="http://code.google.com/p/jivejdon/" target="_blank">jivejdon</a></B></p>
                   <p ><a href="http://code.google.com/p/jdonmvc/downloads/list"><strong>JdonMVC</strong></a></p>
-                  <p ><a href="http://jivejdon.blogspot.com/">Blog</a></p>
+                  <p >&nbsp;</p>
                   <p > <a href="http://twitter.com/banqjdon"><img src="http://cdn.dzone.com/links/themes/reader/images/actions/twitter-32x32.png" alt="twwiter"/></a></p>
 <p ><a href="http://sourceforge.net/projects/jdon/"><img src="../images/sf.gif" alt="sf" width="88" height="31" border="0"></a></p>
                   <!-- TemplateBeginEditable name="Menu" --> <!-- TemplateEndEditable --> </td>
