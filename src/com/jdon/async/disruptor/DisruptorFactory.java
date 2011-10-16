@@ -22,6 +22,8 @@ import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 
+import com.jdon.async.disruptor.util.DisruptorWizard;
+import com.jdon.async.disruptor.util.EventHandlerGroup;
 import com.jdon.container.ContainerWrapper;
 import com.jdon.container.annotation.type.ConsumerLoader;
 import com.jdon.container.finder.ContainerCallback;
@@ -34,8 +36,6 @@ import com.lmax.disruptor.ClaimStrategy;
 import com.lmax.disruptor.EventFactory;
 import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.WaitStrategy;
-import com.lmax.disruptor.wizard.DisruptorWizard;
-import com.lmax.disruptor.wizard.EventHandlerGroup;
 
 public class DisruptorFactory implements EventFactory {
 	public final static String module = DisruptorFactory.class.getName();
