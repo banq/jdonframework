@@ -1,7 +1,13 @@
 package com.jdon.container.access;
 
-public class TargetMetaRequestsHolder {
+import java.io.Serializable;
 
+public class TargetMetaRequestsHolder implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2060798067579323872L;
 	private static ThreadLocal targetMetaRequests = new ThreadLocal();
 
 	public TargetMetaRequest getTargetMetaRequest() {

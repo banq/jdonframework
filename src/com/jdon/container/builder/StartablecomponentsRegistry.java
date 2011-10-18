@@ -23,6 +23,11 @@ import java.util.List;
 import com.jdon.container.ContainerWrapper;
 import com.jdon.container.pico.Startable;
 
+/**
+ * 
+ * @author banq
+ * @see com.jdon.container.pico.Startable
+ */
 public class StartablecomponentsRegistry {
 
 	public final static String NAME = "startablecomponentsRegistry";
@@ -46,6 +51,32 @@ public class StartablecomponentsRegistry {
 				try {
 					if (o instanceof com.jdon.container.pico.Startable)
 						sTART.invoke(o, new Object[0]);
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+	}
+
+	public void stopStartableComponents(ContainerWrapper containerWrapper) {
+		try {
+			Method sTOP = com.jdon.container.pico.Startable.class.getMethod("stop", new Class[0]);
+			for (String name : startablecomponentsRegistry) {
+				Object o = containerWrapper.lookup(name);
+				try {
+					if (o instanceof com.jdon.container.pico.Startable)
+						sTOP.invoke(o, new Object[0]);
 				} catch (IllegalArgumentException e) {
 					e.printStackTrace();
 				} catch (IllegalAccessException e) {

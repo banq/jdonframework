@@ -90,7 +90,7 @@ public class AnnotationContainerBuilder extends DefaultContainerBuilder {
 		annotationContainerRegistry.registerAnnotationComponents();
 	}
 
-	public void setupAfterStarted() throws Exception {
+	public void doAfterStarted() throws Exception {
 		annotationContainerRegistry.copyTargetMetaDefHolder();
 	}
 

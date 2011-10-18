@@ -171,6 +171,11 @@ public class DefaultContainerBuilder implements ContainerRegistryBuilder {
 		scr.startStartableComponents(containerWrapper);
 	}
 
+	public void stopApp() {
+		StartablecomponentsRegistry scr = (StartablecomponentsRegistry) containerWrapper.lookup(StartablecomponentsRegistry.NAME);
+		scr.stopStartableComponents(containerWrapper);
+	}
+
 	public synchronized void setKernelStartup(boolean startup) {
 		this.startup = startup;
 	}
@@ -179,7 +184,7 @@ public class DefaultContainerBuilder implements ContainerRegistryBuilder {
 		return startup;
 	}
 
-	public void setupAfterStarted() throws Exception {
+	public void doAfterStarted() throws Exception {
 
 	}
 

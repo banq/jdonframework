@@ -15,7 +15,6 @@
 
 package com.jdon.container.startup;
 
-import com.jdon.container.ContainerWrapper;
 import com.jdon.container.builder.ContainerDirector;
 import com.jdon.container.builder.ContainerRegistryBuilder;
 import com.jdon.container.factory.ContainerBuilderFactory;
@@ -94,7 +93,7 @@ public class ContainerSetupScript {
 		ContainerRegistryBuilder cb;
 		try {
 			cb = (ContainerRegistryBuilder) context.getAttribute(ContainerRegistryBuilder.APPLICATION_CONTEXT_ATTRIBUTE_NAME);
-			if (cb == null){
+			if (cb == null) {
 				Debug.logError("[JdonFramework] at first call prepare method");
 				return;
 			}
@@ -118,8 +117,8 @@ public class ContainerSetupScript {
 			ContainerRegistryBuilder cb = (ContainerRegistryBuilder) context
 					.getAttribute(ContainerRegistryBuilder.APPLICATION_CONTEXT_ATTRIBUTE_NAME);
 			if (cb != null) {
-				ContainerWrapper cw = cb.getContainerWrapper();
-				cw.stop();
+				ContainerDirector cd = new ContainerDirector(cb);
+				cd.shutdown();
 				cb = null;
 				context.setAttribute(ContainerRegistryBuilder.APPLICATION_CONTEXT_ATTRIBUTE_NAME, null);
 				// context.removeAttribute(ContainerBuilder.APPLICATION_CONTEXT_ATTRIBUTE_NAME);

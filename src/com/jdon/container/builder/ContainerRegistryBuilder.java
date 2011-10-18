@@ -37,11 +37,13 @@ public interface ContainerRegistryBuilder {
 
 	public void startApp();
 
+	public void stopApp();
+
 	public ContainerWrapper getContainerWrapper();
 
 	public void setKernelStartup(boolean startup);
 
 	public boolean isKernelStartup();
 
-	public void setupAfterStarted() throws Exception;
+	public void doAfterStarted() throws Exception;
 }

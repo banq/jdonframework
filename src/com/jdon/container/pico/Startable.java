@@ -17,8 +17,16 @@ package com.jdon.container.pico;
 
 /**
  * @author <a href="mailto:banqiao@jdon.com">banq</a>
- *
+ * @com.jdon.container.builder.StartablecomponentsRegistry
  */
-public interface Startable extends org.picocontainer.Startable {
+public interface Startable {
+	/**
+	 * Start this component.
+	 */
+	void start();
 
+	/**
+	 * Stop this component.
+	 */
+	void stop();
 }

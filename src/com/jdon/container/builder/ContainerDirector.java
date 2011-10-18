@@ -61,10 +61,10 @@ public class ContainerDirector {
 						Debug.logVerbose("[JdonFramework] <------ register the basic components in container.xml ------> ", module);
 						cb.registerComponents();
 						ContainerWrapper cw = cb.getContainerWrapper();
-						cw.start();// start core
-						cb.setKernelStartup(true);
-
 						Debug.logVerbose("[JdonFramework] <------ started micro container ------> ", module);
+						cw.start();
+						cw.setStart(true);
+						cb.setKernelStartup(true);
 
 						Debug.logVerbose("[JdonFramework] <------ register the pojo services in application's xml ------> ", module);
 						cb.registerUserService();
@@ -72,12 +72,11 @@ public class ContainerDirector {
 						Debug.logVerbose("[JdonFramework] <------ register the aspect components in container.xml ------> ", module);
 						cb.registerAspectComponents();
 
-						cw.setStart(true);
-						Debug.logVerbose("Jdon Framework started successfully! ");
-
-						cb.setupAfterStarted();
-
 						cb.startApp();
+
+						cb.doAfterStarted();
+						Debug.logVerbose("JdonFramework started successfully! ");
+
 					} catch (Exception ex) {
 						Debug.logError("[JdonFramework] startup container error: " + ex, module);
 						throw new StartupException();
@@ -85,6 +84,26 @@ public class ContainerDirector {
 				}
 			}
 
+	}
+
+	public void shutdown() throws StartupException {
+		Debug.logVerbose("[JdonFramework] <======== JdonFramework beigin to shutdown =========>", module);
+		if (cb.isKernelStartup())
+			synchronized (initLock) {
+				if (cb.isKernelStartup()) {
+					try {
+						ContainerWrapper cw = cb.getContainerWrapper();
+						cb.stopApp();
+						cw.stop();
+						cw.setStart(false);
+						cb.setKernelStartup(false);
+						Debug.logVerbose("JdonFramework shutdown successfully! ");
+					} catch (Exception ex) {
+						Debug.logError("[JdonFramework] shutdown container error: " + ex, module);
+						throw new StartupException();
+					}
+				}
+			}
 	}
 
 }

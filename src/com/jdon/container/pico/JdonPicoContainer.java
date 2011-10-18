@@ -30,7 +30,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.picocontainer.ComponentAdapter;
 import org.picocontainer.ComponentMonitor;
-import org.picocontainer.LifecycleManager;
 import org.picocontainer.MutablePicoContainer;
 import org.picocontainer.Parameter;
 import org.picocontainer.PicoContainer;
@@ -49,6 +48,7 @@ import org.picocontainer.defaults.DefaultPicoContainer;
 import org.picocontainer.defaults.DuplicateComponentKeyRegistrationException;
 import org.picocontainer.defaults.ImmutablePicoContainerProxyFactory;
 import org.picocontainer.defaults.InstanceComponentAdapter;
+import org.picocontainer.defaults.LifecycleStrategy;
 import org.picocontainer.defaults.VerifyingVisitor;
 
 /**
@@ -71,12 +71,7 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 
 	private final Map componentKeyToInstanceCache = new ConcurrentHashMap();
 
-	private final List componentAdapters = new CopyOnWriteArrayList();
-
-	// Keeps track of instantiation order.
-	private final List orderedComponentAdapters = new CopyOnWriteArrayList();
-
-	private LifecycleManager lifecycleManager = new OrderedComponentAdapterLifecycleManager();
+	private final List<ComponentAdapter> componentAdapters = new CopyOnWriteArrayList();
 
 	private final HashSet children = new HashSet();
 
@@ -211,7 +206,6 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 	public ComponentAdapter unregisterComponent(Object componentKey) {
 		ComponentAdapter adapter = (ComponentAdapter) componentKeyToAdapterCache.remove(componentKey);
 		componentAdapters.remove(adapter);
-		orderedComponentAdapters.remove(adapter);
 		return adapter;
 	}
 
@@ -286,12 +280,6 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 		return registerComponentImplementation(componentKey, componentImplementation, parametersAsArray);
 	}
 
-	private void addOrderedComponentAdapter(ComponentAdapter componentAdapter) {
-		if (!orderedComponentAdapters.contains(componentAdapter)) {
-			orderedComponentAdapters.add(componentAdapter);
-		}
-	}
-
 	public List getComponentInstances() throws PicoException {
 		return getComponentInstancesOfType(Object.class);
 	}
@@ -300,7 +288,7 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 		if (componentType == null) {
 			return Collections.EMPTY_LIST;
 		}
-
+		List result = new ArrayList();
 		Map adapterToInstanceMap = new HashMap();
 		for (Iterator iterator = componentAdapters.iterator(); iterator.hasNext();) {
 			ComponentAdapter componentAdapter = (ComponentAdapter) iterator.next();
@@ -311,19 +299,10 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 				// This is to ensure all are added. (Indirect dependencies will
 				// be added
 				// from InstantiatingComponentAdapter).
-				addOrderedComponentAdapter(componentAdapter);
-			}
-		}
-		List result = new ArrayList();
-		for (Iterator iterator = orderedComponentAdapters.iterator(); iterator.hasNext();) {
-			Object componentAdapter = iterator.next();
-			final Object componentInstance = adapterToInstanceMap.get(componentAdapter);
-			if (componentInstance != null) {
-				// may be null in the case of the "implicit" adapter
-				// representing "this".
 				result.add(componentInstance);
 			}
 		}
+
 		return result;
 	}
 
@@ -371,9 +350,6 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 
 		if (isLocal) {
 			Object instance = componentAdapter.getComponentInstance(this);
-
-			addOrderedComponentAdapter(componentAdapter);
-
 			return instance;
 		} else if (parent != null) {
 			return parent.getComponentInstance(componentAdapter.getComponentKey());
@@ -421,7 +397,13 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 		if (started)
 			throw new IllegalStateException("Already started");
 		started = true;
-		this.lifecycleManager.start(this);
+		Collection<ComponentAdapter> adapters = getComponentAdapters();
+		for (ComponentAdapter componentAdapter : adapters) {
+			if (componentAdapter instanceof LifecycleStrategy) {
+				((LifecycleStrategy) componentAdapter).start(getInstance(componentAdapter));
+			}
+		}
+
 		childrenStarted.clear();
 		for (Iterator iterator = children.iterator(); iterator.hasNext();) {
 			PicoContainer child = (PicoContainer) iterator.next();
@@ -448,24 +430,24 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 				child.stop();
 			}
 		}
-		this.lifecycleManager.stop(this);
+		Collection<ComponentAdapter> adapters = getComponentAdapters();
+		for (ComponentAdapter componentAdapter : adapters) {
+			if (componentAdapter instanceof LifecycleStrategy) {
+				((LifecycleStrategy) componentAdapter).stop(getInstance(componentAdapter));
+			}
+		}
 		started = false;
 		componentKeyToAdapterCache.clear();
 		componentKeyToInstanceCache.clear();
 		componentAdapters.clear();
-		orderedComponentAdapters.clear();
+
 		children.clear();
 		componentAdapterFactory = null;
 		parent = null;
 	}
 
 	public void clearGurad() {
-		for (Object p : this.orderedComponentAdapters) {
-			if (p instanceof JdonConstructorInjectionComponentAdapter) {
-				JdonConstructorInjectionComponentAdapter c = (JdonConstructorInjectionComponentAdapter) p;
-				c.clear();
-			}
-		}
+
 	}
 
 	private boolean childStarted(PicoContainer child) {
@@ -489,7 +471,12 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 			PicoContainer child = (PicoContainer) iterator.next();
 			child.dispose();
 		}
-		this.lifecycleManager.dispose(this);
+		Collection<ComponentAdapter> adapters = getComponentAdapters();
+		for (ComponentAdapter componentAdapter : adapters) {
+			if (componentAdapter instanceof LifecycleStrategy) {
+				((LifecycleStrategy) componentAdapter).dispose(getInstance(componentAdapter));
+			}
+		}
 		disposed = true;
 	}
 
@@ -579,96 +566,6 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 			}
 		}
 		throw new PicoIntrospectionException("No component monitor found in container or its children");
-	}
-
-	/**
-	 * <p>
-	 * Implementation of lifecycle manager which delegates to the container's
-	 * component adapters. The component adapters will be ordered by dependency
-	 * as registered in the container. This LifecycleManager will delegate calls
-	 * on the lifecycle methods to the component adapters if these are
-	 * themselves LifecycleManagers.
-	 * </p>
-	 * 
-	 * @author Mauro Talevi
-	 * @since 1.2
-	 */
-	private class OrderedComponentAdapterLifecycleManager implements LifecycleManager, Serializable {
-
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-		/** List collecting the CAs which have been successfully started */
-		private List startedComponentAdapters = new ArrayList();
-
-		/**
-		 * {@inheritDoc} Loops over all component adapters and invokes
-		 * start(PicoContainer) method on the ones which are LifecycleManagers
-		 */
-		public void start(PicoContainer node) {
-			Collection adapters = getComponentAdapters();
-			for (final Iterator iter = adapters.iterator(); iter.hasNext();) {
-				final ComponentAdapter adapter = (ComponentAdapter) iter.next();
-				if (adapter instanceof LifecycleManager) {
-					LifecycleManager manager = (LifecycleManager) adapter;
-					if (manager.hasLifecycle()) {
-						// create an instance, it will be added to the ordered
-						// CA list
-						adapter.getComponentInstance(node);
-						addOrderedComponentAdapter(adapter);
-					}
-				}
-			}
-			adapters = orderedComponentAdapters;
-			// clear list of started CAs
-			startedComponentAdapters.clear();
-			for (final Iterator iter = adapters.iterator(); iter.hasNext();) {
-				final Object adapter = iter.next();
-				if (adapter instanceof LifecycleManager) {
-					LifecycleManager manager = (LifecycleManager) adapter;
-					manager.start(node);
-					startedComponentAdapters.add(adapter);
-				}
-			}
-		}
-
-		/**
-		 * {@inheritDoc} Loops over started component adapters (in inverse
-		 * order) and invokes stop(PicoContainer) method on the ones which are
-		 * LifecycleManagers
-		 */
-		public void stop(PicoContainer node) {
-			List adapters = startedComponentAdapters;
-			for (int i = adapters.size() - 1; 0 <= i; i--) {
-				Object adapter = adapters.get(i);
-				if (adapter instanceof LifecycleManager) {
-					LifecycleManager manager = (LifecycleManager) adapter;
-					manager.stop(node);
-				}
-			}
-		}
-
-		/**
-		 * {@inheritDoc} Loops over all component adapters (in inverse order)
-		 * and invokes dispose(PicoContainer) method on the ones which are
-		 * LifecycleManagers
-		 */
-		public void dispose(PicoContainer node) {
-			List adapters = orderedComponentAdapters;
-			for (int i = adapters.size() - 1; 0 <= i; i--) {
-				Object adapter = adapters.get(i);
-				if (adapter instanceof LifecycleManager) {
-					LifecycleManager manager = (LifecycleManager) adapter;
-					manager.dispose(node);
-				}
-			}
-		}
-
-		public boolean hasLifecycle() {
-			throw new UnsupportedOperationException("Should not have been called");
-		}
-
 	}
 
 }

@@ -35,7 +35,13 @@ import com.jdon.util.Debug;
  * 
  * @author banq
  */
-public class PicoContainerWrapper implements ContainerWrapper {
+public class PicoContainerWrapper implements ContainerWrapper, java.io.Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6003045437916961392L;
+
 	public final static String module = PicoContainerWrapper.class.getName();
 
 	private JdonPicoContainer container;
@@ -157,7 +163,6 @@ public class PicoContainerWrapper implements ContainerWrapper {
 
 	public synchronized void setStart(boolean start) {
 		if (start) {
-			this.container.clearGurad();
 			this.notifyAll();
 		}
 		this.start = start;

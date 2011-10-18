@@ -14,6 +14,17 @@ import com.jdon.controller.service.Service;
 import com.jdon.controller.service.ServiceFacade;
 import com.jdon.util.Debug;
 
+/**
+ * Java Application call this class to use JdonFramework.
+ * 
+ * 
+ * AppUtil appUtil = new AppUtil();
+ * 
+ * BInterface b = (BInterface) appUtil.getService("b");
+ * 
+ * @author banq
+ * 
+ */
 public class AppUtil extends Application {
 	private final static String module = WebAppUtil.class.getName();
 
@@ -26,6 +37,10 @@ public class AppUtil extends Application {
 
 	public AppUtil() {
 		css.prepare("", this);
+	}
+
+	public void stop() {
+		css.destroyed(this);
 	}
 
 	public MockRequest createDemoRequest() {

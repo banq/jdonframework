@@ -93,8 +93,10 @@ public class EncacheProvider implements com.jdon.controller.cache.Cache, Startab
 	}
 
 	public void clear() {
-		Cache cache = manager.getCache(ehcacheConf.getPredefinedCacheName());
-		cache.removeAll();
+		if (manager != null) {
+			Cache cache = manager.getCache(ehcacheConf.getPredefinedCacheName());
+			cache.removeAll();
+		}
 	}
 
 	public boolean contain(Object key) {

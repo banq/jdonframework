@@ -116,8 +116,10 @@
 	<component name="targetServiceFactory"
 		class="com.jdon.bussinessproxy.target.DefaultTargetServiceFactory" />
 
+   <!-- 
 	<component name="pOJOObjectFactory"
 		class="com.jdon.bussinessproxy.target.POJOObjectFactory" />
+		 -->
 
 	<component name="poolConfigure"
 		class="com.jdon.controller.pool.PoolConfigure">

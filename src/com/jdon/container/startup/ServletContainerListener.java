@@ -40,7 +40,6 @@ import com.jdon.util.UtilValidate;
  */
 public class ServletContainerListener implements ServletContextListener, Serializable {
 
-
 	/**
 	 * 
 	 */
@@ -57,15 +56,15 @@ public class ServletContainerListener implements ServletContextListener, Seriali
 		Debug.logVerbose("[JdonFramework]contextInitialized", module);
 
 		String app_configFile = context.getInitParameter(AppConfigureCollection.CONFIG_NAME);
-		if (UtilValidate.isEmpty(app_configFile)){			
-			Debug.logError("[JdonFramework] not locate a configuration in web.xml :" , module);
-			Debug.logError("[JdonFramework] in web.xml There should have: <context-param>	<param-name>modelmapping-config</param-name><param-value>jdonframework.xml</param-value></context-param>" , module);
-			return;
-		}
-		String[] configs = StringUtil.split(app_configFile, ",");
-		for (int i = 0; i < configs.length; i++) {
-			Debug.logVerbose("[JdonFramework] locate a configuration in web.xml :" + configs[i], module);
-			css.prepare(configs[i], context);
+		if (UtilValidate.isEmpty(app_configFile)) {
+			Debug.logWarning("[JdonFramework] not locate a configuration in web.xml :", module);
+			css.prepare("", context);
+		} else {
+			String[] configs = StringUtil.split(app_configFile, ",");
+			for (int i = 0; i < configs.length; i++) {
+				Debug.logVerbose("[JdonFramework] locate a configuration in web.xml :" + configs[i], module);
+				css.prepare(configs[i], context);
+			}
 		}
 		Debug.logVerbose("[JdonFramework]ServletContainerListener is preparing...", module);
 

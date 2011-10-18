@@ -34,11 +34,17 @@ import com.jdon.controller.service.ServiceFactory;
 import com.jdon.util.Debug;
 
 /**
+ * Used in Web application.
+ * 
  * Using WebAppUtil, framework's user can get his businesss service object that
  * defined in jdonframework.xml
  * 
  * this is main and important client class for framework's user.
  * 
+ * ForumService forumService = (ForumService)
+ * WebAppUtil.getService("forumService", request);
+ * 
+ * forumService.getForums(start);
  * 
  * @author banq
  */
