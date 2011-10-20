@@ -101,6 +101,8 @@ public class BlockCacheManager {
 	}
 
 	public void clearCache() {
+		if (cacheKeys == null || cacheManager == null)
+			return;
 		lock.writeLock().lock();
 		try {
 			Object[] keys = cacheKeys.toArray();

@@ -107,7 +107,7 @@ public class CacheManager implements Startable {
 	 * @param cacheKey
 	 */
 	public void removeObect(StringKey skey) {
-		if (skey == null)
+		if (skey == null || cache == null)
 			return;
 		cache.remove(skey.getKey());
 		Debug.logVerbose("[JdonFramework]<-cache->remove the object of " + skey + " from cache", module);

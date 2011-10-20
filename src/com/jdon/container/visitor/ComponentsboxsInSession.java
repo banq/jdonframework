@@ -5,7 +5,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.jdon.container.visitor.http.HttpSessionVisitorFactorySetup;
 
-public class ComponentsboxsInSession {
+public class ComponentsboxsInSession implements java.io.Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6975744109699061292L;
 	private final Map componentsboxs = new ConcurrentHashMap();
 	public final int maxSize;
 
