@@ -22,9 +22,7 @@ import java.util.List;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
-import com.jdon.bussinessproxy.TargetMetaDef;
 import com.jdon.bussinessproxy.target.TargetServiceFactory;
-import com.jdon.container.access.TargetMetaRequest;
 import com.jdon.container.access.TargetMetaRequestsHolder;
 import com.jdon.util.Debug;
 
@@ -44,8 +42,6 @@ public class ProxyMethodInvocation implements MethodInvocation, java.io.Serializ
 
 	protected final TargetServiceFactory targetServiceFactory;
 
-	private final TargetMetaRequestsHolder targetMetaRequestsHolder;
-
 	private final Method method;
 
 	private final Object[] args;
@@ -63,7 +59,6 @@ public class ProxyMethodInvocation implements MethodInvocation, java.io.Serializ
 		Debug.logVerbose("[JdonFramework] method.getName() :" + method.getName(), module);
 		this.interceptors = interceptors;
 		this.targetServiceFactory = targetServiceFactory;
-		this.targetMetaRequestsHolder = targetMetaRequestsHolder;
 		this.mUtil = new MethodInvokerUtil(targetMetaRequestsHolder);
 		this.method = method;
 		this.args = args;
@@ -101,17 +96,10 @@ public class ProxyMethodInvocation implements MethodInvocation, java.io.Serializ
 				target = mUtil.createTargetObject(targetServiceFactory);
 			}
 
-			TargetMetaRequest targetMetaRequest = targetMetaRequestsHolder.getTargetMetaRequest();
 			Debug.logVerbose("[JdonFramework] target:" + target.getClass().getName() + " service's method:" + method.getName() + " running.. ",
 					module);
-			TargetMetaDef targetMetaDef = targetMetaRequest.getTargetMetaDef();
-			if (targetMetaDef.isEJB()) {
-				Debug.logVerbose("[JdonFramework] it is ejb target service", module);
-				result = mUtil.execute(method, target, mUtil.narrowArgs(args));
-			} else {
-				Debug.logVerbose("[JdonFramework] it is pojo target service", module);
-				result = mUtil.execute(method, target, args);
-			}
+			Debug.logVerbose("[JdonFramework] it is pojo target service", module);
+			result = mUtil.execute(method, target, args);
 		} catch (Exception ex) {
 			Debug.logError("[JdonFramework]run error: " + ex, module);
 			throw new Throwable(ex);

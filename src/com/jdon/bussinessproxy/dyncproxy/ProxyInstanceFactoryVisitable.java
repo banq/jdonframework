@@ -19,8 +19,6 @@ import java.lang.reflect.Proxy;
 
 import com.jdon.aop.AopClient;
 import com.jdon.bussinessproxy.TargetMetaDef;
-import com.jdon.bussinessproxy.meta.DistributedTargetMetaDef;
-import com.jdon.bussinessproxy.meta.EJBTargetMetaDef;
 import com.jdon.container.access.TargetMetaRequest;
 import com.jdon.container.access.TargetMetaRequestsHolder;
 import com.jdon.container.visitor.Visitable;
@@ -91,14 +89,7 @@ public class ProxyInstanceFactoryVisitable implements Visitable {
 		if (interfaces != null)
 			return interfaces;
 		try {
-			if (targetMetaDef.isEJB()) {
-				if (targetMetaDef instanceof EJBTargetMetaDef)
-					interfaces = getEJB2Interfaces(targetMetaDef);
-				else if (targetMetaDef instanceof DistributedTargetMetaDef)
-					interfaces = getEJB3Interfaces(targetMetaDef);
-			} else {
-				interfaces = getPOJOInterfaces(targetMetaDef);
-			}
+			interfaces = getPOJOInterfaces(targetMetaDef);
 		} catch (Exception ex) {
 			Debug.logError("[JdonFramework] getInterfaces error:" + ex, module);
 		} catch (Throwable ex) {
@@ -112,38 +103,6 @@ public class ProxyInstanceFactoryVisitable implements Visitable {
 			for (int i = 0; i < interfaces.length; i++) {
 				Debug.logVerbose(interfaces[i].getName() + ";", module);
 			}
-		}
-		return interfaces;
-	}
-
-	private Class[] getEJB3Interfaces(TargetMetaDef targetMetaDef) throws Exception {
-		Class[] interfaces = null;
-		try {
-			DistributedTargetMetaDef dtargetMetaDef = (DistributedTargetMetaDef) targetMetaDef;
-			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-			Debug.logVerbose("[JdonFramework]getEJB3Interfaces interface=" + dtargetMetaDef.getInterfaceClass(), module);
-			interfaces = new Class[] { classLoader.loadClass(dtargetMetaDef.getInterfaceClass()) };
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception(e);
-		}
-		return interfaces;
-	}
-
-	private Class[] getEJB2Interfaces(TargetMetaDef targetMetaDef) throws Exception {
-		Class[] interfaces = null;
-		Debug.logVerbose("[JdonFramework]getEJB2Interfaces " + targetMetaDef.getClassName(), module);
-		try {
-			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-			Class configClasses = classLoader.loadClass(targetMetaDef.getClassName());
-			EJBTargetMetaDef em = (EJBTargetMetaDef) targetMetaDef;
-			if ((em.getInterfaceClass() != null) && (em.getInterfaceClass().length() != 0)) {
-				interfaces = new Class[] { configClasses, classLoader.loadClass(em.getInterfaceClass()) };
-			} else
-				interfaces = new Class[] { configClasses };
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception(e);
 		}
 		return interfaces;
 	}

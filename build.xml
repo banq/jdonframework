@@ -4,8 +4,6 @@
 
 	<!-- properies -->
 
-	<property name="j2eelib.dir" value="j2eelib" />
-	
 	<property name="src.dir" value="src" />
 	<property name="report.dir" value="report" />
 	<property name="classes.dir" value="classes" />
@@ -22,7 +20,7 @@
 		<fileset dir="${lib.dir}">
 			<include name="**/*.jar" />
 		</fileset>
-		<fileset file="${j2eelib.dir}/*.jar" />
+		<fileset file="weblib/*.jar" />
 		<pathelement path="${classes.dir}"/>
 	</path>
 

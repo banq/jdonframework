@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="j2eelib/jboss-j2ee.jar"/>
-	<classpathentry kind="lib" path="j2eelib/jbosssx.jar"/>
-	<classpathentry kind="lib" path="j2eelib/jsp-api.jar"/>
-	<classpathentry kind="lib" path="j2eelib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="lib/cglib.jar"/>
 	<classpathentry kind="lib" path="lib/commons-pool-1.5.1.jar"/>
 	<classpathentry kind="lib" path="lib/disruptor-2.0.2.jar"/>
@@ -17,5 +13,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/picocontainer-1.2.jar" sourcepath="D:/javasource/JdonComponent/picocontainer-1.2-sources/src"/>
+	<classpathentry kind="lib" path="weblib/servlet-api.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

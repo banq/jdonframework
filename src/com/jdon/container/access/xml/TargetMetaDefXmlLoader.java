@@ -23,7 +23,6 @@ import com.jdon.container.access.TargetMetaDefHolder;
 import com.jdon.container.pico.Startable;
 import com.jdon.controller.config.XmlParser;
 import com.jdon.controller.config.XmlPojoServiceParser;
-import com.jdon.controller.config.XmlServiceParser;
 import com.jdon.util.Debug;
 
 /**
@@ -36,7 +35,6 @@ public class TargetMetaDefXmlLoader implements Startable {
 
 	private final static String module = TargetMetaDefXmlLoader.class.getName();
 
-	private final XmlParser xmlServiceParser;
 	private final XmlParser xmlPojoServiceParser;
 
 	private TargetMetaDefHolder targetMetaDefHolder;
@@ -53,7 +51,6 @@ public class TargetMetaDefXmlLoader implements Startable {
 	public TargetMetaDefXmlLoader(AppConfigureCollection appConfigureFiles, TargetMetaDefHolder targetMetaDefHolder) {
 		this.appConfigureFiles = appConfigureFiles;
 		this.targetMetaDefHolder = targetMetaDefHolder;
-		this.xmlServiceParser = new XmlServiceParser();
 		this.xmlPojoServiceParser = new XmlPojoServiceParser();
 	}
 
@@ -63,8 +60,6 @@ public class TargetMetaDefXmlLoader implements Startable {
 		while (iter.hasNext()) {
 			String configFileName = (String) iter.next();
 			Debug.logVerbose("[JdonFramework] start to load configure: " + configFileName, module);
-			Map<String, TargetMetaDef> mps = xmlServiceParser.load(configFileName);
-			targetMetaDefHolder.add(mps);
 			Map<String, TargetMetaDef> pojoMps = xmlPojoServiceParser.load(configFileName);
 			targetMetaDefHolder.add(pojoMps);
 		}

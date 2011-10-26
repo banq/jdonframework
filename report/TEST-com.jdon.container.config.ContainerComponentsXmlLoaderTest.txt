@@ -1,4 +1,4 @@
 Testsuite: com.jdon.container.config.ContainerComponentsXmlLoaderTest
-Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.105 sec
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.121 sec
 
-Testcase: testLoad took 0.1 sec
+Testcase: testLoad took 0.115 sec

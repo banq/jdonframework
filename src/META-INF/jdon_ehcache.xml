@@ -13,20 +13,20 @@
             class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"/>
     
     <defaultCache
-            maxElementsInMemory="10000"
-            eternal="false"
-            timeToIdleSeconds="1200"
-            timeToLiveSeconds="3600"
+            maxElementsInMemory="0"
+            eternal="true" 
             overflowToDisk="false"
-            maxElementsOnDisk="0"
-            diskPersistent="false"
             memoryStoreEvictionPolicy="LRU"
             />
 
    
    <!-- load all datas In memeory  In-Memory-Data-Grid (IMDG) Elastic Caching
-         http://www.jdon.com/cache.html  -->
-   <cache name="jdonCache" maxElementsInMemory="500000" eternal="false" overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="360000" timeToLiveSeconds="360000" memoryStoreEvictionPolicy="LRU" /> 
+         http://www.jdon.com/cache.html 
+         when  eternal set to "true", overrides timeToLive and timeToIdle so that
+        no expiration can take place.
+         or use Ehcacahe 2.5 -->
+   <cache name="jdonCache" maxElementsInMemory="100000" eternal="true" overflowToDisk="false" diskPersistent="false" 
+   	 memoryStoreEvictionPolicy="LRU" /> 
 
 
 </ehcache>
