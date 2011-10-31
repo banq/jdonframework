@@ -18,15 +18,16 @@
 	<classpathentry kind="lib" path="strutslib/jakarta-oro.jar"/>
 	<classpathentry kind="lib" path="strutslib/struts.jar"/>
 	<classpathentry kind="lib" path="j2eelib/hessian/hessian-3.1.6.jar"/>
-	<classpathentry kind="lib" path="D:/javasource/jdonframework/dist/aopalliance-1.0.jar"/>
-	<classpathentry kind="lib" path="D:/javasource/jdonframework/dist/cglib.jar"/>
-	<classpathentry kind="lib" path="D:/javasource/jdonframework/dist/commons-pool-1.5.1.jar"/>
-	<classpathentry kind="lib" path="D:/javasource/jdonframework/dist/disruptor-2.0.2.jar"/>
-	<classpathentry kind="lib" path="D:/javasource/jdonframework/dist/ehcache-1.6.2.jar"/>
-	<classpathentry kind="lib" path="D:/javasource/jdonframework/dist/jdom.jar"/>
-	<classpathentry kind="lib" path="D:/javasource/jdonframework/dist/jdonFramework.jar"/>
-	<classpathentry kind="lib" path="D:/javasource/jdonframework/dist/log4j.jar"/>
-	<classpathentry kind="lib" path="D:/javasource/jdonframework/dist/picocontainer-1.2.jar"/>
-	<classpathentry kind="lib" path="D:/javasource/jdonframework/dist/scannotation-1.0.2.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jdonframework"/>
+	<classpathentry kind="lib" path="/jdonframework/dist/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="/jdonframework/dist/cglib.jar"/>
+	<classpathentry kind="lib" path="/jdonframework/dist/commons-pool-1.5.1.jar"/>
+	<classpathentry kind="lib" path="/jdonframework/dist/disruptor-2.0.2.jar"/>
+	<classpathentry kind="lib" path="/jdonframework/dist/ehcache-1.6.2.jar"/>
+	<classpathentry kind="lib" path="/jdonframework/dist/jdom.jar"/>
+	<classpathentry kind="lib" path="/jdonframework/dist/jdonFramework.jar"/>
+	<classpathentry kind="lib" path="/jdonframework/dist/log4j.jar"/>
+	<classpathentry kind="lib" path="/jdonframework/dist/picocontainer-1.2.jar"/>
+	<classpathentry kind="lib" path="/jdonframework/dist/scannotation-1.0.2.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
