@@ -63,7 +63,7 @@ public class ContainerDirector {
 						ContainerWrapper cw = cb.getContainerWrapper();
 						Debug.logVerbose("[JdonFramework] <------ started micro container ------> ", module);
 						cw.start();
-						cw.setStart(true);
+
 						cb.setKernelStartup(true);
 
 						Debug.logVerbose("[JdonFramework] <------ register the pojo services in application's xml ------> ", module);
@@ -77,6 +77,7 @@ public class ContainerDirector {
 						cb.doAfterStarted();
 						Debug.logVerbose("JdonFramework started successfully! ");
 
+						cw.setStart(true);
 					} catch (Exception ex) {
 						Debug.logError("[JdonFramework] startup container error: " + ex, module);
 						throw new StartupException();

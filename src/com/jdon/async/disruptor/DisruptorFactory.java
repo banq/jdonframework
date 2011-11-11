@@ -79,7 +79,7 @@ public class DisruptorFactory implements EventFactory {
 			handlers = loadEvenHandler(topic);
 			handlers = loadOnEventConsumers(topic, handlers);
 			if (handlers.size() == 0) {
-				// maybe in @Component(topicName)
+				// maybe by mistake in @Component(topicName)
 				Object o = containerWrapper.lookup(topic);
 				if (o == null) {
 					Debug.logError("[Jdonframework]no found the class annotated with @Consumer(" + topic + ") ", module);
@@ -106,14 +106,13 @@ public class DisruptorFactory implements EventFactory {
 	 */
 	protected TreeSet<DomainEventHandler> loadEvenHandler(String topic) {
 		TreeSet<DomainEventHandler> ehs = this.getTreeSet();
-		Collection consumers = (Collection) containerWrapper.lookup(ConsumerLoader.TOPICNAME + topic);
+		Collection<String> consumers = (Collection<String>) containerWrapper.lookup(ConsumerLoader.TOPICNAME + topic);
 		if (consumers == null || consumers.size() == 0) {
 			Debug.logWarning("[Jdonframework]there is no any consumer class annotated with @Consumer(" + topic + ") ", module);
 			return ehs;
 		}
-		for (Object o : consumers) {
-			String consumerName = (String) o;
-			DomainEventHandler eh = (DomainEventHandler) containerWrapper.getComponentNewInstance(consumerName);
+		for (String consumerName : consumers) {
+			DomainEventHandler eh = (DomainEventHandler) containerWrapper.lookup(consumerName);
 			ehs.add(eh);
 		}
 

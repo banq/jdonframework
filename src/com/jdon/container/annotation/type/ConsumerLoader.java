@@ -70,7 +70,7 @@ public class ConsumerLoader {
 
 			String topicname = UtilValidate.isEmpty(consumer.value()) ? cclass.getName() : consumer.value();
 			String topicKey = ConsumerLoader.TOPICNAME + topicname;
-			Collection consumers = getContainerConsumers(topicKey, containerWrapper);
+			Collection<String> consumers = getContainerConsumers(topicKey, containerWrapper);
 			String name = getConsumerName(cclass);
 			consumers.add(name);
 			containerWrapper.register(name, cclass);
@@ -115,7 +115,7 @@ public class ConsumerLoader {
 		consumerMethods.add(new ConsumerMethodHolder(componentname, method));
 	}
 
-	public Collection getContainerConsumers(String topicKey, ContainerWrapper containerWrapper) {
+	public Collection<String> getContainerConsumers(String topicKey, ContainerWrapper containerWrapper) {
 
 		Collection consumers = (Collection) containerWrapper.lookup(topicKey);
 		if (consumers == null) {

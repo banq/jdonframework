@@ -23,40 +23,44 @@ import com.jdon.controller.context.AppContextWrapper;
 
 /**
  * @author <a href="mailto:banqJdon<AT>jdon.com">banq</a>
- *
+ * 
  */
 public class ServiceFacade {
-    
-    private final ContainerFinder containerFinder; 
-    
-    public ServiceFacade(){
-        this.containerFinder = new ContainerFinderImp();        
-    }
-    
 
-    /**
-     * the applciation' code get the service instance,
-     * such as:
-     * XXXService xxxService = WeAppUtil.getService("xxxService");
-     * 
-     * @return Returns the service.
-     */
-    public  Service getService(AppContextWrapper sc) {
-        ContainerWrapper containerWrapper = containerFinder.findContainer(sc);        
-        Service service = (Service)containerWrapper.lookup(ComponentKeys.WEBSERVICE);
-        return service;
-    }
-    
-    /**
-     * the model configure in jdonframework.xml will 
-     * execute the service directly.
-     * 
-     * and the remote servlet will call this method
-     * @return Returns the serviceFactory.
-     */
-    public ServiceFactory getServiceFactory(AppContextWrapper sc) {
-        ContainerWrapper containerWrapper = containerFinder.findContainer(sc);        
-        ServiceFactory serviceFactory = (ServiceFactory)containerWrapper.lookup(ComponentKeys.WEBSERVICE_FACTORY);        
-        return serviceFactory;
-    }
+	private final ContainerFinder containerFinder;
+
+	public ServiceFacade() {
+		this.containerFinder = new ContainerFinderImp();
+	}
+
+	/**
+	 * the applciation' code get the service instance, such as: XXXService
+	 * xxxService = WeAppUtil.getService("xxxService");
+	 * 
+	 * @return Returns the service.
+	 */
+	public Service getService(AppContextWrapper sc) {
+		ContainerWrapper containerWrapper = containerFinder.findContainer(sc);
+		Service service = (Service) containerWrapper.lookup(ComponentKeys.WEBSERVICE);
+		return service;
+	}
+
+	/**
+	 * the model configure in jdonframework.xml will execute the service
+	 * directly.
+	 * 
+	 * and the remote servlet will call this method
+	 * 
+	 * @return Returns the serviceFactory.
+	 */
+	public ServiceFactory getServiceFactory(AppContextWrapper sc) {
+		ContainerWrapper containerWrapper = containerFinder.findContainer(sc);
+		ServiceFactory serviceFactory = (ServiceFactory) containerWrapper.lookup(ComponentKeys.WEBSERVICE_FACTORY);
+		return serviceFactory;
+	}
+
+	public ContainerFinder getContainerFinder() {
+		return containerFinder;
+	}
+
 }

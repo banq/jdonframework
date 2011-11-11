@@ -45,6 +45,15 @@ import org.picocontainer.defaults.UnsatisfiableDependenciesException;
 import com.jdon.container.ContainerWrapper;
 import com.jdon.domain.advsior.ComponentAdvsior;
 
+/**
+ * Customized ConstructorInjectionComponentAdapter
+ * 
+ * modify the method getComponentInstance of DefaultPicoContainer of
+ * picocontainer
+ * 
+ * @author banq
+ * 
+ */
 public class JdonConstructorInjectionComponentAdapter extends JdonInstantiatingComponentAdapter {
 	/**
 	 * 
@@ -80,6 +89,9 @@ public class JdonConstructorInjectionComponentAdapter extends JdonInstantiatingC
 		this(componentKey, componentImplementation, null, configInf);
 	}
 
+	/**
+	 * difference with picocontainer
+	 */
 	public Object getComponentInstance(PicoContainer container) throws PicoInitializationException, PicoIntrospectionException,
 			AssignabilityRegistrationException, NotConcreteRegistrationException {
 		if (instantiationGuard == null) {

@@ -52,8 +52,10 @@ import org.picocontainer.defaults.LifecycleStrategy;
 import org.picocontainer.defaults.VerifyingVisitor;
 
 /**
+ * Customized DefaultPicoContainer
+ * 
  * modify the method getComponentInstance of DefaultPicoContainer of
- * picocontainer
+ * picocontainer, new method is in JdonConstructorInjectionComponentAdapter
  * 
  * @author <a href="mailto:banqiao@jdon.com">banq</a>
  * 

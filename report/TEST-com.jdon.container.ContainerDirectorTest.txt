@@ -1,4 +1,4 @@
 Testsuite: com.jdon.container.ContainerDirectorTest
-Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 2.347 sec
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 2.477 sec
 
-Testcase: testStartup took 2.342 sec
+Testcase: testStartup took 2.473 sec

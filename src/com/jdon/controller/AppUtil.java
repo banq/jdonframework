@@ -63,10 +63,6 @@ public class AppUtil extends Application {
 		return containerWrapper.lookup(name);
 	}
 
-	public Object getEJBService(String name) throws Exception {
-		return getService(name);
-	}
-
 	public Object callService(String serviceName, String methodName, Object[] methodParams) throws Exception {
 		Debug.logVerbose("[JdonFramework] call the method: " + methodName + " for the service: " + serviceName, module);
 		Object result = null;

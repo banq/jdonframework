@@ -135,4 +135,11 @@ public interface ContainerWrapper {
 	 */
 	public List getComponentInstancesOfType(Class componentType);
 
+	/**
+	 * return all registered components's class/name in container.
+	 * 
+	 * @return
+	 */
+	RegistryDirectory getRegistryDirectory();
+
 }

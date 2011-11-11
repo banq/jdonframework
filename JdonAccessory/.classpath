@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="j2eelib/hessian/hessian-3.1.6.jar"/>
+	<classpathentry kind="lib" path="j2eelib/hibernate/hibernate-annotations.jar"/>
+	<classpathentry kind="lib" path="j2eelib/hibernate/hibernate3.jar"/>
 	<classpathentry kind="lib" path="j2eelib/jboss-j2ee.jar"/>
 	<classpathentry kind="lib" path="j2eelib/jbosssx.jar"/>
 	<classpathentry kind="lib" path="j2eelib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="j2eelib/junit.jar"/>
 	<classpathentry kind="lib" path="j2eelib/servlet-api.jar"/>
-	<classpathentry kind="lib" path="j2eelib/hibernate/hibernate-annotations.jar"/>
-	<classpathentry kind="lib" path="j2eelib/hibernate/hibernate3.jar"/>
 	<classpathentry kind="lib" path="strutslib/commons-beanutils.jar"/>
 	<classpathentry kind="lib" path="strutslib/commons-collections.jar"/>
 	<classpathentry kind="lib" path="strutslib/commons-digester.jar"/>
@@ -17,8 +18,7 @@
 	<classpathentry kind="lib" path="strutslib/commons-validator.jar"/>
 	<classpathentry kind="lib" path="strutslib/jakarta-oro.jar"/>
 	<classpathentry kind="lib" path="strutslib/struts.jar"/>
-	<classpathentry kind="lib" path="j2eelib/hessian/hessian-3.1.6.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/jdonframework"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/jdonframework/dist/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="/jdonframework/dist/cglib.jar"/>
 	<classpathentry kind="lib" path="/jdonframework/dist/commons-pool-1.5.1.jar"/>

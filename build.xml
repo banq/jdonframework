@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="Jdon Framework 6.5" default="all" basedir=".">
+<project name="Jdon Framework 6.5.1" default="all" basedir=".">
 
 	<!-- properies -->
 
@@ -99,6 +99,7 @@
 		
 		<jar destfile="${dist.dir}/${jar.name}" basedir="${classes.dir}" manifest="${classes.dir}/META-INF/MANIFEST.MF">
 
+			<exclude name="com/jdon/sample/**" />
 			<exclude name="**/*Test.*" />
 			<exclude name="**/Test*.*" />
 			<exclude name="**/log4j.properties" />			

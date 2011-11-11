@@ -52,6 +52,9 @@ public class WebAppUtil {
 	private final static String module = WebAppUtil.class.getName();
 
 	private final static ContainerFinderImp scf = new ContainerFinderImp();
+	private static ServiceFactory serviceFactory;
+	private static AppContextWrapper acw;
+	private static Service service;
 
 	/**
 	 * get a service from jdonframework.xml's service configure. the service
@@ -81,9 +84,11 @@ public class WebAppUtil {
 	 * @throws Exception
 	 */
 	public static Object getService(String name, HttpServletRequest request) {
-		ServiceFacade serviceFacade = new ServiceFacade();
-		ServletContext sc = request.getSession().getServletContext();
-		ServiceFactory serviceFactory = serviceFacade.getServiceFactory(new ServletContextWrapper(sc));
+		if (serviceFactory == null) {
+			ServletContext sc = request.getSession().getServletContext();
+			ServiceFacade serviceFacade = new ServiceFacade();
+			serviceFactory = serviceFacade.getServiceFactory(new ServletContextWrapper(sc));
+		}
 		RequestWrapper requestW = new HttpServletRequestWrapper(request);
 		return serviceFactory.getService(name, requestW);
 	}
@@ -100,16 +105,20 @@ public class WebAppUtil {
 	 * @return
 	 */
 	public static Object getService(String name, ServletContext sc) {
-		ServiceFacade serviceFacade = new ServiceFacade();
-		AppContextWrapper acw = new ServletContextWrapper(sc);
-		ServiceFactory serviceFactory = serviceFacade.getServiceFactory(acw);
+		if (serviceFactory == null || acw == null) {
+			acw = new ServletContextWrapper(sc);
+			ServiceFacade serviceFacade = new ServiceFacade();
+			serviceFactory = serviceFacade.getServiceFactory(acw);
+		}
 		return serviceFactory.getService(name, acw);
 	}
 
 	public static Object getService(TargetMetaDef targetMetaDef, HttpServletRequest request) {
-		ServiceFacade serviceFacade = new ServiceFacade();
-		ServletContext sc = request.getSession().getServletContext();
-		ServiceFactory serviceFactory = serviceFacade.getServiceFactory(new ServletContextWrapper(sc));
+		if (serviceFactory == null) {
+			ServletContext sc = request.getSession().getServletContext();
+			ServiceFacade serviceFacade = new ServiceFacade();
+			serviceFactory = serviceFacade.getServiceFactory(new ServletContextWrapper(sc));
+		}
 		RequestWrapper requestW = new HttpServletRequestWrapper(request);
 		return serviceFactory.getService(targetMetaDef, requestW);
 	}
@@ -148,20 +157,6 @@ public class WebAppUtil {
 	}
 
 	/**
-	 * get a EJB service directly.
-	 * 
-	 * @param name
-	 *            String
-	 * @param request
-	 *            HttpServletRequest
-	 * @return Object
-	 * @throws Exception
-	 */
-	public static Object getEJBService(String name, HttpServletRequest request) throws Exception {
-		return getService(name, request);
-	}
-
-	/**
 	 * Command pattern for service invoke sample: browser url:
 	 * /aaa.do?method=xxxxx
 	 * 
@@ -189,9 +184,11 @@ public class WebAppUtil {
 		try {
 			MethodMetaArgs methodMetaArgs = AppUtil.createDirectMethod(methodName, methodParams);
 
-			ServiceFacade serviceFacade = new ServiceFacade();
-			ServletContext sc = request.getSession().getServletContext();
-			Service service = serviceFacade.getService(new ServletContextWrapper(sc));
+			if (service == null) {
+				ServiceFacade serviceFacade = new ServiceFacade();
+				ServletContext sc = request.getSession().getServletContext();
+				service = serviceFacade.getService(new ServletContextWrapper(sc));
+			}
 			RequestWrapper requestW = new HttpServletRequestWrapper(request);
 			result = service.execute(serviceName, methodMetaArgs, requestW);
 		} catch (Exception ex) {
