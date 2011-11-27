@@ -26,8 +26,12 @@ import java.util.Map;
  * @author banq
  * 
  */
-public class RegistryDirectory {
+public class RegistryDirectory implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7847181646670354817L;
 	private final Map<Class, String> dirs = new HashMap();
 
 	public void addComponentName(Class cClass, String name) {

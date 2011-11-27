@@ -37,10 +37,10 @@ import com.jdon.util.StringUtil;
 
 /**
  * JdonFramework configuration starter.
- *
- * add these into struts_config.xml ：
- *   <plug-in className="com.jdon.strutsutil.InitPlugIn"/>
- *
+ * 
+ * add these into struts_config.xml ： <plug-in
+ * className="com.jdon.strutsutil.InitPlugIn"/>
+ * 
  * @author banq
  * @version 1.0
  */
@@ -54,8 +54,7 @@ public class InitPlugIn implements PlugIn {
 
 	private ActionServlet servlet = null;
 
-	public void init(ActionServlet servlet, ModuleConfig config)
-			throws ServletException {
+	public void init(ActionServlet servlet, ModuleConfig config) throws ServletException {
 		// Remember our associated configuration and servlet
 		this.servlet = servlet;
 
@@ -69,12 +68,12 @@ public class InitPlugIn implements PlugIn {
 			Iterator iter = entries.iterator();
 			while (iter.hasNext()) {
 				Map.Entry entry = (Map.Entry) iter.next();
-				if (AppConfigureCollection.CONFIG_NAME.equals(entry.getKey())) { //可能有多个配置
+				if (AppConfigureCollection.CONFIG_NAME.equals(entry.getKey())) { // 可能有多个配置
 					config_file = (String) entry.getValue();
 					String[] configs = StringUtil.split(config_file, ",");
 					for (int j = 0; j < configs.length; j++) {
 						if (checkExsit(configs[j])) {
-							Debug.logVerbose(" found and start config.:" + configs[j],module);
+							Debug.logVerbose(" found and start config.:" + configs[j], module);
 							css.prepare(configs[j], scw);
 						}
 					}

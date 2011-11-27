@@ -15,6 +15,8 @@
 
 package com.jdon.container.builder;
 
+import org.apache.log4j.Logger;
+
 import com.jdon.container.ContainerWrapper;
 import com.jdon.util.Debug;
 
@@ -28,6 +30,7 @@ import com.jdon.util.Debug;
  */
 public class ContainerDirector {
 	public final static String module = ContainerDirector.class.getName();
+	private final static Logger logger = Logger.getLogger("JdonFramework");
 
 	private final ContainerRegistryBuilder cb;
 
@@ -40,16 +43,13 @@ public class ContainerDirector {
 	/**
 	 * prepare the applicaition configure files
 	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
 	 * @param configureFileName
 	 */
-	public void prepareAppRoot(String configureFileName) throws Exception {
-		if (!cb.isKernelStartup())
+	public synchronized void prepareAppRoot(String configureFileName) throws Exception {
+		if (!cb.isKernelStartup()) {
 			cb.registerAppRoot(configureFileName);
+			logger.info(configureFileName + " is ready.");
+		}
 	}
 
 	public void startup() throws StartupException {
@@ -75,7 +75,7 @@ public class ContainerDirector {
 						cb.startApp();
 
 						cb.doAfterStarted();
-						Debug.logVerbose("JdonFramework started successfully! ");
+						logger.info("Jdon Framework started successfully! ");
 
 						cw.setStart(true);
 					} catch (Exception ex) {
@@ -98,7 +98,7 @@ public class ContainerDirector {
 						cw.stop();
 						cw.setStart(false);
 						cb.setKernelStartup(false);
-						Debug.logVerbose("JdonFramework shutdown successfully! ");
+						logger.info("Jdon Framework shutdown successfully! ");
 					} catch (Exception ex) {
 						Debug.logError("[JdonFramework] shutdown container error: " + ex, module);
 						throw new StartupException();

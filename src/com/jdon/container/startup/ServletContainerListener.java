@@ -22,6 +22,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.http.HttpSessionEvent;
 
+import org.apache.log4j.Logger;
+
 import com.jdon.container.access.xml.AppConfigureCollection;
 import com.jdon.controller.context.web.ServletContextWrapper;
 import com.jdon.util.Debug;
@@ -39,6 +41,7 @@ import com.jdon.util.UtilValidate;
  * @author banq
  */
 public class ServletContainerListener implements ServletContextListener, Serializable {
+	private final static Logger logger = Logger.getLogger("JdonFramework");
 
 	/**
 	 * 
@@ -67,6 +70,7 @@ public class ServletContainerListener implements ServletContextListener, Seriali
 			}
 		}
 		Debug.logVerbose("[JdonFramework]ServletContainerListener is preparing...", module);
+		logger.info("Jdon Framework is ready ..");
 
 	}
 
