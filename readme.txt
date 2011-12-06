@@ -7,9 +7,12 @@ http://www.jdon.org
 1. INTRODUCTION
 ---------------
 
-JdonFramework is a web application framework, it combines with rapidity and agility for your web application architecture.
-
 JdonFramework = Domain Model + In-Memory + Domain Events(Event Sourcing or CQRS)
+
+JdonFramework = DDD + DCI + ES;
+
+JdonFramework is a Java web application framework, it combines with rapidity and agility for your web application architecture.
+
 
 2. RELEASE NOTES
 ----------------
