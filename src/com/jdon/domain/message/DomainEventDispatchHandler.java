@@ -31,7 +31,7 @@ import com.jdon.util.Debug;
  * @author banq
  * 
  */
-public class DomainEventDispatchHandler implements DomainEventHandler {
+public class DomainEventDispatchHandler implements DomainEventHandler<EventDisruptor> {
 	public final static String module = DomainEventDispatchHandler.class.getName();
 
 	private ConsumerMethodHolder consumerMethodHolder;
@@ -44,7 +44,7 @@ public class DomainEventDispatchHandler implements DomainEventHandler {
 	}
 
 	@Override
-	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
+	public void onEvent(EventDisruptor event, final boolean endOfBatch) throws Exception {
 		try {
 			Method method = consumerMethodHolder.getMethod();
 			Class[] pTypes = method.getParameterTypes();

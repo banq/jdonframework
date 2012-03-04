@@ -13,16 +13,33 @@
  * limitations under the License.
  * 
  */
-package com.jdon.sample.test.dci;
+package com.jdon.async;
 
-import com.jdon.annotation.Consumer;
-import com.jdon.async.disruptor.EventDisruptor;
-import com.jdon.domain.message.DomainEventHandler;
+public interface EventResult {
 
-@Consumer("saveMyModel")
-public class RepositoryListener implements DomainEventHandler {
-	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
-		System.out.println("\n No.3 @OnEvent:" + this.getClass().getName());
-	}
+	/**
+	 * setup time out(MILLISECONDS) value for get a Event Result
+	 * 
+	 * @param timeoutforeturnResult
+	 *            MILLISECONDS
+	 */
+	void setWaitforTimeout(int timeoutforeturnResult);
+
+	/**
+	 * get a Event Result until time out value: setTimeoutforeturnResult(int
+	 * timeoutforeturnResult)
+	 * 
+	 * @return
+	 */
+	Object get();
+
+	/**
+	 * Blocking until get a Event Result
+	 * 
+	 * @return
+	 */
+	Object getBlockedValue();
+
+	void send(Object eventResult);
 
 }

@@ -30,7 +30,7 @@ public class ChannelExecutor {
 	}
 
 	public void actionListener(DomainMessage domainMessage) {
-		EventMessageFuture eventMessageFuture = (EventMessageFuture) domainMessage.getEventMessage();
+		EventResultFuture eventMessageFuture = (EventResultFuture) domainMessage.getResultEvent();
 		try {
 			if (eventMessageFuture.getMessageListener() == null) {
 				return;
@@ -44,5 +44,4 @@ public class ChannelExecutor {
 			Debug.logError("[JdonFramework]actionChannelListener() error" + e, module);
 		}
 	}
-
 }

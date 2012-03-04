@@ -77,9 +77,9 @@ public class SampleAppTest extends TestCase {
 	public static void main(String[] args) {
 
 		AppUtil appUtil = new AppUtil();
-		IServiceSample serviceSample = (IServiceSample) appUtil.getService("serviceSample");
-		String result = serviceSample.eventPointEntry("hello");
-		System.out.print("\n=====" + result + "====\n");
+		IServiceSampleTwo serviceSample = (IServiceSampleTwo) appUtil.getService("serviceSampleTwo");
+		String res = (String) serviceSample.eventPointEntry();
+		System.out.print(res);
 
 	}
 

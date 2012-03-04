@@ -43,7 +43,7 @@ import com.jdon.async.disruptor.EventDisruptor;
  * 
  * @param <EventDisruptor>
  */
-public interface DomainEventHandler extends com.lmax.disruptor.EventHandler<EventDisruptor> {
+public interface DomainEventHandler<T> {
 
-	void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception;
+	void onEvent(EventDisruptor event, final boolean endOfBatch) throws Exception;
 }

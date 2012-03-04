@@ -19,10 +19,10 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 
-import com.jdon.async.EventMessage;
+import com.jdon.async.EventResult;
 import com.jdon.domain.message.DomainMessage;
 
-public class EventMessageFuture implements EventMessage {
+public class EventResultFuture implements EventResult {
 
 	protected String channel;
 
@@ -41,7 +41,7 @@ public class EventMessageFuture implements EventMessage {
 
 	protected DomainMessage domainMessage;
 
-	public EventMessageFuture(String channel, final FutureListener messageListener, final DomainMessage domainMessage) {
+	public EventResultFuture(String channel, final FutureListener messageListener, final DomainMessage domainMessage) {
 		this.channel = channel;
 		this.messageListener = messageListener;
 		this.domainMessage = domainMessage;
@@ -64,7 +64,7 @@ public class EventMessageFuture implements EventMessage {
 	 * 
 	 * @see com.jdon.async.message.EventMessageHolder#getEventResult()
 	 */
-	public Object getEventResult() {
+	public Object get() {
 		Object result = null;
 		if (over)
 			return eventResult;
@@ -80,7 +80,7 @@ public class EventMessageFuture implements EventMessage {
 		return result;
 	}
 
-	public Object getBlockedEventResult() {
+	public Object getBlockedValue() {
 		Object result = null;
 		if (over)
 			return eventResult;
@@ -124,7 +124,7 @@ public class EventMessageFuture implements EventMessage {
 		this.futureTask = futureTask;
 	}
 
-	public void setEventResult(Object result) {
+	public void send(Object result) {
 		this.eventResult = result;
 	}
 
@@ -140,7 +140,7 @@ public class EventMessageFuture implements EventMessage {
 		return futureTask;
 	}
 
-	public void setTimeoutforeturnResult(int timeoutforeturnResult) {
+	public void setWaitforTimeout(int timeoutforeturnResult) {
 		this.timeoutforeturnResult = timeoutforeturnResult;
 	}
 

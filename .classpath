@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/cglib.jar"/>
 	<classpathentry kind="lib" path="lib/commons-pool-1.5.1.jar"/>
-	<classpathentry kind="lib" path="lib/disruptor-2.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/ehcache-1.6.2.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-regexp-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/jdom.jar"/>
@@ -14,5 +13,6 @@
 	<classpathentry kind="lib" path="lib/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/picocontainer-1.2.jar" sourcepath="D:/javasource/JdonComponent/picocontainer-1.2-sources/src"/>
 	<classpathentry kind="lib" path="weblib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="lib/disruptor-2.8.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

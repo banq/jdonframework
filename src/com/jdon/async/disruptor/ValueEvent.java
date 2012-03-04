@@ -13,16 +13,26 @@
  * limitations under the License.
  * 
  */
-package com.jdon.sample.test.dci;
+package com.jdon.async.disruptor;
 
-import com.jdon.annotation.Consumer;
-import com.jdon.async.disruptor.EventDisruptor;
-import com.jdon.domain.message.DomainEventHandler;
+import com.lmax.disruptor.EventFactory;
 
-@Consumer("saveMyModel")
-public class RepositoryListener implements DomainEventHandler {
-	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
-		System.out.println("\n No.3 @OnEvent:" + this.getClass().getName());
+public class ValueEvent {
+
+	private Object value;
+
+	public Object getValue() {
+		return value;
 	}
+
+	public void setValue(final Object value) {
+		this.value = value;
+	}
+
+	public final static EventFactory<ValueEvent> EVENT_FACTORY = new EventFactory<ValueEvent>() {
+		public ValueEvent newInstance() {
+			return new ValueEvent();
+		}
+	};
 
 }

@@ -155,9 +155,9 @@
 	
 	<component name="modelProxyInjection" class="com.jdon.domain.model.injection.ModelProxyInjection"></component>
 	
-	<!-- asnc start -->
+	<!-- disruptorParams concurrent event  -->
 	<component name="disruptorParams" class="com.jdon.async.disruptor.DisruptorParams">
-	    <constructor value="8" />
+	    <constructor value="2048" />
     </component>
     
     <component name="disruptorFactory" class="com.jdon.async.disruptor.DisruptorFactory"></component>

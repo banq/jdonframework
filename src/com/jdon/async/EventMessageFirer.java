@@ -15,42 +15,70 @@
  */
 package com.jdon.async;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import com.jdon.annotation.model.Send;
 import com.jdon.async.disruptor.DisruptorFactory;
 import com.jdon.async.disruptor.EventDisruptor;
-import com.jdon.async.future.EventMessageFuture;
+import com.jdon.async.disruptor.EventResultDisruptor;
+import com.jdon.async.future.EventResultFuture;
 import com.jdon.async.future.FutureDirector;
 import com.jdon.async.future.FutureListener;
 import com.jdon.domain.message.DomainMessage;
+import com.jdon.util.Debug;
+import com.lmax.disruptor.RingBuffer;
+import com.lmax.disruptor.dsl.Disruptor;
 
 public class EventMessageFirer {
+	public final static String module = EventMessageFirer.class.getName();
+
 	private DisruptorFactory disruptorFactory;
 	private FutureDirector futureDirector;
+	protected final Map<String, Disruptor> topicDisruptors;
 
 	public EventMessageFirer(DisruptorFactory disruptorFactory, FutureDirector futureDirector) {
 		super();
 		this.disruptorFactory = disruptorFactory;
 		this.futureDirector = futureDirector;
+		this.topicDisruptors = new ConcurrentHashMap<String, Disruptor>();
 	}
 
 	public void fire(DomainMessage domainMessage, Send send, FutureListener futureListener) {
-		EventMessageFuture eventMessageFuture = new EventMessageFuture(send.value(), futureListener, domainMessage);
+		EventResultFuture eventMessageFuture = new EventResultFuture(send.value(), futureListener, domainMessage);
 		eventMessageFuture.setAsyn(send.asyn());
-		domainMessage.setEventMessage(eventMessageFuture);
+		domainMessage.setResultEvent(eventMessageFuture);
 		futureDirector.fire(domainMessage);
 
 	}
 
 	public void fire(DomainMessage domainMessage, Send send) {
-		String topic = send.value();
-		EventDisruptor eventDisruptor = disruptorFactory.getEventDisruptor(topic);
-		if (eventDisruptor == null)
-			return;
-		eventDisruptor.setTopic(topic);
-		eventDisruptor.setDomainMessage(domainMessage);
-		domainMessage.setEventMessage(eventDisruptor);
-		eventDisruptor.publish();
-		// disruptorFactory.fire(topic, eventDisruptor);
+		try {
+			String topic = send.value();
+			Disruptor disruptor = topicDisruptors.get(topic);
+			if (disruptor == null) {
+				disruptor = disruptorFactory.getDisruptor(topic);
+				if (disruptor == null) {
+					Debug.logWarning("not create disruptor for " + topic, module);
+					return;
+				}
+				topicDisruptors.put(topic, disruptor);
+			}
+
+			domainMessage.setResultEvent(new EventResultDisruptor(topic, domainMessage));
+
+			RingBuffer ringBuffer = disruptor.getRingBuffer();
+			long sequence = ringBuffer.next();
+
+			EventDisruptor eventDisruptor = (EventDisruptor) ringBuffer.get(sequence);
+			if (eventDisruptor == null)
+				return;
+			eventDisruptor.setTopic(topic);
+			eventDisruptor.setDomainMessage(domainMessage);
+			ringBuffer.publish(sequence);
+		} catch (Exception e) {
+			Debug.logError("fire error: " + send.value() + " domainMessage:" + domainMessage.getEventSource(), module);
+		}
 	}
 
 }

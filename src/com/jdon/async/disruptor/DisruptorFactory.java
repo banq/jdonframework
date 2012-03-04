@@ -22,8 +22,6 @@ import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 
-import com.jdon.async.disruptor.util.DisruptorWizard;
-import com.jdon.async.disruptor.util.EventHandlerGroup;
 import com.jdon.container.ContainerWrapper;
 import com.jdon.container.annotation.type.ConsumerLoader;
 import com.jdon.container.finder.ContainerCallback;
@@ -31,15 +29,18 @@ import com.jdon.domain.message.DomainEventDispatchHandler;
 import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.domain.message.consumer.ConsumerMethodHolder;
 import com.jdon.util.Debug;
-import com.lmax.disruptor.AbstractEvent;
 import com.lmax.disruptor.ClaimStrategy;
 import com.lmax.disruptor.EventFactory;
-import com.lmax.disruptor.RingBuffer;
+import com.lmax.disruptor.MultiThreadedClaimStrategy;
+import com.lmax.disruptor.SleepingWaitStrategy;
 import com.lmax.disruptor.WaitStrategy;
+import com.lmax.disruptor.dsl.Disruptor;
+import com.lmax.disruptor.dsl.EventHandlerGroup;
 
 public class DisruptorFactory implements EventFactory {
 	public final static String module = DisruptorFactory.class.getName();
 	protected final Map<String, TreeSet<DomainEventHandler>> handlesMap;
+
 	private String RingBufferSize;
 
 	private final ContainerWrapper containerWrapper;
@@ -48,31 +49,45 @@ public class DisruptorFactory implements EventFactory {
 		this.RingBufferSize = disruptorParams.getRingBufferSize();
 		this.containerWrapper = containerCallback.getContainerWrapper();
 		this.handlesMap = new ConcurrentHashMap<String, TreeSet<DomainEventHandler>>();
+
 	}
 
-	private DisruptorWizard createDw(int size) {
-		if (size == 0)
-			size = Integer.parseInt(RingBufferSize);
-		return new DisruptorWizard<EventDisruptor>(this, size + 2, Executors.newCachedThreadPool(), ClaimStrategy.Option.SINGLE_THREADED,
-				WaitStrategy.Option.YIELDING);
+	public DisruptorFactory() {
+		this.RingBufferSize = "2048";
+		this.containerWrapper = null;
+		this.handlesMap = new ConcurrentHashMap<String, TreeSet<DomainEventHandler>>();
 	}
 
-	public DisruptorWizard addEventMessageHandler(String topic, TreeSet<DomainEventHandler> handlers) {
+	private Disruptor createDw(String topic) {
+		// executorService = Executors.newFixedThreadPool(100);
+		WaitStrategy waitStrategy = new SleepingWaitStrategy();
+		ClaimStrategy claimStrategy = new MultiThreadedClaimStrategy(Integer.parseInt(RingBufferSize));
+		return new Disruptor(this, Executors.newCachedThreadPool(), claimStrategy, waitStrategy);
+	}
+
+	public Disruptor addEventMessageHandler(String topic, TreeSet<DomainEventHandler> handlers) {
 		if (handlers.size() == 0)
 			return null;
-		DisruptorWizard dw = createDw(handlers.size());
+		Disruptor dw = createDw(topic);
 		EventHandlerGroup eh = null;
 		for (DomainEventHandler handler : handlers) {
+			DomainEventHandlerAdapter dea = new DomainEventHandlerAdapter(handler);
 			if (eh == null) {
-				eh = dw.handleEventsWith(handler);
+				eh = dw.handleEventsWith(dea);
 			} else {
-				eh = eh.handleEventsWith(handler);
+				eh = eh.handleEventsWith(dea);
 			}
 		}
 		return dw;
 	}
 
-	public EventDisruptor getEventDisruptor(String topic) {
+	/**
+	 * one event one EventDisruptor
+	 * 
+	 * @param topic
+	 * @return
+	 */
+	public Disruptor getDisruptor(String topic) {
 		TreeSet handlers = handlesMap.get(topic);
 		if (handlers == null)// not inited
 		{
@@ -88,13 +103,11 @@ public class DisruptorFactory implements EventFactory {
 			}
 			handlesMap.put(topic, handlers);
 		}
-		DisruptorWizard disruptorWizard = addEventMessageHandler(topic, handlers);
-		if (disruptorWizard == null)
+		Disruptor disruptor = addEventMessageHandler(topic, handlers);
+		if (disruptor == null)
 			return null;
-		RingBuffer ringBuffer = disruptorWizard.start();
-		EventDisruptor eventDisruptor = (EventDisruptor) ringBuffer.nextEvent();
-		eventDisruptor.setRingBuffer(ringBuffer);
-		return eventDisruptor;
+		disruptor.start();
+		return disruptor;
 	}
 
 	/**
@@ -150,9 +163,7 @@ public class DisruptorFactory implements EventFactory {
 		});
 	}
 
-	@Override
-	public AbstractEvent create() {
+	public EventDisruptor newInstance() {
 		return new EventDisruptor();
-
 	}
 }

@@ -15,105 +15,13 @@
  */
 package com.jdon.async.disruptor;
 
-import java.util.concurrent.TimeUnit;
-
-import com.jdon.async.EventMessage;
 import com.jdon.domain.message.DomainMessage;
-import com.lmax.disruptor.AbstractEvent;
-import com.lmax.disruptor.AlertException;
-import com.lmax.disruptor.DependencyBarrier;
-import com.lmax.disruptor.RingBuffer;
 
-public class EventDisruptor extends AbstractEvent implements EventMessage {
+public class EventDisruptor {
 
 	protected String topic;
 
 	protected DomainMessage domainMessage;
-
-	protected boolean over;
-
-	protected Object eventResult;
-
-	protected Object eventReturnResult;
-
-	// MILLISECONDS default is one seconds
-	protected int timeoutforeturnResult = 10000;
-
-	protected RingBuffer<EventDisruptor> ringBuffer;
-
-	public Object getEventResult() {
-		if (over)
-			return eventResult;
-		try {
-			EventDisruptor resultEvent = fetchResultEvent();
-			if (resultEvent != null)
-				eventResult = resultEvent.getEventReturnResult();
-			over = true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return eventResult;
-	}
-
-	public Object getBlockedEventResult() {
-		if (over)
-			return eventResult;
-		try {
-			EventDisruptor resultEvent = fetchBlockResultEvent();
-			if (resultEvent != null)
-				eventResult = resultEvent.getEventReturnResult();
-			over = true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return eventResult;
-	}
-
-	protected EventDisruptor fetchResultEvent() {
-		EventDisruptor resultEvent = null;
-		try {
-			DependencyBarrier dependencyBarrier = ringBuffer.newDependencyBarrier();
-			long nextSequence = this.getSequence() + 1L;
-			final long availableSequence = dependencyBarrier.waitFor(nextSequence, timeoutforeturnResult, TimeUnit.MILLISECONDS);
-			if (availableSequence == nextSequence) {
-				resultEvent = ringBuffer.getEvent(availableSequence);
-			}
-		} catch (AlertException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		return resultEvent;
-
-	}
-
-	protected EventDisruptor fetchBlockResultEvent() {
-		EventDisruptor resultEvent = null;
-		try {
-			DependencyBarrier dependencyBarrier = ringBuffer.newDependencyBarrier();
-			long nextSequence = this.getSequence() + 1L;
-			final long availableSequence = dependencyBarrier.waitFor(nextSequence);
-			if (availableSequence == nextSequence) {
-				resultEvent = ringBuffer.getEvent(availableSequence);
-			}
-		} catch (AlertException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		return resultEvent;
-
-	}
-
-	public void setEventResult(Object result) {
-		EventDisruptor eventResult = ringBuffer.nextEvent();
-		eventResult.setEventReturnResult(result);
-		ringBuffer.publish(eventResult);
-	}
-
-	public String getTopic() {
-		return topic;
-	}
 
 	public void setTopic(String topic) {
 		this.topic = topic;
@@ -125,34 +33,6 @@ public class EventDisruptor extends AbstractEvent implements EventMessage {
 
 	public void setDomainMessage(DomainMessage domainMessage) {
 		this.domainMessage = domainMessage;
-	}
-
-	public RingBuffer getRingBuffer() {
-		return ringBuffer;
-	}
-
-	public void setRingBuffer(RingBuffer<EventDisruptor> ringBuffer) {
-		this.ringBuffer = ringBuffer;
-	}
-
-	public Object getEventReturnResult() {
-		return eventReturnResult;
-	}
-
-	public void setEventReturnResult(Object eventReturnResult) {
-		this.eventReturnResult = eventReturnResult;
-	}
-
-	public void publish() {
-		ringBuffer.publish(this);
-	}
-
-	public int getTimeoutforeturnResult() {
-		return timeoutforeturnResult;
-	}
-
-	public void setTimeoutforeturnResult(int timeoutforeturnResult) {
-		this.timeoutforeturnResult = timeoutforeturnResult;
 	}
 
 }

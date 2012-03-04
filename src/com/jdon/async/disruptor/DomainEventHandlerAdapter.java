@@ -13,33 +13,22 @@
  * limitations under the License.
  * 
  */
-package com.jdon.async;
+package com.jdon.async.disruptor;
 
-public interface EventMessage {
+import com.jdon.domain.message.DomainEventHandler;
+import com.lmax.disruptor.EventHandler;
 
-	/**
-	 * setup time out(MILLISECONDS) value for get a Event Result
-	 * 
-	 * @param timeoutforeturnResult
-	 *            MILLISECONDS
-	 */
-	void setTimeoutforeturnResult(int timeoutforeturnResult);
+public class DomainEventHandlerAdapter implements EventHandler<EventDisruptor> {
+	private DomainEventHandler handler;
 
-	/**
-	 * get a Event Result until time out value: setTimeoutforeturnResult(int
-	 * timeoutforeturnResult)
-	 * 
-	 * @return
-	 */
-	Object getEventResult();
+	public DomainEventHandlerAdapter(DomainEventHandler handler) {
+		super();
+		this.handler = handler;
+	}
 
-	/**
-	 * Blocking until get a Event Result
-	 * 
-	 * @return
-	 */
-	Object getBlockedEventResult();
+	public void onEvent(EventDisruptor event, long sequence, boolean endOfBatch) throws Exception {
+		handler.onEvent(event, endOfBatch);
 
-	void setEventResult(Object eventResult);
+	}
 
 }
