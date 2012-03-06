@@ -29,14 +29,32 @@ import com.jdon.domain.message.DomainEventDispatchHandler;
 import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.domain.message.consumer.ConsumerMethodHolder;
 import com.jdon.util.Debug;
+import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.ClaimStrategy;
 import com.lmax.disruptor.EventFactory;
 import com.lmax.disruptor.MultiThreadedClaimStrategy;
-import com.lmax.disruptor.SleepingWaitStrategy;
 import com.lmax.disruptor.WaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.EventHandlerGroup;
 
+/**
+ * SLEEPING is a better option when you have a large number of event processors
+ * and you need throughput when you don't mind a 1ms latency hit in the worse
+ * case. BLOCKING has the lowest throughput of all the strategies but it does
+ * not have the 1ms latency spikes of SLEEPING. It uses no CPU when idle but it
+ * does not scale up so well with increasing numbers of event processors because
+ * of the contention on the lock. YIELDING and BUSY_SPIN have the best
+ * performance for both throughput and latency but eat up a CPU. YIELDING is
+ * more friendly in allowing other threads to run when cores are limited. It
+ * would be nice if Java had access to the x86 PAUSE instruction to save power
+ * and further reduce latency that gets lost due to the wrong choices the CPU
+ * can make with speculative execution of busy spin loops. In all cases where
+ * you have sufficient cores then all the wait strategies will beat pretty much
+ * any other alternative such as queues.
+ * 
+ * @author banq
+ * 
+ */
 public class DisruptorFactory implements EventFactory {
 	public final static String module = DisruptorFactory.class.getName();
 	protected final Map<String, TreeSet<DomainEventHandler>> handlesMap;
@@ -60,7 +78,7 @@ public class DisruptorFactory implements EventFactory {
 
 	private Disruptor createDw(String topic) {
 		// executorService = Executors.newFixedThreadPool(100);
-		WaitStrategy waitStrategy = new SleepingWaitStrategy();
+		WaitStrategy waitStrategy = new BlockingWaitStrategy();
 		ClaimStrategy claimStrategy = new MultiThreadedClaimStrategy(Integer.parseInt(RingBufferSize));
 		return new Disruptor(this, Executors.newCachedThreadPool(), claimStrategy, waitStrategy);
 	}

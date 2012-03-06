@@ -17,9 +17,9 @@ package com.jdon.async.disruptor;
 
 import com.jdon.async.EventResult;
 import com.jdon.domain.message.DomainMessage;
+import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.SingleThreadedClaimStrategy;
-import com.lmax.disruptor.YieldingWaitStrategy;
 
 public class EventResultDisruptor implements EventResult {
 
@@ -40,7 +40,7 @@ public class EventResultDisruptor implements EventResult {
 		super();
 		this.topic = topic;
 		this.domainMessage = domainMessage;
-		RingBuffer ringBuffer = new RingBuffer<ValueEvent>(ValueEvent.EVENT_FACTORY, new SingleThreadedClaimStrategy(8), new YieldingWaitStrategy());
+		RingBuffer ringBuffer = new RingBuffer<ValueEvent>(ValueEvent.EVENT_FACTORY, new SingleThreadedClaimStrategy(8), new BlockingWaitStrategy());
 		this.valueEventProcessor = new ValueEventProcessor(ringBuffer);
 
 	}
