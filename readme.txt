@@ -1,6 +1,6 @@
 JdonFramework is a light-weight framework for developing Domain-Driven Design applications in the spirit of Evans and Vens, it combines with rapidity and agility for your web application architecture.
 
-JDON FRAMEWORK 6.5.1  (11/2011)
+JDON FRAMEWORK 6.5.1  (03/2012)
 ---------------------------------------
 http://www.jdon.org
 
