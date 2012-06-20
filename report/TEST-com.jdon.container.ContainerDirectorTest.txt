@@ -1,8 +1,8 @@
 Testsuite: com.jdon.container.ContainerDirectorTest
-Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 3.143 sec
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 2.387 sec
 ------------- Standard Output ---------------
-2012-03-06 10:38:10,199 [main] INFO  JdonFramework -  is ready.
-2012-03-06 10:38:11,717 [main] INFO  JdonFramework - Jdon Framework started successfully! 
+2012-06-18 14:52:16,473 [main] INFO  JdonFramework -  is ready.
+2012-06-18 14:52:17,784 [main] INFO  JdonFramework - Jdon Framework started successfully! 
 ------------- ---------------- ---------------
 
-Testcase: testStartup took 3.135 sec
+Testcase: testStartup took 2.387 sec

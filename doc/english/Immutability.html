@@ -1,0 +1,182 @@
+<html><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<!-- #BeginEditable "doctitle" -->
+<title>Jdon Framework</title>  
+<!-- #EndEditable -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="shortcut icon" href="http://www.jdon.com/favicon.ico">
+<!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
+<link href="views.css" rel="stylesheet" type="text/css">
+</head>
+<body bgcolor="#dddddd" text="#000000">
+ <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+
+  <tr> 
+    <td height="11" colspan="7" bgcolor="#FFFFFF" class="bianxian"> 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" height="1" bordercolor="#000000">
+        <tr> 
+          <td> 
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000">
+              <tr> 
+                <td></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    
+    <td bgcolor="#FFFFFF"  valign="top">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          
+         
+          <td valign="top" > 
+            <table width="100%" border="0" cellspacing="2" cellpadding="2">
+              <tr>
+                <td>
+                  <h1>JDon.org</h1>
+				<!-- #BeginEditable "main" -->
+				<h3>Immutability is everything <br>
+				  </h3>
+				<p>Immutability is abstraction. It does not &quot;exist&quot; in nature,World is mutable, world is permanently changing,So it's quite natural for data structures to be mutable that they describe the state of the real or simulated object at a given moment in time. but  problems will arise  in computer world when:</p>
+				<p>1.data structures are modified from concurrent threads<br>
+				  2.users provide conficting changes for the same objects<br>
+				  3.a user provide an invalid data and it should be rolled back</p>
+				<p>how to solve these problems? solutions is :immutable or volatile  and synchronized lock.we know lock is enemy of performance, lock is blocking, and volatile has some shortcomings, The only choice is immutable.</p>
+				<p>so immutable is a performance design pattern, Once it is being constructed, it will forever change,in java all fields in it is &quot;final&quot;, no setXXX method that you can change any field. when you publish a immutable object is thread safe.</p>
+				<p>so if we use immutable pattern to avoid transaction lock such as database lock or java synchronized.</p>
+				<p>next problem is for programmers how to know which datas is immutable?</p>
+				<p>that is  Value Object of DDD(Domain-driven desgin)：</p>
+				<p>&quot;An object that represents a descriptive aspect of the domain with no conceptual identity is called a VALUE OBJECT. VALUE OBJECTS are instantiated to represent elements of the design that we care about only for what they are, not who or which they are.&quot; [Evans 2003]<br>
+				  </p>
+				<p>the primary difference to me between Entities and Value Objects is identity，If I have two instances to Value Objects with same internal values, they should be considered equal，If you can't make a Value Object</p>
+				<p>- Immutable<br>
+				  - value equality rather than reference equality</p>
+				<p>Then it probably isn't a Value Object，</p>
+				<p>so if a domain expert designs a object is value object, then we know the object is immutable. then software system would be pleased with it.</p>
+				<p>in scala, they are happy because they can use Immutability + Actor model for concurrency programming, how to implement a immutable  value object in Java?</p>
+				<p>in Java I think we can have a happy concurrency programming by Immutability + ES Model of JdonFramework, here is a immutable class from open source jivejdon:</p>
+				<table width="100%"  border="0" cellpadding="1" cellspacing="0" bgcolor="#CCCCCC">
+				  <tr bgcolor="#CCCCCC">
+				    <td><P>public class ForumState {<br>
+private final AtomicLong threadCount;<br>
+<br>
+private final AtomicLong messageCount;</P>
+                      <p> private final ForumMessage lastPost;</p>
+                      <p> private final Forum forum;</p>
+                      <p> private final SubscribedState subscribedState;</p>
+                      <p> public ForumState(Forum forum, ForumMessage lastPost, long messageCount, long threadCount) {<br>
+                        super();<br>
+                        this.forum = forum;<br>
+                        this.lastPost = lastPost;<br>
+                        this.messageCount = new AtomicLong(messageCount);<br>
+                        this.threadCount = new AtomicLong(threadCount);<br>
+                        this.subscribedState = new SubscribedState(new ForumSubscribed(forum));<br>
+                        }<br>
+                        ...<br>
+                        }<br>
+                      </p></td>
+				    </tr>
+				  </table>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>I use &quot;final&quot; for this value object:ForumState, so these fields in VO never be modified seperately,<br>
+				  if you want to change one of them, you must replcae the whole VO, replacing a object is a atomc operating,<br>
+				  so no need any locks.</p>
+				<p>according DDD, we need a Factory to manage  immutable objects's lifecycle, so I create a Factory for creating the value object ForumState:</p>
+				<p>&nbsp;</p>
+				<table cellspacing="0" cellpadding="0">
+				  <TR id="sl_svn103_21">
+				    <TD>public interface ForumStateFactory { </TD>
+				    </TR>
+				  <TR id="sl_svn103_22">
+				    <TD></TD>
+				    </TR>
+				  <TR id="sl_svn103_23">
+				    <TD>        void init(Forum forum, ForumMessage lastPost); </TD>
+				    </TR>
+				  <TR id="sl_svn103_24">
+				    <TD></TD>
+				    </TR>
+				  <TR id="sl_svn103_25">
+				    <TD>        void addNewMessage(Forum forum, ForumMessage newLastPost); </TD>
+				    </TR>
+				  <TR id="sl_svn103_26">
+				    <TD></TD>
+				    </TR>
+				  <TR id="sl_svn103_27">
+				    <TD>        void addNewThread(Forum forum, ForumMessage newLastPost); </TD>
+				    </TR>
+				  <TR id="sl_svn103_28">
+				    <TD></TD>
+				    </TR>
+				  <TR id="sl_svn103_29">
+				    <TD>        void updateMessage(Forum forum, ForumMessage forumMessage); </TD>
+				    </TR>
+				  <TR id="sl_svn103_30">
+				    <TD></TD>
+				    </TR>
+				  <TR id="sl_svn103_31">
+				    <TD>}</TD>
+				    </TR>
+				  </table>
+				<p>&nbsp;</p> 
+                  <p>　　what is difference this ForumStateFactory with other factory ? no synchronized method,there is a contrast as below:</p>
+                  <p>&nbsp;</p>
+                  <p><img src="images/DDD.png" width="813" height="378"><br>
+                    Immutability always be there. we can find it by Value Object at first. and it   can improve our system performance.<BR>
+                    <BR>
+                  </p>
+                  <p>&nbsp;</p>
+                  <!-- #EndEditable -->
+			    </td>
+              </tr>
+            </table>			
+          </td>
+		  <td width="200" valign="top"  bgcolor="#FFFFD7"> <table width="100%" border="0" cellspacing="0" cellpadding="3" height="200" align="center">
+      <tr>
+        <td align="right"><table width="100%" height="200" border="0" align="center" cellpadding="3" cellspacing="0" dwcopytype="CopyTableCell">
+            <tr>
+              <td align="left"  valign="top"><p align="center"><a href="http://www.jdon.org"><img src="images/jdone.gif" width="120" height="60" border="0"></a></p>
+                  <p ><B><a href="https://sourceforge.net/projects/jdon/files/" target="_blank">Downloads</a></B></p>
+                  <p ><a href="JdonFramework.ppt"><strong>Architecture</strong></a></p>
+                  <p ><B><a href="doc.htm" target="_blank">Document</a></B></p>
+                  <p ><a href="quickconf.html"><strong>Qucik Start</strong></a> </p>
+                  <p ><a href="https://github.com/banq/jdonframework"><strong>Github</strong></a></p>
+<p ><B><a href="http://code.google.com/p/jivejdon/" target="_blank">jivejdon</a></B></p>
+                  <p ><a href="http://code.google.com/p/jdonmvc/downloads/list"><strong>JdonMVC</strong></a></p>
+                  <p >&nbsp;</p>
+                  <p > <a href="http://twitter.com/banqjdon"><img src="http://cdn.dzone.com/links/themes/reader/images/actions/twitter-32x32.png" alt="twwiter"/></a></p>
+<p ><a href="http://sourceforge.net/projects/jdon/"><img src="images/sf.gif" alt="sf" width="88" height="31" border="0"></a></p>
+                  <!-- InstanceBeginEditable name="Menu" --> <!-- InstanceEndEditable --> </td>
+            </tr>
+        </table></td>
+        </tr>
+      </table>
+   </td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000"  align="center">
+              <tr>
+                <td></td>
+              </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td height="20" bgcolor="#CAC9BB" align="center">
+  <p><span class="small"><font color="#555555"><br>
+  </font></span></p>
+  </td>
+</tr>
+</table>
+<br>
+<!-- InstanceBeginEditable name="EditRegion3" --><!-- InstanceEndEditable -->
+</body>
+<!-- InstanceEnd --></html>

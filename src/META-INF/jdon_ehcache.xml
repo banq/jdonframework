@@ -26,11 +26,14 @@
         no expiration can take place.
          or use Ehcacahe 2.5 -->
    <cache name="jdonCache" 
-      maxElementsInMemory="100000"
-      eternal="true" 
-      overflowToDisk="true" 
-      diskPersistent="false" 
-   	  memoryStoreEvictionPolicy="LRU" /> 
+      maxElementsInMemory="130000"
+      eternal="false"
+      timeToIdleSeconds="172800" 
+      timeToLiveSeconds="0"
+      overflowToDisk="false"
+      diskPersistent="false"
+      memoryStoreEvictionPolicy="LRU" 
+       /> 
 
 
 </ehcache>

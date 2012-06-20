@@ -1,0 +1,235 @@
+<html><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<!-- #BeginEditable "doctitle" -->
+<title>Jdon Framework</title>  
+<!-- #EndEditable -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="shortcut icon" href="http://www.jdon.com/favicon.ico">
+<!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
+<link href="views.css" rel="stylesheet" type="text/css">
+</head>
+<body bgcolor="#dddddd" text="#000000">
+ <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+
+  <tr> 
+    <td height="11" colspan="7" bgcolor="#FFFFFF" class="bianxian"> 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" height="1" bordercolor="#000000">
+        <tr> 
+          <td> 
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000">
+              <tr> 
+                <td></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    
+    <td bgcolor="#FFFFFF"  valign="top">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          
+         
+          <td valign="top" > 
+            <table width="100%" border="0" cellspacing="2" cellpadding="2">
+              <tr>
+                <td>
+                  <h1>JDon.org</h1>
+				<!-- #BeginEditable "main" -->
+                  <DIV itemtype="http://schema.org/BlogPosting" itemscope="itemscope"><A name="7656657893244436499"></A>
+                    <H3 itemprop="name"><strong>DDD</strong> <strong>DCI</strong> and <strong>Domain</strong> <strong>Events</strong> <strong>example</strong></H3>
+                    <DIV>
+                      <DIV></DIV>
+                    </DIV>
+                    <DIV id="post-body-7656657893244436499" itemprop="articleBody"><strong>DDD</strong> is <strong>Domain</strong>-Driven Design , it is   a methodology that include ubiquitous language, root entity , value object and   aggregations.. <BR>
+                      <BR>
+                      <strong>DCI</strong>: Data, Context,   Interactions is a programming paradigm invented by Trygve Reenskaug. <BR>
+                      <BR>
+                      <strong>DCI</strong> keys: <BR>
+                      1. keep our   core model classes very thin. <BR>
+                      2. logic/behaviour should be kept in roles. <BR>
+                      <BR>
+                      Event Sourcing is a natural fit for software developers that want to   capture the essence of business domains (especially the most complex ones) while   staying decoupled from platform complexity or hard performance issues. <BR>
+                      <BR>
+                      Next step, we show how combine these together by a <strong>example</strong>: Here is a Robot: <A href="http://2.bp.blogspot.com/-U7W-7lcRgPM/ToPeLM2EsaI/AAAAAAAAABA/9lL4ixvT_uY/s1600/2011-09-29%2B10%2B55%2B04.png" imageanchor="1"><IMG src="images/2011-09-29 10 55 04.png" alt="" width="518" height="244" border="0" closure_uid_piuhnk="2"></A> <BR>
+                      <BR>
+                      <BR>
+                      <BR>
+                      <BR>
+                      <BR>
+                      <BR>
+                      <BR>
+                      <BR>
+                      <BR>
+                      <BR>
+                      <strong>DDD</strong> tell us  a result as   below: <BR>
+                      <BR>
+                      <A href="http://3.bp.blogspot.com/-CENRsAeSQuk/ToPe_tUusPI/AAAAAAAAABE/Biht3sGJNok/s1600/2011-09-29+10+58+51.png" imageanchor="1"><IMG src="images/2011-09-29 10 58 51.png" alt="" width="470" height="259" border="0" kca="true" closure_uid_piuhnk="3"></A><BR>
+                      <BR>
+                      Robot is a   root Entity, it include CPU Sensor Motor Sonar entities, all is a   aggregations.<BR>
+                      <BR>
+                      By <A href="http://www.amazon.com/Object-Design-Roles-Responsibilities-Collaborations/dp/0201379430">Object   Design: Roles, Responsibilities, and Collaborations)</A>, it is a   responsibility-Driven Design, and give a roles-and-responsibilities model,   responsibilities is that knowing what; doing what;deciding what.<BR>
+                      <BR>
+                      So in   this <strong>example</strong>, Robot know   what? do what? <BR>
+                      Robot can feel or see or hear and detect. Feeling  and seeing   and  hearing is the responsibilities as a intelligent robot role.<BR>
+                      <BR>
+                      But   where responsibilities will be in a object? all responsibilities will be   designed as methods of Robot entity?<BR>
+                      That will be a big model.<BR>
+                      <BR>
+                      <A href="http://3.bp.blogspot.com/-HBWEaMhiF-c/ToPhfkcUVxI/AAAAAAAAABI/llHR6phdhHs/s1600/2011-09-29+11+09+37.png" imageanchor="1"><IMG src="images/2011-09-29 11 09 37.png" alt="" border="0" kca="true" closure_uid_piuhnk="4"></A><BR>
+                      <strong>DCI</strong> says : No.<BR>
+                      <BR>
+                      <strong>DCI</strong> think Responsibilities   should be interactions of a Role   and will be injected into data model in   context. so as below:<BR>
+                      <A href="http://1.bp.blogspot.com/-P9TGOrsi3aw/ToPh4YZzq_I/AAAAAAAAABM/ZmCUKRmGibQ/s1600/2011-09-29+11+11+16.png" imageanchor="1"><IMG src="images/2011-09-29 11 11 16.png" alt="" width="410" height="332" border="0" kca="true" closure_uid_piuhnk="5"></A><BR>
+                      Robot entity is a   DCI's data model , and seeing hearing or feeling is the interactions of a   Role.<BR>
+                      <BR>
+                      Other <strong>example</strong> such as BankAccount,   it has three roles: two roles are design roles, BankAccount and FinancialAsset,   another role is technical role: EJB's EntityBean for persitence.<BR>
+                      <A href="http://1.bp.blogspot.com/-a-fOSjz34H0/ToP2co2sU-I/AAAAAAAAABQ/-eZx8ZRo9vk/s1600/2011-09-29+12+38+09.png" imageanchor="1"><IMG src="images/2011-09-29 12 38 09.png" alt="" width="448" height="269" border="0" kca="true" closure_uid_piuhnk="6"></A><BR>
+                      <BR>
+                      How to   implement above <strong>DCI</strong> design?<BR>
+                      <BR>
+                      I have implement this Robot <strong>Example</strong> with open source <A href="http://www.jdon.org/">Jdon framework 6.5</A>,  in <strong>DCI</strong> context:<BR>
+                      <BR>
+                      <TABLE border="0" bgColor="#cccccc">
+                        <TBODY>
+                          <TR>
+                            <TD>public String hello(String id) {<BR>
+                              Robot robot =   robotRepository.find(id);<BR>
+                              IntelligentRole intelligentRobot =   (IntelligentRole) roleAssigner.assign(robot, new IntelligentRobot());<BR>
+                              return "Hello, " + intelligentRobot.hear();<BR>
+                              } <BR>
+                              <BR>
+                              <BR>
+                              public String   touch(String id) {<BR>
+                              Robot robot = robotRepository.find(id);<BR>
+                              IntelligentRole intelligentRobot = (IntelligentRole)   roleAssigner.assign(robot, new  IntelligentRobot());<BR>
+                              return "Hello, " +   intelligentRobot.feel();<BR>
+                              } </TD>
+                          </TR>
+                        </>
+                        </TBODY>
+                      </TABLE>
+                      <BR>
+                      Like BankAccount   has a role :  EntityBean for persitence, Robot has too a role for persistence,   but the role not operate directly dabatabse such as EJB's EntityBean, because   database operatings  cost performance and slow, so we use concurrent pattern in   here.<BR>
+                      <BR>
+                      a PublisherRole is a event publisher of database operatings, by it   Robot can save himself to send a event to repository, here :<BR>
+                      <BR>
+                      <TABLE border="0" bgColor="#cccccc">
+                        <TBODY>
+                          <TR>
+                            <TD><BR>
+                              @Introduce("message")<BR>
+                              public class PublisherRoleImp implements   PublisherRole {<BR>
+                              <BR>
+                              @Send("saveme")<BR>
+                              public DomainMessage remember(Robot   robot) {<BR>
+                              return new DomainMessage(robot);<BR>
+                              }<BR>
+                              }<BR>
+                              <BR></TD>
+                          </TR>
+                        </>
+                        </TBODY>
+                      </TABLE>
+                      <BR>
+                      here is the operatings database   event subscriber:<BR>
+                      <TABLE border="0" bgColor="#cccccc">
+                        <TBODY>
+                          <TR>
+                            <TD><BR>
+                              @Component<BR>
+                              @Introduce("modelCache")<BR>
+                              public class   RobotRepositoryInMEM implements RobotRepository {<BR>
+                              .....<BR>
+                              <BR>
+                              //enable Robot Model in-memory cache<BR>
+                              @Around<BR>
+                              public Robot   find(String id) {<BR>
+                              return memDB.get(id);<BR>
+                              }<BR>
+                              <BR>
+                              //saving event subscriber<BR>
+                              @OnEvent("saveme")   <BR>
+                              public void   save(Robot robot) {<BR>
+                              memDB.put(robot.getId(), robot);<BR>
+                              }<BR>
+                              <BR>
+                              .....<BR>
+                              }</TD>
+                          </TR>
+                        </>
+                        </TBODY>
+                      </TABLE>
+                      <BR>
+                      here is saving   context:<BR>
+                      <TABLE border="0" bgColor="#cccccc">
+                        <TBODY>
+                          <TR>
+                            <TD><BR>
+                              <BR>
+                              public void save(Robot robot) {<BR>
+                              PublisherRole publisher =   (PublisherRole) roleAssigner.assign(robot, new   PublisherRoleImp());<BR>
+                              publisher.remember(robot);<BR>
+                              }<BR>
+                              <BR>
+                              <BR></TD>
+                          </TR>
+                        </>
+                        </TBODY>
+                      </TABLE>
+                      <strong>example</strong> source download: <A href="http://sourceforge.net/projects/jdon/files/JdonFramework-App/samples-6.5/robot.zip/download">robot.zip</A><BR>
+                      <BR>
+                    </DIV>
+                  </DIV>
+                  <!-- #EndEditable -->
+			    </td>
+              </tr>
+            </table>			
+          </td>
+		  <td width="200" valign="top"  bgcolor="#FFFFD7"> <table width="100%" border="0" cellspacing="0" cellpadding="3" height="200" align="center">
+      <tr>
+        <td align="right"><table width="100%" height="200" border="0" align="center" cellpadding="3" cellspacing="0" dwcopytype="CopyTableCell">
+            <tr>
+              <td align="left"  valign="top"><p align="center"><a href="http://www.jdon.org"><img src="images/jdone.gif" width="120" height="60" border="0"></a></p>
+                  <p ><B><a href="https://sourceforge.net/projects/jdon/files/" target="_blank">Downloads</a></B></p>
+                  <p ><a href="JdonFramework.ppt"><strong>Architecture</strong></a></p>
+                  <p ><B><a href="doc.htm" target="_blank">Document</a></B></p>
+                  <p ><a href="quickconf.html"><strong>Qucik Start</strong></a> </p>
+                  <p ><a href="https://github.com/banq/jdonframework"><strong>Github</strong></a></p>
+<p ><B><a href="http://code.google.com/p/jivejdon/" target="_blank">jivejdon</a></B></p>
+                  <p ><a href="http://code.google.com/p/jdonmvc/downloads/list"><strong>JdonMVC</strong></a></p>
+                  <p >&nbsp;</p>
+                  <p > <a href="http://twitter.com/banqjdon"><img src="http://cdn.dzone.com/links/themes/reader/images/actions/twitter-32x32.png" alt="twwiter"/></a></p>
+<p ><a href="http://sourceforge.net/projects/jdon/"><img src="images/sf.gif" alt="sf" width="88" height="31" border="0"></a></p>
+                  <!-- InstanceBeginEditable name="Menu" --> <!-- InstanceEndEditable --> </td>
+            </tr>
+        </table></td>
+        </tr>
+      </table>
+   </td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000"  align="center">
+              <tr>
+                <td></td>
+              </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td height="20" bgcolor="#CAC9BB" align="center">
+  <p><span class="small"><font color="#555555"><br>
+  </font></span></p>
+  </td>
+</tr>
+</table>
+<br>
+<!-- InstanceBeginEditable name="EditRegion3" --><!-- InstanceEndEditable -->
+</body>
+<!-- InstanceEnd --></html>

@@ -39,53 +39,36 @@
               <tr>
                 <td>
                   <h1>JDon.org</h1>
-				<!-- #BeginEditable "main" --> 
+				<!-- #BeginEditable "main" -->
+				<h3>how to easily develop a non-blocking concurrent application ? </h3>
+				<p>Most programmers are good at a synchronous mode that be executed sequentially in a thread, In a blocking system, wait thread is idle but continue to consume system resources.<br>
+				  </p>
+				<p>here is a formula for high transaction volume: </p>
+				<p><br>
+				  the number of idle threads =(arrival_rate * processing_time)<br>
+				  the result can be a very big number if the arrival_rate is high.</p>
+				<p>Blocking system is running under a very ineffective mode. No high throughout, no high CPU load.blocking is not fit for multi-core CPU, and it is cancer that will kill the system later.</p>
+				<p>when we read data from socket by this way:<br>
+				  While(true){<br>
+				  ...<br>
+				  }</p>
+				<p><br>
+				  this will cost CPU and block the system, there are many blocking in JDK, such as java.concurrent.BlockingQueue LinkedBlockingQueue, they are belong to false concurrent.</p>
+				<p>To avoid synchronous  lock and blocking, we need use &quot;volatile&quot;  or &quot;Visibility&quot;  and &quot;immutable&quot;, they are maybe difficult for most programmers.</p>
+				<p>A good way for non-blocking concurrent is queue of no lock, not JDK's BlockingQueue , the RingBuffer of Disruptor is a no-lock queue that can be shared between two threads. Actors mode is another non-blocking concurrent , it  shares nothing. </p>
+				<p>In a  non-blocking concurrent system: make a call which returns a result.  don't need to use the result until at a much later stage of your process. don't need to wait immediately after making the call, instead you can proceed to do other things until you reach the point where you need to use the result. the call itself will return a &quot;future&quot; handle immediately. The caller can go off doing other things and later poll the &quot;future&quot; handle to see if the response if ready. </p>
+				<p>We can use Domain Events wrapping the RingBuffer of Disruptor, so threads communicates through events or messages, so no shared state, nothing to synchronize.this is  Message-Passing Concurrency. </p>
+				<p>we design Message-Passing Concurrency into open source jdon framework.</p>
+				<p>the  non-blocking concurrent way of jdon framework is here: Domain Model sends events to  another thread(a consumer) by RingBuffer in Disruptor, so two threads can communicates through event ;After the consumer done, it will put the result in another RingBuffer that publisher can read or blocking read it, decided by business is or not executed sequentially.</p>
+				<p>by domain events and DCI in  jdon framework we make  an exploratory to promote non-blocking concurrent programming paradigm. jdon framework can help most programmers quietly going to the way of non-blocking concurrent programming when they thinking in DDD.</p>
+				<p>DCI and Domain Events are different abstract high levels based concurrent programming,  DCI is easier to be understand than Domain Events , DCI and UML colors analysis method can successfully docking, it is the highest level of abstraction of business-oriented.</p>
+				<p>here shows how to use DCI and Domain Events in jdon framework :</p>
+				<p>&nbsp;</p>
+				<p>If we already hold on a model object, we can implements various functions by its domain events,such as modify/update a model.Otherwise:We create a context, and there we inject events or functions into a new model object by RoleAssigner,such as create or delete a model.</p>
+				<p>details in : </p>
+				<p><strong><a href="DomainEvents.html">DDD</a></strong> <a href="DomainEvents.html"><strong>DCI</strong> and <strong>Domain</strong> <strong>Events</strong> <strong>example</strong></a><br>
+				  </p> 
                   <p>　　</p>
-                  <H3> Command patern for calling services</H3>
-                  <H3>This function is like the ActionController of Ruby on Rails， the function  handles incoming requests from the user's browser and routes   them to the correct method of a <strong>service</strong> class , not a controller class such as Struts's DispatchAction. </H3>
-                  <H3><img src="images/serviceAction.jpg" alt=" " width="421" height="315"></H3>
-                  <p>how to implements? three steps:</p>
-                  <p><strong>First step</strong>: configure your struts-config.xml:</p>
-                  <TABLE cellSpacing=1 cellPadding=1 width="100%" bgColor=#cccccc border=0>
-                    <TBODY>
-                      <TR>
-                        <TD><P>&lt;action path="/aaa" type="<strong>com.jdon.strutsutil.ForwardAction</strong>"　name="aForm" scope="request"validate="false"&gt;</P>
-                            <P>&lt;forward name="<strong>xxxxx</strong>" path="/xxx.jsp"/&gt;</P>
-                          <P>&lt;/action&gt;</P></TD>
-                      </TR>
-                    </TBODY>
-                  </TABLE>
-                  <p>com.jdon.strutsutil.ForwardAction is the a class of jdon framework, <strong>xxxxx</strong> is your browser url parameter. </p>
-                  <p><strong>Second Step</strong>: tell jdon framework:you will call which service(the name of the JavaBeans) :</p>
-                  <TABLE cellSpacing=1 cellPadding=1 width="100%" bgColor=#cccccc border=0>
-                    <TBODY>
-                      <TR>
-                        <TD><P>&lt;model key="primary key of your model" class ="your model class"&gt;<BR>
-                          &lt;actionForm name="aForm"/&gt;<BR>
-                          &lt;handler&gt;<BR>
-                          &lt;service ref="testService" /&gt; &lt;!--the name of  the JavaBeans--&gt;<BR>
-                          &lt;/handler&gt;<BR>
-                          &lt;/model&gt;</P>
-                            <P>&lt;pojoService name="testService" 　　　　 <BR>
-                              class="com.jdon.framework.test.service.TestServicePOJOImp"/&gt;</P>
-                          <P></P></TD>
-                      </TR>
-                    </TBODY>
-                  </TABLE>
-                  <P><strong> Last Step</strong>: code your service interface:</P>
-                  <TABLE cellSpacing=1 cellPadding=1 width="100%" bgColor=#cccccc border=0>
-                    <TBODY>
-                      <TR>
-                        <TD><P>public interface TestService{<BR>
-                          ……<BR>
-                          void xxxxx(EventModel em);<BR>
-                          ……<BR>
-                          }</P>
-                            <P></P></TD>
-                      </TR>
-                    </TBODY>
-                  </TABLE>
-                  <hr>
                   <p>&nbsp;</p>
                   <!-- #EndEditable -->
 			    </td>
