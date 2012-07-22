@@ -13,26 +13,35 @@
  * limitations under the License.
  * 
  */
-package com.jdon.async.disruptor;
+package com.jdon.async;
 
-import com.lmax.disruptor.EventFactory;
+public interface EventResultHandler {
 
-public class ValueEvent {
+	/**
+	 * setup time out(MILLISECONDS) value for get a Event Result
+	 * 
+	 * @param timeoutforeturnResult
+	 *            MILLISECONDS
+	 */
+	void setWaitforTimeout(int timeoutforeturnResult);
 
-	private Object value;
+	/**
+	 * get a Event Result until time out value: setTimeoutforeturnResult(int
+	 * timeoutforeturnResult)
+	 * 
+	 * @return
+	 */
+	Object get();
 
-	public Object getValue() {
-		return value;
-	}
+	/**
+	 * Blocking until get a Event Result
+	 * 
+	 * @return
+	 */
+	Object getBlockedValue();
 
-	public void setValue(final Object value) {
-		this.value = value;
-	}
+	void send(Object eventResult);
 
-	public final static EventFactory<ValueEvent> EVENT_FACTORY = new EventFactory<ValueEvent>() {
-		public ValueEvent newInstance() {
-			return new ValueEvent();
-		}
-	};
+	void clear();
 
 }

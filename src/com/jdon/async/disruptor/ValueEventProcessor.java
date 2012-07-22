@@ -24,11 +24,11 @@ import com.lmax.disruptor.SequenceBarrier;
 
 public class ValueEventProcessor {
 
-	protected RingBuffer<ValueEvent> ringBuffer;
+	protected RingBuffer<EventResultDisruptor> ringBuffer;
 
 	private long waitAtSequence = 0;
 
-	public ValueEventProcessor(RingBuffer<ValueEvent> ringBuffer) {
+	public ValueEventProcessor(RingBuffer<EventResultDisruptor> ringBuffer) {
 		this.ringBuffer = ringBuffer;
 	}
 
@@ -36,12 +36,12 @@ public class ValueEventProcessor {
 		ringBuffer.setGatingSequences(new Sequence(-1));
 
 		waitAtSequence = ringBuffer.next();
-		ValueEvent ve = ringBuffer.get(waitAtSequence);
+		EventResultDisruptor ve = ringBuffer.get(waitAtSequence);
 		ve.setValue(result);
 		ringBuffer.publish(waitAtSequence);
 	}
 
-	public ValueEvent waitFor(long timeoutforeturnResult) {
+	public EventResultDisruptor waitFor(long timeoutforeturnResult) {
 		try {
 			SequenceBarrier barrier = ringBuffer.newBarrier();
 			long a = barrier.waitFor(waitAtSequence, timeoutforeturnResult, TimeUnit.MILLISECONDS);
@@ -54,11 +54,11 @@ public class ValueEventProcessor {
 		return null;
 	}
 
-	public ValueEvent waitForBlocking() {
+	public EventResultDisruptor waitForBlocking() {
 		try {
 			SequenceBarrier barrier = ringBuffer.newBarrier();
 			long a = barrier.waitFor(waitAtSequence);
-			ValueEvent ve = ringBuffer.get(a);
+			EventResultDisruptor ve = ringBuffer.get(a);
 			return ve;
 		} catch (AlertException e) {
 			e.printStackTrace();
@@ -74,6 +74,10 @@ public class ValueEventProcessor {
 
 	public void setWaitAtSequence(long waitAtSequence) {
 		this.waitAtSequence = waitAtSequence;
+	}
+
+	public void clear() {
+		this.ringBuffer = null;
 	}
 
 }

@@ -59,7 +59,7 @@ public class DisruptorFactoryTest extends TestCase {
 			long sequence = ringBuffer.next();
 
 			DomainMessage domainMessage = new DomainMessage(sequence);
-			domainMessage.setResultEvent(new EventResultDisruptor("test", domainMessage));
+			domainMessage.setResultEvent(new EventResultHandlerImp("test", domainMessage));
 
 			EventDisruptor eventDisruptor = (EventDisruptor) ringBuffer.get(sequence);
 			eventDisruptor.setTopic("test");

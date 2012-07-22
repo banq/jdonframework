@@ -15,76 +15,35 @@
  */
 package com.jdon.async.disruptor;
 
-import com.jdon.async.EventResult;
-import com.jdon.domain.message.DomainMessage;
-import com.lmax.disruptor.BlockingWaitStrategy;
-import com.lmax.disruptor.RingBuffer;
-import com.lmax.disruptor.SingleThreadedClaimStrategy;
+import com.lmax.disruptor.EventFactory;
 
-public class EventResultDisruptor implements EventResult {
+/**
+ * 
+ * A Consumer send response back to the Subscriber by this value object
+ * 
+ * @author banq
+ * 
+ */
+public class EventResultDisruptor {
 
-	protected String topic;
+	private Object value;
 
-	protected DomainMessage domainMessage;
-
-	protected boolean over;
-
-	protected Object result;
-
-	// MILLISECONDS default is one seconds
-	protected int timeoutforeturnResult = 10000;
-
-	protected ValueEventProcessor valueEventProcessor;
-
-	public EventResultDisruptor(String topic, DomainMessage domainMessage) {
-		super();
-		this.topic = topic;
-		this.domainMessage = domainMessage;
-		RingBuffer ringBuffer = new RingBuffer<ValueEvent>(ValueEvent.EVENT_FACTORY, new SingleThreadedClaimStrategy(8), new BlockingWaitStrategy());
-		this.valueEventProcessor = new ValueEventProcessor(ringBuffer);
-
+	public Object getValue() {
+		return value;
 	}
 
-	/**
-	 * send event result
-	 * 
-	 */
-	public void send(Object result) {
-		valueEventProcessor.send(result);
+	public void setValue(final Object value) {
+		this.value = value;
 	}
 
-	public Object get() {
-		if (over)
-			return result;
-		ValueEvent ve = valueEventProcessor.waitFor(timeoutforeturnResult);
-		if (ve != null)
-			result = ve.getValue();
-		return result;
-	}
+	public final static EventFactory<EventResultDisruptor> EVENT_FACTORY = new EventFactory<EventResultDisruptor>() {
+		public EventResultDisruptor newInstance() {
+			return new EventResultDisruptor();
+		}
+	};
 
-	public Object getBlockedValue() {
-		if (over)
-			return result;
-		ValueEvent ve = valueEventProcessor.waitForBlocking();
-		if (ve != null)
-			result = ve.getValue();
-		return result;
-	}
-
-	public String getTopic() {
-		return topic;
-	}
-
-	public int getTimeoutforeturnResult() {
-		return timeoutforeturnResult;
-	}
-
-	public void setWaitforTimeout(int timeoutforeturnResult) {
-		this.timeoutforeturnResult = timeoutforeturnResult;
-	}
-
-	public void setOver(boolean over) {
-		this.over = over;
+	public void clear() {
+		value = null;
 	}
 
 }

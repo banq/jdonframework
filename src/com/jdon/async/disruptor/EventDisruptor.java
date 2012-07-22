@@ -17,11 +17,23 @@ package com.jdon.async.disruptor;
 
 import com.jdon.domain.message.DomainMessage;
 
+/**
+ * A subscriber send a EventDisruptor to RingBuffer.
+ * 
+ * Consumers will get the EventDisruptor with its OnEvent method from RingBuffer
+ * 
+ * @author banq
+ * 
+ */
 public class EventDisruptor {
 
 	protected String topic;
 
 	protected DomainMessage domainMessage;
+
+	public EventDisruptor() {
+
+	}
 
 	public void setTopic(String topic) {
 		this.topic = topic;

@@ -19,10 +19,10 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 
-import com.jdon.async.EventResult;
+import com.jdon.async.EventResultHandler;
 import com.jdon.domain.message.DomainMessage;
 
-public class EventResultFuture implements EventResult {
+public class EventResultFuture implements EventResultHandler {
 
 	protected String channel;
 
@@ -142,6 +142,10 @@ public class EventResultFuture implements EventResult {
 
 	public void setWaitforTimeout(int timeoutforeturnResult) {
 		this.timeoutforeturnResult = timeoutforeturnResult;
+	}
+
+	public void clear() {
+
 	}
 
 }

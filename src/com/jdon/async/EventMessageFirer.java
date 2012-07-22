@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.jdon.annotation.model.Send;
 import com.jdon.async.disruptor.DisruptorFactory;
 import com.jdon.async.disruptor.EventDisruptor;
-import com.jdon.async.disruptor.EventResultDisruptor;
+import com.jdon.async.disruptor.EventResultHandlerImp;
 import com.jdon.async.future.EventResultFuture;
 import com.jdon.async.future.FutureDirector;
 import com.jdon.async.future.FutureListener;
@@ -65,7 +65,7 @@ public class EventMessageFirer {
 				topicDisruptors.put(topic, disruptor);
 			}
 
-			domainMessage.setResultEvent(new EventResultDisruptor(topic, domainMessage));
+			domainMessage.setResultEvent(new EventResultHandlerImp(topic, domainMessage));
 
 			RingBuffer ringBuffer = disruptor.getRingBuffer();
 			long sequence = ringBuffer.next();

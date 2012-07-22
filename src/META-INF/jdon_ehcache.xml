@@ -20,15 +20,16 @@
             />
 
    
-   <!-- load all datas In memeory  In-Memory-Data-Grid (IMDG) Elastic Caching
-         http://www.jdon.com/cache.html 
-         when  eternal set to "true", overrides timeToLive and timeToIdle so that
+   <!-- in-memory cache
+        when  eternal set to "true", overrides timeToLive and timeToIdle so that
         no expiration can take place.
-         or use Ehcacahe 2.5 -->
+        timeToIdleSeconds value is adjust by your JVM CMS Old Gen size and transfer size one day
+        http://www.jdon.com/44132
+         -->
    <cache name="jdonCache" 
       maxElementsInMemory="130000"
       eternal="false"
-      timeToIdleSeconds="172800" 
+      timeToIdleSeconds="86400" 
       timeToLiveSeconds="0"
       overflowToDisk="false"
       diskPersistent="false"

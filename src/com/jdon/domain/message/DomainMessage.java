@@ -15,12 +15,12 @@
  */
 package com.jdon.domain.message;
 
-import com.jdon.async.EventResult;
+import com.jdon.async.EventResultHandler;
 
 public class DomainMessage {
 
 	protected Object eventSource;
-	protected EventResult resultEvent;
+	protected EventResultHandler eventResultHandler;
 
 	public DomainMessage(Object eventSource) {
 		super();
@@ -31,16 +31,20 @@ public class DomainMessage {
 		return eventSource;
 	}
 
+	public void clearEventSource() {
+		this.eventSource = null;
+	}
+
 	public void setEventSource(Object eventSource) {
 		this.eventSource = eventSource;
 	}
 
-	public void setResultEvent(EventResult resultEvent) {
-		this.resultEvent = resultEvent;
+	public void setResultEvent(EventResultHandler resultEvent) {
+		this.eventResultHandler = resultEvent;
 	}
 
-	public EventResult getResultEvent() {
-		return resultEvent;
+	public EventResultHandler getResultEvent() {
+		return eventResultHandler;
 	}
 
 	/**
@@ -50,7 +54,7 @@ public class DomainMessage {
 	 *            MILLISECONDS
 	 */
 	public void setTimeoutforeturnResult(int timeoutforeturnResult) {
-		resultEvent.setWaitforTimeout(timeoutforeturnResult);
+		eventResultHandler.setWaitforTimeout(timeoutforeturnResult);
 	}
 
 	/**
@@ -59,11 +63,11 @@ public class DomainMessage {
 	 * @return Event Result
 	 */
 	public Object getEventResult() {
-		if (resultEvent == null) {
+		if (eventResultHandler == null) {
 			System.err.print("eventMessage is null " + eventSource.getClass());
 			return null;
 		} else
-			return resultEvent.get();
+			return eventResultHandler.get();
 	}
 
 	/**
@@ -72,18 +76,22 @@ public class DomainMessage {
 	 * @return
 	 */
 	public Object getBlockEventResult() {
-		if (resultEvent == null) {
+		if (eventResultHandler == null) {
 			System.err.print("eventMessage is null " + eventSource.getClass());
 			return null;
 		} else
-			return resultEvent.getBlockedValue();
+			return eventResultHandler.getBlockedValue();
 	}
 
 	public void setEventResult(Object eventResultValue) {
-		if (resultEvent != null)
-			resultEvent.send(eventResultValue);
-		else
+		if (eventResultHandler == null) {
 			System.err.print("eventMessage is null " + eventSource.getClass());
+			return;
+		}
+		// source no any usage; clear it
+		clearEventSource();
+		eventResultHandler.send(eventResultValue);
+
 	}
 
 }
