@@ -27,7 +27,7 @@ public class EventResultHandlerImp implements EventResultHandler {
 
 	protected DomainMessage domainMessage;
 
-	protected boolean over;
+	protected volatile boolean over;
 
 	protected Object result;
 
@@ -40,7 +40,7 @@ public class EventResultHandlerImp implements EventResultHandler {
 		super();
 		this.topic = topic;
 		this.domainMessage = domainMessage;
-		RingBuffer ringBuffer = new RingBuffer<EventResultDisruptor>(EventResultDisruptor.EVENT_FACTORY, new SingleThreadedClaimStrategy(8),
+		RingBuffer ringBuffer = new RingBuffer<EventResultDisruptor>(EventResultDisruptor.EVENT_FACTORY, new SingleThreadedClaimStrategy(1),
 				new BlockingWaitStrategy());
 		this.valueEventProcessor = new ValueEventProcessor(ringBuffer);
 
@@ -57,6 +57,13 @@ public class EventResultHandlerImp implements EventResultHandler {
 	public Object get() {
 		if (over)
 			return result;
+		else
+			return fecthResult();
+	}
+
+	private synchronized Object fecthResult() {
+		if (over)
+			return result;
 		EventResultDisruptor ve = valueEventProcessor.waitFor(timeoutforeturnResult);
 		if (ve != null) {
 			result = ve.getValue();
@@ -65,9 +72,17 @@ public class EventResultHandlerImp implements EventResultHandler {
 			clear();
 		}
 		return result;
+
 	}
 
 	public Object getBlockedValue() {
+		if (over)
+			return result;
+		else
+			return fecthBlockingResult();
+	}
+
+	private synchronized Object fecthBlockingResult() {
 		if (over)
 			return result;
 		EventResultDisruptor ve = valueEventProcessor.waitForBlocking();
@@ -78,6 +93,7 @@ public class EventResultHandlerImp implements EventResultHandler {
 			clear();
 		}
 		return result;
+
 	}
 
 	public void clear() {

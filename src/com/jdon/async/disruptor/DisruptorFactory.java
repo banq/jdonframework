@@ -72,7 +72,7 @@ public class DisruptorFactory implements EventFactory {
 
 	public DisruptorFactory() {
 		// @todo configure in xml
-		this.RingBufferSize = "1024";
+		this.RingBufferSize = "8";
 		this.containerWrapper = null;
 		this.handlesMap = new ConcurrentHashMap<String, TreeSet<DomainEventHandler>>();
 	}
