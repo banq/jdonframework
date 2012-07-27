@@ -4,10 +4,11 @@ http://www.jdon.org
 
 1. INTRODUCTION
 ---------------
-Jdon Framework is a Java web application framework with supports  DDD (or DCI) and Domain Events/Event Source. 
+Jdon Framework is a Domain-Driven Development java opensource framework that supports DCI and Domain Events/Event Source. 
 
 Jdon Framework = Domain Model + In-Memory cache + Domain Events(Event Sourcing or CQRS)
 
+details in: http://www.jdon.org
 
 2. RELEASE NOTES
 ----------------
