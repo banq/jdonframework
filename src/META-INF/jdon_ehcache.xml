@@ -29,7 +29,7 @@
    <cache name="jdonCache" 
       maxElementsInMemory="130000"
       eternal="false"
-      timeToIdleSeconds="86400" 
+      timeToIdleSeconds="172800" 
       timeToLiveSeconds="0"
       overflowToDisk="false"
       diskPersistent="false"

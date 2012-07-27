@@ -16,30 +16,19 @@
 package com.jdon.async.disruptor;
 
 import com.jdon.async.EventResultHandler;
-import com.jdon.domain.message.DomainMessage;
 import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.SingleThreadedClaimStrategy;
 
 public class EventResultHandlerImp implements EventResultHandler {
 
-	protected String topic;
-
-	protected DomainMessage domainMessage;
-
-	protected volatile boolean over;
-
-	protected Object result;
-
 	// MILLISECONDS default is one seconds
 	protected int timeoutforeturnResult = 10000;
 
 	protected ValueEventProcessor valueEventProcessor;
 
-	public EventResultHandlerImp(String topic, DomainMessage domainMessage) {
+	public EventResultHandlerImp() {
 		super();
-		this.topic = topic;
-		this.domainMessage = domainMessage;
 		RingBuffer ringBuffer = new RingBuffer<EventResultDisruptor>(EventResultDisruptor.EVENT_FACTORY, new SingleThreadedClaimStrategy(1),
 				new BlockingWaitStrategy());
 		this.valueEventProcessor = new ValueEventProcessor(ringBuffer);
@@ -55,19 +44,10 @@ public class EventResultHandlerImp implements EventResultHandler {
 	}
 
 	public Object get() {
-		if (over)
-			return result;
-		else
-			return fecthResult();
-	}
-
-	private synchronized Object fecthResult() {
-		if (over)
-			return result;
+		Object result = null;
 		EventResultDisruptor ve = valueEventProcessor.waitFor(timeoutforeturnResult);
 		if (ve != null) {
 			result = ve.getValue();
-			setOver(true);
 			ve.clear();
 			clear();
 		}
@@ -76,33 +56,19 @@ public class EventResultHandlerImp implements EventResultHandler {
 	}
 
 	public Object getBlockedValue() {
-		if (over)
-			return result;
-		else
-			return fecthBlockingResult();
-	}
-
-	private synchronized Object fecthBlockingResult() {
-		if (over)
-			return result;
+		Object result = null;
 		EventResultDisruptor ve = valueEventProcessor.waitForBlocking();
 		if (ve != null) {
 			result = ve.getValue();
-			setOver(true);
 			ve.clear();
 			clear();
 		}
 		return result;
-
 	}
 
 	public void clear() {
 		valueEventProcessor.clear();
 		valueEventProcessor = null;
-	}
-
-	public String getTopic() {
-		return topic;
 	}
 
 	public int getTimeoutforeturnResult() {
@@ -111,10 +77,6 @@ public class EventResultHandlerImp implements EventResultHandler {
 
 	public void setWaitforTimeout(int timeoutforeturnResult) {
 		this.timeoutforeturnResult = timeoutforeturnResult;
-	}
-
-	public void setOver(boolean over) {
-		this.over = over;
 	}
 
 }

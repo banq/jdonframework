@@ -1,17 +1,12 @@
-JdonFramework is a light-weight framework for developing Domain-Driven Design applications in the spirit of Evans and Vens, it combines with rapidity and agility for your web application architecture.
-
-JDON FRAMEWORK 6.5.1  (03/2012)
+JDON FRAMEWORK 6.5.2  (07/2012)
 ---------------------------------------
 http://www.jdon.org
 
 1. INTRODUCTION
 ---------------
+Jdon Framework is a Java web application framework with supports  DDD (or DCI) and Domain Events/Event Source. 
 
-JdonFramework = Domain Model + In-Memory + Domain Events(Event Sourcing or CQRS)
-
-JdonFramework = DDD + DCI + ES;
-
-JdonFramework is a Java web application framework, it combines with rapidity and agility for your web application architecture.
+Jdon Framework = Domain Model + In-Memory cache + Domain Events(Event Sourcing or CQRS)
 
 
 2. RELEASE NOTES

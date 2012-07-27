@@ -59,16 +59,11 @@ public class MessageInterceptor implements MethodInterceptor {
 			result = invocation.proceed();
 
 			DomainMessage message = null;
-			if (result == null) {
-				message = new DomainMessage(null);
-			} else if (!(DomainMessage.class.isAssignableFrom(result.getClass()))) {
-				Debug.logError(
-						"your method that with @Send must defines return type is com.jdon.domain.message.DomainMessage  :" + invocation.getThis(),
-						module);
-				return result;
-			} else
+			if (DomainMessage.class.isAssignableFrom(result.getClass())) {
 				message = (DomainMessage) result;
-
+			} else {
+				message = new DomainMessage(result);
+			}
 			eventMessageFirer.fire(message, send);
 
 			// older queue @Send(myChannl) ==> @Component(myChannl)

@@ -28,7 +28,6 @@ public class DomainEventHandlerAdapter implements EventHandler<EventDisruptor> {
 
 	public void onEvent(EventDisruptor event, long sequence, boolean endOfBatch) throws Exception {
 		handler.onEvent(event, endOfBatch);
-
 	}
 
 }

@@ -30,7 +30,7 @@ public class ChannelExecutor {
 	}
 
 	public void actionListener(DomainMessage domainMessage) {
-		EventResultFuture eventMessageFuture = (EventResultFuture) domainMessage.getResultEvent();
+		EventResultFuture eventMessageFuture = (EventResultFuture) domainMessage.getEventResultHandler();
 		try {
 			if (eventMessageFuture.getMessageListener() == null) {
 				return;

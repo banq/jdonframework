@@ -16,35 +16,33 @@
 package com.jdon.domain.message;
 
 import com.jdon.async.EventResultHandler;
+import com.jdon.async.disruptor.EventResultHandlerImp;
 
 public class DomainMessage {
 
 	protected Object eventSource;
-	protected EventResultHandler eventResultHandler;
+
+	protected volatile EventResultHandler eventResultHandler;
+
+	protected volatile Object eventResult;
 
 	public DomainMessage(Object eventSource) {
 		super();
 		this.eventSource = eventSource;
+		// default is EventResultHandlerImp
+		this.eventResultHandler = new EventResultHandlerImp();
 	}
 
 	public Object getEventSource() {
 		return eventSource;
 	}
 
-	public void clearEventSource() {
-		this.eventSource = null;
-	}
-
-	public void setEventSource(Object eventSource) {
-		this.eventSource = eventSource;
-	}
-
-	public void setResultEvent(EventResultHandler resultEvent) {
-		this.eventResultHandler = resultEvent;
-	}
-
-	public EventResultHandler getResultEvent() {
+	public EventResultHandler getEventResultHandler() {
 		return eventResultHandler;
+	}
+
+	public void setEventResultHandler(EventResultHandler eventResultHandler) {
+		this.eventResultHandler = eventResultHandler;
 	}
 
 	/**
@@ -54,7 +52,8 @@ public class DomainMessage {
 	 *            MILLISECONDS
 	 */
 	public void setTimeoutforeturnResult(int timeoutforeturnResult) {
-		eventResultHandler.setWaitforTimeout(timeoutforeturnResult);
+		if (eventResultHandler != null)
+			eventResultHandler.setWaitforTimeout(timeoutforeturnResult);
 	}
 
 	/**
@@ -63,11 +62,16 @@ public class DomainMessage {
 	 * @return Event Result
 	 */
 	public Object getEventResult() {
-		if (eventResultHandler == null) {
-			System.err.print("eventMessage is null " + eventSource.getClass());
-			return null;
-		} else
-			return eventResultHandler.get();
+		if (eventResultHandler != null)
+			fetchEventResult();
+		return this.eventResult;
+	}
+
+	private synchronized void fetchEventResult() {
+		if (eventResultHandler == null)
+			return;
+		eventResult = eventResultHandler.get();
+		this.eventResultHandler = null;
 	}
 
 	/**
@@ -76,22 +80,24 @@ public class DomainMessage {
 	 * @return
 	 */
 	public Object getBlockEventResult() {
-		if (eventResultHandler == null) {
-			System.err.print("eventMessage is null " + eventSource.getClass());
-			return null;
-		} else
-			return eventResultHandler.getBlockedValue();
+		if (eventResultHandler != null)
+			fecthBlockEventResult();
+		return this.eventResult;
+	}
+
+	private synchronized void fecthBlockEventResult() {
+		if (eventResultHandler == null)
+			return;
+		eventResult = eventResultHandler.getBlockedValue();
+		this.eventResultHandler = null;
 	}
 
 	public void setEventResult(Object eventResultValue) {
-		if (eventResultHandler == null) {
-			System.err.print("eventMessage is null " + eventSource.getClass());
-			return;
+		if (eventResultHandler != null) {
+			eventResultHandler.send(eventResultValue);
+			// source no any usage; clear it
+			this.eventSource = null;
 		}
-		// source no any usage; clear it
-		clearEventSource();
-		eventResultHandler.send(eventResultValue);
-
 	}
 
 }
