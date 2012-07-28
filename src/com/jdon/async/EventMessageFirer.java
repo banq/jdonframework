@@ -17,6 +17,9 @@ package com.jdon.async;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import com.jdon.annotation.model.Send;
 import com.jdon.async.disruptor.DisruptorFactory;
@@ -24,13 +27,15 @@ import com.jdon.async.disruptor.EventDisruptor;
 import com.jdon.async.future.EventResultFuture;
 import com.jdon.async.future.FutureDirector;
 import com.jdon.async.future.FutureListener;
+import com.jdon.container.pico.Startable;
 import com.jdon.domain.message.DomainMessage;
 import com.jdon.util.Debug;
 import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.dsl.Disruptor;
 
-public class EventMessageFirer {
+public class EventMessageFirer implements Startable {
 	public final static String module = EventMessageFirer.class.getName();
+	private static ScheduledExecutorService scheduExecStatic = Executors.newScheduledThreadPool(1);
 
 	private DisruptorFactory disruptorFactory;
 	private FutureDirector futureDirector;
@@ -41,6 +46,19 @@ public class EventMessageFirer {
 		this.disruptorFactory = disruptorFactory;
 		this.futureDirector = futureDirector;
 		this.topicDisruptors = new ConcurrentHashMap<String, Disruptor>();
+	}
+
+	public void start() {
+		Runnable task = new Runnable() {
+			public void run() {
+				topicDisruptors.clear();
+			}
+		};
+		scheduExecStatic.scheduleAtFixedRate(task, 0, 60 * 60 * 24, TimeUnit.SECONDS);
+	}
+
+	public void stop() {
+		topicDisruptors.clear();
 	}
 
 	public void fire(DomainMessage domainMessage, Send send, FutureListener futureListener) {
