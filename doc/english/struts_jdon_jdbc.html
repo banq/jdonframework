@@ -1,0 +1,262 @@
+<html><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<!-- #BeginEditable "doctitle" -->
+<title>Sample Struts-Jdon-JDBC Application</title>  
+<!-- #EndEditable -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="shortcut icon" href="http://www.jdon.com/favicon.ico">
+<!-- InstanceBeginEditable name="head" -->
+<style type="text/css">
+<!--
+.STYLE2 {
+	color: #7D0000;
+	font-weight: bold;
+}
+.STYLE3 {
+	color: #0000FF;
+	font-weight: bold;
+}
+-->
+</style>
+<!-- InstanceEndEditable -->
+<link href="views.css" rel="stylesheet" type="text/css">
+</head>
+<body bgcolor="#dddddd" text="#000000">
+ <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+
+  <tr> 
+    <td height="11" colspan="7" bgcolor="#FFFFFF" class="bianxian"> 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" height="1" bordercolor="#000000">
+        <tr> 
+          <td> 
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000">
+              <tr> 
+                <td></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    
+    <td bgcolor="#FFFFFF"  valign="top">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          
+         
+          <td valign="top" > 
+            <table width="100%" border="0" cellspacing="2" cellpadding="2">
+              <tr>
+                <td>
+                  <h1><a href="index.html">JDon.org</a></h1>
+				<!-- #BeginEditable "main" --> 
+                  <h2>Sample Struts-Jdon-JDBC Application</h2>
+                  <p>We use a simple &quot;UserModel&quot; application to show how JdonFramework work in a web application, online demo: <a href="http://www.jdon.com/testWeb/" target="_blank">http://www.jdon.com/testWeb/</a>. in this sample, we show how to Create/Read/Update/Delete(CRUD) the UserModel, include pageinate the UserModel collection. This sample source is included in <a href="https://jdon.dev.java.net/servlets/ProjectDocumentList?folderID=9620&expandFolder=9620&folderID=0" target="_blank">JdonFramework source package</a>. </p>
+                  <h2>Domain Model</h2>
+                  <p>At first, By Evans DDD, we can get a domain Model: UserModel:</p>
+                  <p>&nbsp;</p>
+                  <table width="600" border="0">
+                    <tr>
+                      <td bgcolor="#CCCCCC"><p>&nbsp;</p>
+                        <p>@Model<br />
+                          public class UserModel {</p>
+                        <p> &nbsp; &nbsp;&nbsp; private String userId;<br />
+                          &nbsp; &nbsp;&nbsp; private String name;</p>
+                        <p>&nbsp; &nbsp;&nbsp;  @Inject<br />
+                          &nbsp; &nbsp;&nbsp; private ComputerRole computerRole;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p></td>
+                    </tr>
+                  </table>
+                  <p>Two: Role. Domain event producer is a Role of DCI，it includes the interactions of DCI. </p>
+                  <table width="600" border="0">
+                    <tr>
+                      <td bgcolor="#CCCCCC"><p>&nbsp;</p>
+                        <p>@Introduce(&quot;message&quot;)<br />
+                          public class ComputerRole {</p>
+                        <p> &nbsp; &nbsp;&nbsp; @Send(&quot;computeCount&quot;)<br />
+                          &nbsp; &nbsp;&nbsp; public DomainMessage computeCount(UserModel user) {<br />
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return new DomainMessage(user);<br />
+                          &nbsp; &nbsp;&nbsp; }</p>
+                        <p> &nbsp; &nbsp;&nbsp; @Send(&quot;saveUser&quot;)<br />
+                          &nbsp; &nbsp;&nbsp; public DomainMessage save(UserModel user) {<br />
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return new DomainMessage(user);<br />
+                          &nbsp; &nbsp;&nbsp; }</p>
+                        <p>}</p>
+                        <p>&nbsp;</p></td>
+                    </tr>
+                  </table>
+                  <p>Three: Context, In Context,The Role will be injected into the data.</p>
+                  <table width="600" border="0">
+                    <tr>
+                      <td bgcolor="#CCCCCC"><p>public class ComputeContext {</p>
+                        <p> &nbsp; &nbsp;&nbsp;private DomainMessage ageAsyncResult;</p>
+                        <p> &nbsp; &nbsp;&nbsp; public void preloadData(UserModel user) {<br>
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (ageAsyncResult == null)<br>
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; ageAsyncResult = user.getUserDomainEvents().computeCount(user);<br>
+                        &nbsp; &nbsp;&nbsp; }</p>
+                        <p> &nbsp; &nbsp;&nbsp; public int loadCountNow(UserModel user) {<br>
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; preloadData(user);<br>
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return (Integer) ageAsyncResult.getEventResult();<br>
+                          &nbsp; &nbsp;&nbsp; }</p>
+                        <p> &nbsp; &nbsp;&nbsp; public int loadCountByAsync(UserModel user) {<br>
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; if (ageAsyncResult == null)<br>
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; ageAsyncResult = user.getUserDomainEvents().computeCount(user);<br>
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; else if (ageAsyncResult != null)<br>
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return (Integer) ageAsyncResult.getEventResult();<br>
+                          &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; return -1;</p>
+                        <p> &nbsp; &nbsp;&nbsp;}</p>
+                        <p>}<br>
+                        </p>
+                        <p>&nbsp;</p></td>
+                    </tr>
+                  </table>
+                  <p>above all source in: <a href="http://code.google.com/p/jivejdon/downloads/detail?name=SimpleJdonFrameworkTest.rar&amp;can=2&amp;q=">SimpleJdonFrameworkTest.rar</a></p>
+                  <h2>JSP Web Pages</h2>
+                  <p><strong>user.jsp</strong>: For CRUD operations, we only create one jsp named user.jsp, in this jsp, by &quot;action&quot; value, we can finish CRUD operations.</p>
+                  <p>&nbsp;</p>
+                  <table width="500" border="0" bordercolor="#CCCCCC">
+                    <tr>
+                      <td bgcolor="#CCCCCC"><p>user.jsp (include all CRUD in one Jsp):</p>
+                        <p><br>
+  &lt;html:form action=&quot;/userSaveAction.do&quot; method=&quot;POST&quot; onsubmit=&quot;return checkPost();&quot;&gt;<br>
+  &nbsp;&nbsp;&nbsp;<strong>&lt;html:hidden property=&quot;action&quot;/&gt;</strong></p>
+                    <p>&nbsp;&nbsp;&nbsp;UserId:&lt;html:text property=&quot;userId&quot;/&gt;<br>
+                            &nbsp;&nbsp;&nbsp;&lt;br&gt;<br>
+                            &nbsp;&nbsp;&nbsp;Name:&lt;html:text property=&quot;name&quot;/&gt;<br>
+                            &nbsp;&nbsp;&nbsp;&lt;br&gt;<br>
+                            &nbsp;&nbsp;&nbsp;&lt;html:submit property=&quot;submit&quot; value=&quot;Submit&quot;/&gt;<br>
+                            &lt;/html:form&gt;</p>
+                    <p>&nbsp;</p></td>
+                    </tr>
+                  </table>
+                  <p>&nbsp;</p>
+                  <p><img src="images/crud.gif" alt="crud" width="500" height="140"></p>
+                  <p>&nbsp;</p>
+                  <p><strong>userList.jsp: </strong>List all UserModels collection and auto paginate them. </p>
+                  <table width="500" border="0" bgcolor="#CCCCCC">
+                    <tr>
+                      <td><p>&lt;logic:iterate indexId=&quot;i&quot;   id=&quot;user&quot; name=&quot;listForm&quot; property=&quot;list&quot; &gt;<br>
+                      </p>
+                        <p>&lt;bean:write name=&quot;user&quot; property=&quot;userId&quot; /&gt;<br>                          
+                          &lt;bean:write name=&quot;user&quot; property=&quot;name&quot; /&gt;<br>
+                          <br>
+  &lt;input type=&quot;radio&quot; name=&quot;userId&quot; value=&quot;&lt;bean:write name=&quot;user&quot; property=&quot;userId&quot; /&gt;&quot;&gt;                        </p>
+                        <p>&lt;/logic:iterate&gt;</p>
+                        <p>&lt;html:link page=&quot;/userAction.do&quot;&gt;Add&lt;/html:link&gt;</p>
+                        <p>....</p>
+                        <p>&lt;!-- Auto Pagination taglib of jdon --&gt; <br>
+                        &lt;MultiPages:pager actionFormName=&quot;listForm&quot; page=&quot;/userListAction.do&quot;&gt;</p>
+                        <p>&lt;MultiPages:prev name=&quot;[Prev ]&quot; /&gt;<br>
+                          &lt;MultiPages:index displayCount=&quot;1&quot; /&gt;<br>
+                          &lt;MultiPages:next  name=&quot;[Next ]&quot; /&gt;<br>
+                          &lt;/MultiPages:pager&gt;</p>
+                        <p><br>
+                        </p></td>
+                    </tr>
+                  </table>
+                  <p>&nbsp;</p>
+                  <p><img src="images/userList.gif" alt="userlist" width="631" height="509"></p>
+                  <h2>Business Service </h2>
+                  <p>In Business Layer, we have a interface named TestService, it has CRUD operation about UserModel packed in EventModel, if any errors happened you can pass the error infos into it and display the error infos to JSP Webpages. </p>
+                  <table width="500" border="0" bgcolor="#CCCCCC">
+                    <tr>
+                      <td><p>public interface TestService {<br>
+                        <br>
+                        public void <span class="STYLE3">createUser</span>(EventModel em);<br>
+                          public void <span class="STYLE3">updateUser</span>(EventModel em);<br>
+                          public void <span class="STYLE3">deleteUser</span>(EventModel em);<br>
+                        public UserModel <span class="STYLE3">getUser</span>(String userId);</p>
+                        <p> /**<br>
+                          * for batch inquiry 
+                          <br>
+                          */<br>
+                          public PageIterator getAllUsers(int start, int count);<br>
+  <br>
+                          /**<br>
+                          * for the command pattern of service invoke
+                          <br>
+                          */<br>
+                          public void xxxxx(EventModel em);<br>
+  <br>
+  <br>
+                      }</p></td>
+                    </tr>
+                  </table>
+                  <p><strong>No Controllers</strong>: In this sample.there is no any controlles of MVC, no CRUD controller actions of Struts, the JSP directly send commands to TestService, to do these only need jdonframework.xml configuration as below:</p>
+                  <img src="images/mapping.gif" alt="mapping" width="670" height="342">
+                  <h2>Packaging </h2>
+                  <p>run Ant's build.xml (you maybe modify the  deploy.dir value in build.xml) , after packaging, you get a deploy file testWeb.war under dist directory. </p>
+                  <p><img src="images/package.gif" alt="pack" width="816" height="377"></p>
+                  <h2>The DataBase</h2>
+                  <p>Creating the Database Schema, import database.sql into your database: </p>
+                  <table width="500" border="0" bgcolor="#CCCCCC">
+                    <tr>
+                      <td><p>use test;<br>
+                        create table testuser (<br>
+                        userId           char(20) not null,<br>
+                        name             varchar(20) null,<br>
+                        PRIMARY KEY  (userId)<br>
+                        );<br>
+                        INSERT INTO testuser VALUES ('1', 'tony');<br>
+                        INSERT INTO testuser VALUES ('2', 'sunny');<br>
+                        INSERT INTO testuser VALUES ('3', 'kevin');</p>
+                      <p></p></td>
+                    </tr>
+                  </table>
+                  <h2>Deploying the Application</h2>
+                  <p>copy dits/testWeb.war to tomcat's webapps, start tomcat, after see the infos as below, run this appalication in browser: http://127.0.0.1:8080/testWeb/ </p>
+                  <p><img src="images/deploy.gif" alt="deploy" width="647" height="422"></p>
+                  <p>&nbsp;</p>
+                  <p>&nbsp;</p>
+                <!-- #EndEditable -->
+			    </td>
+              </tr>
+            </table>			
+          </td>
+		  <td width="200" valign="top"  bgcolor="#FFFFD7"> <table width="100%" border="0" cellspacing="0" cellpadding="3" height="200" align="center">
+      <tr>
+        <td align="right"><table width="100%" height="200" border="0" align="center" cellpadding="3" cellspacing="0" dwcopytype="CopyTableCell">
+            <tr>
+              <td align="left"  valign="top"><p align="center"><a href="http://www.jdon.org"><img src="images/jdone.gif" width="120" height="60" border="0"></a></p>
+                  <p ><B><a href="https://sourceforge.net/projects/jdon/files/" target="_blank">Downloads</a></B></p>
+                  <p ><a href="JdonFramework.ppt"><strong>Architecture</strong></a></p>
+                  <p ><B><a href="doc.htm" target="_blank">Document</a></B></p>
+                  <p ><a href="quickconf.html"><strong>Qucik Start</strong></a> </p>
+                  <p ><a href="https://github.com/banq/jdonframework"><strong>Github</strong></a></p>
+<p ><B><a href="http://code.google.com/p/jivejdon/" target="_blank">jivejdon</a></B></p>
+                  <p ><a href="http://code.google.com/p/jdonmvc/downloads/list"><strong>JdonMVC</strong></a></p>
+                  <p >&nbsp;</p>
+                  <p > <a href="http://twitter.com/banqjdon"><img src="http://cdn.dzone.com/links/themes/reader/images/actions/twitter-32x32.png" alt="twwiter"/></a></p>
+<p ><a href="http://sourceforge.net/projects/jdon/"><img src="images/sf.gif" alt="sf" width="88" height="31" border="0"></a></p>
+                  <!-- InstanceBeginEditable name="Menu" --> <!-- InstanceEndEditable --> </td>
+            </tr>
+        </table></td>
+        </tr>
+      </table>
+   </td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000"  align="center">
+              <tr>
+                <td></td>
+              </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td height="20" bgcolor="#CAC9BB" align="center">
+  <p><span class="small"><font color="#555555"><br>
+  </font></span></p>
+  </td>
+</tr>
+</table>
+<br>
+<!-- InstanceBeginEditable name="EditRegion3" --><!-- InstanceEndEditable -->
+</body>
+<!-- InstanceEnd --></html>
