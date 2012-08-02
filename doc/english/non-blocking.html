@@ -1,0 +1,120 @@
+<html><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<!-- #BeginEditable "doctitle" -->
+<title>Jdon Framework</title>  
+<!-- #EndEditable -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="shortcut icon" href="http://www.jdon.com/favicon.ico">
+<!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
+<link href="views.css" rel="stylesheet" type="text/css">
+</head>
+<body bgcolor="#dddddd" text="#000000">
+ <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+
+  <tr> 
+    <td height="11" colspan="7" bgcolor="#FFFFFF" class="bianxian"> 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" height="1" bordercolor="#000000">
+        <tr> 
+          <td> 
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000">
+              <tr> 
+                <td></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    
+    <td bgcolor="#FFFFFF"  valign="top">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          
+         
+          <td valign="top" > 
+            <table width="100%" border="0" cellspacing="2" cellpadding="2">
+              <tr>
+                <td>
+                  <h1><a href="index.html">JDon.org</a></h1>
+				<!-- #BeginEditable "main" -->
+				<h3>how to easily develop a non-blocking concurrent application ? </h3>
+				<p>Most programmers are good at a synchronous mode that be executed sequentially in a thread, In a blocking system, wait thread is idle but continue to consume system resources.<br>
+				  </p>
+				<p>here is a formula for high transaction volume: </p>
+				<p><br>
+				  the number of idle threads =(arrival_rate * processing_time)<br>
+				  the result can be a very big number if the arrival_rate is high.</p>
+				<p>Blocking system is running under a very ineffective mode. No high throughout, no high CPU load.blocking is not fit for multi-core CPU, and it is cancer that will kill the system later.</p>
+				<p>when we read data from socket by this way:<br>
+				  While(true){<br>
+				  ...<br>
+				  }</p>
+				<p><br>
+				  this will cost CPU and block the system, there are many blocking in JDK, such as java.concurrent.BlockingQueue LinkedBlockingQueue, they are belong to false concurrent.</p>
+				<p>To avoid synchronous  lock and blocking, we need use &quot;volatile&quot;  or &quot;Visibility&quot;  and &quot;immutable&quot;, they are maybe difficult for most programmers.</p>
+				<p>A good way for non-blocking concurrent is queue of no lock, not JDK's BlockingQueue , the RingBuffer of Disruptor is a no-lock queue that can be shared between two threads. Actors mode is another non-blocking concurrent , it  shares nothing. </p>
+				<p>In a  non-blocking concurrent system: make a call which returns a result.  don't need to use the result until at a much later stage of your process. don't need to wait immediately after making the call, instead you can proceed to do other things until you reach the point where you need to use the result. the call itself will return a &quot;future&quot; handle immediately. The caller can go off doing other things and later poll the &quot;future&quot; handle to see if the response if ready. </p>
+				<p>We can use Domain Events wrapping the RingBuffer of Disruptor, so threads communicates through events or messages, so no shared state, nothing to synchronize.this is  Message-Passing Concurrency. </p>
+				<p>we design Message-Passing Concurrency into open source jdon framework.</p>
+				<p>the  non-blocking concurrent way of jdon framework is here: Domain Model sends events to  another thread(a consumer) by RingBuffer in Disruptor, so two threads can communicates through event ;After the consumer done, it will put the result in another RingBuffer that publisher can read or blocking read it, decided by business is or not executed sequentially.</p>
+				<p>by domain events and DCI in  jdon framework we make  an exploratory to promote non-blocking concurrent programming paradigm. jdon framework can help most programmers quietly going to the way of non-blocking concurrent programming when they thinking in DDD.</p>
+				<p>DCI and Domain Events are different abstract high levels based concurrent programming,  DCI is easier to be understand than Domain Events , DCI and UML colors analysis method can successfully docking, it is the highest level of abstraction of business-oriented.</p>
+				<p>here shows how to use DCI and Domain Events in jdon framework :</p>
+				<p>&nbsp;</p>
+				<p>If we already hold on a model object, we can implements various functions by its domain events,such as modify/update a model.Otherwise:We create a context, and there we inject events or functions into a new model object by RoleAssigner,such as create or delete a model.</p>
+				<p>details in : </p>
+				<p><strong><a href="DomainEvents.html">DDD</a></strong> <a href="DomainEvents.html"><strong>DCI</strong> and <strong>Domain</strong> <strong>Events</strong> <strong>example</strong></a><br>
+				  </p> 
+                  <p>　　</p>
+                  <p>&nbsp;</p>
+                  <!-- #EndEditable -->
+			    </td>
+              </tr>
+            </table>			
+          </td>
+		  <td width="200" valign="top"  bgcolor="#FFFFD7"> <table width="100%" border="0" cellspacing="0" cellpadding="3" height="200" align="center">
+      <tr>
+        <td align="right"><table width="100%" height="200" border="0" align="center" cellpadding="3" cellspacing="0" dwcopytype="CopyTableCell">
+            <tr>
+              <td align="left"  valign="top"><p align="center"><a href="http://www.jdon.org"><img src="images/jdone.gif" width="120" height="60" border="0"></a></p>
+                  <p ><B><a href="https://sourceforge.net/projects/jdon/files/" target="_blank">Downloads</a></B></p>
+                  <p ><a href="JdonFramework.ppt"><strong>Architecture</strong></a></p>
+                  <p ><B><a href="doc.htm" target="_blank">Document</a></B></p>
+                  <p ><a href="quickconf.html"><strong>Qucik Start</strong></a> </p>
+                  <p ><a href="https://github.com/banq/jdonframework"><strong>Github</strong></a></p>
+<p ><B><a href="http://code.google.com/p/jivejdon/" target="_blank">jivejdon</a></B></p>
+                  <p ><a href="http://code.google.com/p/jdonmvc/downloads/list"><strong>JdonMVC</strong></a></p>
+                  <p >&nbsp;</p>
+                  <p > <a href="http://twitter.com/banqjdon"><img src="http://cdn.dzone.com/links/themes/reader/images/actions/twitter-32x32.png" alt="twwiter"/></a></p>
+<p ><a href="http://sourceforge.net/projects/jdon/"><img src="images/sf.gif" alt="sf" width="88" height="31" border="0"></a></p>
+                  <!-- InstanceBeginEditable name="Menu" --> <!-- InstanceEndEditable --> </td>
+            </tr>
+        </table></td>
+        </tr>
+      </table>
+   </td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000"  align="center">
+              <tr>
+                <td></td>
+              </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td height="20" bgcolor="#CAC9BB" align="center">
+  <p><span class="small"><font color="#555555"><br>
+  </font></span></p>
+  </td>
+</tr>
+</table>
+<br>
+<!-- InstanceBeginEditable name="EditRegion3" --><!-- InstanceEndEditable -->
+</body>
+<!-- InstanceEnd --></html>
