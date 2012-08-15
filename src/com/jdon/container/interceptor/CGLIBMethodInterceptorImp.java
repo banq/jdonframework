@@ -55,6 +55,7 @@ public class CGLIBMethodInterceptorImp implements MethodInterceptor {
 			Debug.logVerbose("<-----><end:", module);
 		} catch (Exception ex) {
 			Debug.logError(ex, module);
+			throw new Exception(ex);
 		} catch (Throwable ex) {
 			throw new Throwable(ex);
 		}

@@ -54,7 +54,7 @@ public class BeforeAfterMethodTarget {
 		this.iinfo = iinfo;
 	}
 
-	public Object invoke(Method invokedmethod, Object[] args, MethodProxy methodProxy) throws Throwable {
+	public Object invoke(Method invokedmethod, Object[] args, MethodProxy methodProxy) throws Throwable, Exception {
 		if (invokedmethod.getName().equals("finalize"))
 			return null;
 
@@ -83,6 +83,7 @@ public class BeforeAfterMethodTarget {
 			Debug.logVerbose("<----->FixedMethodInvocation end:", module);
 		} catch (Exception ex) {
 			Debug.logError(ex, module);
+			throw new Exception(ex);
 		} catch (Throwable ex) {
 			throw new Throwable(ex);
 		}

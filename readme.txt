@@ -1,4 +1,4 @@
-JDON FRAMEWORK 6.5.2  (07/2012)
+JDON FRAMEWORK
 ---------------------------------------
 http://www.jdon.org
 

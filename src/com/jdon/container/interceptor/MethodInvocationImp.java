@@ -56,7 +56,7 @@ public class MethodInvocationImp implements MethodInvocation {
 	/**
 	 * Invokes next interceptor/proxy target. now there is no mixin
 	 */
-	public Object proceed() throws Throwable {
+	public Object proceed() throws Throwable, Exception {
 		if (currentInterceptorInt == interceptors.size() - 1) {
 			Debug.logVerbose("[JdonFramework] finish call all inteceptors", module);
 			return beforeAfterMethodTarget.invoke(method, args, methodProxy);

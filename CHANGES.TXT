@@ -1,0 +1,11 @@
+﻿==================================================================
+JDON FRAMEWORK 6.5.2  (07/2012)
+==================================================================
+
+
+2012.July.7 (6.5.2)
+* Bug Fixes
+    ---------
+    * ValueEvent memory leak.
+
+    * modified timeToIdleSeconds value to two days in META-INF/jdon_ehcache.xml 
