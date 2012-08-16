@@ -95,8 +95,6 @@ public class DomainMessage {
 	public void setEventResult(Object eventResultValue) {
 		if (eventResultHandler != null) {
 			eventResultHandler.send(eventResultValue);
-			// source no any usage; clear it
-			this.eventSource = null;
 		}
 	}
 
