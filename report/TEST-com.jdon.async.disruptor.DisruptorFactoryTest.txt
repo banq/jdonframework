@@ -1,46 +1,9 @@
 Testsuite: com.jdon.async.disruptor.DisruptorFactoryTest
-Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.074 sec
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.047 sec
 ------------- Standard Output ---------------
 MyEventA=0
+MyEventA=0
 
- RESULT=8888888MyEventA=1
+ RESULT=111111ok------------- ---------------- ---------------
 
- RESULT=8888889MyEventA=2
-
- RESULT=8888890MyEventA=3
-
- RESULT=8888891MyEventA=4
-
- RESULT=8888892MyEventA=5
-
- RESULT=8888893MyEventA=6
-
- RESULT=8888894MyEventA=7
-
- RESULT=8888895MyEventA=8
-
- RESULT=8888896MyEventA=9
-
- RESULT=8888897MyEventA=10
-
- RESULT=8888898MyEventA=11
-
- RESULT=8888899MyEventA=12
-
- RESULT=8888900MyEventA=13
-
- RESULT=8888901MyEventA=14
-
- RESULT=8888902MyEventA=15
-
- RESULT=8888903MyEventA=16
-
- RESULT=8888904MyEventA=17
-
- RESULT=8888905MyEventA=18
-
- RESULT=8888906MyEventA=19
-
- RESULT=8888907------------- ---------------- ---------------
-
-Testcase: testGetDisruptor took 0.066 sec
+Testcase: testGetDisruptor took 0.031 sec

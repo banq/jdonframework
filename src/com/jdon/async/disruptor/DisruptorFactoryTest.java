@@ -37,38 +37,53 @@ public class DisruptorFactoryTest extends TestCase {
 	}
 
 	public void testGetDisruptor() {
-		TreeSet handlers = new TreeSet();
+		TreeSet<DomainEventHandler> handlers = disruptorFactory.getTreeSet();
 		final DomainEventHandler<EventDisruptor> handler = new DomainEventHandler<EventDisruptor>() {
 
 			@Override
 			public void onEvent(EventDisruptor event, final boolean endOfBatch) throws Exception {
 				System.out.println("MyEventA=" + event.getDomainMessage().getEventSource());
-				event.getDomainMessage().setEventResult(8888888 + (Long) event.getDomainMessage().getEventSource());
+				event.getDomainMessage().setEventResult(11111 + (Long) event.getDomainMessage().getEventSource());
 
 			}
 		};
 
+		final DomainEventHandler<EventDisruptor> handler2 = new DomainEventHandler<EventDisruptor>() {
+
+			@Override
+			public void onEvent(EventDisruptor event, final boolean endOfBatch) throws Exception {
+				System.out.println("MyEventA=" + event.getDomainMessage().getEventSource());
+				event.getDomainMessage().setEventResult(22222 + (Long) event.getDomainMessage().getEventSource());
+
+			}
+		};
+
+		handlers.add(handler2);
 		handlers.add(handler);
+
 		Disruptor disruptor = disruptorFactory.addEventMessageHandler("test", handlers);
 		disruptor.start();
 
 		int i = 0;
 
-		while (i < 20) {
-			RingBuffer ringBuffer = disruptor.getRingBuffer();
-			long sequence = ringBuffer.next();
+		// while (i < 10) {
+		RingBuffer ringBuffer = disruptor.getRingBuffer();
+		long sequence = ringBuffer.next();
 
-			DomainMessage domainMessage = new DomainMessage(sequence);
+		DomainMessage domainMessage = new DomainMessage(sequence);
 
-			EventDisruptor eventDisruptor = (EventDisruptor) ringBuffer.get(sequence);
-			eventDisruptor.setTopic("test");
-			eventDisruptor.setDomainMessage(domainMessage);
+		EventDisruptor eventDisruptor = (EventDisruptor) ringBuffer.get(sequence);
+		eventDisruptor.setTopic("test");
+		eventDisruptor.setDomainMessage(domainMessage);
 
-			ringBuffer.publish(sequence);
-			System.out.print("\n RESULT=" + domainMessage.getBlockEventResult());
+		ringBuffer.publish(sequence);
+		System.out.print("\n RESULT=" + domainMessage.getBlockEventResult());
 
-			i++;
-		}
+		i++;
+		System.out.print(i);
 
+		// }
+
+		System.out.print("ok");
 	}
 }

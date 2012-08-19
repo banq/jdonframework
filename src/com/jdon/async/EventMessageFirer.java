@@ -15,8 +15,6 @@
  */
 package com.jdon.async;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -27,6 +25,7 @@ import com.jdon.async.disruptor.EventDisruptor;
 import com.jdon.async.future.EventResultFuture;
 import com.jdon.async.future.FutureDirector;
 import com.jdon.async.future.FutureListener;
+import com.jdon.cache.UtilCache;
 import com.jdon.container.pico.Startable;
 import com.jdon.domain.message.DomainMessage;
 import com.jdon.util.Debug;
@@ -39,13 +38,13 @@ public class EventMessageFirer implements Startable {
 
 	private DisruptorFactory disruptorFactory;
 	private FutureDirector futureDirector;
-	protected final Map<String, Disruptor> topicDisruptors;
+	private final UtilCache topicDisruptors;
 
 	public EventMessageFirer(DisruptorFactory disruptorFactory, FutureDirector futureDirector) {
 		super();
 		this.disruptorFactory = disruptorFactory;
 		this.futureDirector = futureDirector;
-		this.topicDisruptors = new ConcurrentHashMap<String, Disruptor>();
+		this.topicDisruptors = new UtilCache(100, 60 * 60 * 1000, true);
 	}
 
 	public void start() {
@@ -72,7 +71,7 @@ public class EventMessageFirer implements Startable {
 	public void fire(DomainMessage domainMessage, Send send) {
 		try {
 			String topic = send.value();
-			Disruptor disruptor = topicDisruptors.get(topic);
+			Disruptor disruptor = (Disruptor) topicDisruptors.get(topic);
 			if (disruptor == null) {
 				disruptor = disruptorFactory.getDisruptor(topic);
 				if (disruptor == null) {

@@ -98,4 +98,8 @@ public class DomainMessage {
 		}
 	}
 
+	public void setEventSource(Object eventSource) {
+		this.eventSource = eventSource;
+	}
+
 }

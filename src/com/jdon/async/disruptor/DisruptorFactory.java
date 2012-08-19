@@ -165,7 +165,7 @@ public class DisruptorFactory implements EventFactory {
 
 	}
 
-	private TreeSet<DomainEventHandler> getTreeSet() {
+	public TreeSet<DomainEventHandler> getTreeSet() {
 		return new TreeSet(new Comparator() {
 			public int compare(Object num1, Object num2) {
 				String inum1, inum2;
