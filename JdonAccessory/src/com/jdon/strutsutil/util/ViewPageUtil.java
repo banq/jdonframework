@@ -15,6 +15,7 @@
  */
 package com.jdon.strutsutil.util;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import com.jdon.model.ModelHandler;
@@ -23,25 +24,28 @@ import com.jdon.util.Debug;
 
 /**
  * @author <a href="mailto:banqiao@jdon.com">banq</a>
- *
+ * 
  */
-public class ViewPageUtil extends EditeViewPageUtil{
-    private final static String module = ViewPageUtil.class.getName();
+public class ViewPageUtil extends EditeViewPageUtil {
+	private final static String module = ViewPageUtil.class.getName();
 
-    public ViewPageUtil(ModelHandlerManager modelManager) {
-        super(modelManager);
-    }
+	public ViewPageUtil(ModelHandlerManager modelManager) {
+		super(modelManager);
+	}
 
-    protected Object fetchModel(HttpServletRequest request, String formName, ModelHandler modelHandler) throws Exception {
-    	Object model = null;
-        try {
-            Object keyValue = getParamKeyValue(request, modelHandler);
-            model = modelHandler.findModelIF(keyValue, request);    
-        } catch (Exception ex) {
-            Debug.logError("[JdonFramework] the method 'findModelByKey' of your handler or 'getMethod' of service happened error: " + ex, module);
-            throw new Exception(ex);
-        }
-        return model;
-    }
+	protected Object fetchModel(HttpServletRequest request, ServletContext sc, String formName, ModelHandler modelHandler) throws Exception {
+		Object model = null;
+		try {
+			Object keyValue = getParamKeyValue(request, modelHandler);
+			if (request.getSession(false) == null)
+				model = modelHandler.findModelIF(keyValue, sc);
+			else
+				model = modelHandler.findModelIF(keyValue, request);
+		} catch (Exception ex) {
+			Debug.logError("[JdonFramework] the method 'findModelByKey' of your handler or 'getMethod' of service happened error: " + ex, module);
+			throw new Exception(ex);
+		}
+		return model;
+	}
 
 }

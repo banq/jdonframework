@@ -34,9 +34,14 @@ import com.jdon.util.Debug;
 
 /**
  * 工具类，相关ActionForm 或Model之类的工具箱
- *
- * <p>Copyright: Jdon.com Copyright (c) 2003</p>
- * <p>Company: </p>
+ * 
+ * <p>
+ * Copyright: Jdon.com Copyright (c) 2003
+ * </p>
+ * <p>
+ * Company:
+ * </p>
+ * 
  * @author banq
  * @version 1.0
  */
@@ -50,12 +55,12 @@ public final class FormBeanUtil {
 
 	/**
 	 * 将ActionForm保存在struts_config.xml定义的attribute中
+	 * 
 	 * @param form
 	 * @param mapping
 	 * @param request
 	 */
-	public static void saveActionForm(ActionForm form, ActionMapping mapping,
-			HttpServletRequest request) {
+	public static void saveActionForm(ActionForm form, ActionMapping mapping, HttpServletRequest request) {
 		if ((form != null) && (mapping.getAttribute() != null)) {
 			if ("request".equals(mapping.getScope())) {
 				request.setAttribute(mapping.getAttribute(), form);
@@ -69,12 +74,12 @@ public final class FormBeanUtil {
 
 	/**
 	 * 将保存在struts_config.xml定义的attribute中ActionForm取出
+	 * 
 	 * @param form
 	 * @param mapping
 	 * @param request
 	 */
-	public static ActionForm loadActionForm(ActionMapping mapping,
-			HttpServletRequest request) {
+	public static ActionForm loadActionForm(ActionMapping mapping, HttpServletRequest request) {
 		if ("request".equals(mapping.getScope())) {
 			return (ActionForm) request.getAttribute(mapping.getAttribute());
 		} else {
@@ -85,15 +90,15 @@ public final class FormBeanUtil {
 
 	/**
 	 * lookup ActionForm in
+	 * 
 	 * @param request
 	 * @return
 	 */
-	public static ActionForm lookupActionForm(HttpServletRequest request,
-			String formName) {
+	public static ActionForm lookupActionForm(HttpServletRequest request, String formName) {
 		ActionForm actionForm = null;
 		actionForm = (ActionForm) request.getAttribute(formName);
-		if (actionForm == null) {
-			HttpSession session = request.getSession();
+		if (actionForm == null && request.getSession(false) != null) {
+			HttpSession session = request.getSession(false);
 			actionForm = (ActionForm) session.getAttribute(formName);
 		}
 		return actionForm;
@@ -101,11 +106,11 @@ public final class FormBeanUtil {
 
 	/**
 	 * 删除保存在attribute中的ActionForm实例
+	 * 
 	 * @param mapping
 	 * @param request
 	 */
-	public static void removeActionForm(ActionMapping mapping,
-			HttpServletRequest request) {
+	public static void removeActionForm(ActionMapping mapping, HttpServletRequest request) {
 		if (mapping.getAttribute() != null) {
 			if ("request".equals(mapping.getScope()))
 				request.removeAttribute(mapping.getAttribute());
@@ -128,81 +133,78 @@ public final class FormBeanUtil {
 		return formName;
 	}
 
-	public static ModelForm getModelForm(ActionMapping actionMapping,
-			ActionForm actionForm, HttpServletRequest request) throws Exception {
+	public static ModelForm getModelForm(ActionMapping actionMapping, ActionForm actionForm, HttpServletRequest request) throws Exception {
 
 		if (actionForm == null) {
 			String msg = " not found the actionForm name in action configure";
 			Debug.logError(msg);
 			throw new Exception(msg);
-			//modelForm = createModelFormNow(actionMapping, actionForm, request);
+			// modelForm = createModelFormNow(actionMapping, actionForm,
+			// request);
 		}
-		
+
 		ModelForm modelForm = null;
 		try {
 			modelForm = (ModelForm) actionForm;
 		} catch (ClassCastException e) {
-			String msg = "your class:" + actionForm.getClass().getName()
-					+ " isn't the subclass of com.jdon.model.ModelForm";
+			String msg = "your class:" + actionForm.getClass().getName() + " isn't the subclass of com.jdon.model.ModelForm";
 			Debug.logVerbose(msg, module);
 			throw new Exception(msg);
 		}
-		
+
 		return modelForm;
 	}
 
 	/**
 	 * 根据struts-config.xml配置立即创建ActionForm
-	 * @param actionMapping ActionMapping
-	 * @param actionForm ActionForm
-	 * @param request HttpServletRequest
-	 * @param moduleConfig ModuleConfig
+	 * 
+	 * @param actionMapping
+	 *            ActionMapping
+	 * @param actionForm
+	 *            ActionForm
+	 * @param request
+	 *            HttpServletRequest
+	 * @param moduleConfig
+	 *            ModuleConfig
 	 * @return ModelForm
 	 * @throws Exception
-	private static ModelForm createModelFormNow(ActionMapping actionMapping,
-			ActionForm actionForm, HttpServletRequest request) throws Exception {
-
-	
-		Debug.logVerbose(
-				"[JdonFramework] not found a existed ModelForm, create it now",
-				module);
-		ModuleConfig moduleConfig = moduleUtils.getModuleConfig(request,
-				request.getSession().getServletContext());
-		ModelForm form = null;
-		String formName = null;
-		String formClass = null;
-		try {
-			formName = getFormName(actionMapping);
-			FormBeanConfig formConfig = moduleConfig.findFormBeanConfig(formName);
-			if (formConfig == null) {
-				throw new Exception(" not found config for " + formName);
-			}
-			formClass = formConfig.getType();
-
-			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-			form = (ModelForm) classLoader.loadClass(formClass).newInstance();
-
-			String action = request.getParameter("action");
-			if (action == null)
-				action = request.getParameter("method");
-			form.setAction(action);
-
-			request.setAttribute(formName, form);
-		} catch (Exception ex) {
-			Debug.logError("[JdonFramework] formName:" + formName
-					+ "formClass create error :" + formClass + ex, module);
-		}
-		return form;
-	}
- */
-	public static boolean validateAction(String actionName,
-			ActionMapping mapping) {
+	 *             private static ModelForm createModelFormNow(ActionMapping
+	 *             actionMapping, ActionForm actionForm, HttpServletRequest
+	 *             request) throws Exception {
+	 * 
+	 * 
+	 *             Debug.logVerbose(
+	 *             "[JdonFramework] not found a existed ModelForm, create it now"
+	 *             , module); ModuleConfig moduleConfig =
+	 *             moduleUtils.getModuleConfig(request,
+	 *             request.getSession().getServletContext()); ModelForm form =
+	 *             null; String formName = null; String formClass = null; try {
+	 *             formName = getFormName(actionMapping); FormBeanConfig
+	 *             formConfig = moduleConfig.findFormBeanConfig(formName); if
+	 *             (formConfig == null) { throw new
+	 *             Exception(" not found config for " + formName); } formClass =
+	 *             formConfig.getType();
+	 * 
+	 *             ClassLoader classLoader =
+	 *             Thread.currentThread().getContextClassLoader(); form =
+	 *             (ModelForm) classLoader.loadClass(formClass).newInstance();
+	 * 
+	 *             String action = request.getParameter("action"); if (action ==
+	 *             null) action = request.getParameter("method");
+	 *             form.setAction(action);
+	 * 
+	 *             request.setAttribute(formName, form); } catch (Exception ex)
+	 *             { Debug.logError("[JdonFramework] formName:" + formName +
+	 *             "formClass create error :" + formClass + ex, module); }
+	 *             return form; }
+	 */
+	public static boolean validateAction(String actionName, ActionMapping mapping) {
 		boolean res = true;
-		int result = actionTransfer(actionName); //如果没有使用规定名称
+		int result = actionTransfer(actionName); // 如果没有使用规定名称
 		if (result == 0)
 			res = false;
 
-		if (mapping.findForward(actionName) == null) //如果配置文件没有该名称
+		if (mapping.findForward(actionName) == null) // 如果配置文件没有该名称
 			res = false;
 
 		return res;
@@ -221,18 +223,16 @@ public final class FormBeanUtil {
 	public static ActionErrors notNull(Object object, String errorsInfo) {
 		ActionErrors errors = new ActionErrors();
 		if (object == null) {
-			errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-					errorsInfo));
+			errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(errorsInfo));
 		}
 		return errors;
 	}
 
 	/**
-	 * create a EventModel from a existed ModelForm.
-	 * it is only for create/edit/delete of ModelSaveAction
+	 * create a EventModel from a existed ModelForm. it is only for
+	 * create/edit/delete of ModelSaveAction
 	 */
-	public static EventModel createEvent(ModelForm form, Object model)
-			throws Exception {
+	public static EventModel createEvent(ModelForm form, Object model) throws Exception {
 		EventModel em = new EventModel();
 		try {
 			PropertyUtils.copyProperties(model, form);

@@ -22,8 +22,8 @@ import com.jdon.controller.context.SessionWrapper;
  * Factory that get visitors for the container that have been optimized by
  * cache(HttpSession)
  * 
- * replace this class in container.xml ,we can change HttpSession 
- * with another session type, HttpSession is binding to Web container.
+ * replace this class in container.xml ,we can change HttpSession with another
+ * session type, HttpSession is binding to Web container.
  * 
  * 
  * <p>
@@ -34,13 +34,13 @@ import com.jdon.controller.context.SessionWrapper;
 public interface VisitorFactory {
 
 	/**
-	 * return a ComponentVisitor with cache.
-	 * the httpSession is used for optimizing the component performance
+	 * return a ComponentVisitor with cache. the httpSession is used for
+	 * optimizing the component performance
+	 * 
 	 * @param request
 	 * @param targetMetaDef
 	 * @return
 	 */
-	ComponentVisitor createtVisitor(SessionWrapper session,
-			TargetMetaDef targetMetaDef);
+	ComponentVisitor createtVisitor(SessionWrapper session, TargetMetaDef targetMetaDef);
 
 }

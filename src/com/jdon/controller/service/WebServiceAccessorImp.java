@@ -63,7 +63,6 @@ public class WebServiceAccessorImp implements WebServiceAccessor {
 	 * 
 	 * SessionContextInterceptor will get the SessionContext into targetObject
 	 * implements SessionAcceptable
-	 * 
 	 */
 	public Object getService(RequestWrapper request) {
 		ContainerWrapper cw = containerCallback.getContainerWrapper();
@@ -120,6 +119,10 @@ public class WebServiceAccessorImp implements WebServiceAccessor {
 
 	public Object execute() throws Exception {
 		ContainerWrapper cw = containerCallback.getContainerWrapper();
+		if (!cw.isStart()) {
+			Debug.logError("JdonFramework not yet started, please try later ", module);
+			return null;
+		}
 		return serviceAccessor.executeService(cw);
 	}
 

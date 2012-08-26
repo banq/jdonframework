@@ -26,7 +26,7 @@ import com.jdon.container.builder.ContainerRegistryBuilder;
 import com.jdon.container.finder.ContainerFinderImp;
 import com.jdon.controller.context.AppContextWrapper;
 import com.jdon.controller.context.RequestWrapper;
-import com.jdon.controller.context.web.HttpServletRequestWrapper;
+import com.jdon.controller.context.web.RequestWrapperFactory;
 import com.jdon.controller.context.web.ServletContextWrapper;
 import com.jdon.controller.service.Service;
 import com.jdon.controller.service.ServiceFacade;
@@ -89,7 +89,7 @@ public class WebAppUtil {
 			ServiceFacade serviceFacade = new ServiceFacade();
 			serviceFactory = serviceFacade.getServiceFactory(new ServletContextWrapper(sc));
 		}
-		RequestWrapper requestW = new HttpServletRequestWrapper(request);
+		RequestWrapper requestW = RequestWrapperFactory.create(request);
 		return serviceFactory.getService(name, requestW);
 	}
 
@@ -119,7 +119,7 @@ public class WebAppUtil {
 			ServiceFacade serviceFacade = new ServiceFacade();
 			serviceFactory = serviceFacade.getServiceFactory(new ServletContextWrapper(sc));
 		}
-		RequestWrapper requestW = new HttpServletRequestWrapper(request);
+		RequestWrapper requestW = RequestWrapperFactory.create(request);
 		return serviceFactory.getService(targetMetaDef, requestW);
 	}
 
@@ -189,7 +189,7 @@ public class WebAppUtil {
 				ServletContext sc = request.getSession().getServletContext();
 				service = serviceFacade.getService(new ServletContextWrapper(sc));
 			}
-			RequestWrapper requestW = new HttpServletRequestWrapper(request);
+			RequestWrapper requestW = RequestWrapperFactory.create(request);
 			result = service.execute(serviceName, methodMetaArgs, requestW);
 		} catch (Exception ex) {
 			Debug.logError("[JdonFramework] serviceAction Error: " + ex, module);

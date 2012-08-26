@@ -17,26 +17,41 @@ package com.jdon.controller.service;
 
 import com.jdon.bussinessproxy.TargetMetaDef;
 import com.jdon.bussinessproxy.meta.MethodMetaArgs;
+import com.jdon.controller.context.AppContextWrapper;
 import com.jdon.controller.context.RequestWrapper;
 
 /**
  * excute the service and get the run result
  * 
  * @author <a href="mailto:banqiao@jdon.com">banq</a>
- *
+ * 
  */
 public interface Service {
-    
-    public Object execute(String name,
-        		              MethodMetaArgs methodMetaArgs, 
-        		              RequestWrapper request)  throws Exception;
-    
-    
-    public Object execute(TargetMetaDef targetMetaDef,
-                          MethodMetaArgs methodMetaArgs,
-                          RequestWrapper request)  throws Exception;
-    
-    
 
+	/**
+	 * this method will create httpsession
+	 * 
+	 * @param name
+	 * @param methodMetaArgs
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	public Object execute(String name, MethodMetaArgs methodMetaArgs, RequestWrapper request) throws Exception;
+
+	public Object execute(TargetMetaDef targetMetaDef, MethodMetaArgs methodMetaArgs, RequestWrapper request) throws Exception;
+
+	/**
+	 * this method without httpsession and will disable all sesson function.
+	 * 
+	 * @param name
+	 * @param methodMetaArgs
+	 * @param acw
+	 * @return
+	 * @throws Exception
+	 */
+	public Object execute(String name, MethodMetaArgs methodMetaArgs, AppContextWrapper acw) throws Exception;
+
+	public Object execute(TargetMetaDef targetMetaDef, MethodMetaArgs methodMetaArgs, AppContextWrapper acw) throws Exception;
 
 }

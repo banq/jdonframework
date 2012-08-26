@@ -15,6 +15,7 @@
 
 package com.jdon.model;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -100,6 +101,8 @@ public abstract class ModelHandler implements ServiceHandler {
 		return initModel(request);
 	}
 
+	public abstract Object initModelIF(EventModel em, ModelForm form, ServletContext sc) throws Exception;
+
 	/**
 	 * for old version below 1.4
 	 */
@@ -122,6 +125,8 @@ public abstract class ModelHandler implements ServiceHandler {
 		return findModelByKey((String) keyValue, request); // for old version
 	}
 
+	public abstract Object findModelIF(Object keyValue, ServletContext sc) throws Exception;
+
 	/**
 	 * package the Model instance that has user's input data to EventModel
 	 * object, and submit them to servier layer;
@@ -132,6 +137,8 @@ public abstract class ModelHandler implements ServiceHandler {
 	 * @throws java.lang.Exception
 	 */
 	public abstract void serviceAction(EventModel em, HttpServletRequest request) throws Exception;
+
+	public abstract void serviceAction(EventModel em, ServletContext sc) throws Exception;
 
 	/**
 	 * for old version below 1.4
@@ -193,8 +200,8 @@ public abstract class ModelHandler implements ServiceHandler {
 	 * default implemention is copy mapping between with them;
 	 * 
 	 * another implemention: String propertyName =
-	 * StringUtil.getLastString(model.getClass().getName()); Model hasDataModel =
-	 * PropertyUtils.getProperty(form, propertyName); model = hasDataModel;
+	 * StringUtil.getLastString(model.getClass().getName()); Model hasDataModel
+	 * = PropertyUtils.getProperty(form, propertyName); model = hasDataModel;
 	 * 
 	 * extends this class , and override this method
 	 * 

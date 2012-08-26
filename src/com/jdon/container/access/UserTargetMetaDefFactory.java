@@ -21,6 +21,7 @@ import com.jdon.container.finder.ComponentKeys;
 import com.jdon.container.finder.ContainerFinderImp;
 import com.jdon.container.visitor.ComponentVisitor;
 import com.jdon.container.visitor.VisitorFactory;
+import com.jdon.controller.context.AppContextWrapper;
 import com.jdon.controller.context.ContextHolder;
 import com.jdon.util.Debug;
 
@@ -62,6 +63,16 @@ public class UserTargetMetaDefFactory {
 		VisitorFactory visitorFactory = (VisitorFactory) containerWrapper.lookup(ComponentKeys.VISITOR_FACTORY);
 		// ComponentVisitor is HttpSessionComponentVisitor
 		ComponentVisitor cm = visitorFactory.createtVisitor(holder.getSessionHolder(), targetMetaDef);
+		TargetMetaRequest targetMetaRequest = new TargetMetaRequest(targetMetaDef, cm);
+		targetMetaRequestsHolder.setTargetMetaRequest(targetMetaRequest);
+	}
+
+	public void createTargetMetaRequest(TargetMetaDef targetMetaDef, AppContextWrapper acw) {
+		ContainerWrapper containerWrapper = servletContainerFinder.findContainer(acw);
+		// get HttpSessionVisitorFactoryImp
+		VisitorFactory visitorFactory = (VisitorFactory) containerWrapper.lookup(ComponentKeys.VISITOR_FACTORY);
+		// ComponentVisitor is HttpSessionComponentVisitor
+		ComponentVisitor cm = visitorFactory.createtVisitor(null, targetMetaDef);
 		TargetMetaRequest targetMetaRequest = new TargetMetaRequest(targetMetaDef, cm);
 		targetMetaRequestsHolder.setTargetMetaRequest(targetMetaRequest);
 	}

@@ -6,4 +6,4 @@ MyEventA=0
 
  RESULT=111111ok------------- ---------------- ---------------
 
-Testcase: testGetDisruptor took 0.031 sec
+Testcase: testGetDisruptor took 0.047 sec

@@ -41,37 +41,35 @@ import com.jdon.util.Debug;
  * @author banq
  * @version 1.0
  */
-public class ModelDispAction extends  ModelBaseAction  {
+public class ModelDispAction extends ModelBaseAction {
 
-    private final static String module = ModelDispAction.class.getName();
+	private final static String module = ModelDispAction.class.getName();
 
-    public ActionForward execute(ActionMapping actionMapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response)
-            throws Exception {
+	public ActionForward execute(ActionMapping actionMapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 
-        Debug.logVerbose("[JdonFramework]--> enter ModelDispAction process ", module);
-        intContext(this.getServlet().getServletContext());
-        
-        ModelForm modelForm = FormBeanUtil.getModelForm(actionMapping, actionForm, request);
+		Debug.logVerbose("[JdonFramework]--> enter ModelDispAction process ", module);
+		intContext(this.getServlet().getServletContext());
 
-        Object model = viewPageUtil.getModelForEdit(actionMapping, modelForm, request);
+		ModelForm modelForm = FormBeanUtil.getModelForm(actionMapping, actionForm, request);
 
-        if (model == null) { //如果查询失败，显示出错信息
-            ActionMessages errors = new ActionMessages();
-            Debug.logError("[JdonFramework]id.notfound in database", module);
-            ActionMessage error = new ActionMessage("id.notfound");
-            errors.add(ActionMessages.GLOBAL_MESSAGE, error);
-            saveErrors(request, errors);
-            ActionForward af = actionMapping.findForward(FormBeanUtil.FORWARD_FAILURE_NAME);
-            if (af != null)
-                return af;
-            else
-                return actionMapping.findForward(FormBeanUtil.FORWARD_SUCCESS_NAME);
-        } else {
-            return actionMapping.findForward(FormBeanUtil.FORWARD_SUCCESS_NAME);
-        }
+		Object model = viewPageUtil.getModelForEdit(actionMapping, modelForm, request, this.getServlet().getServletContext());
 
-    }
-    
-    
+		if (model == null) { // 如果查询失败，显示出错信息
+			ActionMessages errors = new ActionMessages();
+			Debug.logError("[JdonFramework]id.notfound in database", module);
+			ActionMessage error = new ActionMessage("id.notfound");
+			errors.add(ActionMessages.GLOBAL_MESSAGE, error);
+			saveErrors(request, errors);
+			ActionForward af = actionMapping.findForward(FormBeanUtil.FORWARD_FAILURE_NAME);
+			if (af != null)
+				return af;
+			else
+				return actionMapping.findForward(FormBeanUtil.FORWARD_SUCCESS_NAME);
+		} else {
+			return actionMapping.findForward(FormBeanUtil.FORWARD_SUCCESS_NAME);
+		}
+
+	}
 
 }

@@ -30,87 +30,82 @@ import com.jdon.util.Debug;
 import com.jdon.util.UtilValidate;
 
 /**
- * this class can be invoked in browser's url
- * this class will push create/insert view page
- * or editable view page.
+ * this class can be invoked in browser's url this class will push create/insert
+ * view page or editable view page.
  * 
- * the push result is according action's value:
- * 1. null or create ; will push a view page that user can create;
- * 2. edit; will push a editbale view page that has existed data;
- *
- *how to use this class?
- * 1. this class can be configured in struts-config.xml
- *
- * <action name="productForm" type="com.jdon.strutsutil.ModelViewAction" validate="false" scope="request" path="/admin/productAction">
- *      <forward name="create" path="/customer.jsp" />
- *      <forward name="edit" path="/customer.jsp" />
- * </action>
- * forward's value is same as action's value
+ * the push result is according action's value: 1. null or create ; will push a
+ * view page that user can create; 2. edit; will push a editbale view page that
+ * has existed data;
+ * 
+ * how to use this class? 1. this class can be configured in struts-config.xml
+ * 
+ * <action name="productForm" type="com.jdon.strutsutil.ModelViewAction"
+ * validate="false" scope="request" path="/admin/productAction"> <forward
+ * name="create" path="/customer.jsp" /> <forward name="edit"
+ * path="/customer.jsp" /> </action> forward's value is same as action's value
  * if the action value is not create or edit, the action will directly forward
- * the action forward page, example: the action vaule is XXXX:
- * <forward name="XXXX" path="/xxxx.jsp" />
- *
- * 2. setup in ApplicationResources.propeties
- * id.notfound =not found the record (in your language)
- *
+ * the action forward page, example: the action vaule is XXXX: <forward
+ * name="XXXX" path="/xxxx.jsp" />
+ * 
+ * 2. setup in ApplicationResources.propeties id.notfound =not found the record
+ * (in your language)
+ * 
  * @author banq
  */
 public class ModelViewAction extends ModelBaseAction {
 
-    private final static String module = ModelViewAction.class.getName();
+	private final static String module = ModelViewAction.class.getName();
 
+	/**
+	 * accept the form submit, action parameter must be : create or edit; if
+	 * not, will directly forward the jsp page mapping for the action value;
+	 * 
+	 * 
+	 */
+	public ActionForward execute(ActionMapping actionMapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		Debug.logVerbose("[JdonFramework]--> enter ModelViewAction process ", module);
+		intContext(this.getServlet().getServletContext());
 
-    /**
-     * accept the form submit, action parameter must be : create or edit;
-     * if not, will directly forward the jsp page mapping for the action value;
-     * 
-     * 
-     */
-    public ActionForward execute(ActionMapping actionMapping, ActionForm actionForm, HttpServletRequest request, HttpServletResponse response)
-            throws Exception {
-        Debug.logVerbose("[JdonFramework]--> enter ModelViewAction process ", module);
-        intContext(this.getServlet().getServletContext());
+		ModelForm modelForm = FormBeanUtil.getModelForm(actionMapping, actionForm, request);
 
-        ModelForm modelForm = FormBeanUtil.getModelForm(actionMapping, actionForm, request);
+		if ((UtilValidate.isEmpty(modelForm.getAction())) || modelForm.getAction().equalsIgnoreCase(ModelForm.CREATE_STR)) {
+			Debug.logVerbose("[JdonFramework]--> enter create process ", module);
+			modelForm.setAction(ModelForm.CREATE_STR);
+			createViewPage.doCreate(actionMapping, modelForm, request);
 
-        if ((UtilValidate.isEmpty(modelForm.getAction()) ) || modelForm.getAction().equalsIgnoreCase(ModelForm.CREATE_STR)) {
-            Debug.logVerbose("[JdonFramework]--> enter create process ", module);
-            modelForm.setAction(ModelForm.CREATE_STR);
-            createViewPage.doCreate(actionMapping, modelForm, request);
+		} else if (modelForm.getAction().equalsIgnoreCase(ModelForm.EDIT_STR)) {
 
-        } else if (modelForm.getAction().equalsIgnoreCase(ModelForm.EDIT_STR)) {
+			Debug.logVerbose("[JdonFramework]--> enter " + ModelForm.EDIT_STR + " process ", module);
+			Object model = editeViewPage.getModelForEdit(actionMapping, modelForm, request, this.servlet.getServletContext());
+			if (model == null) // not found the model
+				return errorsForward(modelForm.getAction(), actionMapping, request);
 
-            Debug.logVerbose("[JdonFramework]--> enter " + ModelForm.EDIT_STR + " process ", module);
-            Object model = editeViewPage.getModelForEdit(actionMapping, modelForm, request);
-            if (model == null) //not found the model
-                return errorsForward(modelForm.getAction(), actionMapping, request);
+		} else if (modelForm.getAction().equalsIgnoreCase(ModelForm.VIEW_STR)) {
 
-        } else if (modelForm.getAction().equalsIgnoreCase(ModelForm.VIEW_STR)) {
+			Debug.logVerbose("[JdonFramework]--> enter " + ModelForm.VIEW_STR + " process ", module);
+			Object model = editeViewPage.getModelForEdit(actionMapping, modelForm, request, this.servlet.getServletContext());
+			if (model == null) // not found the model
+				return errorsForward(modelForm.getAction(), actionMapping, request);
 
-            Debug.logVerbose("[JdonFramework]--> enter " + ModelForm.VIEW_STR + " process ", module);
-            Object model = editeViewPage.getModelForEdit(actionMapping, modelForm, request);
-            if (model == null) //not found the model
-                return errorsForward(modelForm.getAction(), actionMapping, request);
+		} else {// other regard as create
+			Debug.logVerbose("[JdonFramework]-->action value not supported, enter create process2 ", module);
+			modelForm.setAction(ModelForm.CREATE_STR);
+			createViewPage.doCreate(actionMapping, modelForm, request);
+		}
+		Debug.logVerbose("[JdonFramework]--> push the jsp that forward name is '" + modelForm.getAction() + "'", module);
+		return actionMapping.findForward(modelForm.getAction());
+	}
 
-        }else{//other regard as create
-            Debug.logVerbose("[JdonFramework]-->action value not supported, enter create process2 ", module);
-            modelForm.setAction(ModelForm.CREATE_STR);
-            createViewPage.doCreate(actionMapping, modelForm, request);
-        }
-        Debug.logVerbose("[JdonFramework]--> push the jsp that forward name is '" + modelForm.getAction() + "'", module);
-        return actionMapping.findForward(modelForm.getAction());
-    }
-    
-
-    private ActionForward errorsForward(String action, ActionMapping actionMapping, HttpServletRequest request) {
-        ActionMessages errors = new ActionMessages();
-        ActionMessage error = new ActionMessage("id.notfound");
-        errors.add(ActionErrors.GLOBAL_MESSAGE, error);
-        saveErrors(request, errors);
-        if (actionMapping.findForward(FormBeanUtil.FORWARD_FAILURE_NAME) != null)
-            return actionMapping.findForward(FormBeanUtil.FORWARD_FAILURE_NAME);
-        else
-            return actionMapping.findForward(action);
-    }
+	private ActionForward errorsForward(String action, ActionMapping actionMapping, HttpServletRequest request) {
+		ActionMessages errors = new ActionMessages();
+		ActionMessage error = new ActionMessage("id.notfound");
+		errors.add(ActionErrors.GLOBAL_MESSAGE, error);
+		saveErrors(request, errors);
+		if (actionMapping.findForward(FormBeanUtil.FORWARD_FAILURE_NAME) != null)
+			return actionMapping.findForward(FormBeanUtil.FORWARD_FAILURE_NAME);
+		else
+			return actionMapping.findForward(action);
+	}
 
 }

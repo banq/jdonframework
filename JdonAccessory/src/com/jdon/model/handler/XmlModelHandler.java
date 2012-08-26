@@ -15,12 +15,15 @@
 
 package com.jdon.model.handler;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import com.jdon.annotation.Component;
 import com.jdon.bussinessproxy.meta.MethodMetaArgs;
+import com.jdon.controller.context.AppContextWrapper;
 import com.jdon.controller.context.RequestWrapper;
 import com.jdon.controller.context.web.HttpServletRequestWrapper;
+import com.jdon.controller.context.web.ServletContextWrapper;
 import com.jdon.controller.events.Event;
 import com.jdon.controller.events.EventModel;
 import com.jdon.controller.service.Service;
@@ -125,6 +128,82 @@ public class XmlModelHandler extends ModelHandler {
 			RequestWrapper requestW = new HttpServletRequestWrapper(request);
 			Service service = serviceFacade.getService(requestW.getContextHolder().getAppContextHolder());
 			service.execute(serviceName, methodMetaArgs, requestW);
+		} catch (Exception ex) {
+			Debug.logError("[JdonFramework] serviceAction Error: " + ex, module);
+			throw new Exception(" serviceAction Error:" + ex);
+		}
+
+	}
+
+	/**
+	 * if your application need initialize the ModelForm, this method is a
+	 * option. extends thie method.
+	 */
+	public Object initModelIF(EventModel em, ModelForm form, ServletContext scontext) throws Exception {
+		Object result = null;
+		try {
+			HandlerMetaDef hm = this.modelMapping.getHandlerMetaDef();
+			String serviceName = hm.getServiceRef();
+			Debug.logVerbose("[JdonFramework] construct the CRUD method for the service:" + serviceName, module);
+			MethodMetaArgs methodMetaArgs = maFactory.createinitMethod(hm, em);
+			AppContextWrapper acw = new ServletContextWrapper(scontext);
+			Service service = serviceFacade.getService(acw);
+			if (methodMetaArgs != null)
+				result = service.execute(serviceName, methodMetaArgs, acw);
+		} catch (Exception e) {
+			Debug.logError("[JdonFramework] initModel error: " + e, module);
+			throw new Exception(e);
+		}
+		return result;
+	}
+
+	public Object findModelIF(Object keyValue, ServletContext scontext) throws java.lang.Exception {
+		Object result = null;
+		try {
+			HandlerMetaDef hm = this.modelMapping.getHandlerMetaDef();
+			String serviceName = hm.getServiceRef();
+			Debug.logVerbose("[JdonFramework] construct the CRUD method for the service:" + serviceName, module);
+			MethodMetaArgs methodMetaArgs = maFactory.createGetMethod(hm, keyValue);
+			if (methodMetaArgs.getMethodName() == null)
+				throw new Exception("no configure findMethod value, but now you call it: ");
+			AppContextWrapper acw = new ServletContextWrapper(scontext);
+			Service service = serviceFacade.getService(acw);
+			result = service.execute(serviceName, methodMetaArgs, acw);
+		} catch (Exception e) {
+			Debug.logError("[JdonFramework] findModelByKey error: " + e + " maybe not configure getMethod", module);
+			throw new Exception(e);
+		}
+		Debug.logVerbose("[JdonFramework] result type:" + result.getClass().getName(), module);
+		return result;
+	}
+
+	public void serviceAction(EventModel em, ServletContext scontext) throws java.lang.Exception {
+		Debug.logVerbose("[JdonFramework] enter the serviceAction ", module);
+		try {
+			HandlerMetaDef hm = this.modelMapping.getHandlerMetaDef();
+			String serviceName = hm.getServiceRef();
+			MethodMetaArgs methodMetaArgs = null;
+			switch (em.getActionType()) {
+			case Event.CREATE:
+				Debug.logVerbose("[JdonFramework] construct the CRUD method for the service:" + serviceName, module);
+				methodMetaArgs = maFactory.createCreateMethod(hm, em);
+				break;
+			case Event.EDIT:
+				Debug.logVerbose("[JdonFramework] construct the CRUD method for the service:" + serviceName, module);
+				methodMetaArgs = maFactory.createUpdateMethod(hm, em);
+				break;
+			case Event.DELETE:
+				Debug.logVerbose("[JdonFramework] construct the CRUD method for the service:" + serviceName, module);
+				methodMetaArgs = maFactory.createDeleteMethod(hm, em);
+				break;
+			default:
+				Debug.logVerbose("[JdonFramework] construct the command method for the service:" + serviceName, module);
+				methodMetaArgs = maFactory.createDirectMethod(em.getActionName(), new Object[] { em });
+			}
+			Debug.logVerbose(" execute the method: " + methodMetaArgs.getMethodName() + " for the service: " + serviceName, module);
+			AppContextWrapper acw = new ServletContextWrapper(scontext);
+			Service service = serviceFacade.getService(acw);
+			service.execute(serviceName, methodMetaArgs, acw);
 		} catch (Exception ex) {
 			Debug.logError("[JdonFramework] serviceAction Error: " + ex, module);
 			throw new Exception(" serviceAction Error:" + ex);

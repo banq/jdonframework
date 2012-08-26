@@ -15,6 +15,7 @@
 
 package com.jdon.strutsutil.util;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.beanutils.ConvertUtils;
@@ -51,7 +52,7 @@ public class EditeViewPageUtil {
 	 * instance copy the Model instance to the ModelForm instance
 	 * 
 	 */
-	public Object getModelForEdit(ActionMapping actionMapping, ModelForm modelForm, HttpServletRequest request) throws Exception {
+	public Object getModelForEdit(ActionMapping actionMapping, ModelForm modelForm, HttpServletRequest request, ServletContext sc) throws Exception {
 		Object model = null;
 		ModelHandler modelHandler = null;
 		try {
@@ -68,7 +69,7 @@ public class EditeViewPageUtil {
 			Debug.logVerbose("[JdonFramework] got a ModelForm ... ", module);
 
 			Debug.logVerbose("[JdonFramework] prepare to fetch a Model from service layer", module);
-			model = fetchModel(request, formName, modelHandler);
+			model = fetchModel(request, sc, formName, modelHandler);
 			Debug.logVerbose("[JdonFramework] got the Model data successfully..", module);
 
 			if (model != null) {
@@ -90,12 +91,15 @@ public class EditeViewPageUtil {
 		return model;
 	}
 
-	protected Object fetchModel(HttpServletRequest request, String formName, ModelHandler modelHandler) throws Exception {
+	protected Object fetchModel(HttpServletRequest request, ServletContext sc, String formName, ModelHandler modelHandler) throws Exception {
 		Object model = null;
 		try {
 			Object keyValue = getParamKeyValue(request, modelHandler);
 			clearModelCache(formName, keyValue, modelHandler);
-			model = modelHandler.findModelIF(keyValue, request);
+			if (request.getSession(false) == null)
+				model = modelHandler.findModelIF(keyValue, sc);
+			else
+				model = modelHandler.findModelIF(keyValue, request);
 			if (model == null) {
 				Debug.logError("[JdonFramework] Error: got a NULL Model..", module);
 				throw new Exception("got a NULL Model");
