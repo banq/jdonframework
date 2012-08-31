@@ -52,13 +52,17 @@ public class WebAppUtil {
 	private final static String module = WebAppUtil.class.getName();
 
 	private final static ContainerFinderImp scf = new ContainerFinderImp();
-	private static ServiceFactory serviceFactory;
-	private static AppContextWrapper acw;
-	private static Service service;
 
 	/**
 	 * get a service from jdonframework.xml's service configure. the service
-	 * maybe is a pojo service or a ejb service.
+	 * maybe is a service .
+	 * 
+	 * this method will find HttpSession , if not exist then create a
+	 * HttpSession, save the proxy object into the httpSesion.
+	 * 
+	 * if you use the service with session support, must use this method, or use
+	 * getService(String name, ServletContext sc) ;
+	 * 
 	 * 
 	 * <p>
 	 * if user has a business interface, so the interface can has two
@@ -84,11 +88,9 @@ public class WebAppUtil {
 	 * @throws Exception
 	 */
 	public static Object getService(String name, HttpServletRequest request) {
-		if (serviceFactory == null) {
-			ServletContext sc = request.getSession().getServletContext();
-			ServiceFacade serviceFacade = new ServiceFacade();
-			serviceFactory = serviceFacade.getServiceFactory(new ServletContextWrapper(sc));
-		}
+		ServletContext sc = request.getSession().getServletContext();
+		ServiceFacade serviceFacade = new ServiceFacade();
+		ServiceFactory serviceFactory = serviceFacade.getServiceFactory(new ServletContextWrapper(sc));
 		RequestWrapper requestW = RequestWrapperFactory.create(request);
 		return serviceFactory.getService(name, requestW);
 	}
@@ -100,25 +102,27 @@ public class WebAppUtil {
 	 * 2. call methods of the return service instance, will active interceptors.
 	 * execept some interceptors about session, such as Stateful disable.
 	 * 
+	 * 3. not support session ,if you need your jsp page not create cookie with
+	 * JSESSIONID, use this method.
+	 * 
+	 * 
 	 * @param name
 	 * @param sc
 	 * @return
 	 */
 	public static Object getService(String name, ServletContext sc) {
-		if (serviceFactory == null || acw == null) {
-			acw = new ServletContextWrapper(sc);
-			ServiceFacade serviceFacade = new ServiceFacade();
-			serviceFactory = serviceFacade.getServiceFactory(acw);
-		}
+		AppContextWrapper acw = new ServletContextWrapper(sc);
+		ServiceFacade serviceFacade = new ServiceFacade();
+		ServiceFactory serviceFactory = serviceFacade.getServiceFactory(acw);
 		return serviceFactory.getService(name, acw);
 	}
 
 	public static Object getService(TargetMetaDef targetMetaDef, HttpServletRequest request) {
-		if (serviceFactory == null) {
-			ServletContext sc = request.getSession().getServletContext();
-			ServiceFacade serviceFacade = new ServiceFacade();
-			serviceFactory = serviceFacade.getServiceFactory(new ServletContextWrapper(sc));
-		}
+
+		ServletContext sc = request.getSession().getServletContext();
+		ServiceFacade serviceFacade = new ServiceFacade();
+		ServiceFactory serviceFactory = serviceFacade.getServiceFactory(new ServletContextWrapper(sc));
+
 		RequestWrapper requestW = RequestWrapperFactory.create(request);
 		return serviceFactory.getService(targetMetaDef, requestW);
 	}
@@ -184,11 +188,9 @@ public class WebAppUtil {
 		try {
 			MethodMetaArgs methodMetaArgs = AppUtil.createDirectMethod(methodName, methodParams);
 
-			if (service == null) {
-				ServiceFacade serviceFacade = new ServiceFacade();
-				ServletContext sc = request.getSession().getServletContext();
-				service = serviceFacade.getService(new ServletContextWrapper(sc));
-			}
+			ServiceFacade serviceFacade = new ServiceFacade();
+			ServletContext sc = request.getSession().getServletContext();
+			Service service = serviceFacade.getService(new ServletContextWrapper(sc));
 			RequestWrapper requestW = RequestWrapperFactory.create(request);
 			result = service.execute(serviceName, methodMetaArgs, requestW);
 		} catch (Exception ex) {
@@ -237,30 +239,4 @@ public class WebAppUtil {
 		return scf.findContainer(new ServletContextWrapper(sc));
 	}
 
-	/**
-	 * add a MethodInterceptor for all services how to implements a
-	 * MethodInterceptor,reference:
-	 * 
-	 * 
-	 * public static void addInterceptor(MethodInterceptor interceptor,
-	 * HttpServletRequest request) throws Exception {
-	 * addInterceptor(Pointcut.TARGET_PROPS_SERVICES, interceptor, request); }
-	 * 
-	 * /** add a MethodInterceptor for pointcut
-	 * 
-	 * @param pointcut
-	 *            Pointcut values
-	 * @param interceptor
-	 * @param request
-	 * @throws Exception
-	 * 
-	 *             public static void addInterceptor(String pointcut,
-	 *             MethodInterceptor interceptor, HttpServletRequest request)
-	 *             throws Exception { ContainerWrapper cw =
-	 *             getContainer(request); if (cw == null) { throw new
-	 *             Exception("Please at first init the JdonFramework!"); }
-	 *             InterceptorsChain interceptorsChain = (InterceptorsChain)
-	 *             cw.lookup(ComponentKeys.INTERCEPTOR_CHAIN);
-	 *             interceptorsChain.addInterceptor(pointcut, interceptor); }
-	 */
 }

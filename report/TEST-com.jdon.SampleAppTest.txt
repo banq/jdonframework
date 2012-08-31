@@ -1,8 +1,8 @@
 Testsuite: com.jdon.SampleAppTest
-Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 10.277 sec
+Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 9.907 sec
 ------------- Standard Output ---------------
-2012-08-25 07:37:46,962 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
-2012-08-25 07:37:48,451 [main] INFO  JdonFramework - Jdon Framework started successfully! 
+2012-08-30 10:38:51,553 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
+2012-08-30 10:38:53,202 [main] INFO  JdonFramework - Jdon Framework started successfully! 
 call A.myMethod1 
 
 
@@ -50,45 +50,45 @@ this is D.myMethod3 is active!!!!
 
  this is AroundAdvice after 
 
-2012-08-25 07:37:49,278 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
-2012-08-25 07:37:50,339 [main] INFO  JdonFramework - Jdon Framework started successfully! 
+2012-08-30 10:38:53,992 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
+2012-08-30 10:38:55,081 [main] INFO  JdonFramework - Jdon Framework started successfully! 
 name=helloCDomainEventHandler Actionhello
 MyDomainEventHandler action hello
 MessageListener=hello
-2012-08-25 07:37:50,947 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
-2012-08-25 07:37:52,101 [main] INFO  JdonFramework - Jdon Framework started successfully! 
+2012-08-30 10:38:55,676 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
+2012-08-30 10:38:56,780 [main] INFO  JdonFramework - Jdon Framework started successfully! 
 Synchronous sayHelloAsynchronous eventMessage=100
-Synchronous sayHello and Asynchronous eventMessage=1002012-08-25 07:37:52,647 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
-2012-08-25 07:37:53,739 [main] INFO  JdonFramework - Jdon Framework started successfully! 
+Synchronous sayHello and Asynchronous eventMessage=1002012-08-30 10:38:57,435 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
+2012-08-30 10:38:58,541 [main] INFO  JdonFramework - Jdon Framework started successfully! 
 Asynchronous eventMessage=100
-Asynchronous eventMessage=1002012-08-25 07:37:54,301 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
-2012-08-25 07:37:55,377 [main] INFO  JdonFramework - Jdon Framework started successfully! 
+Asynchronous eventMessage=1002012-08-30 10:38:59,130 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
+2012-08-30 10:39:00,277 [main] INFO  JdonFramework - Jdon Framework started successfully! 
 ------------- ---------------- ---------------
 ------------- Standard Error -----------------
-2012-8-25 7:37:49 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
+2012-8-30 10:38:54 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
 少御: Creating a new instance of CacheManager using the diskStorePath "C:\Users\ADMINI~1\AppData\Local\Temp\" which is already used by an existing CacheManager.
-The source of the configuration was InputStream java.io.BufferedInputStream@170888e.
-The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1345851469309.
+The source of the configuration was InputStream java.io.BufferedInputStream@19e15c.
+The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1346294334016.
 To avoid this warning consider using the CacheManager factory methods to create a singleton CacheManager or specifying a separate ehcache configuration (ehcache.xml) for each CacheManager instance.
-2012-8-25 7:37:50 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
+2012-8-30 10:38:55 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
 少御: Creating a new instance of CacheManager using the diskStorePath "C:\Users\ADMINI~1\AppData\Local\Temp\" which is already used by an existing CacheManager.
-The source of the configuration was InputStream java.io.BufferedInputStream@3ae941.
-The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1345851470963.
+The source of the configuration was InputStream java.io.BufferedInputStream@1977b9b.
+The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1346294335694.
 To avoid this warning consider using the CacheManager factory methods to create a singleton CacheManager or specifying a separate ehcache configuration (ehcache.xml) for each CacheManager instance.
-2012-8-25 7:37:52 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
+2012-8-30 10:38:57 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
 少御: Creating a new instance of CacheManager using the diskStorePath "C:\Users\ADMINI~1\AppData\Local\Temp\" which is already used by an existing CacheManager.
-The source of the configuration was InputStream java.io.BufferedInputStream@e49dcd.
-The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1345851472663.
+The source of the configuration was InputStream java.io.BufferedInputStream@1e1dadb.
+The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1346294337458.
 To avoid this warning consider using the CacheManager factory methods to create a singleton CacheManager or specifying a separate ehcache configuration (ehcache.xml) for each CacheManager instance.
-2012-8-25 7:37:54 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
+2012-8-30 10:38:59 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
 少御: Creating a new instance of CacheManager using the diskStorePath "C:\Users\ADMINI~1\AppData\Local\Temp\" which is already used by an existing CacheManager.
-The source of the configuration was InputStream java.io.BufferedInputStream@16a9b9c.
-The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1345851474317.
+The source of the configuration was InputStream java.io.BufferedInputStream@1fdadcd.
+The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1346294339150.
 To avoid this warning consider using the CacheManager factory methods to create a singleton CacheManager or specifying a separate ehcache configuration (ehcache.xml) for each CacheManager instance.
 ------------- ---------------- ---------------
 
-Testcase: testGetService took 3.574 sec
-Testcase: testDomainEvent took 1.701 sec
-Testcase: testDomainEventSimple took 1.716 sec
-Testcase: testDCIDomainEvent took 1.622 sec
-Testcase: testOnEvent took 1.654 sec
+Testcase: testGetService took 2.976 sec
+Testcase: testDomainEvent took 1.79 sec
+Testcase: testDomainEventSimple took 1.654 sec
+Testcase: testDCIDomainEvent took 1.73 sec
+Testcase: testOnEvent took 1.746 sec
