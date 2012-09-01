@@ -60,8 +60,10 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
                     <P><img src="images/dddbook.png" width="171" height="220" alt="ddd"></P>
                     <P>CQRS:  Command-query Responsibility Segregation      It's a pattern that I first heard described by <a href="http://codebetter.com/gregyoung/">Greg Young</a>. At its heart is a simple notion that you can use a different model to update information than the model you use to read information. <a href="http://martinfowler.com/bliki/CQRS.html">details</a>.</P>
                     <P>Domain Event:  <em>Captures the memory of something interesting which affects the domain</em>. <a href="http://martinfowler.com/eaaDev/DomainEvent.html">details</a>, see <a href="http://www.udidahan.com/2008/02/29/how-to-create-fully-encapsulated-domain-models/" rel="bookmark" title="Permanent Link: How to create fully encapsulated Domain Models">How to create fully encapsulated Domain Models</a></P>
-<P>With JdonFramework you can easily develope a <a href="http://martinfowler.com/eaaDev/EventSourcing.html" target="_blank" onmousedown="return rwt(this,'','','','1','AFQjCNEKPs4mGoA7jGKQ5GogosnIYvkS2A','VBWdcuas7M2MSmMGaC9cGQ','0CE8QFjAA',null,event)"><em>Event Sourcing</em></a> and CQRS system.</P>
-<P>DCI:Data Context and Interactions, in JdonFramework, event publisher is a Role, and sending event/message is interactions of the Role, in a DCI context, the Role will be assigned(Mixin) to data model, so the injected data model can directly publish events to the consumers.</P>
+<P>With JdonFramework you can easily develope a <a href="http://martinfowler.com/eaaDev/EventSourcing.html" target="_blank" onMouseDown="return rwt(this,'','','','1','AFQjCNEKPs4mGoA7jGKQ5GogosnIYvkS2A','VBWdcuas7M2MSmMGaC9cGQ','0CE8QFjAA',null,event)"><em>Event Sourcing</em></a> and CQRS system.</P>
+<P><a href="http://en.wikipedia.org/wiki/Data,_context_and_interaction" target="_blank">DCI:Data Context and Interactions</a>: in a Context, a Role   played by   a Data model   triggers    interactions behavior.</P>
+<P>JdonFramework = DDD+DCI+ES/CQRS: in JdonFramework a Domain Model of DDD is the Data Model of DCI, and in a Context, a Role played by a Domain Model   triggers   a event, such as sending a event or message to other consumers.</P>
+<P>&nbsp;</P>
 <P><strong>Domain Events(Event Sourcing) for Evans DDD </strong>:</P>
                     <P>Real domain logic is in the Domain Model,
                       Outside the domain are these adapters, that listen to messages sent by
@@ -75,9 +77,9 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
                     <P>&nbsp;</P>
                     <ol>
                       <li>
-Domain-Driven Development, supports in memory model, does the injection of the business logic methods into the domain objects. supports DCI.                    </li>
+Domain-Driven Dsign Development, supports in-memory cache model.                    </li>
                       <li>
-                        Event Sourcing:Never blocks ,Nothing blocks, concurrent programming;  Event-driven Architecture(EDA) :asynchronous ,concurrency pattern, lazy load                      </li>
+                        Event Sourcing:Never blocks ,Nothing blocks, concurrent programming;  Event-driven Architecture(EDA); asynchronous ,concurrency pattern, lazy load .                     </li>
                       <li>DI and AOP framework, POJO autowiring that implements Dependency Injection, and all components can be replaced, even include the framework itself. introduce any pojo as a inteceptor.</li>
                       <li> Command Query Responsibility Segregation(CQRS/CQS) , support the default implementations for CRUD and   auto paginator for query of large datas .</li>
                       <li>Improve performance of the framework and its applications by plug-in cache.</li>
