@@ -44,7 +44,7 @@ public class EventMessageFirer implements Startable {
 		super();
 		this.disruptorFactory = disruptorFactory;
 		this.futureDirector = futureDirector;
-		this.topicDisruptors = new UtilCache(100, 60 * 60 * 1000, true);
+		this.topicDisruptors = new UtilCache(100, 60 * 60 * 1000, false);
 	}
 
 	public void start() {
@@ -53,7 +53,7 @@ public class EventMessageFirer implements Startable {
 				topicDisruptors.clearExpired();
 			}
 		};
-		scheduExecStatic.scheduleAtFixedRate(task, 0, 60 * 60 * 24, TimeUnit.SECONDS);
+		scheduExecStatic.scheduleAtFixedRate(task, 0, 60 * 60 * 2, TimeUnit.SECONDS);
 	}
 
 	public void stop() {
