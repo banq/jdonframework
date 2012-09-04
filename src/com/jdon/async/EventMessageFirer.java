@@ -36,8 +36,8 @@ public class EventMessageFirer implements Startable {
 	public final static String module = EventMessageFirer.class.getName();
 	private static ScheduledExecutorService scheduExecStatic = Executors.newScheduledThreadPool(1);
 
-	private DisruptorFactory disruptorFactory;
-	private FutureDirector futureDirector;
+	private final DisruptorFactory disruptorFactory;
+	private final FutureDirector futureDirector;
 	private final UtilCache topicDisruptors;
 
 	public EventMessageFirer(DisruptorFactory disruptorFactory, FutureDirector futureDirector) {
@@ -50,7 +50,7 @@ public class EventMessageFirer implements Startable {
 	public void start() {
 		Runnable task = new Runnable() {
 			public void run() {
-				topicDisruptors.clear();
+				topicDisruptors.clearExpired();
 			}
 		};
 		scheduExecStatic.scheduleAtFixedRate(task, 0, 60 * 60 * 24, TimeUnit.SECONDS);
