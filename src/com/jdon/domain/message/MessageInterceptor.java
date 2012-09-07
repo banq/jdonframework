@@ -22,6 +22,7 @@ import com.jdon.annotation.model.Send;
 import com.jdon.async.EventMessageFirer;
 import com.jdon.async.future.FutureListener;
 import com.jdon.container.finder.ContainerCallback;
+import com.jdon.container.pico.Startable;
 import com.jdon.util.Debug;
 
 /**
@@ -35,7 +36,7 @@ import com.jdon.util.Debug;
  * @author banq
  * 
  */
-public class MessageInterceptor implements MethodInterceptor {
+public class MessageInterceptor implements MethodInterceptor, Startable {
 	public final static String module = MessageInterceptor.class.getName();
 
 	private ContainerCallback containerCallback;
@@ -77,4 +78,22 @@ public class MessageInterceptor implements MethodInterceptor {
 		return result;
 	}
 
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+		stop();
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void stop() {
+		this.containerCallback = null;
+		this.eventMessageFirer = null;
+
+	}
 }

@@ -34,8 +34,6 @@ public class ContainerDirector {
 
 	private final ContainerRegistryBuilder cb;
 
-	private final static Object initLock = new Object();
-
 	public ContainerDirector(ContainerRegistryBuilder cb) {
 		this.cb = cb;
 	}
@@ -55,7 +53,7 @@ public class ContainerDirector {
 	public void startup() throws StartupException {
 		Debug.logVerbose("[JdonFramework] <======== JdonFramework beigin to startup =========>", module);
 		if (!cb.isKernelStartup())
-			synchronized (initLock) {
+			synchronized (cb) {
 				if (!cb.isKernelStartup()) {
 					try {
 						Debug.logVerbose("[JdonFramework] <------ register the basic components in container.xml ------> ", module);
@@ -90,7 +88,7 @@ public class ContainerDirector {
 	public void shutdown() throws StartupException {
 		Debug.logVerbose("[JdonFramework] <======== JdonFramework beigin to shutdown =========>", module);
 		if (cb.isKernelStartup())
-			synchronized (initLock) {
+			synchronized (cb) {
 				if (cb.isKernelStartup()) {
 					try {
 						ContainerWrapper cw = cb.getContainerWrapper();

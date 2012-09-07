@@ -30,26 +30,27 @@ import com.jdon.container.ContainerWrapper;
 import com.jdon.container.access.TargetMetaRequest;
 import com.jdon.container.access.TargetMetaRequestsHolder;
 import com.jdon.container.finder.ContainerCallback;
+import com.jdon.container.pico.Startable;
 import com.jdon.container.visitor.data.SessionContext;
 import com.jdon.container.visitor.data.SessionContextAcceptable;
 import com.jdon.util.Debug;
 
 /**
- * interceptor the SessionContextAcceptable concrete services,
- * and inject the SessionContext object into them, so these application 
- * service can got the datas from session that saved by framework.
+ * interceptor the SessionContextAcceptable concrete services, and inject the
+ * SessionContext object into them, so these application service can got the
+ * datas from session that saved by framework.
  * 
- * this interceptor must be after the targetservice creating interceptors
- * such as StatefulInterceptor or PoolInterceptor,
- *  
- * because this interceptor will inject SessionContext object into the existed 
+ * this interceptor must be after the targetservice creating interceptors such
+ * as StatefulInterceptor or PoolInterceptor,
+ * 
+ * because this interceptor will inject SessionContext object into the existed
  * targetservice object.
  * 
  * @author <a href="mailto:banqiao@jdon.com">banq</a>
- *
+ * 
  */
 
-public class SessionContextInterceptor implements MethodInterceptor {
+public class SessionContextInterceptor implements MethodInterceptor, Startable {
 	private final static String module = SessionContextInterceptor.class.getName();
 
 	private final List isSessionContextAcceptables = new ArrayList();
@@ -67,9 +68,12 @@ public class SessionContextInterceptor implements MethodInterceptor {
 		this.targetMetaRequestsHolder = targetMetaRequestsHolder;
 	}
 
-	/* 
+	/*
 	 * inject SessionContext into targetObject.
-	 * @see org.aopalliance.intercept.MethodInterceptor#invoke(org.aopalliance.intercept.MethodInvocation)
+	 * 
+	 * @see
+	 * org.aopalliance.intercept.MethodInterceptor#invoke(org.aopalliance.intercept
+	 * .MethodInvocation)
 	 */
 	public Object invoke(MethodInvocation invocation) throws Throwable {
 		ProxyMethodInvocation pmi = (ProxyMethodInvocation) invocation;
@@ -79,8 +83,9 @@ public class SessionContextInterceptor implements MethodInterceptor {
 			return invocation.proceed();
 
 		if (!isSessionContextAcceptable(targetMetaDef)) {
-			//Debug.logVerbose("[JdonFramework] target service is not SessionContextAcceptable: "
-			//   + targetMetaDef.getClassName() + " SessionContextInterceptor unactiive", module);
+			// Debug.logVerbose("[JdonFramework] target service is not SessionContextAcceptable: "
+			// + targetMetaDef.getClassName() +
+			// " SessionContextInterceptor unactiive", module);
 			return invocation.proceed();
 		}
 		Debug.logVerbose("[JdonFramework] enter SessionContextInterceptor", module);
@@ -88,8 +93,8 @@ public class SessionContextInterceptor implements MethodInterceptor {
 		Object result = null;
 		try {
 			Object targetObject = pmi.getThis();
-			if (targetObject == null){
-				throw new Exception("targetObject is null, add @Poolable and try again"); 
+			if (targetObject == null) {
+				throw new Exception("targetObject is null, add @Poolable and try again");
 			}
 			Debug.logVerbose("[JdonFramework] targetObject should be SessionContextAcceptable: " + targetObject.getClass().getName(), module);
 			setSessionContext(targetObject, targetMetaRequest);
@@ -128,7 +133,7 @@ public class SessionContextInterceptor implements MethodInterceptor {
 		return found;
 	}
 
-	//WebServiceAccessorImp create sessionContext and save infomation into it
+	// WebServiceAccessorImp create sessionContext and save infomation into it
 	private void setSessionContext(Object targetObject, TargetMetaRequest targetMetaRequest) {
 		if (isSessionContextAcceptables.contains(targetMetaRequest.getTargetMetaDef().getName())) {
 			SessionContextAcceptable myResult = (SessionContextAcceptable) targetObject;
@@ -145,6 +150,26 @@ public class SessionContextInterceptor implements MethodInterceptor {
 			}
 
 		}
+	}
+
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+		stop();
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void stop() {
+		this.isSessionContextAcceptables.clear();
+		this.isSessionContextAcceptablesAnnotations.clear();
+		this.unSessionContextAcceptables.clear();
+
 	}
 
 }

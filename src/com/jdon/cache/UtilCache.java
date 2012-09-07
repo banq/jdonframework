@@ -29,6 +29,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import com.jdon.util.ConcurrentLinkedList;
 import com.jdon.util.Debug;
@@ -40,8 +43,7 @@ import com.jdon.util.UtilValidate;
  * Generalized caching utility. Provides a number of caching features:
  * <ul>
  * <li>Limited or unlimited element capacity
- * <li>If limited, removes elements with the LRU (Least Recently Used)
- * algorithm
+ * <li>If limited, removes elements with the LRU (Least Recently Used) algorithm
  * <li>Keeps track of when each element was loaded into the cache
  * <li>Using the expireTime can report whether a given element has expired
  * <li>Counts misses and hits
@@ -50,6 +52,8 @@ import com.jdon.util.UtilValidate;
  */
 public class UtilCache {
 	public static String module = UtilCache.class.getName();
+
+	private ScheduledExecutorService scheduExecStatic = Executors.newScheduledThreadPool(1);
 
 	/** A list of the elements order by Least Recent Use */
 	public final ConcurrentLinkedList keyLRUList = new ConcurrentLinkedList();
@@ -91,12 +95,23 @@ public class UtilCache {
 	 */
 	public UtilCache(PropsUtil propsUtil) {
 		setPropertiesParams(propsUtil, "default");
+		startMon(expireTime);
 	}
 
 	public UtilCache(int maxSize, long expireTime, boolean useSoftReference) {
 		this.maxSize = maxSize;
 		this.expireTime = expireTime;
 		this.useSoftReference = useSoftReference;
+		startMon(expireTime);
+	}
+
+	public void startMon(long expireTime) {
+		Runnable task = new Runnable() {
+			public void run() {
+				clearExpired();
+			}
+		};
+		scheduExecStatic.scheduleAtFixedRate(task, (expireTime / 1000) + 30, (expireTime / 1000) + 30, TimeUnit.SECONDS);
 	}
 
 	protected void setPropertiesParams(PropsUtil propsUtil, String cacheName) {
@@ -175,8 +190,8 @@ public class UtilCache {
 			Debug.logError(e);
 		} finally {
 		}
-		Debug.logVerbose("[JdonFramework]cache now size = " + keyLRUList.size() + " maxSize =" + maxSize + " this Cache id:"
-				+ this.hashCode(), module);
+		Debug.logVerbose("[JdonFramework]cache now size = " + keyLRUList.size() + " maxSize =" + maxSize + " this Cache id:" + this.hashCode(),
+				module);
 	}
 
 	/**
@@ -472,6 +487,14 @@ public class UtilCache {
 			if (hasExpired(key)) {
 				removeObject(key);
 			}
+		}
+	}
+
+	public void stop() {
+		clear();
+		try {
+			scheduExecStatic.shutdownNow();
+		} catch (Exception e) {
 		}
 	}
 

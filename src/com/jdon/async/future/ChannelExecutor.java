@@ -15,7 +15,7 @@
  */
 package com.jdon.async.future;
 
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.jdon.domain.message.DomainMessage;
@@ -23,7 +23,7 @@ import com.jdon.util.Debug;
 
 public class ChannelExecutor {
 	private final static String module = ChannelExecutor.class.getName();
-	private final Executor executor;
+	private ExecutorService executor;
 
 	public ChannelExecutor(String maxconcurrentTaskCount) {
 		executor = Executors.newCachedThreadPool();
@@ -44,4 +44,17 @@ public class ChannelExecutor {
 			Debug.logError("[JdonFramework]actionChannelListener() error" + e, module);
 		}
 	}
+
+	public void stop() {
+		while (!executor.isShutdown()) {
+			try {
+				executor.shutdownNow();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		executor = null;
+	}
+
 }

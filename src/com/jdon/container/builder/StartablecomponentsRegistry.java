@@ -22,6 +22,7 @@ import java.util.List;
 
 import com.jdon.container.ContainerWrapper;
 import com.jdon.container.pico.Startable;
+import com.jdon.util.Debug;
 
 /**
  * 
@@ -77,20 +78,11 @@ public class StartablecomponentsRegistry {
 				try {
 					if (o instanceof com.jdon.container.pico.Startable)
 						sTOP.invoke(o, new Object[0]);
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					e.printStackTrace();
+				} catch (Exception e) {
 				}
 			}
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
 		} catch (Exception e) {
-			e.printStackTrace();
+			Debug.logError("stopStartableComponents error:" + e, NAME);
 		} finally {
 			startablecomponentsRegistry.clear();
 		}

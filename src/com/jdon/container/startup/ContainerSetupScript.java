@@ -30,7 +30,7 @@ import com.jdon.util.Debug;
 public class ContainerSetupScript {
 	public final static String module = ContainerSetupScript.class.getName();
 
-	private final ContainerBuilderFactory containerBuilderContext;
+	private ContainerBuilderFactory containerBuilderContext;
 
 	public ContainerSetupScript() {
 		containerBuilderContext = new ContainerBuilderFactory();
@@ -97,6 +97,8 @@ public class ContainerSetupScript {
 				Debug.logError("[JdonFramework] at first call prepare method");
 				return;
 			}
+			if (cb.isKernelStartup())
+				return;
 			ContainerDirector cd = new ContainerDirector(cb);
 			cd.startup();
 		} catch (Exception ex) {
@@ -110,17 +112,15 @@ public class ContainerSetupScript {
 	 * @param context
 	 *            ServletContext
 	 */
-	public void destroyed(AppContextWrapper context) {
+	public synchronized void destroyed(AppContextWrapper context) {
 		try {
-			// if (context == null)
-			// return;
 			ContainerRegistryBuilder cb = (ContainerRegistryBuilder) context
 					.getAttribute(ContainerRegistryBuilder.APPLICATION_CONTEXT_ATTRIBUTE_NAME);
 			if (cb != null) {
 				ContainerDirector cd = new ContainerDirector(cb);
 				cd.shutdown();
-				cb = null;
-				context.setAttribute(ContainerRegistryBuilder.APPLICATION_CONTEXT_ATTRIBUTE_NAME, null);
+				context.removeAttribute(ContainerRegistryBuilder.APPLICATION_CONTEXT_ATTRIBUTE_NAME);
+				containerBuilderContext = null;
 				// context.removeAttribute(ContainerBuilder.APPLICATION_CONTEXT_ATTRIBUTE_NAME);
 				Debug.logVerbose("[JdonFramework] stop the container ..", module);
 			}

@@ -22,16 +22,24 @@ import net.sf.cglib.proxy.MethodProxy;
 
 import com.jdon.aop.AopClient;
 import com.jdon.container.access.TargetMetaRequest;
+import com.jdon.container.pico.Startable;
 import com.jdon.util.Debug;
 
 /**
  * CGLIB Dynamic Proxy Weaving mode Weaving implemention is dynamic proxy Every
  * target service object has its DynamicProxyWeaving object
  * 
+ * problem:
+ * 
+ * memory leak is more entwined in cglib. The leak can be removed by having
+ * cglib loaded by a different classloader than the one for the web app. The
+ * solution is to move the cglib jar and the asm jar to the shared lib directory
+ * of Tomcat. http://users.cis.fiu.edu/~downeyt/webdev/memory_leaks.shtml
+ * 
  * @author banq
  */
 
-public class CGLIBDynamicProxyWeaving implements MethodInterceptor, java.io.Serializable {
+public class CGLIBDynamicProxyWeaving implements MethodInterceptor, java.io.Serializable, Startable {
 
 	/**
 	 * 
@@ -40,9 +48,9 @@ public class CGLIBDynamicProxyWeaving implements MethodInterceptor, java.io.Seri
 
 	private final static String module = CGLIBDynamicProxyWeaving.class.getName();
 
-	private final AopClient aopClient;
+	private AopClient aopClient;
 
-	private final TargetMetaRequest targetMetaRequest;
+	private TargetMetaRequest targetMetaRequest;
 
 	public CGLIBDynamicProxyWeaving(TargetMetaRequest targetMetaRequest, AopClient aopClient) {
 		this.aopClient = aopClient;
@@ -52,13 +60,16 @@ public class CGLIBDynamicProxyWeaving implements MethodInterceptor, java.io.Seri
 	public Object intercept(Object object, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
 		Debug.logVerbose("<################################>Action: JdonFramework core entrance", module);
 		Debug.logVerbose("[JdonFramework]<################>execute method=" + method.getDeclaringClass().getName() + "." + method.getName(), module);
-		if (method.getName().equals("finalize"))
+		if (method.getName().equals("finalize")) {
+			this.finalize();
 			return null;
+		}
 		Object result = null;
 		try {
 			result = aopClient.invoke(targetMetaRequest, method, objects);
-			Debug.logVerbose("[JdonFramework]<################>finish executing method=" + method.getDeclaringClass().getName() + "."
-					+ method.getName() + " successfully!", module);
+			Debug.logVerbose(
+					"[JdonFramework]<################>finish executing method=" + method.getDeclaringClass().getName() + "." + method.getName()
+							+ " successfully!", module);
 			Debug.logVerbose("<################################><end:", module);
 		} catch (Exception ex) {
 			Debug.logError(ex, module);
@@ -100,4 +111,22 @@ public class CGLIBDynamicProxyWeaving implements MethodInterceptor, java.io.Seri
 
 	}
 
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+		stop();
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void stop() {
+		this.targetMetaRequest = null;
+		this.aopClient = null;
+
+	}
 }

@@ -3,6 +3,7 @@ package com.jdon.container.visitor.http;
 import com.jdon.bussinessproxy.TargetMetaDef;
 import com.jdon.container.access.TargetMetaRequestsHolder;
 import com.jdon.container.access.UserTargetMetaDefFactory;
+import com.jdon.container.pico.Startable;
 import com.jdon.container.visitor.ComponentVisitor;
 import com.jdon.container.visitor.VisitorFactory;
 import com.jdon.controller.context.SessionWrapper;
@@ -24,12 +25,12 @@ import com.jdon.util.Debug;
  * @author banq
  * 
  */
-public class HttpSessionVisitorFactoryImp implements VisitorFactory {
+public class HttpSessionVisitorFactoryImp implements VisitorFactory, Startable {
 	private final static String module = VisitorFactory.class.getName();
 
-	private final ComponentVisitor componentVisitor;
-	private final HttpSessionVisitorFactorySetup httpSessionVisitorFactorySetup;
-	private final TargetMetaRequestsHolder targetMetaRequestsHolder;
+	private ComponentVisitor componentVisitor;
+	private HttpSessionVisitorFactorySetup httpSessionVisitorFactorySetup;
+	private TargetMetaRequestsHolder targetMetaRequestsHolder;
 
 	/**
 	 * @param componentVisitor
@@ -65,5 +66,21 @@ public class HttpSessionVisitorFactoryImp implements VisitorFactory {
 			session.setAttribute("HttpSessionProxyVisitor", cm);
 		}
 		return cm;
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void stop() {
+		if (targetMetaRequestsHolder != null)
+			targetMetaRequestsHolder.clear();
+		targetMetaRequestsHolder = null;
+		httpSessionVisitorFactorySetup = null;
+		componentVisitor = null;
+
 	}
 }

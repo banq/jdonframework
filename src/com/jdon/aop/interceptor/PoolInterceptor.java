@@ -30,6 +30,7 @@ import com.jdon.container.ContainerWrapper;
 import com.jdon.container.access.TargetMetaRequestsHolder;
 import com.jdon.container.finder.ComponentKeys;
 import com.jdon.container.finder.ContainerCallback;
+import com.jdon.container.pico.Startable;
 import com.jdon.controller.cache.InstanceCache;
 import com.jdon.controller.pool.CommonsPoolFactory;
 import com.jdon.controller.pool.Pool;
@@ -38,32 +39,31 @@ import com.jdon.controller.pool.Poolable;
 import com.jdon.util.Debug;
 
 /**
- * PoolInterceptor must be the last in Interceptors.
- * this class is active for the pojoServices that 
- * implements com.jdon.controller.pool.Poolable.
+ * PoolInterceptor must be the last in Interceptors. this class is active for
+ * the pojoServices that implements com.jdon.controller.pool.Poolable.
  * 
  * @author <a href="mailto:banqiao@jdon.com">banq </a>
- *  
+ * 
  */
-public class PoolInterceptor implements MethodInterceptor {
+public class PoolInterceptor implements MethodInterceptor, Startable {
 	private final static String module = PoolInterceptor.class.getName();
 
 	/**
 	 * one target object, one pool
 	 */
-	private final Map poolFactorys;
+	private Map poolFactorys;
 
-	private final TargetServiceFactory targetServiceFactory;
+	private TargetServiceFactory targetServiceFactory;
 
-	private final ContainerCallback containerCallback;
+	private ContainerCallback containerCallback;
 
-	private final PoolConfigure poolConfigure;
+	private PoolConfigure poolConfigure;
 
-	private final List isPoolableCache = new ArrayList();
+	private List isPoolableCache = new ArrayList();
 
-	private final List unPoolableCache = new ArrayList();
+	private List unPoolableCache = new ArrayList();
 
-	private final TargetMetaRequestsHolder targetMetaRequestsHolder;
+	private TargetMetaRequestsHolder targetMetaRequestsHolder;
 
 	/**
 	 * @param containerCallback
@@ -81,7 +81,9 @@ public class PoolInterceptor implements MethodInterceptor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.aopalliance.intercept.MethodInterceptor#invoke(org.aopalliance.intercept.MethodInvocation)
+	 * @see
+	 * org.aopalliance.intercept.MethodInterceptor#invoke(org.aopalliance.intercept
+	 * .MethodInvocation)
 	 */
 	public Object invoke(MethodInvocation invocation) throws Throwable {
 		ProxyMethodInvocation proxyMethodInvocation = (ProxyMethodInvocation) invocation;
@@ -90,9 +92,9 @@ public class PoolInterceptor implements MethodInterceptor {
 			return invocation.proceed();
 
 		if (!isPoolabe(targetMetaDef)) {
-			//Debug.logVerbose("[JdonFramework] target service is not Poolable: "
-			//        + targetMetaDef.getClassName() + " pool unactiive", module);
-			return invocation.proceed(); //下一个interceptor
+			// Debug.logVerbose("[JdonFramework] target service is not Poolable: "
+			// + targetMetaDef.getClassName() + " pool unactiive", module);
+			return invocation.proceed(); // 下一个interceptor
 		}
 		Debug.logVerbose("[JdonFramework] enter PoolInterceptor", module);
 		CommonsPoolFactory commonsPoolFactory = (CommonsPoolFactory) poolFactorys.get(targetMetaDef.getCacheKey());
@@ -106,12 +108,11 @@ public class PoolInterceptor implements MethodInterceptor {
 		Object result = null;
 		try {
 			poa = pool.acquirePoolable();
-			Debug.logVerbose("[JdonFramework] borrow a object:" + targetMetaDef.getClassName() + " id:" + poa.hashCode()
-					+ " from pool", module);
+			Debug.logVerbose("[JdonFramework] borrow a object:" + targetMetaDef.getClassName() + " id:" + poa.hashCode() + " from pool", module);
 			Debug.logVerbose("[JdonFramework]pool state: active=" + pool.getNumActive() + " free=" + pool.getNumIdle(), module);
 
-			//set the object that borrowed from pool to MethodInvocation
-			//so later other Interceptors or MethodInvocation can use it!
+			// set the object that borrowed from pool to MethodInvocation
+			// so later other Interceptors or MethodInvocation can use it!
 			proxyMethodInvocation.setThis(poa);
 			result = invocation.proceed();
 		} catch (Exception ex) {
@@ -162,8 +163,7 @@ public class PoolInterceptor implements MethodInterceptor {
 			Debug.logVerbose("[JdonFramework] check if it is a Poolable", module);
 			ContainerWrapper containerWrapper = containerCallback.getContainerWrapper();
 			Class thisCLass = containerWrapper.getComponentClass(targetMetaDef.getName());
-			if (Poolable.class.isAssignableFrom(thisCLass) ||
-				thisCLass.isAnnotationPresent(com.jdon.annotation.intercept.Poolable.class)) {
+			if (Poolable.class.isAssignableFrom(thisCLass) || thisCLass.isAnnotationPresent(com.jdon.annotation.intercept.Poolable.class)) {
 				found = true;
 				isPoolableCache.add(targetMetaDef.getName());
 			} else {
@@ -173,4 +173,34 @@ public class PoolInterceptor implements MethodInterceptor {
 		return found;
 	}
 
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+		stop();
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void stop() {
+		if (this.isPoolableCache != null) {
+			this.isPoolableCache.clear();
+			this.unPoolableCache.clear();
+			this.poolFactorys.clear();
+			this.targetMetaRequestsHolder.clear();
+		}
+
+		this.containerCallback = null;
+		this.isPoolableCache = null;
+		this.poolConfigure = null;
+		this.poolFactorys = null;
+		this.targetMetaRequestsHolder = null;
+		this.targetServiceFactory = null;
+		this.unPoolableCache = null;
+
+	}
 }

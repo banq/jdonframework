@@ -113,4 +113,15 @@ public class IntroduceInfo {
 		this.targetName = targetName;
 	}
 
+	public void clear() {
+		this.afters.clear();
+		this.befores.clear();
+		this.inputParametersPositions.clear();
+		this.introducedParametersPositions.clear();
+		this.methods.clear();
+		this.returnParametersPositions.clear();
+		this.target = null;
+		this.targetName = null;
+	}
+
 }

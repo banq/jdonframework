@@ -28,98 +28,115 @@ import com.jdon.container.access.TargetMetaRequest;
 import com.jdon.container.access.TargetMetaRequestsHolder;
 import com.jdon.container.finder.ComponentKeys;
 import com.jdon.container.finder.ContainerCallback;
+import com.jdon.container.pico.Startable;
 import com.jdon.container.visitor.ComponentVisitor;
 import com.jdon.controller.service.Stateful;
 import com.jdon.util.Debug;
 
 /**
- * StatefulInterceptor is a Interceptor of
- * creating target object.
- * must be the last in Interceptors.
+ * StatefulInterceptor is a Interceptor of creating target object. must be the
+ * last in Interceptors.
  * 
- * it active for all pojoServices that implements 
+ * it active for all pojoServices that implements
  * com.jdon.controller.service.StatefulPOJOService
  * 
- * this class stateful function is using ComponentVisitor's
- * cache, such as HttpSession.
+ * this class stateful function is using ComponentVisitor's cache, such as
+ * HttpSession.
  * 
  * @author <a href="mailto:banqiao@jdon.com">banq</a>
- *
+ * 
  */
-public class StatefulInterceptor implements MethodInterceptor {
-    private final static String module = StatefulInterceptor.class.getName();
-    
-    private final List isStatefulCache = new ArrayList();
-    
-    private final List unStatefulCache = new ArrayList();
-    
-    private final ContainerCallback containerCallback;
-    
-    private final TargetMetaRequestsHolder targetMetaRequestsHolder;
-    
-    
-    /**
-     * @param containerCallback
-     */
-    public StatefulInterceptor(ContainerCallback containerCallback,
-    		TargetMetaRequestsHolder targetMetaRequestsHolder) {
-        super();
-        this.containerCallback = containerCallback;
-        this.targetMetaRequestsHolder = targetMetaRequestsHolder;
-    }
-    
-    /* 
-     * check the pojoService if implements StatefulPOJOService
-     * using ComponentVisitor, we can get targetObjRef from httpsession.
-     * 
-     * @see org.aopalliance.intercept.MethodInterceptor#invoke(org.aopalliance.intercept.MethodInvocation)
-     */
-    public Object invoke(MethodInvocation invocation) throws Throwable {
-        ProxyMethodInvocation pmi = (ProxyMethodInvocation)invocation;
-        TargetMetaRequest targetMetaRequest = targetMetaRequestsHolder.getTargetMetaRequest();
-        TargetMetaDef targetMetaDef = targetMetaRequest.getTargetMetaDef();
-        if (targetMetaDef.isEJB())
-            return invocation.proceed();
+public class StatefulInterceptor implements MethodInterceptor, Startable {
+	private final static String module = StatefulInterceptor.class.getName();
 
-        if (!isStateful(targetMetaDef)){
-            //Debug.logVerbose("[JdonFramework] target service is not Stateful: "
-            //        + targetMetaDef.getClassName() + " StatefulInterceptor unactiive", module);
-            return invocation.proceed();
-        }
-        Debug.logVerbose("[JdonFramework] enter StatefulInterceptor", module);
-        Object result = null;
-        try {            
-            ComponentVisitor cm = targetMetaRequest.getComponentVisitor();
-            targetMetaRequest.setVisitableName(ComponentKeys.TARGETSERVICE_FACTORY);
-            Debug.logVerbose(ComponentKeys.TARGETSERVICE_FACTORY
-                    + " in action (Stateful)", module);
-            Object targetObjRef = cm.visit();
-            pmi.setThis(targetObjRef);     
-            result = invocation.proceed();
-        }catch(Exception ex){
-            Debug.logError("[JdonFramework]StatefulInterceptor error: " + ex, module);
-        }
-        return result;
-    }
+	private final List isStatefulCache = new ArrayList();
 
-    public boolean isStateful(TargetMetaDef targetMetaDef) {        
-        boolean found = false;
-        if (isStatefulCache.contains(targetMetaDef.getName())) {
-            found = true;
-        }else if(!unStatefulCache.contains(targetMetaDef.getName())){
-            Debug.logVerbose("[JdonFramework] check if it is a isStateful", module);
-            ContainerWrapper containerWrapper = containerCallback.getContainerWrapper();
-            Class thisCLass = containerWrapper.getComponentClass(targetMetaDef.getName());
-            if (Stateful.class.isAssignableFrom(thisCLass) || 
-                thisCLass.isAnnotationPresent(com.jdon.annotation.intercept.Stateful.class)) {
-                found = true;
-                isStatefulCache.add(targetMetaDef.getName());
-            }else{
-                unStatefulCache.add(targetMetaDef.getName());
-            }
-        }
-        return found;
-    }
-    
-    
+	private final List unStatefulCache = new ArrayList();
+
+	private final ContainerCallback containerCallback;
+
+	private final TargetMetaRequestsHolder targetMetaRequestsHolder;
+
+	/**
+	 * @param containerCallback
+	 */
+	public StatefulInterceptor(ContainerCallback containerCallback, TargetMetaRequestsHolder targetMetaRequestsHolder) {
+		super();
+		this.containerCallback = containerCallback;
+		this.targetMetaRequestsHolder = targetMetaRequestsHolder;
+	}
+
+	/*
+	 * check the pojoService if implements StatefulPOJOService using
+	 * ComponentVisitor, we can get targetObjRef from httpsession.
+	 * 
+	 * @see
+	 * org.aopalliance.intercept.MethodInterceptor#invoke(org.aopalliance.intercept
+	 * .MethodInvocation)
+	 */
+	public Object invoke(MethodInvocation invocation) throws Throwable {
+		ProxyMethodInvocation pmi = (ProxyMethodInvocation) invocation;
+		TargetMetaRequest targetMetaRequest = targetMetaRequestsHolder.getTargetMetaRequest();
+		TargetMetaDef targetMetaDef = targetMetaRequest.getTargetMetaDef();
+		if (targetMetaDef.isEJB())
+			return invocation.proceed();
+
+		if (!isStateful(targetMetaDef)) {
+			// Debug.logVerbose("[JdonFramework] target service is not Stateful: "
+			// + targetMetaDef.getClassName() +
+			// " StatefulInterceptor unactiive", module);
+			return invocation.proceed();
+		}
+		Debug.logVerbose("[JdonFramework] enter StatefulInterceptor", module);
+		Object result = null;
+		try {
+			ComponentVisitor cm = targetMetaRequest.getComponentVisitor();
+			targetMetaRequest.setVisitableName(ComponentKeys.TARGETSERVICE_FACTORY);
+			Debug.logVerbose(ComponentKeys.TARGETSERVICE_FACTORY + " in action (Stateful)", module);
+			Object targetObjRef = cm.visit();
+			pmi.setThis(targetObjRef);
+			result = invocation.proceed();
+		} catch (Exception ex) {
+			Debug.logError("[JdonFramework]StatefulInterceptor error: " + ex, module);
+		}
+		return result;
+	}
+
+	public boolean isStateful(TargetMetaDef targetMetaDef) {
+		boolean found = false;
+		if (isStatefulCache.contains(targetMetaDef.getName())) {
+			found = true;
+		} else if (!unStatefulCache.contains(targetMetaDef.getName())) {
+			Debug.logVerbose("[JdonFramework] check if it is a isStateful", module);
+			ContainerWrapper containerWrapper = containerCallback.getContainerWrapper();
+			Class thisCLass = containerWrapper.getComponentClass(targetMetaDef.getName());
+			if (Stateful.class.isAssignableFrom(thisCLass) || thisCLass.isAnnotationPresent(com.jdon.annotation.intercept.Stateful.class)) {
+				found = true;
+				isStatefulCache.add(targetMetaDef.getName());
+			} else {
+				unStatefulCache.add(targetMetaDef.getName());
+			}
+		}
+		return found;
+	}
+
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+		stop();
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void stop() {
+		this.isStatefulCache.clear();
+		this.unStatefulCache.clear();
+
+	}
+
 }

@@ -36,4 +36,9 @@ public class FutureDirector {
 		channelExecutor.actionListener(domainMessage);
 	}
 
+	public void stop() {
+		channelExecutor.stop();
+
+	}
+
 }

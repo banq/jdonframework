@@ -74,9 +74,9 @@ public class HttpSessionProxyComponentVisitor implements ComponentVisitor, HttpS
 
 	private final ComponentsboxsInSession componentsboxsInSession;
 
-	private final ComponentVisitor componentVisitor;
+	private ComponentVisitor componentVisitor;
 
-	private final TargetMetaRequestsHolder targetMetaRequestsHolder;
+	private TargetMetaRequestsHolder targetMetaRequestsHolder;
 
 	private final boolean dynamiceProxyisCached;
 
@@ -104,6 +104,10 @@ public class HttpSessionProxyComponentVisitor implements ComponentVisitor, HttpS
 		Debug.logVerbose("[JdonFramework] unvalueUnbound active, componentsboxs size" + componentsboxsInSession.size(), module);
 		// removeObjects();
 		componentsboxsInSession.clear();
+		if (targetMetaRequestsHolder != null)
+			targetMetaRequestsHolder.clear();
+		targetMetaRequestsHolder = null;
+		componentVisitor = null;
 	}
 
 	/**

@@ -14,12 +14,12 @@ public class ServletContextWrapper implements AppContextWrapper {
 		super();
 		this.servletContext = servletContext;
 	}
-	
-	public InputStream getResourceAsStream(String name){
+
+	public InputStream getResourceAsStream(String name) {
 		return servletContext.getResourceAsStream(name);
 	}
-	
-	public String getInitParameter(String key){
+
+	public String getInitParameter(String key) {
 		return servletContext.getInitParameter(key);
 	}
 
@@ -32,9 +32,12 @@ public class ServletContextWrapper implements AppContextWrapper {
 		servletContext.setAttribute(key, o);
 	}
 
+	public void removeAttribute(String key) {
+		servletContext.removeAttribute(key);
+	}
+
 	public ServletContext getServletContext() {
 		return servletContext;
 	}
-	
-	
+
 }

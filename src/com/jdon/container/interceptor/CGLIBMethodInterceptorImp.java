@@ -23,9 +23,10 @@ import net.sf.cglib.proxy.MethodProxy;
 
 import org.aopalliance.intercept.MethodInvocation;
 
+import com.jdon.container.pico.Startable;
 import com.jdon.util.Debug;
 
-public class CGLIBMethodInterceptorImp implements MethodInterceptor {
+public class CGLIBMethodInterceptorImp implements MethodInterceptor, Startable {
 	private final static String module = CGLIBMethodInterceptorImp.class.getName();
 	private List<org.aopalliance.intercept.MethodInterceptor> methodInterceptors;
 	private BeforeAfterMethodTarget beforeAfterMethodTarget;
@@ -40,8 +41,10 @@ public class CGLIBMethodInterceptorImp implements MethodInterceptor {
 	}
 
 	public Object intercept(Object object, Method invokedmethod, Object[] objects, MethodProxy methodProxy) throws Throwable {
-		if (invokedmethod.getName().equals("finalize"))
+		if (invokedmethod.getName().equals("finalize")) {
+			clear();
 			return null;
+		}
 
 		Object result = null;
 		try {
@@ -61,6 +64,45 @@ public class CGLIBMethodInterceptorImp implements MethodInterceptor {
 		}
 
 		return result;
+	}
+
+	public void clear() {
+		if (this.methodInterceptors != null) {
+			this.methodInterceptors.clear();
+			this.methodInterceptors = null;
+		}
+		if (beforeAfterMethodTarget != null) {
+			this.beforeAfterMethodTarget.clear();
+			this.beforeAfterMethodTarget = null;
+		}
+		if (target != null) {
+			if (target instanceof Startable) {
+				Startable st = (Startable) target;
+				try {
+					st.stop();
+				} catch (Exception e) {
+				}
+			}
+			this.target = null;
+		}
+	}
+
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+		clear();
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void stop() {
+		clear();
+
 	}
 
 }

@@ -15,6 +15,10 @@
  */
 package com.jdon.async;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -25,7 +29,6 @@ import com.jdon.async.disruptor.EventDisruptor;
 import com.jdon.async.future.EventResultFuture;
 import com.jdon.async.future.FutureDirector;
 import com.jdon.async.future.FutureListener;
-import com.jdon.cache.UtilCache;
 import com.jdon.container.pico.Startable;
 import com.jdon.domain.message.DomainMessage;
 import com.jdon.util.Debug;
@@ -36,28 +39,57 @@ public class EventMessageFirer implements Startable {
 	public final static String module = EventMessageFirer.class.getName();
 	private static ScheduledExecutorService scheduExecStatic = Executors.newScheduledThreadPool(1);
 
-	private final DisruptorFactory disruptorFactory;
-	private final FutureDirector futureDirector;
-	private final UtilCache topicDisruptors;
+	private DisruptorFactory disruptorFactory;
+	private FutureDirector futureDirector;
+	private Map<String, Disruptor> topicDisruptors;
 
 	public EventMessageFirer(DisruptorFactory disruptorFactory, FutureDirector futureDirector) {
 		super();
 		this.disruptorFactory = disruptorFactory;
 		this.futureDirector = futureDirector;
-		this.topicDisruptors = new UtilCache(100, 60 * 60 * 1000, false);
+		this.topicDisruptors = new ConcurrentHashMap();
 	}
 
 	public void start() {
 		Runnable task = new Runnable() {
 			public void run() {
-				topicDisruptors.clearExpired();
+				stopDisruptor();
 			}
 		};
-		scheduExecStatic.scheduleAtFixedRate(task, 0, 60 * 60 * 2, TimeUnit.SECONDS);
+		scheduExecStatic.scheduleAtFixedRate(task, 0, 60 * 60 * 1, TimeUnit.SECONDS);
 	}
 
 	public void stop() {
+		if (topicDisruptors != null) {
+			stopDisruptor();
+			topicDisruptors.clear();
+			topicDisruptors = null;
+		}
+		if (futureDirector != null) {
+			futureDirector.stop();
+			futureDirector = null;
+		}
+		disruptorFactory = null;
+	}
+
+	public void finalize() {
+		stop();
+
+	}
+
+	private void stopDisruptor() {
+		Map mydisruptors = new HashMap(topicDisruptors);
 		topicDisruptors.clear();
+		Iterator keys = mydisruptors.keySet().iterator();
+		while (keys.hasNext()) {
+			Object key = keys.next();
+			Disruptor disruptor = (Disruptor) mydisruptors.get(key);
+			try {
+				disruptor.shutdown();
+			} catch (Exception e) {
+			}
+		}
+
 	}
 
 	public void fire(DomainMessage domainMessage, Send send, FutureListener futureListener) {

@@ -18,6 +18,7 @@ package com.jdon.container.finder;
 import java.io.Serializable;
 
 import com.jdon.container.ContainerWrapper;
+import com.jdon.container.pico.Startable;
 
 /**
  * the components in container can call the container by this class; set this
@@ -31,7 +32,7 @@ import com.jdon.container.ContainerWrapper;
  * @author <a href="mailto:banqiao@jdon.com">banq</a>
  * 
  */
-public class ContainerCallback implements Serializable {
+public class ContainerCallback implements Serializable, Startable {
 
 	/**
 	 * 
@@ -40,7 +41,7 @@ public class ContainerCallback implements Serializable {
 
 	public final static String NAME = "ContainerCallback";
 
-	private final ContainerWrapper containerWrapper;
+	private ContainerWrapper containerWrapper;
 
 	public ContainerCallback(ContainerWrapper containerWrapper) {
 		this.containerWrapper = containerWrapper;
@@ -51,6 +52,25 @@ public class ContainerCallback implements Serializable {
 	 */
 	public ContainerWrapper getContainerWrapper() {
 		return containerWrapper;
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void stop() {
+		if (containerWrapper != null && containerWrapper.isStart())
+			containerWrapper.stop();
+		containerWrapper = null;
+
+	}
+
+	public void finalize() {
+		stop();
+
 	}
 
 }

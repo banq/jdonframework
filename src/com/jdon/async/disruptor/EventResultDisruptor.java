@@ -46,4 +46,7 @@ public class EventResultDisruptor {
 		value = null;
 	}
 
+	public void finalize() {
+		clear();
+	}
 }

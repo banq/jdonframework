@@ -25,6 +25,7 @@ import java.util.concurrent.Executors;
 import com.jdon.container.ContainerWrapper;
 import com.jdon.container.annotation.type.ConsumerLoader;
 import com.jdon.container.finder.ContainerCallback;
+import com.jdon.container.pico.Startable;
 import com.jdon.domain.message.DomainEventDispatchHandler;
 import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.domain.message.consumer.ConsumerMethodHolder;
@@ -55,13 +56,13 @@ import com.lmax.disruptor.dsl.EventHandlerGroup;
  * @author banq
  * 
  */
-public class DisruptorFactory implements EventFactory {
+public class DisruptorFactory implements EventFactory, Startable {
 	public final static String module = DisruptorFactory.class.getName();
 	protected final Map<String, TreeSet<DomainEventHandler>> handlesMap;
 
 	private String RingBufferSize;
 
-	private final ContainerWrapper containerWrapper;
+	private ContainerWrapper containerWrapper;
 
 	public DisruptorFactory(DisruptorParams disruptorParams, ContainerCallback containerCallback) {
 		this.RingBufferSize = disruptorParams.getRingBufferSize();
@@ -185,5 +186,19 @@ public class DisruptorFactory implements EventFactory {
 	// create a Event;
 	public EventDisruptor newInstance() {
 		return new EventDisruptor();
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void stop() {
+		this.containerWrapper = null;
+		this.handlesMap.clear();
+		this.RingBufferSize = null;
+
 	}
 }

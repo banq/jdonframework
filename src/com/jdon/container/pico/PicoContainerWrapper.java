@@ -45,9 +45,9 @@ public class PicoContainerWrapper implements ContainerWrapper, java.io.Serializa
 
 	public final static String module = PicoContainerWrapper.class.getName();
 
-	private final JdonPicoContainer container;
+	private JdonPicoContainer container;
 
-	private final RegistryDirectory registryDirectory;
+	private RegistryDirectory registryDirectory;
 
 	private volatile boolean start;
 
@@ -158,6 +158,8 @@ public class PicoContainerWrapper implements ContainerWrapper, java.io.Serializa
 		try {
 			container.stop();
 			container.dispose();
+			this.container = null;
+			this.registryDirectory = null;
 		} catch (Exception e) {
 			Debug.logError("[JdonFramework] container stop error: " + e, module);
 		} finally {

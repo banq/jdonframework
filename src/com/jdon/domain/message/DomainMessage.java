@@ -102,4 +102,10 @@ public class DomainMessage {
 		this.eventSource = eventSource;
 	}
 
+	public void finalize() {
+		this.eventResult = null;
+		this.eventResultHandler = null;
+		this.eventSource = null;
+	}
+
 }

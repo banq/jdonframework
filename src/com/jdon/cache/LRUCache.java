@@ -21,12 +21,14 @@ import com.jdon.controller.cache.Cache;
 import com.jdon.util.PropsUtil;
 
 /**
- * the LRU Cache implemention.
- * default is OFBiz's UtilCache, we can replace it with better cache product.
- *
- *  cache parameters must be defined, and the configure file name must
- * be defined in container.xml too.
- * <p>@author <a href="mailto:banqiao@jdon.com">banq</a></p>
+ * the LRU Cache implemention. default is OFBiz's UtilCache, we can replace it
+ * with better cache product.
+ * 
+ * cache parameters must be defined, and the configure file name must be defined
+ * in container.xml too.
+ * <p>
+ * @author <a href="mailto:banqiao@jdon.com">banq</a>
+ * </p>
  */
 public class LRUCache implements Cache {
 
@@ -41,7 +43,7 @@ public class LRUCache implements Cache {
 		PropsUtil propsUtil = new PropsUtil(configFileName);
 		cache = new UtilCache(propsUtil);
 	}
-	
+
 	public Object get(Object key) {
 		return cache.get(key);
 	}
@@ -68,6 +70,10 @@ public class LRUCache implements Cache {
 
 	public Collection keySet() {
 		return cache.keySet();
+	}
+
+	public void stop() {
+		cache.stop();
 	}
 
 }

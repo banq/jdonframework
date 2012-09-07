@@ -22,13 +22,11 @@ import com.jdon.controller.context.AppContextWrapper;
 import com.jdon.util.Debug;
 
 /**
- *  Container lookup from outside the container.
+ * Container lookup from outside the container.
  * 
  */
 public class ContainerFinderImp implements ContainerFinder {
 	private final static String module = ContainerFinderImp.class.getName();
-
-	private final ContainerSetupScript containerSetupScript = new ContainerSetupScript();
 
 	/**
 	 * lazy startup container when first time the method is called, it will
@@ -41,14 +39,19 @@ public class ContainerFinderImp implements ContainerFinder {
 	 */
 
 	public ContainerWrapper findContainer(AppContextWrapper sc) {
+		ContainerSetupScript containerSetupScript = null;
 		ContainerRegistryBuilder cb = (ContainerRegistryBuilder) sc.getAttribute(ContainerRegistryBuilder.APPLICATION_CONTEXT_ATTRIBUTE_NAME);
-		if (cb == null){
-			containerSetupScript.prepare("", sc);//no jdonramework.xml, only have annotation
+		if (cb == null) {
+			containerSetupScript = new ContainerSetupScript();
+			containerSetupScript.prepare("", sc);// no jdonramework.xml, only
+													// have annotation
 			cb = (ContainerRegistryBuilder) sc.getAttribute(ContainerRegistryBuilder.APPLICATION_CONTEXT_ATTRIBUTE_NAME);
 		}
 		ContainerWrapper containerWrapper = null;
-		try {			
+		try {
 			if (!cb.isKernelStartup()) {
+				if (containerSetupScript == null)
+					containerSetupScript = new ContainerSetupScript();
 				containerSetupScript.startup(sc);
 			}
 			containerWrapper = cb.getContainerWrapper();
@@ -57,6 +60,5 @@ public class ContainerFinderImp implements ContainerFinder {
 		}
 		return containerWrapper;
 	}
-	
-	
+
 }

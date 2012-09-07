@@ -25,6 +25,7 @@ import com.jdon.annotation.pointcut.After;
 import com.jdon.annotation.pointcut.Before;
 import com.jdon.annotation.pointcut.method.Input;
 import com.jdon.annotation.pointcut.method.Returning;
+import com.jdon.container.pico.Startable;
 import com.jdon.util.Debug;
 
 /**
@@ -41,7 +42,7 @@ import com.jdon.util.Debug;
  * @author banq
  * 
  */
-public class BeforeAfterMethodTarget {
+public class BeforeAfterMethodTarget implements Startable {
 	private final static String module = BeforeAfterMethodTarget.class.getName();
 	private Object target;
 	private Object interceptor;
@@ -55,8 +56,10 @@ public class BeforeAfterMethodTarget {
 	}
 
 	public Object invoke(Method invokedmethod, Object[] args, MethodProxy methodProxy) throws Throwable, Exception {
-		if (invokedmethod.getName().equals("finalize"))
+		if (invokedmethod.getName().equals("finalize")) {
+			this.clear();
 			return null;
+		}
 
 		Object result = null;
 		try {
@@ -283,6 +286,54 @@ public class BeforeAfterMethodTarget {
 			Debug.logError("getInjectResturingIntoAdvice" + e, module);
 		}
 		return args;
+	}
+
+	public void clear() {
+		if (iinfo != null) {
+			this.iinfo.clear();
+			this.iinfo = null;
+		}
+
+		if (interceptor != null) {
+			if (interceptor instanceof Startable) {
+				Startable st = (Startable) interceptor;
+				try {
+					st.stop();
+				} catch (Exception e) {
+				}
+			}
+			this.interceptor = null;
+		}
+
+		if (target != null) {
+			if (target instanceof Startable) {
+				Startable st = (Startable) target;
+				try {
+					st.stop();
+				} catch (Exception e) {
+				}
+			}
+			this.target = null;
+		}
+
+	}
+
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+		clear();
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void stop() {
+		clear();
+
 	}
 
 }

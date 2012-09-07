@@ -50,8 +50,8 @@ import com.jdon.util.ObjectCreator;
  */
 public class ModelProxyInjection {
 	private final static String module = ModelProxyInjection.class.getName();
-	private final ModelAdvisor modelAdvisor;
-	private final ContainerCallback containerCallback;
+	private ModelAdvisor modelAdvisor;
+	private ContainerCallback containerCallback;
 
 	public ModelProxyInjection(ModelAdvisor modelAdvisor, ContainerCallback containerCallback) {
 		super();
@@ -133,6 +133,12 @@ public class ModelProxyInjection {
 		if (instance.getClass().isAnnotationPresent(Service.class))
 			return true;
 		return false;
+	}
+
+	public void finalize() {
+		this.containerCallback = null;
+		this.modelAdvisor = null;
+
 	}
 
 }

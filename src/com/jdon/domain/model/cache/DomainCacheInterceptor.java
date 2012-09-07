@@ -23,6 +23,7 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
 import com.jdon.annotation.pointcut.Around;
+import com.jdon.container.pico.Startable;
 import com.jdon.controller.model.ModelUtil;
 import com.jdon.domain.advsior.ModelAdvisor;
 import com.jdon.domain.model.injection.ModelProxyInjection;
@@ -44,13 +45,13 @@ import com.jdon.util.Debug;
  * 
  */
 // @Interceptor("modelCache")
-public class DomainCacheInterceptor implements MethodInterceptor {
+public class DomainCacheInterceptor implements MethodInterceptor, Startable {
 	public final static String module = DomainCacheInterceptor.class.getName();
-	private final Map<String, String> adviceArounds = new HashMap();
+	private Map<String, String> adviceArounds = new HashMap();
 
-	private final ModelManager modelManager;
-	private final ModelAdvisor modelAdvisor;
-	private final ModelProxyInjection modelProxyInjection;
+	private ModelManager modelManager;
+	private ModelAdvisor modelAdvisor;
+	private ModelProxyInjection modelProxyInjection;
 
 	public DomainCacheInterceptor(ModelManager modelManager, ModelAdvisor modelAdvisor, ModelProxyInjection modelProxyInjection) {
 		super();
@@ -140,6 +141,30 @@ public class DomainCacheInterceptor implements MethodInterceptor {
 			Debug.logError("isAdviceAround:" + e, module);
 		}
 		return false;
+
+	}
+
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+		stop();
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void stop() {
+		if (this.modelManager != null)
+			this.modelManager.clearCache();
+		this.modelManager = null;
+
+		this.modelAdvisor = null;
+		this.modelProxyInjection = null;
+		this.adviceArounds.clear();
 
 	}
 }

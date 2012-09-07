@@ -21,6 +21,7 @@ import java.util.List;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
+import com.jdon.container.pico.Startable;
 import com.jdon.controller.model.ModelUtil;
 import com.jdon.domain.advsior.ModelAdvisor;
 import com.jdon.domain.model.cache.ModelKey;
@@ -41,18 +42,18 @@ import com.jdon.util.Debug;
  *      </p>
  * @author banq
  */
-public class CacheInterceptor implements MethodInterceptor {
+public class CacheInterceptor implements MethodInterceptor, Startable {
 	private final static String module = CacheInterceptor.class.getName();
 
-	private final ModelManager modelManager;
+	private ModelManager modelManager;
 
-	private final ModelProxyInjection modelProxyInjection;
+	private ModelProxyInjection modelProxyInjection;
 
-	private final ModelAdvisor modelAdvisor;
+	private ModelAdvisor modelAdvisor;
 
-	public final String match_MethodName = "get";
+	public String match_MethodName = "get";
 
-	private final List isModelCache = new ArrayList();
+	private List isModelCache = new ArrayList();
 
 	public CacheInterceptor(ModelManager modelManager, ModelProxyInjection modelProxyInjection, ModelAdvisor modelAdvisor) {
 		this.modelManager = modelManager;
@@ -164,6 +165,28 @@ public class CacheInterceptor implements MethodInterceptor {
 
 	public String getMatch_MethodName() {
 		return match_MethodName;
+	}
+
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+		stop();
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void stop() {
+		this.isModelCache.clear();
+		this.isModelCache = null;
+		this.modelAdvisor = null;
+		this.modelManager = null;
+		this.modelProxyInjection = null;
+
 	}
 
 }
