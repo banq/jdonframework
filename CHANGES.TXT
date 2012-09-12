@@ -5,7 +5,7 @@ JDON FRAMEWORK 6.5.2  (07/2012)
 2012.Sep.7 (6.6)
 * Bug Fixes
     ---------
-    * solve redeploy's memory leak;
+    * solved redeploy's memory leak;
     * add resource release and lifcycle;
     
 

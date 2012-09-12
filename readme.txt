@@ -1,6 +1,7 @@
 JDON FRAMEWORK
 ---------------------------------------
-http://www.jdon.org
+English: http://www.jdon.org
+Chinese: http://www.jdon.com/jdonframework/
 
 1. INTRODUCTION
 ---------------

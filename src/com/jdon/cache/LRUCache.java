@@ -17,7 +17,7 @@ package com.jdon.cache;
 
 import java.util.Collection;
 
-import com.jdon.controller.cache.Cache;
+import com.jdon.container.pico.Startable;
 import com.jdon.util.PropsUtil;
 
 /**
@@ -27,10 +27,11 @@ import com.jdon.util.PropsUtil;
  * cache parameters must be defined, and the configure file name must be defined
  * in container.xml too.
  * <p>
+ * 
  * @author <a href="mailto:banqiao@jdon.com">banq</a>
- * </p>
+ *         </p>
  */
-public class LRUCache implements Cache {
+public class LRUCache implements Startable {
 
 	private final UtilCache cache;
 
@@ -74,6 +75,12 @@ public class LRUCache implements Cache {
 
 	public void stop() {
 		cache.stop();
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

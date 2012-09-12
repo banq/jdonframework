@@ -19,10 +19,10 @@ import java.util.TreeSet;
 
 import junit.framework.TestCase;
 
+import com.jdon.async.disruptor.dsl.JdonDisruptor;
 import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.domain.message.DomainMessage;
 import com.lmax.disruptor.RingBuffer;
-import com.lmax.disruptor.dsl.Disruptor;
 
 public class DisruptorFactoryTest extends TestCase {
 	DisruptorFactory disruptorFactory;
@@ -61,7 +61,7 @@ public class DisruptorFactoryTest extends TestCase {
 		handlers.add(handler2);
 		handlers.add(handler);
 
-		Disruptor disruptor = disruptorFactory.addEventMessageHandler("test", handlers);
+		JdonDisruptor disruptor = disruptorFactory.addEventMessageHandler("test", handlers);
 		disruptor.start();
 
 		int i = 0;

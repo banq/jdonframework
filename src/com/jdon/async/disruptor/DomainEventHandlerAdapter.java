@@ -17,8 +17,9 @@ package com.jdon.async.disruptor;
 
 import com.jdon.domain.message.DomainEventHandler;
 import com.lmax.disruptor.EventHandler;
+import com.lmax.disruptor.LifecycleAware;
 
-public class DomainEventHandlerAdapter implements EventHandler<EventDisruptor> {
+public class DomainEventHandlerAdapter implements EventHandler<EventDisruptor>, LifecycleAware {
 	private DomainEventHandler handler;
 
 	public DomainEventHandlerAdapter(DomainEventHandler handler) {
@@ -28,6 +29,18 @@ public class DomainEventHandlerAdapter implements EventHandler<EventDisruptor> {
 
 	public void onEvent(EventDisruptor event, long sequence, boolean endOfBatch) throws Exception {
 		handler.onEvent(event, endOfBatch);
+	}
+
+	@Override
+	public void onStart() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onShutdown() {
+		handler = null;
+
 	}
 
 }
