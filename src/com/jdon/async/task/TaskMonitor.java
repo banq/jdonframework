@@ -18,6 +18,7 @@ package com.jdon.async.task;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.jdon.util.Debug;
 
@@ -29,6 +30,8 @@ public class TaskMonitor extends Thread {
 	private Semaphore semaphore;
 
 	private MessageProcessor messageProcessor;
+
+	private final AtomicBoolean running = new AtomicBoolean(false);
 
 	public TaskMonitor(String taskExecCount, String MaxconcurrentTaskCount) {
 		exec = (ThreadPoolExecutor) Executors.newFixedThreadPool(Integer.parseInt(taskExecCount));
@@ -47,7 +50,7 @@ public class TaskMonitor extends Thread {
 	 * until there is an available task to execute.
 	 */
 	public void run() {
-		while (true) {
+		while (running.get()) {
 			try {
 				if (messageProcessor != null) {
 					semaphore.acquire();
@@ -89,6 +92,12 @@ public class TaskMonitor extends Thread {
 
 			}
 		}
+	}
+
+	public void shut() {
+		releaseSemaphore();
+		exec.shutdownNow();
+		running.set(false);
 	}
 
 }

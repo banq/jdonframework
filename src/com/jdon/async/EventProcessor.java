@@ -8,9 +8,10 @@ import com.jdon.async.task.TaskMonitor;
 public class EventProcessor {
 
 	private MessageProcessor messageProcessor;
+	private TaskMonitor tm;
 
 	public EventProcessor(String taskExecCount, String MaxconcurrentTaskCount) {
-		TaskMonitor tm = new TaskMonitor(taskExecCount, MaxconcurrentTaskCount);
+		tm = new TaskMonitor(taskExecCount, MaxconcurrentTaskCount);
 		messageProcessor = new QueueMessageProcessor();
 		tm.setMessageProcessor(messageProcessor);
 		tm.start();
@@ -18,6 +19,10 @@ public class EventProcessor {
 
 	public void addTask(Task to) {
 		messageProcessor.addMessage(to);
+	}
+
+	public void stop() {
+		tm.shut();
 	}
 
 }

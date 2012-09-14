@@ -15,6 +15,8 @@
 
 package com.jdon.model;
 
+import java.lang.reflect.InvocationTargetException;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -218,11 +220,15 @@ public abstract class ModelHandler implements ServiceHandler {
 		}
 		try {
 			PropertyUtils.copyProperties(model, form);
+		} catch (InvocationTargetException ie) {
+			String error = "error happened in getXXX method of ModelForm:" + form.getClass().getName() + " error:" + ie;
+			Debug.logError(error, module);
+			throw new Exception(error);
+
 		} catch (Exception e) {
 			String error = " ModelForm:" + form.getClass().getName() + " copy To Model:" + model.getClass().getName() + " error:" + e;
 			Debug.logError(error, module);
 			throw new Exception(error);
 		}
 	}
-
 }

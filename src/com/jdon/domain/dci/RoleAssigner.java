@@ -15,8 +15,6 @@
  */
 package com.jdon.domain.dci;
 
-import net.sf.cglib.proxy.Mixin;
-
 import com.jdon.annotation.Introduce;
 import com.jdon.annotation.Model;
 import com.jdon.domain.advsior.ModelAdvisor;
@@ -50,6 +48,21 @@ public class RoleAssigner {
 		modelProxyInjection.injectProperties(datamodel);
 	}
 
+	public Object assignRoleEvents(Object role) {
+		return modelAdvisor.createProxy(role);
+	}
+
+	public Object assignRoleEvents(Class roleClass) {
+		try {
+			return modelAdvisor.createProxy(roleClass.newInstance());
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public Object assign(Object datamodel, Object role) {
 		Class[] inters = role.getClass().getInterfaces();
 		if (inters == null || inters.length == 0) {
@@ -66,6 +79,6 @@ public class RoleAssigner {
 			role = modelAdvisor.createProxy(role);
 		}
 
-		return Mixin.create(new Object[] { datamodel, role });
+		return role;
 	}
 }

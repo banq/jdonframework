@@ -34,6 +34,7 @@ public class ObservableAdapter {
 
 	public void clear() {
 		observers.clear();
+		eventProcessor.stop();
 	}
 
 	public EventProcessor getEventProcessor() {

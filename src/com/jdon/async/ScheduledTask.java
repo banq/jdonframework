@@ -62,4 +62,9 @@ public class ScheduledTask extends TimerTask {
 		this.taskTimer = taskTimer;
 	}
 
+	public void stop() {
+		this.ep.stop();
+		this.taskTimer.purge();
+	}
+
 }

@@ -37,7 +37,7 @@ import com.lmax.disruptor.RingBuffer;
 
 public class EventMessageFirer implements Startable {
 	public final static String module = EventMessageFirer.class.getName();
-	private static ScheduledExecutorService scheduExecStatic = Executors.newScheduledThreadPool(1);
+	private ScheduledExecutorService scheduExecStatic = Executors.newScheduledThreadPool(1);
 
 	private DisruptorFactory disruptorFactory;
 	private FutureDirector futureDirector;
@@ -70,6 +70,7 @@ public class EventMessageFirer implements Startable {
 			futureDirector = null;
 		}
 		disruptorFactory = null;
+		scheduExecStatic.shutdownNow();
 	}
 
 	public void finalize() {
