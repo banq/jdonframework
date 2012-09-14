@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!--it is for com.jdon.cache.UtilCache this is not default cache for jdon, default cache is jdon_ehcache.xml -->
 <config>
   <cache>
     <default>

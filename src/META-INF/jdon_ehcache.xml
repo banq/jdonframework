@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-        
+<!-- default cache for jdon, it is "jdonCache"  -->        
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="ehcache.xsd" >
 
@@ -29,7 +29,7 @@
    <cache name="jdonCache" 
       maxElementsInMemory="130000"
       eternal="false"
-      timeToIdleSeconds="172800" 
+      timeToIdleSeconds="86400" 
       timeToLiveSeconds="0"
       overflowToDisk="false"
       diskPersistent="false"
