@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 import com.jdon.annotation.model.Send;
 import com.jdon.async.disruptor.DisruptorFactory;
 import com.jdon.async.disruptor.EventDisruptor;
+import com.jdon.async.disruptor.dsl.JdonDisruptor;
 import com.jdon.async.future.EventResultFuture;
 import com.jdon.async.future.FutureDirector;
 import com.jdon.async.future.FutureListener;
@@ -33,7 +34,6 @@ import com.jdon.container.pico.Startable;
 import com.jdon.domain.message.DomainMessage;
 import com.jdon.util.Debug;
 import com.lmax.disruptor.RingBuffer;
-import com.lmax.disruptor.dsl.Disruptor;
 
 public class EventMessageFirer implements Startable {
 	public final static String module = EventMessageFirer.class.getName();
@@ -41,7 +41,7 @@ public class EventMessageFirer implements Startable {
 
 	private DisruptorFactory disruptorFactory;
 	private FutureDirector futureDirector;
-	private Map<String, Disruptor> topicDisruptors;
+	private Map<String, JdonDisruptor> topicDisruptors;
 
 	public EventMessageFirer(DisruptorFactory disruptorFactory, FutureDirector futureDirector) {
 		super();
@@ -56,7 +56,7 @@ public class EventMessageFirer implements Startable {
 				stopDisruptor();
 			}
 		};
-		scheduExecStatic.scheduleAtFixedRate(task, 60 * 60 * 1, 60 * 60 * 1, TimeUnit.SECONDS);
+		scheduExecStatic.scheduleAtFixedRate(task, 12 * 60 * 60 * 1, 12 * 60 * 60, TimeUnit.SECONDS);
 	}
 
 	public void stop() {
@@ -84,7 +84,7 @@ public class EventMessageFirer implements Startable {
 		Iterator keys = mydisruptors.keySet().iterator();
 		while (keys.hasNext()) {
 			Object key = keys.next();
-			Disruptor disruptor = (Disruptor) mydisruptors.get(key);
+			JdonDisruptor disruptor = (JdonDisruptor) mydisruptors.get(key);
 			try {
 				disruptor.shutdown();
 			} catch (Exception e) {
@@ -104,7 +104,7 @@ public class EventMessageFirer implements Startable {
 	public void fire(DomainMessage domainMessage, Send send) {
 		try {
 			String topic = send.value();
-			Disruptor disruptor = (Disruptor) topicDisruptors.get(topic);
+			JdonDisruptor disruptor = (JdonDisruptor) topicDisruptors.get(topic);
 			if (disruptor == null) {
 				disruptor = disruptorFactory.getDisruptor(topic);
 				if (disruptor == null) {
