@@ -13,6 +13,6 @@
 	<classpathentry kind="lib" path="lib/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/picocontainer-1.2.jar" sourcepath="D:/javasource/JdonComponent/picocontainer-1.2-sources/src"/>
 	<classpathentry kind="lib" path="weblib/servlet-api.jar"/>
-	<classpathentry kind="lib" path="lib/disruptor-2.10.3.jar"/>
+	<classpathentry kind="lib" path="lib/disruptor-2.10.3.jar" sourcepath="/disruptor-2.10.1-sources"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

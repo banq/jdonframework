@@ -15,6 +15,7 @@
  */
 package com.jdon.async.disruptor;
 
+import com.jdon.container.pico.Startable;
 import com.jdon.domain.message.DomainEventHandler;
 import com.lmax.disruptor.EventHandler;
 import com.lmax.disruptor.LifecycleAware;
@@ -28,18 +29,28 @@ public class DomainEventHandlerAdapter implements EventHandler<EventDisruptor>, 
 	}
 
 	public void onEvent(EventDisruptor event, long sequence, boolean endOfBatch) throws Exception {
-		handler.onEvent(event, endOfBatch);
+		try {
+			handler.onEvent(event, endOfBatch);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void onStart() {
-		// TODO Auto-generated method stub
+		if (handler instanceof Startable) {
+			Startable st = (Startable) handler;
+			st.start();
+		}
 
 	}
 
 	@Override
 	public void onShutdown() {
-		handler = null;
+		if (handler instanceof Startable) {
+			Startable st = (Startable) handler;
+			st.stop();
+		}
 
 	}
 

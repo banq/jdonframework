@@ -26,7 +26,6 @@ import java.util.concurrent.TimeUnit;
 import com.jdon.annotation.model.Send;
 import com.jdon.async.disruptor.DisruptorFactory;
 import com.jdon.async.disruptor.EventDisruptor;
-import com.jdon.async.disruptor.dsl.JdonDisruptor;
 import com.jdon.async.future.EventResultFuture;
 import com.jdon.async.future.FutureDirector;
 import com.jdon.async.future.FutureListener;
@@ -34,6 +33,7 @@ import com.jdon.container.pico.Startable;
 import com.jdon.domain.message.DomainMessage;
 import com.jdon.util.Debug;
 import com.lmax.disruptor.RingBuffer;
+import com.lmax.disruptor.dsl.Disruptor;
 
 public class EventMessageFirer implements Startable {
 	public final static String module = EventMessageFirer.class.getName();
@@ -41,7 +41,7 @@ public class EventMessageFirer implements Startable {
 
 	private DisruptorFactory disruptorFactory;
 	private FutureDirector futureDirector;
-	private Map<String, JdonDisruptor> topicDisruptors;
+	private Map<String, Disruptor> topicDisruptors;
 
 	public EventMessageFirer(DisruptorFactory disruptorFactory, FutureDirector futureDirector) {
 		super();
@@ -56,7 +56,7 @@ public class EventMessageFirer implements Startable {
 				stopDisruptor();
 			}
 		};
-		scheduExecStatic.scheduleAtFixedRate(task, 12 * 60 * 60 * 1, 12 * 60 * 60, TimeUnit.SECONDS);
+		scheduExecStatic.scheduleAtFixedRate(task, 24 * 60 * 60, 24 * 60 * 60, TimeUnit.SECONDS);
 	}
 
 	public void stop() {
@@ -84,9 +84,9 @@ public class EventMessageFirer implements Startable {
 		Iterator keys = mydisruptors.keySet().iterator();
 		while (keys.hasNext()) {
 			Object key = keys.next();
-			JdonDisruptor disruptor = (JdonDisruptor) mydisruptors.get(key);
+			Disruptor disruptor = (Disruptor) mydisruptors.get(key);
 			try {
-				disruptor.shutdown();
+				disruptor.halt();
 			} catch (Exception e) {
 			}
 		}
@@ -101,18 +101,28 @@ public class EventMessageFirer implements Startable {
 
 	}
 
-	public void fire(DomainMessage domainMessage, Send send) {
-		try {
-			String topic = send.value();
-			JdonDisruptor disruptor = (JdonDisruptor) topicDisruptors.get(topic);
+	private Disruptor getDisruptor(String topic) {
+		Disruptor disruptor = (Disruptor) topicDisruptors.get(topic);
+		if (disruptor == null) {
+			disruptor = disruptorFactory.createDisruptor(topic);
 			if (disruptor == null) {
-				disruptor = disruptorFactory.getDisruptor(topic);
-				if (disruptor == null) {
-					Debug.logWarning("not create disruptor for " + topic, module);
-					return;
-				}
-				topicDisruptors.put(topic, disruptor);
+				Debug.logWarning("not create disruptor for " + topic, module);
+				return null;
 			}
+			topicDisruptors.put(topic, disruptor);
+		}
+		return disruptor;
+	}
+
+	public void fire(DomainMessage domainMessage, Send send) {
+		String topic = send.value();
+		Disruptor disruptor = getDisruptor(topic);
+		if (disruptor == null) {
+			Debug.logWarning("not create disruptor for " + topic, module);
+			return;
+		}
+
+		try {
 
 			RingBuffer ringBuffer = disruptor.getRingBuffer();
 			long sequence = ringBuffer.next();
@@ -123,8 +133,11 @@ public class EventMessageFirer implements Startable {
 			eventDisruptor.setTopic(topic);
 			eventDisruptor.setDomainMessage(domainMessage);
 			ringBuffer.publish(sequence);
+
 		} catch (Exception e) {
 			Debug.logError("fire error: " + send.value() + " domainMessage:" + domainMessage.getEventSource(), module);
+		} finally {
+
 		}
 	}
 

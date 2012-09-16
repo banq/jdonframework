@@ -29,7 +29,7 @@ public class EventResultHandlerImp implements EventResultHandler {
 
 	public EventResultHandlerImp() {
 		super();
-		RingBuffer ringBuffer = new RingBuffer<EventResultDisruptor>(EventResultDisruptor.EVENT_FACTORY, new SingleThreadedClaimStrategy(1),
+		RingBuffer ringBuffer = new RingBuffer<EventResultDisruptor>(EventResultDisruptor.EVENT_FACTORY, new SingleThreadedClaimStrategy(8),
 				new BlockingWaitStrategy());
 		this.valueEventProcessor = new ValueEventProcessor(ringBuffer);
 
@@ -57,7 +57,7 @@ public class EventResultHandlerImp implements EventResultHandler {
 
 	public Object getBlockedValue() {
 		Object result = null;
-		EventResultDisruptor ve = valueEventProcessor.waitForBlocking();
+		EventResultDisruptor ve = valueEventProcessor.waitForBlocking(timeoutforeturnResult * 100);
 		if (ve != null) {
 			result = ve.getValue();
 			ve.clear();

@@ -42,28 +42,35 @@ public class ValueEventProcessor {
 	}
 
 	public EventResultDisruptor waitFor(long timeoutforeturnResult) {
+		SequenceBarrier barrier = ringBuffer.newBarrier();
 		try {
-			SequenceBarrier barrier = ringBuffer.newBarrier();
 			long a = barrier.waitFor(waitAtSequence, timeoutforeturnResult, TimeUnit.MILLISECONDS);
 			return ringBuffer.get(a);
 		} catch (AlertException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		} finally {
+			barrier.alert();
 		}
 		return null;
 	}
 
-	public EventResultDisruptor waitForBlocking() {
+	/**
+	 * not really block, the waiting time is longer than not block.
+	 */
+	public EventResultDisruptor waitForBlocking(long timeoutforeturnResult) {
+		SequenceBarrier barrier = ringBuffer.newBarrier();
 		try {
-			SequenceBarrier barrier = ringBuffer.newBarrier();
-			long a = barrier.waitFor(waitAtSequence);
+			long a = barrier.waitFor(waitAtSequence, timeoutforeturnResult, TimeUnit.MILLISECONDS);
 			EventResultDisruptor ve = ringBuffer.get(a);
 			return ve;
 		} catch (AlertException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		} finally {
+			barrier.alert();
 		}
 		return null;
 	}

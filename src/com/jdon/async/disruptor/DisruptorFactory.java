@@ -22,8 +22,6 @@ import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 
-import com.jdon.async.disruptor.dsl.EventHandlerGroup;
-import com.jdon.async.disruptor.dsl.JdonDisruptor;
 import com.jdon.container.ContainerWrapper;
 import com.jdon.container.annotation.type.ConsumerLoader;
 import com.jdon.container.finder.ContainerCallback;
@@ -37,6 +35,8 @@ import com.lmax.disruptor.ClaimStrategy;
 import com.lmax.disruptor.EventFactory;
 import com.lmax.disruptor.MultiThreadedClaimStrategy;
 import com.lmax.disruptor.WaitStrategy;
+import com.lmax.disruptor.dsl.Disruptor;
+import com.lmax.disruptor.dsl.EventHandlerGroup;
 
 /**
  * SLEEPING is a better option when you have a large number of event processors
@@ -78,17 +78,17 @@ public class DisruptorFactory implements EventFactory, Startable {
 		this.handlesMap = new ConcurrentHashMap<String, TreeSet<DomainEventHandler>>();
 	}
 
-	private JdonDisruptor createDw(String topic) {
+	private Disruptor createDw(String topic) {
 		// executorService = Executors.newFixedThreadPool(100);
 		WaitStrategy waitStrategy = new BlockingWaitStrategy();
 		ClaimStrategy claimStrategy = new MultiThreadedClaimStrategy(Integer.parseInt(RingBufferSize));
-		return new JdonDisruptor(this, Executors.newCachedThreadPool(), claimStrategy, waitStrategy);
+		return new Disruptor(this, Executors.newCachedThreadPool(), claimStrategy, waitStrategy);
 	}
 
-	public JdonDisruptor addEventMessageHandler(String topic, TreeSet<DomainEventHandler> handlers) {
+	public Disruptor addEventMessageHandler(String topic, TreeSet<DomainEventHandler> handlers) {
 		if (handlers.size() == 0)
 			return null;
-		JdonDisruptor dw = createDw(topic);
+		Disruptor dw = createDw(topic);
 		EventHandlerGroup eh = null;
 		for (DomainEventHandler handler : handlers) {
 			DomainEventHandlerAdapter dea = new DomainEventHandlerAdapter(handler);
@@ -107,7 +107,7 @@ public class DisruptorFactory implements EventFactory, Startable {
 	 * @param topic
 	 * @return
 	 */
-	public JdonDisruptor getDisruptor(String topic) {
+	public Disruptor createDisruptor(String topic) {
 		TreeSet handlers = handlesMap.get(topic);
 		if (handlers == null)// not inited
 		{
@@ -123,7 +123,7 @@ public class DisruptorFactory implements EventFactory, Startable {
 			}
 			handlesMap.put(topic, handlers);
 		}
-		JdonDisruptor disruptor = addEventMessageHandler(topic, handlers);
+		Disruptor disruptor = addEventMessageHandler(topic, handlers);
 		if (disruptor == null)
 			return null;
 		disruptor.start();
