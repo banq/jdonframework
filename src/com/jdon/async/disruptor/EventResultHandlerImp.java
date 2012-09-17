@@ -29,7 +29,7 @@ public class EventResultHandlerImp implements EventResultHandler {
 
 	public EventResultHandlerImp() {
 		super();
-		RingBuffer ringBuffer = new RingBuffer<EventResultDisruptor>(EventResultDisruptor.EVENT_FACTORY, new SingleThreadedClaimStrategy(8),
+		RingBuffer ringBuffer = new RingBuffer<EventResultDisruptor>(new EventResultFactory(), new SingleThreadedClaimStrategy(8),
 				new BlockingWaitStrategy());
 		this.valueEventProcessor = new ValueEventProcessor(ringBuffer);
 
@@ -68,7 +68,6 @@ public class EventResultHandlerImp implements EventResultHandler {
 
 	public void clear() {
 		valueEventProcessor.clear();
-		valueEventProcessor = null;
 	}
 
 	public int getTimeoutforeturnResult() {

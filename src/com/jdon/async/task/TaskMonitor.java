@@ -31,7 +31,7 @@ public class TaskMonitor extends Thread {
 
 	private MessageProcessor messageProcessor;
 
-	private final AtomicBoolean running = new AtomicBoolean(false);
+	private final AtomicBoolean running = new AtomicBoolean(true);
 
 	public TaskMonitor(String taskExecCount, String MaxconcurrentTaskCount) {
 		exec = (ThreadPoolExecutor) Executors.newFixedThreadPool(Integer.parseInt(taskExecCount));

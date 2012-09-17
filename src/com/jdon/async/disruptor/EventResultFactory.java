@@ -15,27 +15,11 @@
  */
 package com.jdon.async.disruptor;
 
-/**
- * 
- * A Consumer send response back to the Subscriber by this value object
- * 
- * @author banq
- * 
- */
-public class EventResultDisruptor {
+import com.lmax.disruptor.EventFactory;
 
-	private Object value;
+public class EventResultFactory implements EventFactory {
 
-	public Object getValue() {
-		return value;
+	public EventResultDisruptor newInstance() {
+		return new EventResultDisruptor();
 	}
-
-	public void setValue(final Object value) {
-		this.value = value;
-	}
-
-	public void clear() {
-		value = null;
-	}
-
 }

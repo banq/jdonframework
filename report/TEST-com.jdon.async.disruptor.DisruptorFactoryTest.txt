@@ -1,9 +1,9 @@
 Testsuite: com.jdon.async.disruptor.DisruptorFactoryTest
-Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.046 sec
+Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.05 sec
 ------------- Standard Output ---------------
 MyEventA=0
 MyEventA=0
 
- RESULT=222221ok------------- ---------------- ---------------
+ RESULT=111111ok------------- ---------------- ---------------
 
-Testcase: testGetDisruptor took 0.031 sec
+Testcase: testGetDisruptor took 0.045 sec
