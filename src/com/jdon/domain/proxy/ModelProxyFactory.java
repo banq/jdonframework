@@ -15,32 +15,41 @@
  */
 package com.jdon.domain.proxy;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
+
+import org.aopalliance.intercept.MethodInvocation;
 
 import com.jdon.util.Debug;
+
 /**
  * This class is used to create the proxy for models,it uses cglib to create
- *  model proxy.
+ * model proxy.
  * 
  * for example :
  * 
- * @Introduce("message")
- * public class MyModelEvent{
- * 	
- * 	@Send(value="MyModel.findName",asyn=true)
-	public DomainMessage asyncFindName(MyModel myModel) {
-		return new DomainMessage(myModel);
-	}
- * }
+ * @Introduce("message") public class MyModelEvent{
  * 
- * For the above class,the MessageInterceptor named "message" will be apply to 
- * MyModelEvent,when the asyncFindName method is invoked,MessageInterceptor will intercept 
- * this invocation,and send the DomainMessage to the Listener named "MyModel.findName".
- *  
+ * @Send(value="MyModel.findName",asyn=true) public DomainMessage
+ *                                           asyncFindName(MyModel myModel) {
+ *                                           return new DomainMessage(myModel);
+ *                                           } }
+ * 
+ *                                           For the above class,the
+ *                                           MessageInterceptor named "message"
+ *                                           will be apply to MyModelEvent,when
+ *                                           the asyncFindName method is
+ *                                           invoked,MessageInterceptor will
+ *                                           intercept this invocation,and send
+ *                                           the DomainMessage to the Listener
+ *                                           named "MyModel.findName".
+ * 
  * @author xmuzyu
- *
+ * 
  */
 public class ModelProxyFactory {
 	private final static String module = ModelProxyFactory.class.getName();
@@ -49,14 +58,39 @@ public class ModelProxyFactory {
 		super();
 	}
 
-	public Object create(Object model, List methodInterceptors) {
+	public Object create(final Object model, final List methodInterceptors) {
 
 		Object dynamicProxy = null;
 		try {
 			if (methodInterceptors == null || methodInterceptors.size() == 0)
 				return model;
 			Enhancer enhancer = new Enhancer();
-			enhancer.setCallback(new ModelCGLIBMethodInterceptorImp(model, methodInterceptors));
+			enhancer.setCallback(new MethodInterceptor() {
+
+				public Object intercept(Object object, Method invokedmethod, Object[] args, MethodProxy methodProxy) throws Throwable {
+
+					if (invokedmethod.getName().equals("finalize")) {
+						return null;
+					}
+
+					Object result = null;
+					try {
+						Debug.logVerbose("[JdonFramework]<----> executing MethodInterceptor for method="
+								+ invokedmethod.getDeclaringClass().getName() + "." + invokedmethod.getName() + " successfully!", module);
+
+						MethodInvocation methodInvocation = new ModelMethodInvocation(model, methodInterceptors, invokedmethod, args, methodProxy);
+						result = methodInvocation.proceed();
+
+						Debug.logVerbose("<-----><end:", module);
+					} catch (Exception ex) {
+						Debug.logError(ex, module);
+					} catch (Throwable ex) {
+						throw new Throwable(ex);
+					}
+
+					return result;
+				}
+			});
 			enhancer.setSuperclass(model.getClass());
 			dynamicProxy = enhancer.create();
 		} catch (Exception e) {

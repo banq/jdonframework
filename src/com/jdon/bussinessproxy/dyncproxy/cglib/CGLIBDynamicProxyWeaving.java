@@ -61,7 +61,6 @@ public class CGLIBDynamicProxyWeaving implements MethodInterceptor, java.io.Seri
 		Debug.logVerbose("<################################>Action: JdonFramework core entrance", module);
 		Debug.logVerbose("[JdonFramework]<################>execute method=" + method.getDeclaringClass().getName() + "." + method.getName(), module);
 		if (method.getName().equals("finalize")) {
-			this.finalize();
 			return null;
 		}
 		Object result = null;
@@ -109,12 +108,6 @@ public class CGLIBDynamicProxyWeaving implements MethodInterceptor, java.io.Seri
 
 		return result;
 
-	}
-
-	@Override
-	protected void finalize() throws Throwable {
-		super.finalize();
-		stop();
 	}
 
 	@Override
