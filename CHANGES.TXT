@@ -5,8 +5,11 @@ JDON FRAMEWORK 6.5.2  (07/2012)
 2012.Sep.7 (6.6)
 * Bug Fixes
     ---------
-    * solved redeploy's memory leak;
+    * fiexed memory leak when be redeploy;
     * add resource release and lifcycle;
+    * in Role, the Source object of  new DomainMessage(Source) must be immutable ,
+      don't pass any immutable object that includes a reference that refer to any domain model in memory-cache;
+      after fetch the return result of event, remember call clear method of DomainMessage. release all resources.
     
 
 2012.July.7 (6.5.2)

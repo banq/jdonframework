@@ -63,8 +63,7 @@ public class ValueEventProcessor {
 		SequenceBarrier barrier = ringBuffer.newBarrier();
 		try {
 			long a = barrier.waitFor(waitAtSequence, timeoutforeturnResult, TimeUnit.MILLISECONDS);
-			EventResultDisruptor ve = ringBuffer.get(a);
-			return ve;
+			return ringBuffer.get(a);
 		} catch (AlertException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
