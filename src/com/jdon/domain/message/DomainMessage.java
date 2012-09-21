@@ -61,7 +61,7 @@ public class DomainMessage {
 	 * 
 	 * @return Event Result
 	 */
-	public synchronized Object getEventResult() {
+	public Object getEventResult() {
 		if (eventResult == null) {
 			if (eventResultHandler != null) {
 				eventResult = eventResultHandler.get();
@@ -79,7 +79,7 @@ public class DomainMessage {
 	 * 
 	 * @return
 	 */
-	public synchronized Object getBlockEventResult() {
+	public Object getBlockEventResult() {
 		if (eventResult == null) {
 			if (eventResultHandler != null) {
 				eventResult = eventResultHandler.getBlockedValue();

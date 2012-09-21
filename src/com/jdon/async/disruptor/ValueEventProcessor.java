@@ -45,7 +45,8 @@ public class ValueEventProcessor {
 		SequenceBarrier barrier = ringBuffer.newBarrier();
 		try {
 			long a = barrier.waitFor(waitAtSequence, timeoutforeturnResult, TimeUnit.MILLISECONDS);
-			return ringBuffer.get(a);
+			if (ringBuffer != null)
+				return ringBuffer.get(a);
 		} catch (AlertException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
@@ -63,7 +64,8 @@ public class ValueEventProcessor {
 		SequenceBarrier barrier = ringBuffer.newBarrier();
 		try {
 			long a = barrier.waitFor(waitAtSequence, timeoutforeturnResult, TimeUnit.MILLISECONDS);
-			return ringBuffer.get(a);
+			if (ringBuffer != null)
+				return ringBuffer.get(a);
 		} catch (AlertException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
