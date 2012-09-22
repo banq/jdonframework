@@ -52,7 +52,7 @@ public class ModelMethodInvocation implements MethodInvocation {
 	public Object proceed() throws Throwable {
 		if (currentInterceptorInt == interceptors.size() - 1) {
 			Debug.logVerbose("[JdonFramework] finish call all inteceptors", module);
-			return methodProxy.invoke(target, args);
+			return methodProxy.invokeSuper(target, args);
 		}
 
 		Object interceptor = interceptors.get(++currentInterceptorInt);
@@ -61,7 +61,7 @@ public class ModelMethodInvocation implements MethodInvocation {
 			return methodInterceptor.invoke(this);
 		} else {
 			Debug.logVerbose("[JdonFramework] null finish call all inteceptors", module);
-			return methodProxy.invoke(target, args);
+			return methodProxy.invokeSuper(target, args);
 		}
 
 	}

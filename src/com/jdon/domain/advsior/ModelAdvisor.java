@@ -17,9 +17,12 @@ package com.jdon.domain.advsior;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.jdon.annotation.Introduce;
 import com.jdon.container.finder.ContainerCallback;
+import com.jdon.container.pico.Startable;
 import com.jdon.domain.proxy.ModelProxyFactory;
 import com.jdon.util.Debug;
 
@@ -37,26 +40,35 @@ import com.jdon.util.Debug;
  *                       as this,the DomainEvent will be enhanced with
  *                       MessageInterceptor
  * 
- * @author xmuzyu
+ * @author xmuzyu banq
  * 
  */
-public class ModelAdvisor {
+public class ModelAdvisor implements Startable {
 	private final static String module = ModelAdvisor.class.getName();
 
 	private final ContainerCallback containerCallback;
 	private final ModelProxyFactory modelProxyFactory;
 
+	private Map<Class, List> modeInterceptors;
+
 	public ModelAdvisor(ContainerCallback containerCallback, ModelProxyFactory modelProxyFactory) {
 		super();
 		this.containerCallback = containerCallback;
 		this.modelProxyFactory = modelProxyFactory;
+		this.modeInterceptors = new ConcurrentHashMap();
 	}
 
 	public Object createProxy(Object model) {
 		if (!isAcceptable(model.getClass()))
 			return model;
-		List methodInterceptors = getAdviceName(model);
-		return modelProxyFactory.create(model, methodInterceptors);
+		List methodInterceptors = modeInterceptors.get(model.getClass());
+		if (methodInterceptors == null) {
+			methodInterceptors = getAdviceName(model);
+			modeInterceptors.put(model.getClass(), methodInterceptors);
+		}
+		if (methodInterceptors == null || methodInterceptors.size() == 0)
+			return model;
+		return modelProxyFactory.create(model.getClass(), methodInterceptors);
 	}
 
 	public List getAdviceName(Object model) {
@@ -83,6 +95,18 @@ public class ModelAdvisor {
 			return true;
 		} else
 			return false;
+
+	}
+
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void stop() {
+		this.modeInterceptors.clear();
 
 	}
 

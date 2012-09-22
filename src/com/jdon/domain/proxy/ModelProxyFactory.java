@@ -58,12 +58,11 @@ public class ModelProxyFactory {
 		super();
 	}
 
-	public Object create(final Object model, final List methodInterceptors) {
+	public Object create(final Class modelClass, final List methodInterceptors) {
 
 		Object dynamicProxy = null;
 		try {
-			if (methodInterceptors == null || methodInterceptors.size() == 0)
-				return model;
+
 			Enhancer enhancer = new Enhancer();
 			enhancer.setCallback(new MethodInterceptor() {
 
@@ -78,7 +77,7 @@ public class ModelProxyFactory {
 						Debug.logVerbose("[JdonFramework]<----> executing MethodInterceptor for method="
 								+ invokedmethod.getDeclaringClass().getName() + "." + invokedmethod.getName() + " successfully!", module);
 
-						MethodInvocation methodInvocation = new ModelMethodInvocation(model, methodInterceptors, invokedmethod, args, methodProxy);
+						MethodInvocation methodInvocation = new ModelMethodInvocation(object, methodInterceptors, invokedmethod, args, methodProxy);
 						result = methodInvocation.proceed();
 
 						Debug.logVerbose("<-----><end:", module);
@@ -91,7 +90,7 @@ public class ModelProxyFactory {
 					return result;
 				}
 			});
-			enhancer.setSuperclass(model.getClass());
+			enhancer.setSuperclass(modelClass);
 			dynamicProxy = enhancer.create();
 		} catch (Exception e) {
 			Debug.logError("create error " + e, module);

@@ -63,11 +63,13 @@ public class DomainMessage {
 	 */
 	public Object getEventResult() {
 		if (eventResult == null) {
-			if (eventResultHandler != null) {
-				eventResult = eventResultHandler.get();
-				if (this.eventResultHandler != null) {
-					this.eventResultHandler.clear();
-					this.eventResultHandler = null;
+			synchronized (this) {
+				if (eventResultHandler != null) {
+					eventResult = eventResultHandler.get();
+					if (this.eventResultHandler != null) {
+						this.eventResultHandler.clear();
+						this.eventResultHandler = null;
+					}
 				}
 			}
 		}
@@ -81,11 +83,13 @@ public class DomainMessage {
 	 */
 	public Object getBlockEventResult() {
 		if (eventResult == null) {
-			if (eventResultHandler != null) {
-				eventResult = eventResultHandler.getBlockedValue();
-				if (this.eventResultHandler != null) {
-					eventResultHandler.clear();
-					this.eventResultHandler = null;
+			synchronized (this) {
+				if (eventResultHandler != null) {
+					eventResult = eventResultHandler.getBlockedValue();
+					if (this.eventResultHandler != null) {
+						eventResultHandler.clear();
+						this.eventResultHandler = null;
+					}
 				}
 			}
 		}
