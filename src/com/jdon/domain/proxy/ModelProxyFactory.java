@@ -15,14 +15,8 @@
  */
 package com.jdon.domain.proxy;
 
-import java.lang.reflect.Method;
-import java.util.List;
-
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
-
-import org.aopalliance.intercept.MethodInvocation;
 
 import com.jdon.util.Debug;
 
@@ -48,7 +42,7 @@ import com.jdon.util.Debug;
  *                                           the DomainMessage to the Listener
  *                                           named "MyModel.findName".
  * 
- * @author xmuzyu
+ * @author xmuzyu banq
  * 
  */
 public class ModelProxyFactory {
@@ -58,38 +52,12 @@ public class ModelProxyFactory {
 		super();
 	}
 
-	public Object create(final Class modelClass, final List methodInterceptors) {
+	public Object create(final Class modelClass, final MethodInterceptor methodInterceptor) {
 
 		Object dynamicProxy = null;
 		try {
-
 			Enhancer enhancer = new Enhancer();
-			enhancer.setCallback(new MethodInterceptor() {
-
-				public Object intercept(Object object, Method invokedmethod, Object[] args, MethodProxy methodProxy) throws Throwable {
-
-					if (invokedmethod.getName().equals("finalize")) {
-						return null;
-					}
-
-					Object result = null;
-					try {
-						Debug.logVerbose("[JdonFramework]<----> executing MethodInterceptor for method="
-								+ invokedmethod.getDeclaringClass().getName() + "." + invokedmethod.getName() + " successfully!", module);
-
-						MethodInvocation methodInvocation = new ModelMethodInvocation(object, methodInterceptors, invokedmethod, args, methodProxy);
-						result = methodInvocation.proceed();
-
-						Debug.logVerbose("<-----><end:", module);
-					} catch (Exception ex) {
-						Debug.logError(ex, module);
-					} catch (Throwable ex) {
-						throw new Throwable(ex);
-					}
-
-					return result;
-				}
-			});
+			enhancer.setCallback(methodInterceptor);
 			enhancer.setSuperclass(modelClass);
 			dynamicProxy = enhancer.create();
 		} catch (Exception e) {

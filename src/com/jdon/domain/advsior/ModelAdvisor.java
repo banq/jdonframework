@@ -20,9 +20,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import net.sf.cglib.proxy.MethodInterceptor;
+
 import com.jdon.annotation.Introduce;
 import com.jdon.container.finder.ContainerCallback;
 import com.jdon.container.pico.Startable;
+import com.jdon.domain.proxy.ModelCGLIBMethodInterceptorImp;
 import com.jdon.domain.proxy.ModelProxyFactory;
 import com.jdon.util.Debug;
 
@@ -49,7 +52,7 @@ public class ModelAdvisor implements Startable {
 	private final ContainerCallback containerCallback;
 	private final ModelProxyFactory modelProxyFactory;
 
-	private Map<Class, List> modeInterceptors;
+	private Map<Class, MethodInterceptor> modeInterceptors;
 
 	public ModelAdvisor(ContainerCallback containerCallback, ModelProxyFactory modelProxyFactory) {
 		super();
@@ -61,14 +64,15 @@ public class ModelAdvisor implements Startable {
 	public Object createProxy(Object model) {
 		if (!isAcceptable(model.getClass()))
 			return model;
-		List methodInterceptors = modeInterceptors.get(model.getClass());
-		if (methodInterceptors == null) {
-			methodInterceptors = getAdviceName(model);
-			modeInterceptors.put(model.getClass(), methodInterceptors);
+		MethodInterceptor methodInterceptor = modeInterceptors.get(model.getClass());
+		if (methodInterceptor == null) {
+			List methodInterceptors = getAdviceName(model);
+			if (methodInterceptors == null || methodInterceptors.size() == 0)
+				return model;
+			methodInterceptor = new ModelCGLIBMethodInterceptorImp(methodInterceptors);
+			modeInterceptors.put(model.getClass(), methodInterceptor);
 		}
-		if (methodInterceptors == null || methodInterceptors.size() == 0)
-			return model;
-		return modelProxyFactory.create(model.getClass(), methodInterceptors);
+		return modelProxyFactory.create(model.getClass(), methodInterceptor);
 	}
 
 	public List getAdviceName(Object model) {
