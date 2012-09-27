@@ -10,7 +10,7 @@ JDON FRAMEWORK 6.5.2  (07/2012)
     * in Role, the Source object of  new DomainMessage(Source) must be immutable ,
       don't pass any immutable object that includes a reference that refer to any domain model in memory-cache;
       after fetch the return result of event, remember call clear method of DomainMessage. release all resources.
-    
+    * add EhCacheListnerFactory, but not configured in jdon_ehcache.xml. 
 
 2012.July.7 (6.5.2)
 * Bug Fixes
