@@ -22,10 +22,11 @@
    
    <!-- in-memory cache
         when  eternal set to "true", overrides timeToLive and timeToIdle so that
-        no expiration can take place.
+        no expiration can take place. that means all domain model in-memory.
         timeToIdleSeconds value is adjust by your JVM CMS Old Gen size and transfer size one day
         http://www.jdon.com/44132
-         -->
+         
+   
    <cache name="jdonCache" 
       maxElementsInMemory="130000"
       eternal="false"
@@ -35,6 +36,14 @@
       diskPersistent="false"
       memoryStoreEvictionPolicy="LRU" 
        /> 
+   -->
+  <cache name="jdonCache" 
+      maxElementsInMemory="1000000"
+      eternal="true"
+      overflowToDisk="false"
+      diskPersistent="false"
+      memoryStoreEvictionPolicy="LRU" 
+   />        
 
 
 </ehcache>
