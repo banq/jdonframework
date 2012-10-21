@@ -1,0 +1,131 @@
+<html><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<!-- #BeginEditable "doctitle" -->
+<title>CES:Context Event and State</title>  
+<!-- #EndEditable -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="shortcut icon" href="http://www.jdon.com/favicon.ico">
+<!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
+<link href="views.css" rel="stylesheet" type="text/css">
+</head>
+<body bgcolor="#dddddd" text="#000000">
+ <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+
+  <tr> 
+    <td height="11" colspan="7" bgcolor="#FFFFFF" class="bianxian"> 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" height="1" bordercolor="#000000">
+        <tr> 
+          <td> 
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000">
+              <tr> 
+                <td></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    
+    <td bgcolor="#FFFFFF"  valign="top">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          
+         
+          <td valign="top" > 
+            <table width="100%" border="0" cellspacing="2" cellpadding="2">
+              <tr>
+                <td>
+                  <h1><a href="index.html">JDon.org</a></h1>
+				<!-- #BeginEditable "main" --> 
+                  <h3>CES:Context Event and State</h3>
+                  <p>　　How to translate business logic into a ubiouitous language? what kind of ubiouitous language can combine OO and FP(Funtcion programming)?</p>
+                  <p>　　the answer is here:</p>
+                  <p>　　<img src="images/ces.png" width="630" height="357" alt="ces"></p>
+                  <p>　　The route from Domain  to aggregation  Entity belongs to DDD(Domain-driven design), it is a structural perspective view, this is strengths of OO, the entity hold the business logic running state that will be written into database. later we can query and analysis these data results in <a href="http://martinfowler.com/bliki/CQRS.html">CQRS</a> system.</p>
+                  <p>　　Another route is from Context to Event and State, this perspective view is from FP(function programming), in a context, there will be happen a event that will modify the state of a entity. it is like <a href="http://en.wikipedia.org/wiki/Data,_context_and_interaction">DCI</a>(Data Context and Interaction).</p>
+                  <p><strong>Event:DBC</strong></p>
+                  <p>　　In this  ubiouitous language, we inroduce Event pattern that service  for business logic, it is not architecture events such as a Window Event or click event.</p>
+                  <p>　　Event is a contact of <a href="http://en.wikipedia.org/wiki/Design_by_contract">Design By Contact</a>(DBC) that include <a href="http://en.wikipedia.org/wiki/Precondition" title="Precondition">                  Preconditions</a> <a href="http://en.wikipedia.org/wiki/Postcondition" title="Postcondition">Postconditions</a> and <a href="http://en.wikipedia.org/wiki/Invariant_(computer_science)" title="Invariant (computer science)">Invariants</a>. in a context that happened a event, we can divide into :before event(Precondition) after event(Postconditions) and event happened result(state: invariants). the state is a value object of aggregation root entity, see <a href="http://www.jdon.org/Immutability.html">Immutability is everything</a> .</p>
+                  <p>　　Example:As a customer,
+                    I want to withdraw cash from an ATM,
+                  so that I don’t have to wait in line at the bank.</p>
+                  <p id="body_23139532">　　</p>
+                  <table width="600" border="0">
+                    <tr>
+                      <td bgcolor="#CCCCCC"><p>[Precondition/before event]<br>
+                        Given the account is in credit<br>
+　　And the card is valid <br>
+　　And the dispenser contains cash </p>
+<p>When &quot;the customer requests cash &quot; <strong>event</strong> happened</p>
+                        <p>[Postconditions/after event]<br>
+                          Then ensure the account is debited (account state is modified)<br>
+                          　　And ensure cash is dispensed <br>
+                          　　And ensure the card is returned </p>
+                        <p></p></td>
+                    </tr>
+                  </table>
+                  <p>&nbsp;</p>
+<p><strong>Context</strong></p>
+<p>　　Context is about all business entity interactions, in a context, a entity of aggregation root act as a role triggers all domain event with other aggregations. in a aggregation,  a method directly invoke other methods in synchronous mode, but betwwen aggregations a event happens in asynchronous or concurrent mode.</p>
+<p>　　in here the Conext maybe  equivalent to bouned context in DDD, or equivalent to context of DCI, so, we can combine DDD(OO) and DCI(FP) into a system. but we must clearly know what differences between them, Context is a bridge of them.</p>
+<p>　　In CQRS and Event Sourcing, user send a command into system, and the command handler will transfer the event to a Service or a Aggregation root. aggregation root will   in a context response  for the event from front end. this is a paradigm that OO commands FP.</p>
+<p>　　summary: CES uses FP paradigm patching up OO paradigm, and makes DDD practice more closer to user story or features list, brings DDD with <a href="http://en.wikipedia.org/wiki/Behavior-driven_development">BDD</a>  onto a agile way. CES can be   implemented in traditional OO language such as Java or C#, that will be better in FP langugae.</p>
+<p>&nbsp;</p>
+<p>related articles:</p>
+<p><strong><a href="http://www.jdon.org/DomainEvents.html">DDD</a></strong> <a href="http://www.jdon.org/DomainEvents.html"><strong>DCI</strong> and <strong>Domain</strong> <strong>Events</strong> <strong>example</strong></a></p>
+<p><a href="http://www.jdon.org/dci.html">how to enhance Jdon framework to DCI framework ?</a></p>
+<p><a href="http://www.jdon.org/Immutability.html">Immutability is everything</a></p>
+<p><a href="http://www.jdon.org/non-blocking.html">how to easily develop a non-blocking concurrent application ?</a></p>
+<p>&nbsp;</p>
+                  <p>&nbsp;</p>
+                  <!-- #EndEditable -->
+			    </td>
+              </tr>
+            </table>			
+          </td>
+		  <td width="200" valign="top"  bgcolor="#FFFFD7"> <table width="100%" border="0" cellspacing="0" cellpadding="3" height="200" align="center">
+      <tr>
+        <td align="right"><table width="100%" height="200" border="0" align="center" cellpadding="3" cellspacing="0" dwcopytype="CopyTableCell">
+            <tr>
+              <td align="left"  valign="top"><p align="center"><a href="http://www.jdon.org"><img src="images/jdone.gif" width="120" height="60" border="0"></a></p>
+                  <p ><B><a href="https://sourceforge.net/projects/jdon/files/" target="_blank">Downloads</a></B></p>
+                  <p ><a href="JdonFramework.ppt"><strong>Architecture</strong></a></p>
+                  <p ><B><a href="doc.htm" target="_blank">Document</a></B></p>
+                  <p ><a href="quickconf.html"><strong>Qucik Start</strong></a> </p>
+                  <p ><a href="https://github.com/banq/jdonframework"><strong>Github</strong></a></p>
+<p ><B><a href="http://code.google.com/p/jivejdon/" target="_blank">jivejdon</a></B></p>
+                  <p ><a href="http://code.google.com/p/jdonmvc/downloads/list"><strong>JdonMVC</strong></a></p>
+                  <p >&nbsp;</p>
+                  <p > <a href="http://twitter.com/banqjdon"><img src="http://cdn.dzone.com/links/themes/reader/images/actions/twitter-32x32.png" alt="twwiter"/></a></p>
+<p ><a href="http://sourceforge.net/projects/jdon/"><img src="images/sf.gif" alt="sf" width="88" height="31" border="0"></a></p>
+                  <!-- InstanceBeginEditable name="Menu" --> <!-- InstanceEndEditable --> </td>
+            </tr>
+        </table></td>
+        </tr>
+      </table>
+   </td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000"  align="center">
+              <tr>
+                <td></td>
+              </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td height="20" bgcolor="#CAC9BB" align="center">
+  <p><span class="small"><font color="#555555"><br>
+  </font></span></p>
+  </td>
+</tr>
+</table>
+<br>
+<!-- InstanceBeginEditable name="EditRegion3" --><!-- InstanceEndEditable -->
+</body>
+<!-- InstanceEnd --></html>
