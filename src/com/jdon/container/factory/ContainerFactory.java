@@ -7,6 +7,9 @@ import com.jdon.container.pico.PicoContainerWrapper;
 public class ContainerFactory {
 
 	public synchronized ContainerWrapper create(ConfigInfo configInfo) {
-		return new PicoContainerWrapper(configInfo);
+		PicoContainerWrapper pico = new PicoContainerWrapper(configInfo);
+		configInfo.setContainerWrapper(pico);
+		pico.registerContainerCallback();
+		return pico;
 	}
 }

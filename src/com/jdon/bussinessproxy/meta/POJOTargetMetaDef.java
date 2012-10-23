@@ -22,7 +22,7 @@ import com.jdon.bussinessproxy.target.TargetObjectFactory;
  * POJO Service Meta Definition
  * 
  * @author <a href="mailto:banqiao@jdon.com">banq</a>
- *
+ * 
  */
 public class POJOTargetMetaDef extends AbstractTargetMetaDef {
 
@@ -34,24 +34,16 @@ public class POJOTargetMetaDef extends AbstractTargetMetaDef {
 	private String name;
 	private String[] constructors;
 	protected POJOObjectFactory pOJOObjectFactory;
-	
 
 	public POJOTargetMetaDef(String name, String className) {
 		this.name = name;
 		this.className = className;
-		init();
 	}
 
-	public POJOTargetMetaDef(String name, String className,
-			String[] constructors) {
+	public POJOTargetMetaDef(String name, String className, String[] constructors) {
 		this.name = name;
 		this.className = className;
 		this.constructors = constructors;
-		init();
-	}
-	
-	protected void init(){
-		pOJOObjectFactory = new POJOObjectFactory(this);
 	}
 
 	public boolean isEJB() {
@@ -82,15 +74,21 @@ public class POJOTargetMetaDef extends AbstractTargetMetaDef {
 	}
 
 	/**
-	 * @param name The name to set.
+	 * @param name
+	 *            The name to set.
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public TargetObjectFactory getTargetObjectFactory() {
+		if (pOJOObjectFactory == null)
+			this.init();
 		return pOJOObjectFactory;
 	}
 
+	protected void init() {
+		pOJOObjectFactory = new POJOObjectFactory(this);
+	}
 
 }

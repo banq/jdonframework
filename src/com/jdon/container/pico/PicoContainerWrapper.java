@@ -58,8 +58,7 @@ public class PicoContainerWrapper implements ContainerWrapper, java.io.Serializa
 	public PicoContainerWrapper(ConfigInfo configInfo) {
 		this.container = new JdonPicoContainer(new JdonComponentAdapterFactory(configInfo));
 		this.registryDirectory = new RegistryDirectory();
-		configInfo.setContainerWrapper(this);
-		registerContainerCallback();
+
 	}
 
 	public synchronized void registerContainerCallback() {

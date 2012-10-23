@@ -1,8 +1,9 @@
 package com.jdon.bussinessproxy.meta;
 
 import com.jdon.bussinessproxy.target.SingletonPOJOObjectFactory;
+import com.jdon.bussinessproxy.target.TargetObjectFactory;
 
-public class SingletonPOJOTargetMetaDef extends POJOTargetMetaDef{
+public class SingletonPOJOTargetMetaDef extends POJOTargetMetaDef {
 
 	/**
 	 * 
@@ -11,16 +12,19 @@ public class SingletonPOJOTargetMetaDef extends POJOTargetMetaDef{
 
 	public SingletonPOJOTargetMetaDef(String name, String className) {
 		super(name, className);
-		init();
 	}
 
-	public SingletonPOJOTargetMetaDef(String name, String className,
-			String[] constructors) {
+	public SingletonPOJOTargetMetaDef(String name, String className, String[] constructors) {
 		super(name, className, constructors);
-		init();
 	}
-	
-	protected void init(){
+
+	protected void init() {
 		pOJOObjectFactory = new SingletonPOJOObjectFactory(this);
+	}
+
+	public TargetObjectFactory getTargetObjectFactory() {
+		if (pOJOObjectFactory == null)
+			this.init();
+		return pOJOObjectFactory;
 	}
 }

@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
+import org.apache.commons.pool.impl.GenericObjectPool;
 
 import com.jdon.aop.reflection.ProxyMethodInvocation;
 import com.jdon.bussinessproxy.TargetMetaDef;
@@ -32,6 +33,7 @@ import com.jdon.container.finder.ComponentKeys;
 import com.jdon.container.finder.ContainerCallback;
 import com.jdon.container.pico.Startable;
 import com.jdon.controller.cache.InstanceCache;
+import com.jdon.controller.pool.CommonsPoolAdapter;
 import com.jdon.controller.pool.CommonsPoolFactory;
 import com.jdon.controller.pool.Pool;
 import com.jdon.controller.pool.PoolConfigure;
@@ -145,7 +147,7 @@ public class PoolInterceptor implements MethodInterceptor, Startable {
 			commonsPoolFactory = (CommonsPoolFactory) instanceCache.get(key);
 			if (commonsPoolFactory == null) {
 				Debug.logVerbose("[JdonFramework] first time call commonsPoolFactory， create it:" + key, module);
-				commonsPoolFactory = new CommonsPoolFactory(targetServiceFactory, poolConfigure.getMaxPoolSize());
+				commonsPoolFactory = create(targetServiceFactory, poolConfigure.getMaxPoolSize());
 				instanceCache.put(key, commonsPoolFactory);
 			}
 
@@ -153,6 +155,23 @@ public class PoolInterceptor implements MethodInterceptor, Startable {
 			Debug.logError(ex, module);
 		}
 		return commonsPoolFactory;
+	}
+
+	public CommonsPoolFactory create(TargetServiceFactory targetServiceFactory, String maxSize) {
+		CommonsPoolFactory commonsPoolFactory = new CommonsPoolFactory(targetServiceFactory, maxSize);
+
+		GenericObjectPool apachePool = new GenericObjectPool(commonsPoolFactory);
+		CommonsPoolAdapter pool = new CommonsPoolAdapter(apachePool);
+		if (maxSize == null) {
+			Debug.logError("[JdonFramework] not set pool's max size", module);
+		} else {
+			int maxInt = Integer.parseInt(maxSize);
+			pool.setMaxPoolSize(maxInt);
+		}
+
+		commonsPoolFactory.setPool(pool);
+		return commonsPoolFactory;
+
 	}
 
 	public boolean isPoolabe(TargetMetaDef targetMetaDef) {

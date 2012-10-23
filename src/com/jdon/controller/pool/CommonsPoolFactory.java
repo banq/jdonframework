@@ -16,7 +16,6 @@
 package com.jdon.controller.pool;
 
 import org.apache.commons.pool.PoolableObjectFactory;
-import org.apache.commons.pool.impl.GenericObjectPool;
 
 import com.jdon.bussinessproxy.target.TargetServiceFactory;
 import com.jdon.util.Debug;
@@ -25,7 +24,7 @@ public class CommonsPoolFactory implements PoolableObjectFactory {
 	private final static String module = CommonsPoolFactory.class.getName();
 
 	private final TargetServiceFactory targetServiceFactory;
-	private final CommonsPoolAdapter pool;
+	private CommonsPoolAdapter pool;
 
 	/**
 	 * @param targetServiceFactory
@@ -33,15 +32,10 @@ public class CommonsPoolFactory implements PoolableObjectFactory {
 	public CommonsPoolFactory(TargetServiceFactory targetServiceFactory, String maxSize) {
 		super();
 		this.targetServiceFactory = targetServiceFactory;
+	}
 
-		GenericObjectPool apachePool = new GenericObjectPool(this);
-		pool = new CommonsPoolAdapter(apachePool);
-		if (maxSize == null) {
-			Debug.logError("[JdonFramework] not set pool's max size", module);
-		} else {
-			int maxInt = Integer.parseInt(maxSize);
-			pool.setMaxPoolSize(maxInt);
-		}
+	public void setPool(CommonsPoolAdapter pool) {
+		this.pool = pool;
 	}
 
 	/**

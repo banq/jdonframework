@@ -15,70 +15,83 @@
  */
 package com.jdon.controller.cache;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.jdon.container.pico.Startable;
 
 /**
- * simple instance cache
- * this class can be used cache some components.
+ * simple instance cache this class can be used cache some components.
+ * 
  * @author <a href="mailto:banqiao@jdon.com">banq</a>
- *
+ * 
  */
-public class InstanceCache implements Startable{
-    public final static String NAME = "InstanceCache";
-    
-    private Map pool = new HashMap();
-         
-    public void start(){
-        
-    }
-    
-    public void stop(){
-        pool.clear();
-    }
+public class InstanceCache implements Startable {
+	public final static String NAME = "InstanceCache";
 
-    /* (non-Javadoc)
-     * @see com.jdon.controller.cache.Cache#get(java.lang.Object)
-     */
-    public Object get(Object key) {
-        return pool.get(key);
-    }
+	private Map pool = new ConcurrentHashMap();
 
-    /* (non-Javadoc)
-     * @see com.jdon.controller.cache.Cache#put(java.lang.Object, java.lang.Object)
-     */
-    public void put(Object key, Object value) {
-        pool.put(key, value);
-    }
+	public void start() {
 
-    /* (non-Javadoc)
-     * @see com.jdon.controller.cache.Cache#remove(java.lang.Object)
-     */
-    public void remove(Object key) {
-        pool.remove(key);
-    }
+	}
 
-    /* (non-Javadoc)
-     * @see com.jdon.controller.cache.Cache#size()
-     */
-    public long size() {
-        return pool.size();
-    }
+	public void stop() {
+		pool.clear();
+	}
 
-    /* (non-Javadoc)
-     * @see com.jdon.controller.cache.Cache#clear()
-     */
-    public void clear() {
-        pool.clear();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.jdon.controller.cache.Cache#get(java.lang.Object)
+	 */
+	public Object get(Object key) {
+		return pool.get(key);
+	}
 
-    /* (non-Javadoc)
-     * @see com.jdon.controller.cache.Cache#contain(java.lang.Object)
-     */
-    public boolean contain(Object key) {
-        return pool.containsKey(key);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.jdon.controller.cache.Cache#put(java.lang.Object,
+	 * java.lang.Object)
+	 */
+	public void put(Object key, Object value) {
+		pool.put(key, value);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.jdon.controller.cache.Cache#remove(java.lang.Object)
+	 */
+	public void remove(Object key) {
+		pool.remove(key);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.jdon.controller.cache.Cache#size()
+	 */
+	public long size() {
+		return pool.size();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.jdon.controller.cache.Cache#clear()
+	 */
+	public void clear() {
+		pool.clear();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.jdon.controller.cache.Cache#contain(java.lang.Object)
+	 */
+	public boolean contain(Object key) {
+		return pool.containsKey(key);
+	}
 
 }
