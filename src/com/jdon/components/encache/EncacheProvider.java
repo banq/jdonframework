@@ -24,11 +24,9 @@ import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 
 import com.jdon.container.pico.Startable;
-import com.jdon.util.Debug;
 import com.jdon.util.FileLocator;
 
 public class EncacheProvider implements com.jdon.controller.cache.Cache, Startable {
-	private final static String module = EncacheProvider.class.getName();
 
 	private CacheManager manager;
 
@@ -40,7 +38,6 @@ public class EncacheProvider implements com.jdon.controller.cache.Cache, Startab
 	 * @param configFileName
 	 */
 	public EncacheProvider(EhcacheConf ehcacheConf) {
-		Debug.logVerbose("EncacheProvider construting", module);
 		this.ehcacheConf = ehcacheConf;
 	}
 
@@ -66,7 +63,6 @@ public class EncacheProvider implements com.jdon.controller.cache.Cache, Startab
 	}
 
 	public Object get(Object key) {
-		Debug.logVerbose("encache get key", module);
 		Cache cache = manager.getCache(ehcacheConf.getPredefinedCacheName());
 		Element e = (Element) cache.get(key);
 		if (e == null)
@@ -75,14 +71,12 @@ public class EncacheProvider implements com.jdon.controller.cache.Cache, Startab
 	}
 
 	public void put(Object key, Object value) {
-		Debug.logVerbose("encache put key value", module);
 		Element element = new Element(key, value);
 		Cache cache = manager.getCache(ehcacheConf.getPredefinedCacheName());
 		cache.put(element);
 	}
 
 	public void remove(Object key) {
-		Debug.logVerbose("encache remove", module);
 		Cache cache = manager.getCache(ehcacheConf.getPredefinedCacheName());
 		cache.remove(key);
 	}

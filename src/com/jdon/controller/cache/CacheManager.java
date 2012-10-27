@@ -17,7 +17,6 @@ package com.jdon.controller.cache;
 
 import com.jdon.cache.CacheableWrapper;
 import com.jdon.container.pico.Startable;
-import com.jdon.util.Debug;
 
 /**
  * Cacahe Managerment Pattern
@@ -33,7 +32,6 @@ import com.jdon.util.Debug;
  * @author banq
  */
 public class CacheManager implements Startable {
-	public final static String module = CacheManager.class.getName();
 
 	private Cache cache;
 
@@ -42,7 +40,6 @@ public class CacheManager implements Startable {
 	}
 
 	public void start() {
-		Debug.logVerbose("[JdonFramework]CacheFactory start .....", module);
 		clear();
 	}
 
@@ -63,15 +60,12 @@ public class CacheManager implements Startable {
 	 * @return
 	 */
 	public Object fetchObject(StringKey skey) {
-		Debug.logVerbose("[JdonFramework]<-cache->try to get cache: " + skey, module);
 		return fetchObject(skey.getKey());
 	}
 
 	public Object fetchObject(String skey) {
-		Debug.logVerbose("[JdonFramework]<-cache->try to get cache: " + skey, module);
 		CacheableWrapper cw = (CacheableWrapper) cache.get(skey);
 		if (cw != null) {
-			Debug.logVerbose("[JdonFramework]<-cache->got it, hashcode=" + cw.hashCode(), module);
 			return cw.getCachedValue();
 		} else
 			return null;
@@ -89,7 +83,6 @@ public class CacheManager implements Startable {
 		if (cache.contain(ckey.getKey()))
 			return;
 		cache.put(ckey.getKey(), new CacheableWrapper(ckey.getDataKey(), value));
-		Debug.logVerbose("[JdonFramework]<-cache->save cache: " + ckey.getKey() + ", cache size:" + cache.size(), module);
 	}
 
 	public void putObect(String skey, Object value) {
@@ -98,7 +91,6 @@ public class CacheManager implements Startable {
 		if (cache.contain(skey))
 			return;
 		cache.put(skey, new CacheableWrapper(skey, value));
-		Debug.logVerbose("[JdonFramework]<-cache->save cache: " + skey + ", cache size:" + cache.size(), module);
 	}
 
 	/**
@@ -110,14 +102,12 @@ public class CacheManager implements Startable {
 		if (skey == null || cache == null)
 			return;
 		cache.remove(skey.getKey());
-		Debug.logVerbose("[JdonFramework]<-cache->remove the object of " + skey + " from cache", module);
 	}
 
 	public void removeObect(String skey) {
 		if (skey == null)
 			return;
 		cache.remove(skey);
-		Debug.logVerbose("[JdonFramework]<-cache->remove the object of " + skey + " from cache", module);
 	}
 
 	/**

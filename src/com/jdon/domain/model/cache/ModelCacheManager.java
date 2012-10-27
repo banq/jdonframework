@@ -19,10 +19,8 @@ import com.jdon.controller.cache.CacheKey;
 import com.jdon.controller.cache.CacheKeyFactory;
 import com.jdon.controller.cache.CacheManager;
 import com.jdon.controller.model.ModelUtil;
-import com.jdon.util.Debug;
 
 public class ModelCacheManager implements Startable {
-	private final static String module = ModelCacheManager.class.getName();
 
 	protected CacheManager cacheManager;
 
@@ -34,7 +32,6 @@ public class ModelCacheManager implements Startable {
 	}
 
 	public void start() {
-		Debug.logVerbose("[JdonFramework]ModelCacheManager start ...", module);
 	}
 
 	public void stop() {
@@ -67,16 +64,13 @@ public class ModelCacheManager implements Startable {
 	}
 
 	protected void saveToCache(CacheKey cachKey, Object model) {
-		Debug.logVerbose("[JdonFramework]save cache: " + cachKey + " hashCode:" + model.hashCode(), module);
 		cacheManager.putObect(cachKey, model);
 	}
 
 	private Object getModelFromCache(CacheKey cachKey) {
 		Object model = cacheManager.fetchObject(cachKey);
 		if (model != null) {
-			Debug.logVerbose("[JdonFramework]found cache: " + cachKey + " hashCode:" + model.hashCode(), module);
 			if (ModelUtil.isModified(model)) {
-				Debug.logWarning("[JdonFramework]<-cache-> model is isModified() cachKey=" + cachKey, module);
 				removeCache(cachKey);
 				model = null;
 			}
