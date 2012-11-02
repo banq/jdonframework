@@ -4,6 +4,6 @@ Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 0.058 sec
 MyEventA=0
 MyEventA=0
 
- RESULT=111111ok------------- ---------------- ---------------
+ RESULT=222221ok------------- ---------------- ---------------
 
 Testcase: testGetDisruptor took 0.052 sec
