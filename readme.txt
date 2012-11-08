@@ -37,7 +37,5 @@ In the "doc\chinese" directory there are chinese documents about how to use.
 
 In the "examples" directory there are some examples about how to use:
     "tesWeb" is basic application about jdonFramework DI/IOC annotation.
-    
-More examples can be download by project :  http://jdon.sf.net
-JPetstore and JiveJdon is full JdonFrameowrk application. 
 
+<a href='http://www.pledgie.com/campaigns/18602'><img alt='Click here to lend your support to: Jdonframework and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/18602.png?skin_name=chrome' border='0' /></a>
