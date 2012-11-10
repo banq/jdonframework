@@ -23,10 +23,8 @@ import org.aopalliance.intercept.MethodInvocation;
 
 import com.jdon.container.pico.Startable;
 import com.jdon.controller.model.ModelUtil;
-import com.jdon.domain.advsior.ModelAdvisor;
 import com.jdon.domain.model.cache.ModelKey;
 import com.jdon.domain.model.cache.ModelManager;
-import com.jdon.domain.model.injection.ModelProxyInjection;
 import com.jdon.util.Debug;
 
 /**
@@ -47,18 +45,12 @@ public class CacheInterceptor implements MethodInterceptor, Startable {
 
 	private ModelManager modelManager;
 
-	private ModelProxyInjection modelProxyInjection;
-
-	private ModelAdvisor modelAdvisor;
-
 	public String match_MethodName = "get";
 
 	private List isModelCache = new ArrayList();
 
-	public CacheInterceptor(ModelManager modelManager, ModelProxyInjection modelProxyInjection, ModelAdvisor modelAdvisor) {
+	public CacheInterceptor(ModelManager modelManager) {
 		this.modelManager = modelManager;
-		this.modelProxyInjection = modelProxyInjection;
-		this.modelAdvisor = modelAdvisor;
 	}
 
 	public Object invoke(MethodInvocation invocation) throws Throwable {
@@ -80,13 +72,9 @@ public class CacheInterceptor implements MethodInterceptor, Startable {
 			if (model == null) {
 				model = invocation.proceed(); // 下一个interceptor
 				if (modelClass.isAssignableFrom(model.getClass())) {
-					// inject the Model's field
-					modelProxyInjection.injectProperties(model);
-					// create the proxy for the Model
-					model = modelAdvisor.createProxy(model);
+					Debug.logVerbose("[JdonFramework] save to cache", module);
+					model = modelManager.addCache(modelKey, model);
 				}
-				Debug.logVerbose("[JdonFramework] save to cache", module);
-				modelManager.addCache(modelKey, model);
 			}
 			return model;
 		} catch (Exception e) {
@@ -183,9 +171,7 @@ public class CacheInterceptor implements MethodInterceptor, Startable {
 	public void stop() {
 		this.isModelCache.clear();
 		this.isModelCache = null;
-		this.modelAdvisor = null;
 		this.modelManager = null;
-		this.modelProxyInjection = null;
 
 	}
 

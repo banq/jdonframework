@@ -25,8 +25,6 @@ import org.aopalliance.intercept.MethodInvocation;
 import com.jdon.annotation.pointcut.Around;
 import com.jdon.container.pico.Startable;
 import com.jdon.controller.model.ModelUtil;
-import com.jdon.domain.advsior.ModelAdvisor;
-import com.jdon.domain.model.injection.ModelProxyInjection;
 import com.jdon.util.Debug;
 
 /**
@@ -50,14 +48,10 @@ public class DomainCacheInterceptor implements MethodInterceptor, Startable {
 	private Map<String, String> adviceArounds = new HashMap();
 
 	private ModelManager modelManager;
-	private ModelAdvisor modelAdvisor;
-	private ModelProxyInjection modelProxyInjection;
 
-	public DomainCacheInterceptor(ModelManager modelManager, ModelAdvisor modelAdvisor, ModelProxyInjection modelProxyInjection) {
+	public DomainCacheInterceptor(ModelManager modelManager) {
 		super();
 		this.modelManager = modelManager;
-		this.modelAdvisor = modelAdvisor;
-		this.modelProxyInjection = modelProxyInjection;
 	}
 
 	public Object invoke(MethodInvocation invocation) throws Throwable {
@@ -89,27 +83,13 @@ public class DomainCacheInterceptor implements MethodInterceptor, Startable {
 			if (o == null)
 				return o;
 			Debug.logVerbose(" get model from database, cacheKey=" + modelKey.toString(), module);
+
+			o = modelManager.addCache(modelKey, o);
+			Debug.logVerbose("[JdonFramework] save to cache2", module);
 		} catch (Exception e) {
 			Debug.logError("invoke:" + e, module);
 		}
-		return actionMixin(o, modelKey);
-	}
-
-	private Object actionMixin(Object o, ModelKey modelKey) {
-		try {
-			if (modelKey.getModelClass().isAssignableFrom(o.getClass())) {
-				modelProxyInjection.injectProperties(o);// inject the Model's
-				// field
-				o = modelAdvisor.createProxy(o);// create the proxy for the
-				// Model
-				modelManager.addCache(modelKey, o);
-				return o;
-			}
-
-		} catch (Exception e) {
-			Debug.logError("actionMixin:" + e, module);
-		}
-		return null;
+		return o;
 	}
 
 	public boolean isAdviceAround(Class targetClass, Method methodx) {
@@ -145,12 +125,6 @@ public class DomainCacheInterceptor implements MethodInterceptor, Startable {
 	}
 
 	@Override
-	protected void finalize() throws Throwable {
-		super.finalize();
-		stop();
-	}
-
-	@Override
 	public void start() {
 		// TODO Auto-generated method stub
 
@@ -161,9 +135,6 @@ public class DomainCacheInterceptor implements MethodInterceptor, Startable {
 		if (this.modelManager != null)
 			this.modelManager.clearCache();
 		this.modelManager = null;
-
-		this.modelAdvisor = null;
-		this.modelProxyInjection = null;
 		this.adviceArounds.clear();
 
 	}

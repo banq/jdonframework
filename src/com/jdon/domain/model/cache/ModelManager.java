@@ -15,7 +15,6 @@
 
 package com.jdon.domain.model.cache;
 
-
 /**
  * 本类是产生框架使用的各种Model，面向客户端调用 如果需要调用Model相关功能，调用本ModelManager
  * 
@@ -27,11 +26,15 @@ public interface ModelManager {
 
 	/**
 	 * 将Model实例加入缓存
+	 * 
+	 * @return a saved cache model, maybe is not different from old model object
 	 */
-	public void addCache(ModelKey modelKey, Object model);
+	public Object addCache(ModelKey modelKey, Object model);
 
 	/**
 	 * 将Model实例加入缓存
+	 * 
+	 * @return
 	 */
 	public void addCache(Object key, String className, Object model);
 

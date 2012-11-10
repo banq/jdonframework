@@ -15,6 +15,8 @@
 
 package com.jdon.domain.model.cache;
 
+import com.jdon.domain.advsior.ModelAdvisor;
+import com.jdon.domain.model.injection.ModelProxyInjection;
 import com.jdon.util.Debug;
 
 /**
@@ -28,8 +30,14 @@ public class ModelManagerImp implements ModelManager {
 
 	private final ModelCacheManager modelCacheManager;
 
-	public ModelManagerImp(ModelCacheManager modelCacheManager) {
+	private final ModelProxyInjection modelProxyInjection;
+
+	private final ModelAdvisor modelAdvisor;
+
+	public ModelManagerImp(ModelCacheManager modelCacheManager, ModelProxyInjection modelProxyInjection, ModelAdvisor modelAdvisor) {
 		this.modelCacheManager = modelCacheManager;
+		this.modelProxyInjection = modelProxyInjection;
+		this.modelAdvisor = modelAdvisor;
 	}
 
 	/**
@@ -38,19 +46,21 @@ public class ModelManagerImp implements ModelManager {
 	 * @param modelKey
 	 * @param model
 	 */
-	public void addCache(ModelKey modelKey, Object model) {
-		if ((modelKey == null) || (modelKey.getDataKey() == null))
-			return;
+	public Object addCache(ModelKey modelKey, Object model) {
+		if ((modelKey == null) || (modelKey.getDataKey() == null) || modelKey.getModelClass() == null)
+			return null;
 		String modelClassName = null;
 		try {
-			if (modelKey.getModelClass() != null) {
-				modelClassName = modelKey.getModelClass().getName();
-				modelCacheManager.saveCache(modelKey.getDataKey(), modelClassName, model);
-			}
+			modelClassName = modelKey.getModelClass().getName();
+			// inject the Model's field
+			modelProxyInjection.injectProperties(model);
+			// create the proxy for the Model
+			model = modelAdvisor.createProxy(model);
+			modelCacheManager.saveCache(modelKey.getDataKey(), modelClassName, model);
 		} catch (Exception e) {
 			Debug.logError("addCache error:" + e, module);
 		}
-
+		return model;
 	}
 
 	/**
