@@ -1,6 +1,7 @@
 JDON FRAMEWORK
 ---------------------------------------
 English: http://www.jdon.org
+         http://htmlpreview.github.com/?https://github.com/banq/jdonframework/blob/master/doc/english/index.html
 Chinese: http://www.jdon.com/jdonframework/
 
 1. INTRODUCTION
