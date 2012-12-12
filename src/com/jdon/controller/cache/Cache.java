@@ -18,13 +18,15 @@ package com.jdon.controller.cache;
 import java.util.Collection;
 
 /**
- * Cache interface
- * A Cache object is responsible for managing a collection of cached objects
- * Given an ObjectKey object, a Cache object quickly finds the corresponding cached object.
- * The Cache-Manager object passes an ObjectKey object to the Cache object’s fetchObject
- * method to get a cached object from the cache
- *
- * <p>@author <a href="mailto:banqiao@jdon.com">banq</a></p>
+ * Cache interface A Cache object is responsible for managing a collection of
+ * cached objects Given an ObjectKey object, a Cache object quickly finds the
+ * corresponding cached object. The Cache-Manager object passes an ObjectKey
+ * object to the Cache object’s fetchObject method to get a cached object from
+ * the cache
+ * 
+ * <p>
+ * @author <a href="mailto:banqiao@jdon.com">banq</a>
+ * </p>
  */
 public interface Cache {
 	public Object get(Object key);
@@ -41,5 +43,7 @@ public interface Cache {
 
 	public Collection keySet();
 
+	public long getCacheHits();
 
+	public long getCacheMisses();
 }

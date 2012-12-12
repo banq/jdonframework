@@ -22,7 +22,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.http.HttpSessionEvent;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.jdon.container.access.xml.AppConfigureCollection;
 import com.jdon.controller.context.web.ServletContextWrapper;
@@ -41,7 +42,7 @@ import com.jdon.util.UtilValidate;
  * @author banq
  */
 public class ServletContainerListener implements ServletContextListener, Serializable {
-	private final static Logger logger = Logger.getLogger("JdonFramework");
+	private final static Logger logger = LogManager.getLogger("JdonFramework");
 
 	/**
 	 * 

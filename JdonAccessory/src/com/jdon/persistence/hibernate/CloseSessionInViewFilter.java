@@ -25,13 +25,13 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.jdon.persistence.hibernate.util.SessionFactoryHolder;
 
-public class CloseSessionInViewFilter  implements Filter {
-	private final static Logger log = Logger.getLogger(CloseSessionInViewFilter.class);
-
+public class CloseSessionInViewFilter implements Filter {
+	private final static Logger log = LogManager.getLogger(CloseSessionInViewFilter.class);
 
 	public void init(FilterConfig config) throws ServletException {
 	}
@@ -42,8 +42,8 @@ public class CloseSessionInViewFilter  implements Filter {
 		}
 
 		finally {
-			
-			if (SessionFactoryHolder.isSessionIsActive()){
+
+			if (SessionFactoryHolder.isSessionIsActive()) {
 				log.debug("Close a session!");
 				SessionFactoryHolder.closeSession();
 			}

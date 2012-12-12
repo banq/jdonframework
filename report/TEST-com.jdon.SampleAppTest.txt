@@ -1,8 +1,6 @@
 Testsuite: com.jdon.SampleAppTest
-Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 9.033 sec
+Tests run: 5, Failures: 0, Errors: 0, Time elapsed: 11.996 sec
 ------------- Standard Output ---------------
-2012-11-10 16:26:54,909 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
-2012-11-10 16:26:56,202 [main] INFO  JdonFramework - Jdon Framework started successfully! 
 call A.myMethod1 
 
 
@@ -50,48 +48,40 @@ this is D.myMethod3 is active!!!!
 
  this is AroundAdvice after 
 
-2012-11-10 16:26:56,940 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
-2012-11-10 16:26:58,012 [main] INFO  JdonFramework - Jdon Framework started successfully! 
 name=helloCDomainEventHandler Actionhello
-MyDomainEventHandler action hello
-MessageListener=hello
-MessageListener=hello
 CDomainEventHandler Actionhello
+MessageListener=hello
+MessageListener=hello
 MyDomainEventHandler action hello
-2012-11-10 16:26:58,572 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
-2012-11-10 16:26:59,641 [main] INFO  JdonFramework - Jdon Framework started successfully! 
+MyDomainEventHandler action hello
 Synchronous sayHelloAsynchronous eventMessage=100
-Synchronous sayHello and Asynchronous eventMessage=1002012-11-10 16:27:00,150 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
-2012-11-10 16:27:01,256 [main] INFO  JdonFramework - Jdon Framework started successfully! 
-Asynchronous eventMessage=100
-Asynchronous eventMessage=1002012-11-10 16:27:01,807 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
-2012-11-10 16:27:02,856 [main] INFO  JdonFramework - Jdon Framework started successfully! 
-------------- ---------------- ---------------
+Synchronous sayHello and Asynchronous eventMessage=100Asynchronous eventMessage=100
+Asynchronous eventMessage=100------------- ---------------- ---------------
 ------------- Standard Error -----------------
-2012-11-10 16:26:56 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
+2012-12-12 9:33:04 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
 少御: Creating a new instance of CacheManager using the diskStorePath "C:\Users\ADMINI~1\AppData\Local\Temp\" which is already used by an existing CacheManager.
-The source of the configuration was InputStream java.io.BufferedInputStream@1d62270.
-The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1352536016962.
+The source of the configuration was InputStream java.io.BufferedInputStream@1e1dadb.
+The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1355275984101.
 To avoid this warning consider using the CacheManager factory methods to create a singleton CacheManager or specifying a separate ehcache configuration (ehcache.xml) for each CacheManager instance.
-2012-11-10 16:26:58 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
+2012-12-12 9:33:06 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
 少御: Creating a new instance of CacheManager using the diskStorePath "C:\Users\ADMINI~1\AppData\Local\Temp\" which is already used by an existing CacheManager.
-The source of the configuration was InputStream java.io.BufferedInputStream@17f409c.
-The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1352536018587.
+The source of the configuration was InputStream java.io.BufferedInputStream@17a4989.
+The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1355275986147.
 To avoid this warning consider using the CacheManager factory methods to create a singleton CacheManager or specifying a separate ehcache configuration (ehcache.xml) for each CacheManager instance.
-2012-11-10 16:27:00 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
+2012-12-12 9:33:08 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
 少御: Creating a new instance of CacheManager using the diskStorePath "C:\Users\ADMINI~1\AppData\Local\Temp\" which is already used by an existing CacheManager.
-The source of the configuration was InputStream java.io.BufferedInputStream@1cb52ae.
-The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1352536020164.
+The source of the configuration was InputStream java.io.BufferedInputStream@f30494.
+The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1355275988233.
 To avoid this warning consider using the CacheManager factory methods to create a singleton CacheManager or specifying a separate ehcache configuration (ehcache.xml) for each CacheManager instance.
-2012-11-10 16:27:01 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
+2012-12-12 9:33:10 net.sf.ehcache.CacheManager detectAndFixDiskStorePathConflict
 少御: Creating a new instance of CacheManager using the diskStorePath "C:\Users\ADMINI~1\AppData\Local\Temp\" which is already used by an existing CacheManager.
-The source of the configuration was InputStream java.io.BufferedInputStream@19d75ee.
-The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1352536021820.
+The source of the configuration was InputStream java.io.BufferedInputStream@19ec4ed.
+The diskStore path for this CacheManager will be set to C:\Users\ADMINI~1\AppData\Local\Temp\\ehcache_auto_created_1355275990290.
 To avoid this warning consider using the CacheManager factory methods to create a singleton CacheManager or specifying a separate ehcache configuration (ehcache.xml) for each CacheManager instance.
 ------------- ---------------- ---------------
 
-Testcase: testGetService took 2.533 sec
-Testcase: testDomainEvent took 1.709 sec
-Testcase: testDomainEventSimple took 1.591 sec
-Testcase: testDCIDomainEvent took 1.598 sec
-Testcase: testOnEvent took 1.593 sec
+Testcase: testGetService took 3.888 sec
+Testcase: testDomainEvent took 2.194 sec
+Testcase: testDomainEventSimple took 1.889 sec
+Testcase: testDCIDomainEvent took 2.107 sec
+Testcase: testOnEvent took 1.906 sec

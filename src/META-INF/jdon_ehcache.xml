@@ -38,7 +38,7 @@
        /> 
    -->
   <cache name="jdonCache" 
-      maxElementsInMemory="100000"
+      maxElementsInMemory="200000"
       eternal="true"
       overflowToDisk="false"
       diskPersistent="false"

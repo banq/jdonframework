@@ -16,6 +16,7 @@
 package com.jdon.model;
 
 import com.jdon.annotation.Component;
+import com.jdon.controller.model.ModelUtil;
 import com.jdon.domain.model.cache.ModelCacheManager;
 import com.jdon.domain.model.cache.ModelKey;
 import com.jdon.domain.model.injection.ModelProxyInjection;
@@ -128,7 +129,10 @@ public class ModelHandlerManagerImp implements ModelHandlerManager {
 				modelClassName = modelMapping.getClassName();
 			} else
 				modelClassName = modelKey.getModelClass().getName();
-			modelCacheManager.saveCache(modelKey.getDataKey(), modelClassName, model);
+			if (ModelUtil.isModel(model.getClass()))
+				modelCacheManager.saveCache(modelKey.getDataKey(), modelClassName, model);
+			else
+				Debug.logError("addCache error:" + model.getClass() + " not ModelIF or @Model", module);
 		} catch (Exception e) {
 			Debug.logError("addCache error:" + e, module);
 		}
@@ -141,7 +145,10 @@ public class ModelHandlerManagerImp implements ModelHandlerManager {
 	public void addCache(Object key, String className, Object model) {
 		if (key == null)
 			return;
-		modelCacheManager.saveCache(key, className, model);
+		if (ModelUtil.isModel(model.getClass()))
+			modelCacheManager.saveCache(key, className, model);
+		else
+			Debug.logError("addCache error:" + model.getClass() + " not ModelIF or @Model", module);
 
 	}
 

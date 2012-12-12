@@ -27,6 +27,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.jdon.controller.model.Model;
+import com.jdon.controller.model.ModelUtil;
 import com.jdon.controller.model.PageIterator;
 import com.jdon.domain.model.cache.ModelKey;
 import com.jdon.util.Debug;
@@ -169,7 +170,8 @@ public abstract class ModelListAction extends ModelBaseAction {
 				model = modelManager.getCache(modelKey);
 				if (model == null) {
 					model = fetchModel(request, dataKey);
-					modelManager.addCache(modelKey, model);
+					if (model != null && ModelUtil.isModel(model.getClass()))
+						modelManager.addCache(modelKey, model);
 				}
 			}
 			if (model != null)

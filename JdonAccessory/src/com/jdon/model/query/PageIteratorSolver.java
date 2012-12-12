@@ -60,13 +60,9 @@ public class PageIteratorSolver {
 
 	private final static String module = PageIteratorSolver.class.getName();
 
-	private BlockQueryJDBC blockQueryJDBC;
-
-	private final JdbcTemp jdbcTemp;
+	private DataSource dataSource;
 
 	private final BlockCacheManager blockCacheManager;
-
-	private BlockStrategy blockStrategy;
 
 	/**
 	 * active cache default is yes
@@ -88,10 +84,8 @@ public class PageIteratorSolver {
 	 *            PageIteratorInteger
 	 */
 	public PageIteratorSolver(DataSource dataSource, CacheManager cacheManager) {
-		this.blockQueryJDBC = new BlockQueryJDBCTemp(dataSource);
-		this.jdbcTemp = new JdbcTemp(dataSource);
+		this.dataSource = dataSource;
 		this.blockCacheManager = new BlockCacheManager(cacheManager);
-		this.blockStrategy = new BlockStrategy(blockQueryJDBC, blockCacheManager);
 	}
 
 	/**
@@ -99,7 +93,6 @@ public class PageIteratorSolver {
 	 */
 	public PageIteratorSolver(DataSource dataSource, CacheManager cacheManager, BlockStrategy blockStrategy) {
 		this(dataSource, cacheManager);
-		this.blockStrategy = blockStrategy;
 	}
 
 	/**
@@ -117,11 +110,9 @@ public class PageIteratorSolver {
 	 * 
 	 */
 	public PageIteratorSolver(DataSource dataSource) {
-		this.blockQueryJDBC = new BlockQueryJDBCTemp(dataSource);
-		this.jdbcTemp = new JdbcTemp(dataSource);
+		this.dataSource = dataSource;
 		CacheManager cacheManager = new CacheManager(new LRUCache("cache.xml"));
 		this.blockCacheManager = new BlockCacheManager(cacheManager);
-		this.blockStrategy = new BlockStrategy(blockQueryJDBC, blockCacheManager);
 	}
 
 	/**
@@ -136,6 +127,7 @@ public class PageIteratorSolver {
 	 * @throws Exception
 	 */
 	public Object querySingleObject(Collection queryParams, String sqlquery) throws Exception {
+		JdbcTemp jdbcTemp = new JdbcTemp(dataSource);
 		return jdbcTemp.querySingleObject(queryParams, sqlquery);
 	}
 
@@ -149,6 +141,7 @@ public class PageIteratorSolver {
 	 * @throws Exception
 	 */
 	public List queryMultiObject(Collection queryParams, String sqlquery) throws Exception {
+		JdbcTemp jdbcTemp = new JdbcTemp(dataSource);
 		return jdbcTemp.queryMultiObject(queryParams, sqlquery);
 	}
 
@@ -233,6 +226,7 @@ public class PageIteratorSolver {
 			Debug.logError(" the parameters collection is null", module);
 			return new PageIterator();
 		}
+		BlockStrategy blockStrategy = new BlockStrategy(new BlockQueryJDBCTemp(dataSource), blockCacheManager);
 		if ((count > blockStrategy.getBlockLength()) || (count <= 0)) { // every
 			// query
 			// max
@@ -271,6 +265,7 @@ public class PageIteratorSolver {
 	 * @return if not locate, return null;
 	 */
 	public Block locate(String sqlquery, Collection queryParams, Object locateId) {
+		BlockStrategy blockStrategy = new BlockStrategy(new BlockQueryJDBCTemp(dataSource), blockCacheManager);
 		return blockStrategy.locate(sqlquery, queryParams, locateId);
 	}
 
@@ -282,6 +277,7 @@ public class PageIteratorSolver {
 	 * @return if not found, return null;
 	 */
 	public Block getBlock(String sqlquery, Collection queryParams, int startIndex, int count) {
+		BlockStrategy blockStrategy = new BlockStrategy(new BlockQueryJDBCTemp(dataSource), blockCacheManager);
 		return blockStrategy.getBlock(sqlquery, queryParams, startIndex, count);
 	}
 
@@ -302,6 +298,7 @@ public class PageIteratorSolver {
 		try {
 			Integer allCount = (Integer) blockCacheManager.getAllCountsFromCache(qcdk);
 			if ((allCount == null) || (!cacheEnable)) {
+				BlockQueryJDBC blockQueryJDBC = new BlockQueryJDBCTemp(dataSource);
 				allCountInt = blockQueryJDBC.fetchDataAllCount(qcdk);
 				if ((cacheEnable) && (allCountInt != 0)) {
 					blockCacheManager.saveAllCounts(qcdk, new Integer(allCountInt));
@@ -324,23 +321,9 @@ public class PageIteratorSolver {
 		blockCacheManager.clearCache();
 	}
 
-	/**
-	 * change the JDBCTemplate
-	 * 
-	 * @param pageIteratorJDBC
-	 *            PageIteratorString or PageIteratorInteger
-	 */
-	public void setPageIteratorJDBC(BlockQueryJDBC pageIteratorJDBC) {
-		this.blockQueryJDBC = pageIteratorJDBC;
-	}
-
-	/**
-	 * get current JDBCTemplate
-	 * 
-	 * @return PageIteratorJDBC
-	 */
-	public BlockQueryJDBC getPageIteratorJDBC() {
-		return this.blockQueryJDBC;
+	public void clearCache(String sqlquery, Collection queryParams) {
+		Debug.logVerbose("[JdonFramework] clear the cache for the batch inquiry!", module);
+		blockCacheManager.cleaeCache(sqlquery, queryParams);
 	}
 
 	public boolean isCacheEnable() {

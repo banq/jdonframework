@@ -18,7 +18,8 @@ package com.jdon.persistence.hibernate;
 
 import javax.sql.DataSource;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -26,24 +27,23 @@ import org.hibernate.connection.ConnectionProvider;
 import org.hibernate.connection.DatasourceConnectionProvider;
 import org.hibernate.impl.SessionFactoryImpl;
 
-
 /**
  * 
- *     <component name="daoCRUD" class="com.jdon.model.HibernateCRUDTemplate"/>    
-    <component name="hibernateConfFactory" class="com.jdon.model.crud.AnnotationConfFactory">
-        <constructor value="/hibernate.cfg.xml"/>
-    </component>
-
+ * <component name="daoCRUD" class="com.jdon.model.HibernateCRUDTemplate"/>
+ * <component name="hibernateConfFactory"
+ * class="com.jdon.model.crud.AnnotationConfFactory"> <constructor
+ * value="/hibernate.cfg.xml"/> </component>
+ * 
  * @author banq
- *
+ * 
  */
 public class ConfFactory {
-	private final static Logger logger = Logger.getLogger(ConfFactory.class);
+	private final static Logger logger = LogManager.getLogger(ConfFactory.class);
 
 	protected SessionFactory sessionFactory;
-	
+
 	protected DataSource dataSource;
-	
+
 	protected String hibernate_cfg_xml;
 
 	public ConfFactory(String hibernate_cfg_xml) {
@@ -56,13 +56,12 @@ public class ConfFactory {
 		return sessionFactory;
 	}
 
-	
 	public void createSessionFactory() {
 		try {
 			Configuration configuration = null;
-			if ((hibernate_cfg_xml != null) && (hibernate_cfg_xml.length() != 0)){
+			if ((hibernate_cfg_xml != null) && (hibernate_cfg_xml.length() != 0)) {
 				configuration = new Configuration().configure(hibernate_cfg_xml);
-			}else{
+			} else {
 				configuration = new Configuration().configure();
 			}
 			this.sessionFactory = configuration.buildSessionFactory();
@@ -70,15 +69,15 @@ public class ConfFactory {
 			logger.error("Hibernate start error: " + e);
 		}
 	}
-	
+
 	public DataSource getDataSource() {
-		if (dataSource == null){
+		if (dataSource == null) {
 			dataSource = getDataSource(getSessionFactory());
 		}
 		return dataSource;
 	}
-	
-    protected DataSource getDataSource(SessionFactory sessionFactory) {		
+
+	protected DataSource getDataSource(SessionFactory sessionFactory) {
 		if (sessionFactory instanceof SessionFactoryImpl) {
 			ConnectionProvider cp = ((SessionFactoryImpl) sessionFactory).getConnectionProvider();
 			if (cp instanceof DatasourceConnectionProvider) {
@@ -88,17 +87,12 @@ public class ConfFactory {
 		return null;
 	}
 
-
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
 
-
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
-    
-	
 
 }

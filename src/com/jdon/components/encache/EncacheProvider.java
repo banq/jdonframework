@@ -103,6 +103,16 @@ public class EncacheProvider implements com.jdon.controller.cache.Cache, Startab
 		return cache.getKeys();
 	}
 
+	public long getCacheHits() {
+		Cache cache = manager.getCache(ehcacheConf.getPredefinedCacheName());
+		return cache.getStatistics().getCacheHits();
+	}
+
+	public long getCacheMisses() {
+		Cache cache = manager.getCache(ehcacheConf.getPredefinedCacheName());
+		return cache.getStatistics().getCacheMisses();
+	}
+
 	public static void main(String[] args) throws Exception {
 		EhcacheConf ehcacheConf = new EhcacheConf("jdon_ehcache.xml", "jdonCache");
 		EncacheProvider encacheProvider = new EncacheProvider(ehcacheConf);

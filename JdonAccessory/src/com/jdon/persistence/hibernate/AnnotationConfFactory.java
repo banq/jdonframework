@@ -16,15 +16,14 @@
  */
 package com.jdon.persistence.hibernate;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
 
-
-
 public class AnnotationConfFactory extends ConfFactory {
-	private final static Logger logger = Logger.getLogger(AnnotationConfFactory.class);
+	private final static Logger logger = LogManager.getLogger(AnnotationConfFactory.class);
 
 	public AnnotationConfFactory(String hibernate_cfg_xml) {
 		super(hibernate_cfg_xml);
@@ -33,9 +32,9 @@ public class AnnotationConfFactory extends ConfFactory {
 	public void createSessionFactory() {
 		try {
 			Configuration configuration = null;
-			if ((hibernate_cfg_xml != null) && (hibernate_cfg_xml.length() != 0)){
+			if ((hibernate_cfg_xml != null) && (hibernate_cfg_xml.length() != 0)) {
 				configuration = new AnnotationConfiguration().configure(hibernate_cfg_xml);
-			}else{
+			} else {
 				configuration = new AnnotationConfiguration().configure();
 			}
 			this.sessionFactory = configuration.buildSessionFactory();
@@ -44,5 +43,5 @@ public class AnnotationConfFactory extends ConfFactory {
 		}
 
 	}
-	
+
 }

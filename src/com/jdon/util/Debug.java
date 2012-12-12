@@ -28,10 +28,9 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 
-import org.apache.log4j.Category;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Configurable Debug logging wrapper class
@@ -68,7 +67,7 @@ public final class Debug {
 	public static final String[] levels = { "Always", "Verbose", "Timing", "Info", "Important", "Warning", "Error", "Fatal" };
 	public static final String[] levelProps = { "", "print.verbose", "print.timing", "print.info", "print.important", "print.warning", "print.error",
 			"print.fatal" };
-	public static final Priority[] levelObjs = { Level.INFO, Level.DEBUG, Level.DEBUG, Level.INFO, Level.INFO, Level.WARN, Level.ERROR, Level.FATAL };
+	public static final Level[] levelObjs = { Level.INFO, Level.DEBUG, Level.DEBUG, Level.INFO, Level.INFO, Level.WARN, Level.ERROR, Level.FATAL };
 
 	protected static PrintStream printStream = System.out;
 	protected static PrintWriter printWriter = new PrintWriter(printStream);
@@ -105,11 +104,11 @@ public final class Debug {
 		return printWriter;
 	}
 
-	public static Category getLogger(String module) {
+	public static org.apache.logging.log4j.Logger getLogger(String module) {
 		if (module != null && module.length() > 0) {
-			return Logger.getLogger(module);
+			return LogManager.getLogger(module);
 		} else {
-			return Logger.getLogger(Debug.class);
+			return LogManager.getLogger(Debug.class);
 		}
 	}
 
@@ -121,8 +120,9 @@ public final class Debug {
 		if (level >= conf_level) {
 			if (useLog4J) {
 				// logger = Logger.getLogger(module);
-				Category logger = getLogger(module);
-				logger.log(callingClass, levelObjs[level], msg, t);
+				Logger logger = getLogger(module);
+				if (logger.isDebugEnabled())
+					logger.debug(callingClass, levelObjs[level], msg, t);
 			} else {
 				StringBuffer prefixBuf = new StringBuffer();
 				prefixBuf.append(dateFormat.format(new java.util.Date()));

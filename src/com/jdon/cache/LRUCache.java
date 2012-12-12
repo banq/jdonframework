@@ -18,6 +18,7 @@ package com.jdon.cache;
 import java.util.Collection;
 
 import com.jdon.container.pico.Startable;
+import com.jdon.controller.cache.Cache;
 import com.jdon.util.PropsUtil;
 
 /**
@@ -31,7 +32,7 @@ import com.jdon.util.PropsUtil;
  * @author <a href="mailto:banqiao@jdon.com">banq</a>
  *         </p>
  */
-public class LRUCache implements Startable {
+public class LRUCache implements Cache, Startable {
 
 	private final UtilCache cache;
 
@@ -81,6 +82,14 @@ public class LRUCache implements Startable {
 	public void start() {
 		// TODO Auto-generated method stub
 
+	}
+
+	public long getCacheHits() {
+		return cache.getHitCount();
+	}
+
+	public long getCacheMisses() {
+		return cache.getMissCount();
 	}
 
 }

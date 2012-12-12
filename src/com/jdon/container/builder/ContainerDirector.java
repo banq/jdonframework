@@ -15,7 +15,8 @@
 
 package com.jdon.container.builder;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.jdon.container.ContainerWrapper;
 import com.jdon.util.Debug;
@@ -30,7 +31,7 @@ import com.jdon.util.Debug;
  */
 public class ContainerDirector {
 	public final static String module = ContainerDirector.class.getName();
-	private final static Logger logger = Logger.getLogger("JdonFramework");
+	private final static Logger logger = LogManager.getLogger("JdonFramework");
 
 	private final ContainerRegistryBuilder cb;
 

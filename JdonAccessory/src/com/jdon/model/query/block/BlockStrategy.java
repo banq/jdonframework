@@ -227,7 +227,8 @@ public class BlockStrategy {
 		List keys = blockCacheManager.getBlockKeysFromCache(qcdk);
 		if ((keys == null)) {
 			keys = blockQueryJDBC.fetchDatas(qcdk);
-			blockCacheManager.saveBlockKeys(qcdk, keys);
+			if (keys != null && keys.size() != 0)
+				blockCacheManager.saveBlockKeys(qcdk, keys);
 		}
 		Debug.logVerbose("[JdonFramework] getBlockKeys, size=" + keys.size(), module);
 		return keys;

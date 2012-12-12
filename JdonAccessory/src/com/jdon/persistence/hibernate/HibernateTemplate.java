@@ -21,7 +21,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
@@ -35,37 +36,41 @@ import com.jdon.persistence.hibernate.util.HibernateCallback;
 import com.jdon.persistence.hibernate.util.SessionFactoryHolder;
 
 public class HibernateTemplate {
-	private final static Logger logger = Logger.getLogger(HibernateTemplate.class);
+	private final static Logger logger = LogManager.getLogger(HibernateTemplate.class);
 
 	private boolean cacheQueries = false;
 
 	private String queryCacheRegion;
 
 	private int fetchSize = 0;
-	
+
 	private int firstResult = 0;
 
 	private int maxResults = 0;
-	
-	private SessionProvider sessionProvider;
 
+	private SessionProvider sessionProvider;
 
 	/**
 	 * Create a new HibernateTemplate instance.
-	 * @param sessionFactory SessionFactory to create Sessions
+	 * 
+	 * @param sessionFactory
+	 *            SessionFactory to create Sessions
 	 */
 	public HibernateTemplate(SessionProvider sessionProvider) {
 		this.sessionProvider = sessionProvider;
 	}
 
-
 	/**
 	 * Execute the action specified by the given action object within a Session.
-	 * @param action callback object that specifies the Hibernate action
-	 * @param exposeNativeSession whether to expose the native Hibernate Session
-	 * to callback code
+	 * 
+	 * @param action
+	 *            callback object that specifies the Hibernate action
+	 * @param exposeNativeSession
+	 *            whether to expose the native Hibernate Session to callback
+	 *            code
 	 * @return a result object returned by the action, or <code>null</code>
-	 * @throws org.springframework.dao.Exception in case of Hibernate errors
+	 * @throws org.springframework.dao.Exception
+	 *             in case of Hibernate errors
 	 */
 	public Object doHibernate(HibernateCallback action) throws Exception {
 
@@ -73,43 +78,37 @@ public class HibernateTemplate {
 		try {
 			Object result = action.execute(session);
 			return result;
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			logger.error("exception while execute", ex);
-            try {
-            	sessionProvider.rollback();
-            } catch (HibernateException ee) {
-                logger.error("error while session rollback", ee);
-            } finally {
-            	sessionProvider.resetSession();
-            }
-            throw new Exception(ex);
+			try {
+				sessionProvider.rollback();
+			} catch (HibernateException ee) {
+				logger.error("error while session rollback", ee);
+			} finally {
+				sessionProvider.resetSession();
+			}
+			throw new Exception(ex);
 
-		}
-		finally {
-		//	sessionProvider.returnCloseSession(session);
+		} finally {
+			// sessionProvider.returnCloseSession(session);
 		}
 	}
 
-
-
-	//-------------------------------------------------------------------------
+	// -------------------------------------------------------------------------
 	// Convenience methods for loading individual objects
-	//-------------------------------------------------------------------------
+	// -------------------------------------------------------------------------
 
 	public Object get(Class entityClass, Serializable id) throws Exception {
 		return get(entityClass, id, null);
 	}
 
-	public Object get(final Class entityClass, final Serializable id, final LockMode lockMode)
-			throws Exception {
+	public Object get(final Class entityClass, final Serializable id, final LockMode lockMode) throws Exception {
 
 		return doHibernate(new HibernateCallback() {
 			public Object execute(Session session) throws HibernateException {
 				if (lockMode != null) {
 					return session.get(entityClass, id, lockMode);
-				}
-				else {
+				} else {
 					return session.get(entityClass, id);
 				}
 			}
@@ -120,15 +119,13 @@ public class HibernateTemplate {
 		return get(entityName, id, null);
 	}
 
-	public Object get(final String entityName, final Serializable id, final LockMode lockMode)
-			throws Exception {
+	public Object get(final String entityName, final Serializable id, final LockMode lockMode) throws Exception {
 
 		return doHibernate(new HibernateCallback() {
 			public Object execute(Session session) throws HibernateException {
 				if (lockMode != null) {
 					return session.get(entityName, id, lockMode);
-				}
-				else {
+				} else {
 					return session.get(entityName, id);
 				}
 			}
@@ -139,15 +136,13 @@ public class HibernateTemplate {
 		return load(entityClass, id, null);
 	}
 
-	public Object load(final Class entityClass, final Serializable id, final LockMode lockMode)
-			throws Exception {
+	public Object load(final Class entityClass, final Serializable id, final LockMode lockMode) throws Exception {
 
 		return doHibernate(new HibernateCallback() {
 			public Object execute(Session session) throws HibernateException {
 				if (lockMode != null) {
 					return session.load(entityClass, id, lockMode);
-				}
-				else {
+				} else {
 					return session.load(entityClass, id);
 				}
 			}
@@ -158,15 +153,13 @@ public class HibernateTemplate {
 		return load(entityName, id, null);
 	}
 
-	public Object load(final String entityName, final Serializable id, final LockMode lockMode)
-			throws Exception {
+	public Object load(final String entityName, final Serializable id, final LockMode lockMode) throws Exception {
 
 		return doHibernate(new HibernateCallback() {
 			public Object execute(Session session) throws HibernateException {
 				if (lockMode != null) {
 					return session.load(entityName, id, lockMode);
-				}
-				else {
+				} else {
 					return session.load(entityName, id);
 				}
 			}
@@ -201,8 +194,7 @@ public class HibernateTemplate {
 			public Object execute(Session session) throws HibernateException {
 				if (lockMode != null) {
 					session.refresh(entity, lockMode);
-				}
-				else {
+				} else {
 					session.refresh(entity);
 				}
 				return null;
@@ -228,10 +220,9 @@ public class HibernateTemplate {
 		});
 	}
 
-
-	//-------------------------------------------------------------------------
+	// -------------------------------------------------------------------------
 	// Convenience methods for storing individual objects
-	//-------------------------------------------------------------------------
+	// -------------------------------------------------------------------------
 
 	public void lock(final Object entity, final LockMode lockMode) throws Exception {
 		doHibernate(new HibernateCallback() {
@@ -242,8 +233,7 @@ public class HibernateTemplate {
 		});
 	}
 
-	public void lock(final String entityName, final Object entity, final LockMode lockMode)
-			throws Exception {
+	public void lock(final String entityName, final Object entity, final LockMode lockMode) throws Exception {
 
 		doHibernate(new HibernateCallback() {
 			public Object execute(Session session) throws HibernateException {
@@ -289,8 +279,7 @@ public class HibernateTemplate {
 		update(entityName, entity, null);
 	}
 
-	public void update(final String entityName, final Object entity, final LockMode lockMode)
-			throws Exception {
+	public void update(final String entityName, final Object entity, final LockMode lockMode) throws Exception {
 
 		doHibernate(new HibernateCallback() {
 			public Object execute(Session session) throws HibernateException {
@@ -332,8 +321,7 @@ public class HibernateTemplate {
 		});
 	}
 
-	public void replicate(final Object entity, final ReplicationMode replicationMode)
-			throws Exception {
+	public void replicate(final Object entity, final ReplicationMode replicationMode) throws Exception {
 
 		doHibernate(new HibernateCallback() {
 			public Object execute(Session session) throws HibernateException {
@@ -343,8 +331,7 @@ public class HibernateTemplate {
 		});
 	}
 
-	public void replicate(final String entityName, final Object entity, final ReplicationMode replicationMode)
-			throws Exception {
+	public void replicate(final String entityName, final Object entity, final ReplicationMode replicationMode) throws Exception {
 
 		doHibernate(new HibernateCallback() {
 			public Object execute(Session session) throws HibernateException {
@@ -433,17 +420,16 @@ public class HibernateTemplate {
 		});
 	}
 
-
-	//-------------------------------------------------------------------------
+	// -------------------------------------------------------------------------
 	// Convenience finder methods for HQL strings
-	//-------------------------------------------------------------------------
+	// -------------------------------------------------------------------------
 
 	public List find(String queryString) throws Exception {
 		return find(queryString, (Object[]) null);
 	}
 
 	public List find(String queryString, Object value) throws Exception {
-		return find(queryString, new Object[] {value});
+		return find(queryString, new Object[] { value });
 	}
 
 	public List find(final String queryString, final Object[] values) throws Exception {
@@ -461,14 +447,12 @@ public class HibernateTemplate {
 		});
 	}
 
-	public List findByNamedParam(String queryString, String paramName, Object value)
-			throws Exception {
+	public List findByNamedParam(String queryString, String paramName, Object value) throws Exception {
 
-		return findByNamedParam(queryString, new String[] {paramName}, new Object[] {value});
+		return findByNamedParam(queryString, new String[] { paramName }, new Object[] { value });
 	}
 
-	public List findByNamedParam(final String queryString, final String[] paramNames, final Object[] values)
-			throws Exception {
+	public List findByNamedParam(final String queryString, final String[] paramNames, final Object[] values) throws Exception {
 
 		if (paramNames.length != values.length) {
 			throw new IllegalArgumentException("Length of paramNames array must match length of values array");
@@ -487,8 +471,7 @@ public class HibernateTemplate {
 		});
 	}
 
-	public List findByValueBean(final String queryString, final Object valueBean)
-			throws Exception {
+	public List findByValueBean(final String queryString, final Object valueBean) throws Exception {
 
 		return (List) doHibernate(new HibernateCallback() {
 			public Object execute(Session session) throws HibernateException {
@@ -500,17 +483,16 @@ public class HibernateTemplate {
 		});
 	}
 
-
-	//-------------------------------------------------------------------------
+	// -------------------------------------------------------------------------
 	// Convenience finder methods for named queries
-	//-------------------------------------------------------------------------
+	// -------------------------------------------------------------------------
 
 	public List findByNamedQuery(String queryName) throws Exception {
 		return findByNamedQuery(queryName, (Object[]) null);
 	}
 
 	public List findByNamedQuery(String queryName, Object value) throws Exception {
-		return findByNamedQuery(queryName, new Object[] {value});
+		return findByNamedQuery(queryName, new Object[] { value });
 	}
 
 	public List findByNamedQuery(final String queryName, final Object[] values) throws Exception {
@@ -528,15 +510,12 @@ public class HibernateTemplate {
 		});
 	}
 
-	public List findByNamedQueryAndNamedParam(String queryName, String paramName, Object value)
-			throws Exception {
+	public List findByNamedQueryAndNamedParam(String queryName, String paramName, Object value) throws Exception {
 
-		return findByNamedQueryAndNamedParam(queryName, new String[] {paramName}, new Object[] {value});
+		return findByNamedQueryAndNamedParam(queryName, new String[] { paramName }, new Object[] { value });
 	}
 
-	public List findByNamedQueryAndNamedParam(
-			final String queryName, final String[] paramNames, final Object[] values)
-			throws Exception {
+	public List findByNamedQueryAndNamedParam(final String queryName, final String[] paramNames, final Object[] values) throws Exception {
 
 		if (paramNames != null && values != null && paramNames.length != values.length) {
 			throw new IllegalArgumentException("Length of paramNames array must match length of values array");
@@ -555,8 +534,7 @@ public class HibernateTemplate {
 		});
 	}
 
-	public List findByNamedQueryAndValueBean(final String queryName, final Object valueBean)
-			throws Exception {
+	public List findByNamedQueryAndValueBean(final String queryName, final Object valueBean) throws Exception {
 
 		return (List) doHibernate(new HibernateCallback() {
 			public Object execute(Session session) throws HibernateException {
@@ -568,17 +546,15 @@ public class HibernateTemplate {
 		});
 	}
 
-
-	//-------------------------------------------------------------------------
+	// -------------------------------------------------------------------------
 	// Convenience finder methods for detached criteria
-	//-------------------------------------------------------------------------
+	// -------------------------------------------------------------------------
 
 	public List findByCriteria(DetachedCriteria criteria) throws Exception {
 		return findByCriteria(criteria, -1, -1);
 	}
 
-	public List findByCriteria(final DetachedCriteria criteria, final int firstResult, final int maxResults)
-			throws Exception {
+	public List findByCriteria(final DetachedCriteria criteria, final int firstResult, final int maxResults) throws Exception {
 
 		return (List) doHibernate(new HibernateCallback() {
 			public Object execute(Session session) throws HibernateException {
@@ -599,8 +575,7 @@ public class HibernateTemplate {
 		return findByExample(exampleEntity, -1, -1);
 	}
 
-	public List findByExample(final Object exampleEntity, final int firstResult, final int maxResults)
-			throws Exception {
+	public List findByExample(final Object exampleEntity, final int firstResult, final int maxResults) throws Exception {
 
 		return (List) doHibernate(new HibernateCallback() {
 			public Object execute(Session session) throws HibernateException {
@@ -618,17 +593,16 @@ public class HibernateTemplate {
 		});
 	}
 
-
-	//-------------------------------------------------------------------------
+	// -------------------------------------------------------------------------
 	// Convenience query methods for iteration and bulk updates/deletes
-	//-------------------------------------------------------------------------
+	// -------------------------------------------------------------------------
 
 	public Iterator iterate(String queryString) throws Exception {
 		return iterate(queryString, (Object[]) null);
 	}
 
 	public Iterator iterate(String queryString, Object value) throws Exception {
-		return iterate(queryString, new Object[] {value});
+		return iterate(queryString, new Object[] { value });
 	}
 
 	public Iterator iterate(final String queryString, final Object[] values) throws Exception {
@@ -646,13 +620,12 @@ public class HibernateTemplate {
 		});
 	}
 
-
 	public int bulkUpdate(String queryString) throws Exception {
 		return bulkUpdate(queryString, (Object[]) null);
 	}
 
 	public int bulkUpdate(String queryString, Object value) throws Exception {
-		return bulkUpdate(queryString, new Object[] {value});
+		return bulkUpdate(queryString, new Object[] { value });
 	}
 
 	public int bulkUpdate(final String queryString, final Object[] values) throws Exception {
@@ -671,15 +644,16 @@ public class HibernateTemplate {
 		return updateCount.intValue();
 	}
 
-
-	//-------------------------------------------------------------------------
+	// -------------------------------------------------------------------------
 	// Helper methods used by the operations above
-	//-------------------------------------------------------------------------
+	// -------------------------------------------------------------------------
 
 	/**
-	 * Prepare the given Query object, applying cache settings and/or
-	 * a transaction timeout.
-	 * @param queryObject the Query object to prepare
+	 * Prepare the given Query object, applying cache settings and/or a
+	 * transaction timeout.
+	 * 
+	 * @param queryObject
+	 *            the Query object to prepare
 	 * @see #setCacheQueries
 	 * @see #setQueryCacheRegion
 	 * @see SessionProviderHolder#applyTransactionTimeout
@@ -692,22 +666,24 @@ public class HibernateTemplate {
 			}
 		}
 		if (getFetchSize() > 0) {
-			queryObject.setFetchSize(getFetchSize());			
+			queryObject.setFetchSize(getFetchSize());
 		}
 		if (getMaxResults() > 0) {
 			queryObject.setMaxResults(getMaxResults());
 		}
-		
+
 		if (getFirstResult() > 0) {
 			queryObject.setFirstResult(getFirstResult());
 		}
-		
+
 	}
 
 	/**
-	 * Prepare the given Criteria object, applying cache settings and/or
-	 * a transaction timeout.
-	 * @param criteria the Criteria object to prepare
+	 * Prepare the given Criteria object, applying cache settings and/or a
+	 * transaction timeout.
+	 * 
+	 * @param criteria
+	 *            the Criteria object to prepare
 	 * @see #setCacheQueries
 	 * @see #setQueryCacheRegion
 	 * @see SessionProviderHolder#applyTransactionTimeout
@@ -729,33 +705,35 @@ public class HibernateTemplate {
 
 	/**
 	 * Apply the given name parameter to the given Query object.
-	 * @param queryObject the Query object
-	 * @param paramName the name of the parameter
-	 * @param value the value of the parameter
-	 * @throws HibernateException if thrown by the Query object
+	 * 
+	 * @param queryObject
+	 *            the Query object
+	 * @param paramName
+	 *            the name of the parameter
+	 * @param value
+	 *            the value of the parameter
+	 * @throws HibernateException
+	 *             if thrown by the Query object
 	 */
-	protected void applyNamedParameterToQuery(Query queryObject, String paramName, Object value)
-			throws HibernateException {
+	protected void applyNamedParameterToQuery(Query queryObject, String paramName, Object value) throws HibernateException {
 
 		if (value instanceof Collection) {
 			queryObject.setParameterList(paramName, (Collection) value);
-		}
-		else if (value instanceof Object[]) {
+		} else if (value instanceof Object[]) {
 			queryObject.setParameterList(paramName, (Object[]) value);
-		}
-		else {
+		} else {
 			queryObject.setParameter(paramName, value);
 		}
 	}
 
-
 	/**
-	 * Set whether to cache all queries executed by this template.
-	 * If this is true, all Query and Criteria objects created by
-	 * this template will be marked as cacheable (including all
-	 * queries through find methods).
-	 * <p>To specify the query region to be used for queries cached
-	 * by this template, set the "queryCacheRegion" property.
+	 * Set whether to cache all queries executed by this template. If this is
+	 * true, all Query and Criteria objects created by this template will be
+	 * marked as cacheable (including all queries through find methods).
+	 * <p>
+	 * To specify the query region to be used for queries cached by this
+	 * template, set the "queryCacheRegion" property.
+	 * 
 	 * @see #setQueryCacheRegion
 	 * @see org.hibernate.Query#setCacheable
 	 * @see org.hibernate.Criteria#setCacheable
@@ -773,10 +751,13 @@ public class HibernateTemplate {
 
 	/**
 	 * Set the name of the cache region for queries executed by this template.
-	 * If this is specified, it will be applied to all Query and Criteria objects
-	 * created by this template (including all queries through find methods).
-	 * <p>The cache region will not take effect unless queries created by this
+	 * If this is specified, it will be applied to all Query and Criteria
+	 * objects created by this template (including all queries through find
+	 * methods).
+	 * <p>
+	 * The cache region will not take effect unless queries created by this
 	 * template are configured to be cached via the "cacheQueries" property.
+	 * 
 	 * @see #setCacheQueries
 	 * @see org.hibernate.Query#setCacheRegion
 	 * @see org.hibernate.Criteria#setCacheRegion
@@ -786,18 +767,21 @@ public class HibernateTemplate {
 	}
 
 	/**
-	 * Return the name of the cache region for queries executed by this template.
+	 * Return the name of the cache region for queries executed by this
+	 * template.
 	 */
 	public String getQueryCacheRegion() {
 		return queryCacheRegion;
 	}
 
 	/**
-	 * Set the fetch size for this HibernateTemplate. This is important for processing
-	 * large result sets: Setting this higher than the default value will increase
-	 * processing speed at the cost of memory consumption; setting this lower can
-	 * avoid transferring row data that will never be read by the application.
-	 * <p>Default is 0, indicating to use the JDBC driver's default.
+	 * Set the fetch size for this HibernateTemplate. This is important for
+	 * processing large result sets: Setting this higher than the default value
+	 * will increase processing speed at the cost of memory consumption; setting
+	 * this lower can avoid transferring row data that will never be read by the
+	 * application.
+	 * <p>
+	 * Default is 0, indicating to use the JDBC driver's default.
 	 */
 	public void setFetchSize(int fetchSize) {
 		this.fetchSize = fetchSize;
@@ -811,12 +795,14 @@ public class HibernateTemplate {
 	}
 
 	/**
-	 * Set the maximum number of rows for this HibernateTemplate. This is important
-	 * for processing subsets of large result sets, avoiding to read and hold
-	 * the entire result set in the database or in the JDBC driver if we're
-	 * never interested in the entire result in the first place (for example,
-	 * when performing searches that might return a large number of matches).
-	 * <p>Default is 0, indicating to use the JDBC driver's default.
+	 * Set the maximum number of rows for this HibernateTemplate. This is
+	 * important for processing subsets of large result sets, avoiding to read
+	 * and hold the entire result set in the database or in the JDBC driver if
+	 * we're never interested in the entire result in the first place (for
+	 * example, when performing searches that might return a large number of
+	 * matches).
+	 * <p>
+	 * Default is 0, indicating to use the JDBC driver's default.
 	 */
 	public void setMaxResults(int maxResults) {
 		this.maxResults = maxResults;
@@ -833,30 +819,27 @@ public class HibernateTemplate {
 		return firstResult;
 	}
 
-
 	public void setFirstResult(int firstResult) {
 		this.firstResult = firstResult;
 	}
-
 
 	public SessionProvider getSessionProvider() {
 		return sessionProvider;
 	}
 
-	public void closeSession(){
-		if (SessionFactoryHolder.isSessionIsActive()){
-			sessionProvider.closeSession();			
+	public void closeSession() {
+		if (SessionFactoryHolder.isSessionIsActive()) {
+			sessionProvider.closeSession();
 		}
 	}
-	
-	public void clearParams(){
+
+	public void clearParams() {
 		this.cacheQueries = false;
 		this.fetchSize = 0;
 		this.firstResult = 0;
 		this.maxResults = 0;
 		this.queryCacheRegion = null;
-		
+
 	}
-	
 
 }
