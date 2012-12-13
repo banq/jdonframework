@@ -6,7 +6,6 @@ import sample.domain.Robot;
 
 import com.jdon.annotation.Component;
 import com.jdon.annotation.Introduce;
-import com.jdon.annotation.model.OnEvent;
 import com.jdon.annotation.pointcut.Around;
 
 @Component
@@ -20,10 +19,14 @@ public class RobotRepositoryInMEM implements RobotRepository {
 		return memDB.get(id);
 	}
 
-	@OnEvent("saveme")
+	// @OnEvent("saveme") is equals to
+	// sample.event.consumer.write.SavemeListener
 	public void save(Robot robot) {
 		memDB.put(robot.getId(), robot);
+	}
 
+	public HashMap<String, Robot> getMemDB() {
+		return memDB;
 	}
 
 }

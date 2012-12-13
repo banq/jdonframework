@@ -4,12 +4,20 @@
 	"http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app>
   <servlet>
-    <servlet-name>myservlet</servlet-name>
-    <servlet-class>sample.MyServlet</servlet-class>
+    <servlet-name>commandServlet</servlet-name>
+    <servlet-class>sample.CommandServlet</servlet-class>
   </servlet>
+ <servlet>
+    <servlet-name>queryServlet</servlet-name>
+    <servlet-class>sample.QueryServlet</servlet-class>
+  </servlet>  
   <servlet-mapping>
-    <servlet-name>myservlet</servlet-name>
-    <url-pattern>/myServlet</url-pattern>
+    <servlet-name>commandServlet</servlet-name>
+    <url-pattern>/commandServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>queryServlet</servlet-name>
+    <url-pattern>/queryServlet</url-pattern>
   </servlet-mapping>
 
 </web-app>
