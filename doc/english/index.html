@@ -66,8 +66,10 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
 <P><strong>JdonFramework = DDD+DCI+ES/CQRS: in JdonFramework  , A Role played by a Domain Model   triggers   a interaction event, such as sending a event or message to other consumers.</strong></P>
 <p><a href="http://web1.udemy.com/blog/object-oriented-programming-a-critical-approach/" target="_blank">Object Oriented Programming: A Critical Approach</a> say: OO is really about message passing:</p>
 <p>&ldquo;The message-sending metaphor provides modularity by decoupling the intent of a message (embodied in its name) from the method used by the recipient to carry out the intent. Structural information is similarly protected because all access to the internal state of an object is through this same message interface.&rdquo;</p>
-<P>In <strong>JdonFramework</strong>， A aggregation is a modularity; Aggregation root is the message-sending and message-recipient metaphor.see below picture, more details in : <a href="http://www.jdon.org/DomainEvents.html" target="_blank">Robot sample</a></P>
+<P>In <strong>JdonFramework</strong>， A aggregate is a modularity; aggregate root is the message-sending and message-recipient metaphor.see below picture, more details in : <a href="http://www.jdon.org/DomainEvents.html" target="_blank">Robot sample</a></P>
 <P><img src="images/m.jpg" width="533" height="446" alt="modularity"></P>
+<P>Message or Event is a better way for aggregate root that directly exposed behavior and hold references to others. Message or Event can better protect root entity's internal state not expose.</P>
+<P><img src="images/aggregate.png" width="461" height="452" alt="aggregate root"></P>
 <P><strong>Domain Events(Event Sourcing) for Evans DDD </strong>:</P>
                     <P>Real domain logic is in the Domain Model,
                       Outside the domain are these adapters, that listen to messages sent by
