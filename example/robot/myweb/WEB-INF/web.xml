@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC
+	"-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+	"http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+  <servlet>
+    <servlet-name>commandServlet</servlet-name>
+    <servlet-class>sample.CommandServlet</servlet-class>
+  </servlet>
+ <servlet>
+    <servlet-name>queryServlet</servlet-name>
+    <servlet-class>sample.QueryServlet</servlet-class>
+  </servlet>  
+  <servlet-mapping>
+    <servlet-name>commandServlet</servlet-name>
+    <url-pattern>/commandServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>queryServlet</servlet-name>
+    <url-pattern>/queryServlet</url-pattern>
+  </servlet-mapping>
+
+</web-app>

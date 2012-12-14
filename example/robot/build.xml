@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<project name="Robot " default="all" basedir="./">
+
+	<target name="all" depends="war">
+	</target>
+
+	<path id="master-classpath">
+		<fileset file="lib/*.jar" />
+		<fileset file="lib/jf/*.jar" />
+	</path>
+
+
+	<target name="compile">
+		
+		<mkdir dir="bin"/>
+		<javac srcdir="src" destdir="bin" encoding="utf-8" debug="true">
+			<classpath refid="master-classpath" />
+		</javac>
+	</target>
+
+	<target name="war" depends="compile">
+
+		<copy todir="myweb/WEB-INF/classes">
+			<fileset dir="bin">
+			</fileset>
+		</copy>
+		<copy todir="myweb/WEB-INF//lib" overwrite="true">
+			<fileset file="lib/jf/*.jar" />			
+		</copy>		
+		<jar destfile="myweb.war" >
+			<fileset dir="myweb">
+				<include name="**/*"/>
+			</fileset>
+		</jar>
+		<delete dir="myweb/WEB-INF/classes" />
+		<delete dir="myweb/WEB-INF/lib" />
+	</target>
+</project>
