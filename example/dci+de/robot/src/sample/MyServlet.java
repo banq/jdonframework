@@ -12,13 +12,7 @@ import sample.service.Context;
 
 import com.jdon.controller.WebAppUtil;
 
-/**
- * CQRS's command
- * 
- * @author banq
- * 
- */
-public class CommandServlet extends HttpServlet {
+public class MyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,12 +25,6 @@ public class CommandServlet extends HttpServlet {
 		String id = Integer.toString(robot.hashCode());
 		robot.setId(id);
 		context.save(robot);
-		
-		try {
-			Thread.currentThread().sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 
 		String result = context.hello(id);
 		resp.getWriter().print("robot response:" + result);

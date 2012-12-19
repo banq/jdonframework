@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="Robot " default="all" basedir="./">
+<project name="Match " default="all" basedir="./">
 
 	<property name="jdonframeworklib.dir" value="..\..\..\dist" />
 	<property name="servletlib.dir" value="..\..\..\weblib" />
