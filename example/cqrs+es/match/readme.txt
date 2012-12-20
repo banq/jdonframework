@@ -1,5 +1,6 @@
-english:http://www.eventuallyinconsistent.com/2012/12/speaking-experience.html
+english:http://www.jdon.org/match.html
 chinese:http://www.jdon.com/44815
 
+deploy myweb.war to your tomcat or other servers:
 http://localhost:8080/myweb/
 

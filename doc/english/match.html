@@ -1,0 +1,190 @@
+<html><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<!-- #BeginEditable "doctitle" -->
+<title>DDD CQRS EventSourcing example source: football Match</title>  
+<!-- #EndEditable -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="shortcut icon" href="http://www.jdon.com/favicon.ico">
+<!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
+<link href="views.css" rel="stylesheet" type="text/css">
+</head>
+<body bgcolor="#dddddd" text="#000000">
+ <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+
+  <tr> 
+    <td height="11" colspan="7" bgcolor="#FFFFFF" class="bianxian"> 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" height="1" bordercolor="#000000">
+        <tr> 
+          <td> 
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000">
+              <tr> 
+                <td></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    
+    <td bgcolor="#FFFFFF"  valign="top">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          
+         
+          <td valign="top" > 
+            <table width="100%" border="0" cellspacing="2" cellpadding="2">
+              <tr>
+                <td>
+                  <h1><a href="index.html">JDon.org</a></h1>
+				<!-- #BeginEditable "main" --> 
+                  <h3>DDD CQRS EventSourcing example source: football Match</h3>
+                  <p>　　Match souce code : <a href="https://github.com/banq/jdonframework/tree/master/example/cqrs%2Bes/match" target="_blank">https://github.com/banq/jdonframework/tree/master/example/cqrs%2Bes/match</a></p>
+                  <p>　　it is powered by the ppt: <a href="http://www.eventuallyinconsistent.com/2012/12/speaking-experience.html" title="Changing the mindset - more object-oriented view at the business domain modeling" target="_blank">Changing the mindset - more object-oriented view at the business domain modeling</a></p>
+                  <p>　　Match is a aggregate root, source:</p>
+                  <table width="90%" border="0" bgcolor="#CCCCCC">
+                    <tr>
+                      <td><div>
+                        <div data-permalink-url="/banq/jdonframework/blob/f7e63a98b263567ddf447e708d6655869a70a051/example/cqrs%2Bes/match/src/sample/domain/Match.java" data-title="jdonframework/example/cqrs+es/match/src/sample/domain/Match.java at master · banq/jdonframework · GitHub" data-type="blob">
+                          <div id="files">
+                            <div>
+                              <div>
+                                <table cellpadding="0" cellspacing="0">
+                                  <tbody>
+                                    <tr>
+                                      <td width="100%"><div>
+                                        <pre><div id="LC28">/**</div><div id="LC29"> * aggregate root</div><div id="LC30"> * </div><div id="LC31"> * @author banq</div><div id="LC32"> * </div><div id="LC33"> */</div><div id="LC34">@Model</div><div id="LC35">public class Match {</div><div id="LC36"><br></div><div id="LC37">	private String id;</div><div id="LC38"><br></div><div id="LC39">	private Date matchDate;</div><div id="LC40"><br></div><div id="LC41">	private Team teams[] = new Team[2];</div><div id="LC42"><br></div><div id="LC43">	private boolean finished;</div><div id="LC44"><br></div><div id="LC45">	@Inject</div><div id="LC46">	public EventSourcing es;</div><div id="LC47"><br></div><div id="LC48">	public void handle(MatchCreatedEvent matchCreatedEvent) {</div><div id="LC49">		this.id = matchCreatedEvent.getMatchId();</div><div id="LC50">		this.teams[0] = new Team(matchCreatedEvent.getMatchTeamName1());</div><div id="LC51">		this.teams[1] = new Team(matchCreatedEvent.getMatchTeamName2());</div><div id="LC52">		this.finished = false;</div><div id="LC53">	}</div><div id="LC54"><br></div><div id="LC55">	public void startMatch(Date matchDate) {</div><div id="LC56">		if (this.matchDate != null)</div><div id="LC57">			System.err.print("the match has started");</div><div id="LC58">		es.started(new MatchStartedEvent(this.id, matchDate));</div><div id="LC59">	}</div><div id="LC60"><br></div><div id="LC61">	public void handle(MatchStartedEvent event) {</div><div id="LC62">		this.matchDate = event.getMatchDate();</div><div id="LC63">	}</div><div id="LC64"><br></div><div id="LC65">	public void finishWithScore(Score score, Date matchDate) {</div><div id="LC66">		if (this.matchDate == null)</div><div id="LC67">			System.err.print("the match has not started");</div><div id="LC68">		if (finished)</div><div id="LC69">			System.err.print("the match has finished");</div><div id="LC70">		es.finished(new MatchFinishedEvent(this.id, matchDate, score.getHomeGoals(), score.getAwayGoals()));</div><div id="LC71">	}</div><div id="LC72"><br></div><div id="LC73">	public void handle(MatchFinishedEvent event) {</div><div id="LC74">		this.finished = true;</div><div id="LC75">	}</div><div id="LC76"><br></div><div id="LC77">	public String getId() {</div><div id="LC78">		return id;</div><div id="LC79">	}</div><div id="LC80"><br></div><div id="LC81">	public String getHomeTeamName() {</div><div id="LC82">		return teams[0].getName();</div><div id="LC83">	}</div><div id="LC84"><br></div><div id="LC85">	public String getAwayTeamName() {</div><div id="LC86">		return teams[1].getName();</div><div id="LC87">	}</div><div id="LC88"><br></div><div id="LC89">	public boolean isFinished() {</div><div id="LC90">		return finished;</div><div id="LC91">	}</div><div id="LC92"><br></div><div id="LC93">}</div>
+                      </pre>
+                                      </div></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <br>                        <p>&nbsp;</p></td>
+                    </tr>
+                  </table>
+                  <p>　　the source is different from the ppt in here:</p>
+                  <p>&nbsp;</p>
+                  <div id="LC">@Inject</div>
+                  <div id="LC2"> public EventSourcing es;</div>
+                  <div id="LC3"></div>
+                  <p>　　EventSourcing class will be injected into Match by jdonframework. EventSourcing class code:</p>
+                  <table width="650" border="0" bgcolor="#f0f0f0">
+                    <tr bgcolor="#f0f0f0">
+                      <td><div id="LC4">@Introduce("message")</div>
+                        <div id="LC27">public class EventSourcing {</div>
+                        <div id="LC5"><br>
+                        </div>
+                        <div id="LC6">　　	@Send("created")</div>
+                        <div id="LC7">　　	public DomainMessage created(MatchCreatedEvent matchCreatedEvent) {</div>
+                        <div id="LC8"> 　　　　return new DomainMessage(matchCreatedEvent);</div>
+                        <div id="LC9">　　	}</div>
+                        <div id="LC10"><br>
+                        </div>
+                        <div id="LC11">　　	@Send("started")</div>
+                        <div id="LC12">　　	public DomainMessage started(MatchStartedEvent matchStartedEvent) {</div>
+                        <div id="LC13">　　		return new DomainMessage(matchStartedEvent);</div>
+                        <div id="LC14">　　	}</div>
+                        <div id="LC15"><br>
+                        </div>
+                        <div id="LC16">　　	@Send("finished")</div>
+                        <div id="LC17">　　	public DomainMessage finished(MatchFinishedEvent matchFinishedEvent) {</div>
+                        <div id="LC18">　　		return new DomainMessage(matchFinishedEvent);</div>
+                        <div id="LC19">　　	}</div>
+                        <div id="LC27">}</div>
+                        <p>&nbsp;</p>
+                        <pre>&nbsp;
+                        </pre>
+                      <p></p></td>
+                    </tr>
+                  </table>
+                  <p>&nbsp;</p>
+                  <pre><div id="LC26"></div>
+                  </pre>
+                  <p>@Introduce("message") will introduce async message into this class, when its methods such as &quot;created&quot; was called from Match aggregate root, a message will be send by &quot;@Send("created")&quot;, so this class is a message publisher too.</p>
+                  <p>a message named "created" will be send to its consumers/subsribers. MatchCreatedEventImpl is one of consumers:</p>
+                  <table width="300" border="0" bgcolor="#f0f0f0">
+                    <tr>
+                      <td><p>&nbsp;</p>
+                        <pre><div id="LC20">@Consumer("created")</div><div id="LC21">public class MatchCreatedEventImpl implements DomainEventHandler {</div><div id="LC22"><br></div><div id="LC23">　　		private final MatchRepository matchRepository;</div><div id="LC24"><br></div><div id="LC25">　　		public MatchCreatedEventImpl(MatchRepository matchRepository) {</div><div id="LC94">　　			super();</div><div id="LC95">　　			this.matchRepository = matchRepository;</div><div id="LC96">　　		}</div><div id="LC97"><br></div><div id="LC98">　　		@Override</div><div id="LC99">　　		public void onEvent(EventDisruptor event, boolean arg1) throws Exception {</div><div id="LC100">　　			MatchCreatedEvent matchCreatedEvent = (MatchCreatedEvent) event.getDomainMessage().getEventSource();</div><div id="LC101"><br></div><div id="LC102">　　			Match match = new Match();</div><div id="LC103">　　			match.handle(matchCreatedEvent);</div><div id="LC104">　　			matchRepository.save(match);</div><div id="LC105">　　		}</div><div id="LC106"><br></div><div id="LC107">}</div>
+                        </pre>
+                      <p></p></td>
+                    </tr>
+                  </table>
+                  <p>　　in MatchCreatedEventImpl, a Match aggregate objects was created, and saved into repository.</p>
+<p>　　MatchCreatedSavemeEventBusSubscriber is another one of "created" message consumers :</p>
+<table width="300" border="0" bgcolor="#f0f0f0">
+  <tr>
+    <td><pre><div id="LC108">@Consumer("created")</div><div id="LC109">public class MatchCreatedSavemeEventBusSubscriber implements DomainEventHandler {</div><div id="LC110"><br></div><div id="LC111">	private EventBusHandler eventBusHandler;</div><div id="LC112"><br></div><div id="LC113">	public MatchCreatedSavemeEventBusSubscriber(MatchListQuery matchListQuery) {</div><div id="LC114">		this.eventBusHandler = new SavemeEventBusHandler(matchListQuery);</div><div id="LC115">	}</div><div id="LC116"><br></div><div id="LC117">	@Override</div><div id="LC118">	public void onEvent(EventDisruptor event, boolean arg1) throws Exception {</div><div id="LC119">		MatchCreatedEvent matchCreatedEvent = (MatchCreatedEvent) event.getDomainMessage().getEventSource();</div><div id="LC120">		// todo send to JMS Server or EventBus Server;</div><div id="LC121">		eventBusHandler.refresh(matchCreatedEvent.getMatchId());</div><div id="LC122">	}</div><div id="LC123"><br></div><div id="LC124">}</div>
+    </pre>
+      <p>&nbsp;</p><pre>&nbsp;
+                        </pre>
+      <p></p></td>
+  </tr>
+</table>
+<p>　　MatchCreatedSavemeEventBusSubscriber: in a CQRS system, a notify message should be sent to Event bus, so that the query system will know the Match  data has been modified, and then load the newest data. data consistent between different systems can refer CAP or BASE theory .</p>
+<p>　　execution order of many consuners is by alphabetical order of their class name.</p>
+<p>　　Other events : <a href="https://github.com/banq/jdonframework/blob/master/example/cqrs%2Bes/match/src/sample/domain/event/MatchStartedEvent.java" id="3384de70118182dde92867936951c536-499c9ac3097d499e0280b1b71f23ade20c907e" title="MatchStartedEvent.java">MatchStartedEvent.java</a> <a href="https://github.com/banq/jdonframework/blob/master/example/cqrs%2Bes/match/src/sample/domain/event/MatchFinishedEvent.java" id="ba28c66f5bc90c442ddb6ac5685821f0-d2954fb54d5d3731172c990a1542fb6e1375c104" title="MatchFinishedEvent.java">MatchFinishedEvent.java</a> are same as MatchCreatedEvent. these events can be saved into database, these events can be play back, so the match will be back at history point. no need transaction, no need any lock or mointor.</p>
+<p>&nbsp;</p>
+<p><a href="https://github.com/banq/jdonframework/tree/master/example">JdonFramework DDD + CQRS + EventSourcing examples </a></p>
+<p><a href="ces.html"><strong>CES:Context Event and State</strong></a></p>
+<p><strong><a href="DomainEvents.html">DDD</a></strong> <a href="DomainEvents.html"><strong>DCI</strong> and <strong>Domain</strong> <strong>Events</strong> <strong>example</strong></a></p>
+<p>&nbsp;</p>
+                  <!-- #EndEditable -->
+			    </td>
+              </tr>
+            </table>			
+          </td>
+		  <td width="200" valign="top"  bgcolor="#FFFFD7"> <table width="100%" border="0" cellspacing="0" cellpadding="3" height="200" align="center">
+      <tr>
+        <td align="right"><table width="100%" height="200" border="0" align="center" cellpadding="3" cellspacing="0" dwcopytype="CopyTableCell">
+            <tr>
+              <td align="left"  valign="top"><p align="center"><a href="http://www.jdon.org"><img src="images/jdone.gif" width="120" height="60" border="0"></a></p>
+                  <p ><B><a href="https://sourceforge.net/projects/jdon/files/" target="_blank">Downloads</a></B></p>
+                  <p ><a href="JdonFramework.ppt"><strong>Architecture</strong></a></p>
+                  <p ><B><a href="doc.htm" target="_blank">Document</a></B></p>
+                  <p ><a href="quickconf.html"><strong>Qucik Start</strong></a> </p>
+                  <p ><a href="https://github.com/banq/jdonframework"><strong>Github</strong></a></p>
+<p ><B><a href="http://code.google.com/p/jivejdon/" target="_blank">jivejdon</a></B></p>
+                  <p ><a href="http://code.google.com/p/jdonmvc/downloads/list"><strong>JdonMVC</strong></a></p>
+                  
+                  <p ><a href="http://twitter.com/banqjdon"><strong>Twitter</strong></a></p>
+                  
+<p ><a href="http://sourceforge.net/projects/jdon/"><img src="images/sf.gif" alt="sf" width="88" height="31" border="0"></a></p>
+
+<p >
+<a href='http://www.pledgie.com/campaigns/18602'><img alt='Click here to lend your support to: Jdonframework and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/18602.png?skin_name=chrome' border='0' /></a></p>
+                  <!-- InstanceBeginEditable name="Menu" --> <!-- InstanceEndEditable --> </td>
+            </tr>
+        </table></td>
+        </tr>
+      </table>
+   </td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000"  align="center">
+              <tr>
+                <td></td>
+              </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td height="20" bgcolor="#CAC9BB" align="center">
+  <p><span class="small"><font color="#555555"><br>
+  </font></span></p>
+  </td>
+</tr>
+</table>
+<br>
+<!-- InstanceBeginEditable name="EditRegion3" --><!-- InstanceEndEditable -->
+</body>
+<!-- InstanceEnd --></html>
