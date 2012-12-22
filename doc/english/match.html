@@ -41,9 +41,12 @@
                   <h1><a href="index.html">JDon.org</a></h1>
 				<!-- #BeginEditable "main" --> 
                   <h3>DDD CQRS EventSourcing example source: football Match</h3>
-                  <p>　　Match souce code : <a href="https://github.com/banq/jdonframework/tree/master/example/cqrs%2Bes/match" target="_blank">https://github.com/banq/jdonframework/tree/master/example/cqrs%2Bes/match</a></p>
-                  <p>　　it is powered by the ppt: <a href="http://www.eventuallyinconsistent.com/2012/12/speaking-experience.html" title="Changing the mindset - more object-oriented view at the business domain modeling" target="_blank">Changing the mindset - more object-oriented view at the business domain modeling</a></p>
-                  <p>　　Match is a aggregate root, source:</p>
+                  <p>&nbsp; </p>
+                  <p>　　Classic programming mode such as JavaEE or spring+hibernate or .NET only thinking about data not about business language. in classic mode the domain model is only a data package, not a object, domain mode is kidnapped by technology. </p>
+                  <p>　　In <a href="http://www.infoq.com/interviews/Technology-Influences-DDD" rel="permalink">Eric Evans on How Technology Influences DDD, </a> Eric Evans say:&quot;But the objects have been crippled for a long time by being tied to heavy frameworks like J2EE, but also and maybe more insidiously to the necessity of mapping to relational databases. &quot;.                  </p>
+                  <p>　　Now it is time to change our mindset, we must change this abnormal mode. <a href="http://www.eventuallyinconsistent.com/2012/12/speaking-experience.html" title="Changing the mindset - more object-oriented view at the business domain modeling" target="_blank">Changing the mindset - more object-oriented view at the business domain modeling</a> has given us a good answer. in this talk, <a href="http://www.blogger.com/profile/02381372089894674945" rel="author">Piotr Wyczesany</a> show a complete business analysis and design process by a football match case. and now I accomplished the match sample with open source jdonframework. deploy myweb.war of this match sample to tomcat, you can see the run result.</p>
+<p>　　Match sample souce code : <a href="https://github.com/banq/jdonframework/tree/master/example/cqrs%2Bes/match" target="_blank">https://github.com/banq/jdonframework/tree/master/example/cqrs%2Bes/match</a></p>
+                  <p>　　Match is a aggregate root, its source:</p>
                   <table width="90%" border="0" bgcolor="#CCCCCC">
                     <tr>
                       <td><div>
@@ -132,6 +135,7 @@
 <p>　　execution order of many consuners is by alphabetical order of their class name.</p>
 <p>　　Other events : <a href="https://github.com/banq/jdonframework/blob/master/example/cqrs%2Bes/match/src/sample/domain/event/MatchStartedEvent.java" id="3384de70118182dde92867936951c536-499c9ac3097d499e0280b1b71f23ade20c907e" title="MatchStartedEvent.java">MatchStartedEvent.java</a> <a href="https://github.com/banq/jdonframework/blob/master/example/cqrs%2Bes/match/src/sample/domain/event/MatchFinishedEvent.java" id="ba28c66f5bc90c442ddb6ac5685821f0-d2954fb54d5d3731172c990a1542fb6e1375c104" title="MatchFinishedEvent.java">MatchFinishedEvent.java</a> are same as MatchCreatedEvent. these events can be saved into database, these events can be play back, so the match will be back at history point. no need transaction, no need any lock or mointor.</p>
 <p>&nbsp;</p>
+<p><a href="http://sourceforge.net/projects/jdon/files/JdonFramework-App/samples-6.5/example.rar/download">download all samples</a></p>
 <p><a href="https://github.com/banq/jdonframework/tree/master/example">JdonFramework DDD + CQRS + EventSourcing examples </a></p>
 <p><a href="ces.html"><strong>CES:Context Event and State</strong></a></p>
 <p><strong><a href="DomainEvents.html">DDD</a></strong> <a href="DomainEvents.html"><strong>DCI</strong> and <strong>Domain</strong> <strong>Events</strong> <strong>example</strong></a></p>
@@ -146,12 +150,12 @@
         <td align="right"><table width="100%" height="200" border="0" align="center" cellpadding="3" cellspacing="0" dwcopytype="CopyTableCell">
             <tr>
               <td align="left"  valign="top"><p align="center"><a href="http://www.jdon.org"><img src="images/jdone.gif" width="120" height="60" border="0"></a></p>
-                  <p ><B><a href="https://sourceforge.net/projects/jdon/files/" target="_blank">Downloads</a></B></p>
-                  <p ><a href="JdonFramework.ppt"><strong>Architecture</strong></a></p>
+                  <p ><B><a href="https://sourceforge.net/projects/jdon/files/" target="_blank">Download</a></B>                  </p>
                   <p ><B><a href="doc.htm" target="_blank">Document</a></B></p>
                   <p ><a href="quickconf.html"><strong>Qucik Start</strong></a> </p>
+                  <p ><a href="https://github.com/banq/jdonframework/tree/master/example" target="_blank"><strong>Examples</strong></a></p>
                   <p ><a href="https://github.com/banq/jdonframework"><strong>Github</strong></a></p>
-<p ><B><a href="http://code.google.com/p/jivejdon/" target="_blank">jivejdon</a></B></p>
+<p ><B><a href="http://sourceforge.net/projects/jdon/files/jivejdon/4.x/" target="_blank">jivejdon</a></B></p>
                   <p ><a href="http://code.google.com/p/jdonmvc/downloads/list"><strong>JdonMVC</strong></a></p>
                   
                   <p ><a href="http://twitter.com/banqjdon"><strong>Twitter</strong></a></p>
