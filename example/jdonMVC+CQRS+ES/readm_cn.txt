@@ -1,0 +1,96 @@
+
+CRUD增删改查案例  Struts + Jdon + JDBC
+DEMO网址:  http://www.jdon.com/testWeb/
+
+
+安装运行步骤：
+
+1. 确保已经安装J2SE 1.5 以上版本，然后设置操作系统的环境变量 JAVA_HOME=你的J2SE目录
+
+2. 下载Tomcat/JBoss 、Websphere和Weblogic类似JBoss操作。
+
+3. 启动数据库MYSQL，将database.sql导入到数据库中。授权用户名和密码
+GRANT ALL PRIVILEGES ON *.* TO root@127.0.0.1 IDENTIFIED BY '' WITH GRANT OPTION;
+或者写你的用户名和密码
+GRANT ALL PRIVILEGES ON *.* TO 你的用户名@127.0.0.1 IDENTIFIED BY '你的密码' WITH GRANT OPTION;
+
+4.如果你使用JBoss,配置JBOSS与MySQL的数据源
+   安装JBoss服务器对数据库的连接设置：JBOss按下面步骤：假设你使用MySQL
+   1.copy  lib/jeelib/mysql-connector-java-3.0.14-production-bin.jar to jboss/server/default/lib, and restart jboss
+   2.copy mysql-ds.xml to jboss/server/default/deploy, if need delete hsqldb-ds.xml。
+     open mysql-ds.xml to edit:
+   <datasources>
+  <local-tx-datasource>
+    <jndi-name>TestDS</jndi-name>
+    <connection-url>jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=UTF-8</connection-url>
+    <driver-class>com.mysql.jdbc.Driver</driver-class>
+    <user-name>root</user-name>
+    <password></password>
+  </local-tx-datasource>
+  </datasources>
+  if your mysql database's root password changed ,change the <password> value
+  note: the jndi name must be TestDS, it has configured in application.
+  
+  jndi-name为TestDS，WEB-INF/jboss-web.xml已经配置java:/TestDS（缺省无需修改）
+  在JNDI名称前加java:/是JBoss服务器的规定.
+<jboss-web>
+    <resource-ref>
+        <res-ref-name>jdbc/TestDS</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <jndi-name>java:/TestDS</jndi-name>
+    </resource-ref>    
+</jboss-web>
+   
+4. 如果使用Tomcat 配置Tomcat与MySQL的数据源
+(1).copy lib/jeelib/mysql-connector-java-3.0.14-production-bin.jar to tomcat/lib or tomcat/commons/lib
+(2).编辑META-INF/context.xml，修改其中数据库访问用户名和密码，重新运行build.xml打包；或者直接修改testWeb.war中改配置。
+其他办法：tomcat 6以下版本：就在server.xml的<Host></Host>中中加入:
+ <Context path="/testWeb" debug="1" reloadable="true" crossContext="true">
+    Resource name="jdbc/TestDS" 
+auth="Container" 
+type="javax.sql.DataSource" 
+maxActive="100" 
+maxIdle="30" 
+maxWait="10000" 
+username="root" 
+password="" 
+driverClassName="com.mysql.jdbc.Driver"
+url="jdbc:mysql://localhost/test" />
+ </Conext>
+
+6. startup jboss/bin/startup.bat  or tomat/bin/startup.bat
+   check the console, if there are many errors, open jboss/server/default/log/server.log
+   and will find it maybe caused by database connection, carefully check step 7/8
+   
+7. copy dist/testWeb.war to tomcat/webapps  or jboss/server/default/deploy
+   open browser, http://localhost:8080/testWeb/
+   same DEMO in Internet:  http://www.jdon.com/testWeb/
+
+注意：如果你编译build.xml打包testWeb.war，需要修改其中deploy.dir为你的服务器
+
+开发步骤:
+1. 用eclipse打开本项目 new project -->create project at external location -->选择本项目目录
+
+2. 选择项目属性-->Builders ---> new --> Ant Builder --->选择本项目的build.xml workspace 选择本项目
+
+至此你可以编译本项目了。编译方法：选择project-->build project 如果没有激活，去除自动build标记即可。
+
+你可以在本项目上增加功能  修改代码，然后编译，
+
+编译结果输出在dist目录下，将.ear或.war拷贝到服务器中即可部署运行，打开服务器的日志，可看出log运行日志。
+
+有任何问题到论坛发言：
+http://www.jdon.com/jive/forum.jsp?forum=61&thRange=30
+
+常见问题：
+1. 如果你第一次使用，可以新增数据，但是新增后数据不显示，注意 数据表的主键userId和
+   com.jdon.framework.test.model.UserTest的主键userId类型是否一致？
+   以Mysql来说：
+   数据表userId字段是varchar或char 对应的UserTest类的userId字段类型是String；
+   数据表userId字段是INT； 对应的UserTest类的userId字段类型是Integer；
+   数据表userId字段是BIGINT；对应的UserTest类的userId字段类型是Long
+   Oracle下注意：
+   果是Oracle数据库，数据库主键和模型主键都是字符串，那么查询时，数据库主键如是10位，但是你输入一个"12"两个字母字符串向数据库查询，肯定查询不到，应该是在12后面填充8个空格。这是Oracle“严格特点”。
+   建议oracle数据库主键使用Number,模型主键使用Long
+   http://www.jdon.com/jive/thread.jsp?forum=61&thread=22736
+

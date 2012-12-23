@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/commons-beanutils-1.8.3.jar"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/commons-fileupload-1.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/commons-io-1.3.2.jar"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/commons-lang-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/commontemplate-0.8.7.jar"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/freemarker-2.3.8.jar"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/javassist-3.6.0.GA.jar"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/jdom-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/jdonmvc-core-1.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/jsr311-api-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/jstl-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/log4j-1.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/oro-2.0.8.jar"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/paranamer-2.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/servlet-api-2.5.jar"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/velocity-1.6.4.jar"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/xpp3_min-1.1.4c.jar"/>
+	<classpathentry kind="lib" path="lib/jdonmvc/xstream-1.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/jeelib/log4j.jar"/>
+	<classpathentry kind="lib" path="lib/jeelib/servlet.jar"/>
+	<classpathentry kind="lib" path="/jdonframework/dist/jdonFramework.jar"/>
+	<classpathentry kind="lib" path="/JdonAccessory/dist/jdon-jdbcTemp.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
