@@ -82,11 +82,20 @@ public class JdbcTemp {
 			throw new Exception(ex);
 		} finally {
 			if (rs != null)
-				rs.close();
+				try {
+					rs.close();
+				} catch (SQLException quiet) {
+				}
 			if (ps != null)
-				ps.close();
+				try {
+					ps.close();
+				} catch (SQLException quiet) {
+				}
 			if (c != null)
-				c.close();
+				try {
+					c.close();
+				} catch (SQLException quiet) {
+				}
 		}
 
 		return o;
@@ -127,11 +136,20 @@ public class JdbcTemp {
 			throw new Exception(ex);
 		} finally {
 			if (rs != null)
-				rs.close();
+				try {
+					rs.close();
+				} catch (SQLException quiet) {
+				}
 			if (ps != null)
-				ps.close();
+				try {
+					ps.close();
+				} catch (SQLException quiet) {
+				}
 			if (c != null)
-				c.close();
+				try {
+					c.close();
+				} catch (SQLException quiet) {
+				}
 		}
 		return list;
 	}
@@ -175,11 +193,20 @@ public class JdbcTemp {
 			throw new Exception(ex);
 		} finally {
 			if (rs != null)
-				rs.close();
+				try {
+					rs.close();
+				} catch (SQLException quiet) {
+				}
 			if (ps != null)
-				ps.close();
+				try {
+					ps.close();
+				} catch (SQLException quiet) {
+				}
 			if (c != null)
-				c.close();
+				try {
+					c.close();
+				} catch (SQLException quiet) {
+				}
 		}
 		return items;
 	}
@@ -215,10 +242,15 @@ public class JdbcTemp {
 			throw new Exception(ex);
 		} finally {
 			if (ps != null)
-				ps.close();
-			if (c != null) {
-				c.close();
-			}
+				try {
+					ps.close();
+				} catch (SQLException quiet) {
+				}
+			if (c != null)
+				try {
+					c.close();
+				} catch (SQLException quiet) {
+				}
 		}
 	}
 

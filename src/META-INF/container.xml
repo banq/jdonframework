@@ -10,14 +10,22 @@
 	-->
 
 	<!-- active EnCache see prodject : components/encache: add these lines  in jdonframework.jar /META-INF/container.xml
-	-->    
+	
 		<component name="cache" class="com.jdon.components.encache.EncacheProvider" />
 		
 		<component name="ehcacheConf" class="com.jdon.components.encache.EhcacheConf" >
 		<constructor value="jdon_ehcache.xml"/>
 		<constructor value="jdonCache"/>
 		</component>
+	-->
 	
+	<!--  from 2013 default cache is google guava cache -->
+	<component name="cache" class="com.jdon.components.guavacache.GuavaCacheProvider" />
+		
+	<component name="guavaCacheConf" class="com.jdon.components.guavacache.GuavaCacheConf" >
+		 <constructor value="130000"/>
+	</component>
+	    
 
 	<component name="httpSessionVisitorFactorySetup"
 		class="com.jdon.container.visitor.http.HttpSessionVisitorFactorySetup">

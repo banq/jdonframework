@@ -49,7 +49,7 @@ public class EventResultHandlerImp implements EventResultHandler {
 		if (ve != null) {
 			result = ve.getValue();
 			ve.clear();
-			clear();
+			// clear();
 		}
 		return result;
 
@@ -61,7 +61,7 @@ public class EventResultHandlerImp implements EventResultHandler {
 		if (ve != null) {
 			result = ve.getValue();
 			ve.clear();
-			clear();
+			// clear();
 		}
 		return result;
 	}

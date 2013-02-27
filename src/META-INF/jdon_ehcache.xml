@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- default cache for jdon, it is "jdonCache"  -->        
+<!--from 2013, default cache is guava cache, configured in container.xml  -->        
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="ehcache.xsd" >
 
@@ -38,11 +38,11 @@
        /> 
    -->
   <cache name="jdonCache" 
-      maxElementsInMemory="200000"
+      maxElementsInMemory="130000"
       eternal="true"
       overflowToDisk="false"
       diskPersistent="false"
-      memoryStoreEvictionPolicy="LRU" 
+      memoryStoreEvictionPolicy="FIFO" 
    />        
 
 

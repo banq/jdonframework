@@ -22,6 +22,8 @@ import com.jdon.controller.AppUtil;
 import com.jdon.sample.test.component.BInterface;
 import com.jdon.sample.test.domain.onecase.service.IServiceSample;
 import com.jdon.sample.test.domain.simplecase.service.IServiceSampleTwo;
+import com.jdon.sample.test.event.AI;
+import com.jdon.sample.test.xml.BBI;
 
 public class SampleAppTest extends TestCase {
 
@@ -31,11 +33,14 @@ public class SampleAppTest extends TestCase {
 		appUtil = new AppUtil("com.jdon.jdonframework.xml");
 	}
 
-	public void testGetService() {
+	public void testXml() {
+		BBI bb = (BBI) appUtil.getService("bb");
+		Assert.assertEquals(bb.myDo(), 99);
+	}
 
+	public void testGetService() {
 		BInterface b = (BInterface) appUtil.getService("b");
 		Assert.assertEquals(b.bMethod(1), 10);
-
 	}
 
 	public void testDomainEvent() {
@@ -71,15 +76,21 @@ public class SampleAppTest extends TestCase {
 
 	}
 
+	public void testComponentsEvent() {
+
+		AI a = (AI) appUtil.getService("producer");
+		a.ma();
+
+	}
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 
 		AppUtil appUtil = new AppUtil();
-		IServiceSampleTwo serviceSample = (IServiceSampleTwo) appUtil.getService("serviceSampleTwo");
-		String res = (String) serviceSample.eventPointEntry();
-		System.out.print(res);
+		AI a = (AI) appUtil.getService("producer");
+		a.ma();
 
 	}
 

@@ -26,6 +26,11 @@ import com.jdon.container.pico.Startable;
 import com.jdon.util.Debug;
 
 /**
+ * this is for domain model, there is another for components/services
+ * com.jdon.aop.interceptor.ComponentMessageInterceptor
+ * 
+ * useage see:com.jdon.sample.test.domain
+ * 
  * 1. create dynamic proxy for a Model in DomainCacheInterceptor.
  * 
  * 

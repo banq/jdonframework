@@ -43,7 +43,8 @@ public class POJOObjectFactory implements TargetObjectFactory {
 			Debug.logVerbose("[JdonFramework] create new pojo Object for " + pOJOTargetMetaDef.getName(), module);
 			ContainerWrapper containerWrapper = containerCallback.getContainerWrapper();
 			o = containerWrapper.getComponentNewInstance(pOJOTargetMetaDef.getName());
-			Debug.logVerbose("[JdonFramework] create new pojo Object id " + o.hashCode(), module);
+			// Debug.logVerbose("[JdonFramework] create new pojo Object id " +
+			// o.hashCode(), module);
 		} catch (Exception ex) {
 			Debug.logError("[JdonFramework]create error: " + ex + " name=" + pOJOTargetMetaDef.getName(), module);
 			throw new Exception(ex);

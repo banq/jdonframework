@@ -77,15 +77,21 @@ public class BlockQueryJDBCTemp implements BlockQueryJDBC {
 		} catch (Exception ex) {
 			Debug.logError(ex, module);
 		} finally {
-			try {
-				if (rs != null)
+			if (rs != null)
+				try {
 					rs.close();
-				if (ps != null)
+				} catch (SQLException quiet) {
+				}
+			if (ps != null)
+				try {
 					ps.close();
-				if (c != null)
+				} catch (SQLException quiet) {
+				}
+			if (c != null)
+				try {
 					c.close();
-			} catch (Exception ex) {
-			}
+				} catch (SQLException quiet) {
+				}
 		}
 		Debug.logVerbose("[JdonFramework]--> fetchDataAllCount is" + ret, module);
 		return ret;
@@ -141,15 +147,21 @@ public class BlockQueryJDBCTemp implements BlockQueryJDBC {
 			Debug.logError(ex, module);
 
 		} finally {
-			try {
-				if (rs != null)
+			if (rs != null)
+				try {
 					rs.close();
-				if (ps != null)
+				} catch (SQLException quiet) {
+				}
+			if (ps != null)
+				try {
 					ps.close();
-				if (c != null)
+				} catch (SQLException quiet) {
+				}
+			if (c != null)
+				try {
 					c.close();
-			} catch (Exception ex) {
-			}
+				} catch (SQLException quiet) {
+				}
 		}
 		return items;
 

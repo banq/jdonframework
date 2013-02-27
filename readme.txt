@@ -18,7 +18,9 @@ in JdonFramework, A Role played by a Domain Model triggers a interaction event, 
 2. RELEASE NOTES
 ----------------
 
-6.6.1 version. 
+6.6.1 version.  
+
+(1) in-memeory cache switchs to Guava cache insteadof ehcache.
 
 3. DISTRIBUTION JAR FILES
 -------------------------

@@ -24,7 +24,7 @@ public class DomainMessage {
 
 	protected volatile EventResultHandler eventResultHandler;
 
-	protected volatile Object eventResult;
+	private volatile Object eventResult = null;
 
 	public DomainMessage(Object eventSource) {
 		super();
@@ -63,17 +63,11 @@ public class DomainMessage {
 	 */
 	public Object getEventResult() {
 		if (eventResult == null) {
-			synchronized (this) {
-				if (eventResultHandler != null) {
-					eventResult = eventResultHandler.get();
-					if (this.eventResultHandler != null) {
-						this.eventResultHandler.clear();
-						this.eventResultHandler = null;
-					}
-				}
-			}
+			Object result = eventResultHandler.get();
+			if (result != null)
+				eventResult = result;
 		}
-		return this.eventResult;
+		return eventResult;
 	}
 
 	/**
@@ -83,17 +77,11 @@ public class DomainMessage {
 	 */
 	public Object getBlockEventResult() {
 		if (eventResult == null) {
-			synchronized (this) {
-				if (eventResultHandler != null) {
-					eventResult = eventResultHandler.getBlockedValue();
-					if (this.eventResultHandler != null) {
-						eventResultHandler.clear();
-						this.eventResultHandler = null;
-					}
-				}
-			}
+			Object result = eventResultHandler.getBlockedValue();
+			if (result != null)
+				eventResult = result;
 		}
-		return this.eventResult;
+		return eventResult;
 	}
 
 	public void setEventResult(Object eventResultValue) {
@@ -107,7 +95,6 @@ public class DomainMessage {
 	}
 
 	public void clear() {
-		this.eventResult = null;
 		this.eventResultHandler = null;
 		this.eventSource = null;
 	}

@@ -43,7 +43,7 @@ public class DisruptorFactoryTest extends TestCase {
 			@Override
 			public void onEvent(EventDisruptor event, final boolean endOfBatch) throws Exception {
 				System.out.println("MyEventA=" + event.getDomainMessage().getEventSource());
-				event.getDomainMessage().setEventResult(11111 + (Long) event.getDomainMessage().getEventSource());
+				event.getDomainMessage().setEventResult("not null");
 
 			}
 		};
@@ -53,7 +53,7 @@ public class DisruptorFactoryTest extends TestCase {
 			@Override
 			public void onEvent(EventDisruptor event, final boolean endOfBatch) throws Exception {
 				System.out.println("MyEventA=" + event.getDomainMessage().getEventSource());
-				event.getDomainMessage().setEventResult(22222 + (Long) event.getDomainMessage().getEventSource());
+				event.getDomainMessage().setEventResult(null);
 
 			}
 		};
@@ -77,6 +77,10 @@ public class DisruptorFactoryTest extends TestCase {
 		eventDisruptor.setDomainMessage(domainMessage);
 
 		ringBuffer.publish(sequence);
+		System.out.print("\n RESULT=" + domainMessage.getBlockEventResult());
+
+		System.out.print("\n RESULT=" + domainMessage.getBlockEventResult());
+
 		System.out.print("\n RESULT=" + domainMessage.getBlockEventResult());
 
 		i++;
