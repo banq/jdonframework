@@ -19,6 +19,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import com.jdon.annotation.model.Send;
 import com.jdon.async.disruptor.DisruptorFactory;
@@ -34,8 +37,7 @@ import com.lmax.disruptor.dsl.Disruptor;
 
 public class EventMessageFirer implements Startable {
 	public final static String module = EventMessageFirer.class.getName();
-	// private ScheduledExecutorService scheduExecStatic =
-	// Executors.newScheduledThreadPool(1);
+	private ScheduledExecutorService scheduExecStatic = Executors.newScheduledThreadPool(1);
 
 	private DisruptorFactory disruptorFactory;
 	private FutureDirector futureDirector;
@@ -49,13 +51,12 @@ public class EventMessageFirer implements Startable {
 	}
 
 	public void start() {
-		// Runnable task = new Runnable() {
-		// public void run() {
-		// stopDisruptor();
-		// }
-		// };
-		// scheduExecStatic.scheduleAtFixedRate(task, 24 * 60 * 60, 24 * 60 *
-		// 60, TimeUnit.SECONDS);
+		Runnable task = new Runnable() {
+			public void run() {
+				stopDisruptor();
+			}
+		};
+		scheduExecStatic.scheduleAtFixedRate(task, 60 * 60, 60 * 60, TimeUnit.SECONDS);
 	}
 
 	public void stop() {
@@ -69,7 +70,7 @@ public class EventMessageFirer implements Startable {
 			futureDirector = null;
 		}
 		disruptorFactory = null;
-		// scheduExecStatic.shutdownNow();
+		scheduExecStatic.shutdownNow();
 	}
 
 	private void stopDisruptor() {

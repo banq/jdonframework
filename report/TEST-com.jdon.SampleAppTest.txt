@@ -1,5 +1,5 @@
 Testsuite: com.jdon.SampleAppTest
-Tests run: 7, Failures: 0, Errors: 0, Time elapsed: 7.207 sec
+Tests run: 7, Failures: 0, Errors: 0, Time elapsed: 8.798 sec
 ------------- Standard Output ---------------
  todo 
 call A.myMethod1 
@@ -52,9 +52,9 @@ this is D.myMethod3 is active!!!!
 name=helloCDomainEventHandler Actionhello
 CDomainEventHandler Actionhello
 MessageListener=hello
-MyDomainEventHandler action hello
-MyDomainEventHandler action hello
 MessageListener=hello
+MyDomainEventHandler action hello
+MyDomainEventHandler action hello
 Synchronous sayHelloAsynchronous eventMessage=100
 Synchronous sayHello and Asynchronous eventMessage=100Asynchronous eventMessage=100
 Asynchronous eventMessage=100
@@ -63,10 +63,10 @@ Asynchronous eventMessage=100
  No.3 @OnEvent:com.jdon.sample.test.dci.RepositoryListener
 ma..------------- ---------------- ---------------
 
-Testcase: testXml took 1.747 sec
-Testcase: testGetService took 0.983 sec
-Testcase: testDomainEvent took 0.998 sec
-Testcase: testDomainEventSimple took 1.014 sec
-Testcase: testDCIDomainEvent took 0.811 sec
-Testcase: testOnEvent took 0.765 sec
-Testcase: testComponentsEvent took 0.874 sec
+Testcase: testXml took 2.262 sec
+Testcase: testGetService took 1.185 sec
+Testcase: testDomainEvent took 1.17 sec
+Testcase: testDomainEventSimple took 1.108 sec
+Testcase: testDCIDomainEvent took 1.061 sec
+Testcase: testOnEvent took 0.967 sec
+Testcase: testComponentsEvent took 1.045 sec
