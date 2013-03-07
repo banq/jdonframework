@@ -22,90 +22,90 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 public class PrevTag extends BodyTagSupport {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1079577094363120743L;
 
 	private boolean disp = false;
 
-    private String name = null;
+	private String name = null;
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public int doStartTag() throws JspException {
+	public int doStartTag() throws JspException {
 
-        String dispStrs = (String) pageContext.getAttribute(MPageTag.DISP);
-        if ((dispStrs != null) && (!dispStrs.equals(""))) {
-            if (dispStrs.equals("on"))
-                disp = true;
-            else if (dispStrs.equals("off"))
-                disp = false;
-        }
+		String dispStrs = (String) pageContext.getAttribute(MPageTag.DISP);
+		if ((dispStrs != null) && (!dispStrs.equals(""))) {
+			if (dispStrs.equals("on"))
+				disp = true;
+			else if (dispStrs.equals("off"))
+				disp = false;
+		}
 
-        String startStrs = (String) pageContext.getAttribute(MPageTag.START);
-        int start = Integer.parseInt(startStrs);
-        String url = (String) pageContext.getAttribute(MPageTag.URLNAME);
-        String countStrs = (String) pageContext.getAttribute(MPageTag.COUNT);
-        int count = Integer.parseInt(countStrs);
+		String startStrs = (String) pageContext.getAttribute(MPageTag.START);
+		int start = Integer.parseInt(startStrs);
+		String url = (String) pageContext.getAttribute(MPageTag.URLNAME);
+		String countStrs = (String) pageContext.getAttribute(MPageTag.COUNT);
+		int count = Integer.parseInt(countStrs);
 
-        StringBuffer buf = new StringBuffer(100);
-        // Print out a left arrow if necessary
-        if (start > 0) {
+		StringBuilder buf = new StringBuilder(100);
+		// Print out a left arrow if necessary
+		if (start > 0) {
 
-            buf.append("<a href=\"");
-            buf.append(url);
-            buf.append("&start=");
-            buf.append((start - count));
-            buf.append("\" >");
-            if (name != null)
-                buf.append(name);
-        } else
-            buf.append("");
+			buf.append("<a href=\"");
+			buf.append(url);
+			buf.append("&start=");
+			buf.append((start - count));
+			buf.append("\" >");
+			if (name != null)
+				buf.append(name);
+		} else
+			buf.append("");
 
-        output(buf.toString());
+		output(buf.toString());
 
-        return (EVAL_BODY_INCLUDE);
+		return (EVAL_BODY_INCLUDE);
 
-    }
+	}
 
-    /**
-     * Render the end of the hyperlink.
-     * 
-     * @exception JspException
-     *                if a JSP exception has occurred
-     */
-    public int doEndTag() throws JspException {
-        output("</a>");
+	/**
+	 * Render the end of the hyperlink.
+	 * 
+	 * @exception JspException
+	 *                if a JSP exception has occurred
+	 */
+	public int doEndTag() throws JspException {
+		output("</a>");
 
-        return (EVAL_PAGE);
+		return (EVAL_PAGE);
 
-    }
+	}
 
-    private void output(String s) throws JspException {
-        JspWriter writer = pageContext.getOut();
-        try {
-            if (disp)
-                writer.print(s);
-        } catch (IOException e) {
-            throw new JspException("NextTag error");
-        }
+	private void output(String s) throws JspException {
+		JspWriter writer = pageContext.getOut();
+		try {
+			if (disp)
+				writer.print(s);
+		} catch (IOException e) {
+			throw new JspException("NextTag error");
+		}
 
-    }
+	}
 
-    public void release() {
+	public void release() {
 
-        super.release();
+		super.release();
 
-        disp = false;
-        name = null;
+		disp = false;
+		name = null;
 
-    }
+	}
 
 }

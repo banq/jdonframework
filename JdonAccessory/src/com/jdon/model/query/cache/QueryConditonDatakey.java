@@ -103,7 +103,7 @@ public class QueryConditonDatakey implements Serializable {
 	}
 
 	public String getSQlKey() {
-		StringBuffer sb = new StringBuffer(sqlquery);
+		StringBuilder sb = new StringBuilder(sqlquery);
 		Iterator iter = queryParams.iterator();
 		while (iter.hasNext()) {
 			Object queryParamO = iter.next();

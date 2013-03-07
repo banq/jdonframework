@@ -46,7 +46,7 @@ public class MethodMetaArgs implements java.io.Serializable {
 	}
 
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append(methodName);
 		int length = paramTypes.length;
 		for (int i = 0; i < length; i++) {

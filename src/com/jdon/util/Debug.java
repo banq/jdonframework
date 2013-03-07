@@ -124,7 +124,7 @@ public final class Debug {
 				if (logger.isDebugEnabled())
 					logger.debug(callingClass, levelObjs[level], msg, t);
 			} else {
-				StringBuffer prefixBuf = new StringBuffer();
+				StringBuilder prefixBuf = new StringBuilder();
 				prefixBuf.append(dateFormat.format(new java.util.Date()));
 				prefixBuf.append(" [Debug");
 				if (module != null) {

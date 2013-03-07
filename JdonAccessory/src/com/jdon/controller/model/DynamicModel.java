@@ -15,7 +15,9 @@
 
 package com.jdon.controller.model;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Dynamic Model this class can be used for DTO
@@ -56,7 +58,7 @@ public class DynamicModel extends Model {
 	}
 
 	public String toString() {
-		StringBuffer bf = new StringBuffer();
+		StringBuilder bf = new StringBuilder();
 		Iterator iter = map.keySet().iterator();
 		while (iter.hasNext()) {
 			Object o = iter.next();

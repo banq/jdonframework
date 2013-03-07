@@ -19,74 +19,77 @@ import java.util.List;
 
 /**
  * @author <a href="mailto:banqiao@jdon.com">banq</a>
- *
+ * 
  */
 public class Block {
-    
-    private int start;
-    private int count;
-    
-    private List list;
 
-   
-    /**
-     * @param start
-     * @param count
-     */
-    public Block(int start, int count) {
-        super();
-        this.start = start;
-        this.count = count;
-    }
-    /**
-     * @return Returns the count.
-     */
-    public int getCount() {
-        return count;
-    }
-    /**
-     * @param count The count to set.
-     */
-    public void setCount(int count) {
-        this.count = count;
-    }
-    /**
-     * @return Returns the start.
-     */
-    public int getStart() {
-        return start;
-    }
-    /**
-     * @param start The start to set.
-     */
-    public void setStart(int start) {
-        this.start = start;
-    }
-    
-    
-   
-    
-    /**
-     * @return Returns the list.
-     */
-    public List getList() {
-        return list;
-    }
-    /**
-     * @param list The list to set.
-     */
-    public void setList(List list) {
-        this.list = list;
-    }
-    
-    public String toString(){
-        StringBuffer sb = new StringBuffer();
-        sb.append("block start=");
-        sb.append(start);
-        sb.append(" and count=");
-        sb.append(count);
-        return sb.toString();
-    }
+	private int start;
+	private int count;
 
-  
+	private List list;
+
+	/**
+	 * @param start
+	 * @param count
+	 */
+	public Block(int start, int count) {
+		super();
+		this.start = start;
+		this.count = count;
+	}
+
+	/**
+	 * @return Returns the count.
+	 */
+	public int getCount() {
+		return count;
+	}
+
+	/**
+	 * @param count
+	 *            The count to set.
+	 */
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	/**
+	 * @return Returns the start.
+	 */
+	public int getStart() {
+		return start;
+	}
+
+	/**
+	 * @param start
+	 *            The start to set.
+	 */
+	public void setStart(int start) {
+		this.start = start;
+	}
+
+	/**
+	 * @return Returns the list.
+	 */
+	public List getList() {
+		return list;
+	}
+
+	/**
+	 * @param list
+	 *            The list to set.
+	 */
+	public void setList(List list) {
+		this.list = list;
+	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("block start=");
+		sb.append(start);
+		sb.append(" and count=");
+		sb.append(count);
+		return sb.toString();
+	}
+
 }

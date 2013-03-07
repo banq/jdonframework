@@ -22,142 +22,143 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 public class IndexTag extends TagSupport {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1301376274327149071L;
 
 	private boolean disp = false;
 
-    private String displayCount;
+	private String displayCount;
 
-    public int doStartTag() throws JspException {
+	public int doStartTag() throws JspException {
 
-        String dispStrs = (String) pageContext.getAttribute(MPageTag.DISP);
-        if ((dispStrs != null) && (!dispStrs.equals(""))) {
-            if (dispStrs.equals("on"))
-                disp = true;
-            else if (dispStrs.equals("off"))
-                disp = false;
-        }
+		String dispStrs = (String) pageContext.getAttribute(MPageTag.DISP);
+		if ((dispStrs != null) && (!dispStrs.equals(""))) {
+			if (dispStrs.equals("on"))
+				disp = true;
+			else if (dispStrs.equals("off"))
+				disp = false;
+		}
 
-        String startStrs = (String) pageContext.getAttribute(MPageTag.START);
-        int start = Integer.parseInt(startStrs);
-        String url = (String) pageContext.getAttribute(MPageTag.URLNAME);
-        String countStrs = (String) pageContext.getAttribute(MPageTag.COUNT);
-        int count = Integer.parseInt(countStrs);
+		String startStrs = (String) pageContext.getAttribute(MPageTag.START);
+		int start = Integer.parseInt(startStrs);
+		String url = (String) pageContext.getAttribute(MPageTag.URLNAME);
+		String countStrs = (String) pageContext.getAttribute(MPageTag.COUNT);
+		int count = Integer.parseInt(countStrs);
 
-        String allCountStrs = (String) pageContext.getAttribute(MPageTag.ALLCOUNT);
-        int allCount = Integer.parseInt(allCountStrs);
+		String allCountStrs = (String) pageContext.getAttribute(MPageTag.ALLCOUNT);
+		int allCount = Integer.parseInt(allCountStrs);
 
-        StringBuffer buf = new StringBuffer(100);
+		StringBuilder buf = new StringBuilder(100);
 
-        int numPages = 0;
-        if (allCount != count) {
-            numPages = (int) Math.ceil((double) allCount / (double) count);
-        } else {
-            numPages = 1;
-        }
+		int numPages = 0;
+		if (allCount != count) {
+			numPages = (int) Math.ceil((double) allCount / (double) count);
+		} else {
+			numPages = 1;
+		}
 
-        // Calculate the starting point & end points (the count of pages to
-        // display)
-        // 5表示，前后显示数字5个
-        int currentPage = 1;
-        if (count > 0) {
-            currentPage = (start / count) + 1;
-        }
-        
-        if ((displayCount == null) || (displayCount.length() == 0))
-              this.displayCount = "5";  //default 5
-        int dispCount = Integer.parseInt(displayCount);
-        int lo = currentPage - dispCount;
-        if (lo <= 0) {
-            lo = 1;
-        }
-        int hi = currentPage + dispCount;
+		// Calculate the starting point & end points (the count of pages to
+		// display)
+		// 5表示，前后显示数字5个
+		int currentPage = 1;
+		if (count > 0) {
+			currentPage = (start / count) + 1;
+		}
 
-        // print out a link to the first page if we're beyond that page
-        if (lo > 2) {
-            buf.append("<a href=\"").append(url);
-            buf.append("\" class=\"paginator_href\" title=\"Go to the first page\">1</a> ... ");
-        }
+		if ((displayCount == null) || (displayCount.length() == 0))
+			this.displayCount = "5"; // default 5
+		int dispCount = Integer.parseInt(displayCount);
+		int lo = currentPage - dispCount;
+		if (lo <= 0) {
+			lo = 1;
+		}
+		int hi = currentPage + dispCount;
 
-        // Print the page numbers before the current page
-        while (lo < currentPage) {
-            buf.append("<a href=\"").append(url);
-            buf.append("&start=");
-            buf.append(((lo - 1) * count));
-            buf.append("\" class=\"paginator_href\">");
-            buf.append("<b>");
-            buf.append(lo);
-            buf.append("</b></a>&nbsp;");
-            lo++;
-        }
+		// print out a link to the first page if we're beyond that page
+		if (lo > 2) {
+			buf.append("<a href=\"").append(url);
+			buf.append("\" class=\"paginator_href\" title=\"Go to the first page\">1</a> ... ");
+		}
 
-        // Print the current page
-        buf.append("<b><span class=\"paginator_currentPage\">");
-        buf.append(currentPage);
-        buf.append("</span></b>");
+		// Print the page numbers before the current page
+		while (lo < currentPage) {
+			buf.append("<a href=\"").append(url);
+			buf.append("&start=");
+			buf.append(((lo - 1) * count));
+			buf.append("\" class=\"paginator_href\">");
+			buf.append("<b>");
+			buf.append(lo);
+			buf.append("</b></a>&nbsp;");
+			lo++;
+		}
 
-        currentPage++;
+		// Print the current page
+		buf.append("<b><span class=\"paginator_currentPage\">");
+		buf.append(currentPage);
+		buf.append("</span></b>");
 
-        // Print page numbers after the current page
-        while ((currentPage <= hi) && (currentPage <= numPages)) {
-            buf.append("&nbsp;");
-            buf.append("<a href=\"").append(url);
-            buf.append("&start=");
-            buf.append(((currentPage - 1) * count));
-            buf.append("\" class=\"paginator_href\">");
-            buf.append("<b>");
-            buf.append(currentPage);
-            buf.append("</b></a>");
-            currentPage++;
-        }
-        
-        if (currentPage <= numPages){
-            buf.append(" ... ");
-            buf.append("<a href=\"").append(url);
-            buf.append("&start=");
-            buf.append(((numPages - 1) * count));
-            buf.append("\" class=\"paginator_href\" title=\"Go to the last page\">");
-            buf.append(numPages);
-        }
+		currentPage++;
 
-        JspWriter writer = pageContext.getOut();
-        try {
-            if (disp)
-                writer.print(buf.toString());
-        } catch (IOException e) {
-            throw new JspException("PrevTag error");
-        }
+		// Print page numbers after the current page
+		while ((currentPage <= hi) && (currentPage <= numPages)) {
+			buf.append("&nbsp;");
+			buf.append("<a href=\"").append(url);
+			buf.append("&start=");
+			buf.append(((currentPage - 1) * count));
+			buf.append("\" class=\"paginator_href\">");
+			buf.append("<b>");
+			buf.append(currentPage);
+			buf.append("</b></a>");
+			currentPage++;
+		}
 
-        return (EVAL_BODY_INCLUDE);
+		if (currentPage <= numPages) {
+			buf.append(" ... ");
+			buf.append("<a href=\"").append(url);
+			buf.append("&start=");
+			buf.append(((numPages - 1) * count));
+			buf.append("\" class=\"paginator_href\" title=\"Go to the last page\">");
+			buf.append(numPages);
+		}
 
-    }
+		JspWriter writer = pageContext.getOut();
+		try {
+			if (disp)
+				writer.print(buf.toString());
+		} catch (IOException e) {
+			throw new JspException("PrevTag error");
+		}
 
-    /**
-     * Render the end of the hyperlink.
-     * 
-     * @exception JspException
-     *                if a JSP exception has occurred
-     */
-    public int doEndTag() throws JspException {
+		return (EVAL_BODY_INCLUDE);
 
-        return (EVAL_PAGE);
+	}
 
-    }
+	/**
+	 * Render the end of the hyperlink.
+	 * 
+	 * @exception JspException
+	 *                if a JSP exception has occurred
+	 */
+	public int doEndTag() throws JspException {
 
-    /**
-     * @return Returns the displayCount.
-     */
-    public String getDisplayCount() {
-        return displayCount;
-    }
+		return (EVAL_PAGE);
 
-    /**
-     * @param displayCount The displayCount to set.
-     */
-    public void setDisplayCount(String displayCount) {
-        this.displayCount = displayCount;
-    }
+	}
+
+	/**
+	 * @return Returns the displayCount.
+	 */
+	public String getDisplayCount() {
+		return displayCount;
+	}
+
+	/**
+	 * @param displayCount
+	 *            The displayCount to set.
+	 */
+	public void setDisplayCount(String displayCount) {
+		this.displayCount = displayCount;
+	}
 }

@@ -22,95 +22,91 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 public class NextTag extends BodyTagSupport {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8267239693294313666L;
 
 	private boolean disp = false;
 
-    private String name = null;
+	private String name = null;
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public int doStartTag() throws JspException {
+	public int doStartTag() throws JspException {
 
-        String dispStrs = (String) pageContext.getAttribute(MPageTag.DISP);
-        if ((dispStrs != null) && (!dispStrs.equals(""))) {
-            if (dispStrs.equals("on"))
-                disp = true;
-            else if (dispStrs.equals("off"))
-                disp = false;
-        }
+		String dispStrs = (String) pageContext.getAttribute(MPageTag.DISP);
+		if ((dispStrs != null) && (!dispStrs.equals(""))) {
+			if (dispStrs.equals("on"))
+				disp = true;
+			else if (dispStrs.equals("off"))
+				disp = false;
+		}
 
-        String startStrs = (String) pageContext.getAttribute(MPageTag.START);
-        int start = Integer.parseInt(startStrs);
+		String startStrs = (String) pageContext.getAttribute(MPageTag.START);
+		int start = Integer.parseInt(startStrs);
 
-        String url = (String) pageContext.getAttribute(MPageTag.URLNAME);
+		String url = (String) pageContext.getAttribute(MPageTag.URLNAME);
 
-        String countStrs = (String) pageContext.getAttribute(MPageTag.COUNT);
-        int count = Integer.parseInt(countStrs);
+		String countStrs = (String) pageContext.getAttribute(MPageTag.COUNT);
+		int count = Integer.parseInt(countStrs);
 
-        String allCountStrs = (String) pageContext.getAttribute(MPageTag.ALLCOUNT);
-        int allCount = Integer.parseInt(allCountStrs);
-      
+		String allCountStrs = (String) pageContext.getAttribute(MPageTag.ALLCOUNT);
+		int allCount = Integer.parseInt(allCountStrs);
 
-        StringBuffer buf = new StringBuffer(100);
+		StringBuilder buf = new StringBuilder(100);
 
-        if ((allCount > (start + count)) ) {
-            buf.append("<a href=\"");
-            buf.append(url);
-            buf.append("&start=");
-            buf.append((start + count));
-            buf.append("\" >");
-            if (name != null)
-                buf.append(name);
-        } else
-            buf.append("");
+		if ((allCount > (start + count))) {
+			buf.append("<a href=\"");
+			buf.append(url);
+			buf.append("&start=");
+			buf.append((start + count));
+			buf.append("\" >");
+			if (name != null)
+				buf.append(name);
+		} else
+			buf.append("");
 
-        output(buf.toString());                
+		output(buf.toString());
 
-        return (EVAL_BODY_INCLUDE);
+		return (EVAL_BODY_INCLUDE);
 
-    }
+	}
 
-    /**
-     * Render the end of the hyperlink.
-     * 
-     * @exception JspException
-     *                if a JSP exception has occurred
-     */
-    public int doEndTag() throws JspException {
-        output("</a>");
-        return (EVAL_PAGE);
+	/**
+	 * Render the end of the hyperlink.
+	 * 
+	 * @exception JspException
+	 *                if a JSP exception has occurred
+	 */
+	public int doEndTag() throws JspException {
+		output("</a>");
+		return (EVAL_PAGE);
 
-    }
+	}
 
-    private void output(String s) throws JspException {
-        JspWriter writer = pageContext.getOut();
-        try {
-            if (disp)
-                writer.print(s);
-        } catch (IOException e) {
-            throw new JspException("NextTag error");
-        }
+	private void output(String s) throws JspException {
+		JspWriter writer = pageContext.getOut();
+		try {
+			if (disp)
+				writer.print(s);
+		} catch (IOException e) {
+			throw new JspException("NextTag error");
+		}
 
-    }
+	}
 
-    
-    public void release() {
-        super.release();
-        disp = false;
-        name = null;
+	public void release() {
+		super.release();
+		disp = false;
+		name = null;
 
-    }
-
-  
+	}
 
 }

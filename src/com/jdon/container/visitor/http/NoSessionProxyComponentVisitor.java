@@ -43,7 +43,7 @@ public class NoSessionProxyComponentVisitor implements ComponentVisitor {
 		Object o = null;
 		try {
 			TargetMetaRequest targetMetaRequest = targetMetaRequestsHolder.getTargetMetaRequest();
-			StringBuffer sb = new StringBuffer(targetMetaRequest.getTargetMetaDef().getCacheKey());
+			StringBuilder sb = new StringBuilder(targetMetaRequest.getTargetMetaDef().getCacheKey());
 			sb.append(targetMetaRequest.getVisitableName());
 			Debug.logVerbose("[JdonFramework] get the optimized instance for the key " + sb.toString(), module);
 			o = componentVisitor.visit();

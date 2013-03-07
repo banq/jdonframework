@@ -211,7 +211,7 @@ public class TreeControlTag extends TagSupport {
 	private void displayNodePic(JspWriter out, ViewNode node, String url_Path) throws IOException {
 		HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
 
-		StringBuffer url = new StringBuffer(url_Path);
+		StringBuilder url = new StringBuilder(url_Path);
 		url.append(treeAction);
 		if (treeAction.indexOf("?") < 0)
 			url.append("?");
@@ -263,7 +263,7 @@ public class TreeControlTag extends TagSupport {
 		// ----------------------------------------显示节点本身信息，如节点名称等开始
 		String encodedNodeKey = URLEncoder.encode(node.getKey(), "UTF-8");
 		String action = replace(nodeAction, "${key}", encodedNodeKey);
-		StringBuffer url = new StringBuffer(url_Path);
+		StringBuilder url = new StringBuilder(url_Path);
 		url.append(action);
 		if (nodeAction.indexOf("?") < 0)
 			url.append("?");
@@ -272,7 +272,7 @@ public class TreeControlTag extends TagSupport {
 		url.append("key=").append(node.getKey());
 		String treeNodeAction = url.toString();
 
-		url = new StringBuffer(url_Path);
+		url = new StringBuilder(url_Path);
 		url.append(treeAction);
 		if (treeAction.indexOf("?") < 0)
 			url.append("?");
@@ -354,7 +354,7 @@ public class TreeControlTag extends TagSupport {
 			int index = template.indexOf(placeholder);
 			if (index < 0)
 				break;
-			StringBuffer temp = new StringBuffer(template.substring(0, index));
+			StringBuilder temp = new StringBuilder(template.substring(0, index));
 			temp.append(value);
 			temp.append(template.substring(index + placeholder.length()));
 			template = temp.toString();

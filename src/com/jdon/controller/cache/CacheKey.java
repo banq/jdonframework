@@ -59,7 +59,7 @@ public class CacheKey implements StringKey {
 
 	// cacheType + dataTypeName + dataKey
 	public String getKey() {
-		StringBuffer buffer = new StringBuffer(cacheType);
+		StringBuilder buffer = new StringBuilder(cacheType);
 		buffer.append(dataTypeName);
 		if (dataKey != null)
 			buffer.append(dataKey.toString());

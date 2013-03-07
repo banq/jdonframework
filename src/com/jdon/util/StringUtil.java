@@ -35,529 +35,526 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- *
- * @author  Brian Chan
+ * 
+ * @author Brian Chan
  * @version $Revision: 1.2 $
- *
+ * 
  */
 public class StringUtil {
 
-  public static boolean contains(String s, String text, String delimiter) {
-    if ( (s == null) || (text == null) || (delimiter == null)) {
-      return false;
-    }
+	public static boolean contains(String s, String text, String delimiter) {
+		if ((s == null) || (text == null) || (delimiter == null)) {
+			return false;
+		}
 
-    if (!s.endsWith(delimiter)) {
-      s += delimiter;
-    }
+		if (!s.endsWith(delimiter)) {
+			s += delimiter;
+		}
 
-    int pos = s.indexOf(delimiter + text + delimiter);
+		int pos = s.indexOf(delimiter + text + delimiter);
 
-    if (pos == -1) {
-      if (s.startsWith(text + delimiter)) {
-        return true;
-      }
+		if (pos == -1) {
+			if (s.startsWith(text + delimiter)) {
+				return true;
+			}
 
-      return false;
-    }
+			return false;
+		}
 
-    return true;
-  }
+		return true;
+	}
 
-  public static int count(String s, String text) {
-    if ( (s == null) || (text == null)) {
-      return 0;
-    }
+	public static int count(String s, String text) {
+		if ((s == null) || (text == null)) {
+			return 0;
+		}
 
-    int count = 0;
+		int count = 0;
 
-    int pos = s.indexOf(text);
+		int pos = s.indexOf(text);
 
-    while (pos != -1) {
-      pos = s.indexOf(text, pos + text.length());
-      count++;
-    }
+		while (pos != -1) {
+			pos = s.indexOf(text, pos + text.length());
+			count++;
+		}
 
-    return count;
-  }
+		return count;
+	}
 
-  public static String merge(String array[], String delimiter) {
-    if (array == null) {
-      return null;
-    }
+	public static String merge(String array[], String delimiter) {
+		if (array == null) {
+			return null;
+		}
 
-    StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 
-    for (int i = 0; i < array.length; i++) {
-      sb.append(array[i].trim());
+		for (int i = 0; i < array.length; i++) {
+			sb.append(array[i].trim());
 
-      if ( (i + 1) != array.length) {
-        sb.append(delimiter);
-      }
-    }
+			if ((i + 1) != array.length) {
+				sb.append(delimiter);
+			}
+		}
 
-    return sb.toString();
-  }
+		return sb.toString();
+	}
 
-  public static String read(ClassLoader classLoader, String name) throws
-      IOException {
+	public static String read(ClassLoader classLoader, String name) throws IOException {
 
-    return read(classLoader.getResourceAsStream(name));
-  }
+		return read(classLoader.getResourceAsStream(name));
+	}
 
-  public static String read(InputStream is) throws IOException {
-    BufferedReader br = new BufferedReader(new InputStreamReader(is));
+	public static String read(InputStream is) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
-    StringBuffer sb = new StringBuffer();
-    String line = null;
+		StringBuilder sb = new StringBuilder();
+		String line = null;
 
-    while ( (line = br.readLine()) != null) {
-      sb.append(line).append('\n');
-    }
+		while ((line = br.readLine()) != null) {
+			sb.append(line).append('\n');
+		}
 
-    br.close();
+		br.close();
 
-    return sb.toString().trim();
-  }
+		return sb.toString().trim();
+	}
 
-  public static String remove(String s, String remove, String delimiter) {
-    if ( (s == null) || (remove == null) || (delimiter == null)) {
-      return null;
-    }
+	public static String remove(String s, String remove, String delimiter) {
+		if ((s == null) || (remove == null) || (delimiter == null)) {
+			return null;
+		}
 
-    if (UtilValidate.isNotEmpty(s) && !s.endsWith(delimiter)) {
-      s += delimiter;
-    }
+		if (UtilValidate.isNotEmpty(s) && !s.endsWith(delimiter)) {
+			s += delimiter;
+		}
 
-    while (contains(s, remove, delimiter)) {
-      int pos = s.indexOf(delimiter + remove + delimiter);
+		while (contains(s, remove, delimiter)) {
+			int pos = s.indexOf(delimiter + remove + delimiter);
 
-      if (pos == -1) {
-        if (s.startsWith(remove + delimiter)) {
-          s = s.substring(
-              remove.length() + delimiter.length(), s.length());
-        }
-      } else {
-        s = s.substring(0, pos) + s.substring(pos + remove.length() +
-                                              delimiter.length(), s.length());
-      }
-    }
+			if (pos == -1) {
+				if (s.startsWith(remove + delimiter)) {
+					s = s.substring(remove.length() + delimiter.length(), s.length());
+				}
+			} else {
+				s = s.substring(0, pos) + s.substring(pos + remove.length() + delimiter.length(), s.length());
+			}
+		}
 
-    return s;
-  }
+		return s;
+	}
 
-  public static String replace(String s, String oldSub, String newSub) {
-    if ( (s == null) || (oldSub == null) || (newSub == null)) {
-      return null;
-    }
+	public static String replace(String s, String oldSub, String newSub) {
+		if ((s == null) || (oldSub == null) || (newSub == null)) {
+			return null;
+		}
 
-    int y = s.indexOf(oldSub);
+		int y = s.indexOf(oldSub);
 
-    if (y >= 0) {
-      StringBuffer sb = new StringBuffer();
-      int length = oldSub.length();
-      int x = 0;
+		if (y >= 0) {
+			StringBuilder sb = new StringBuilder();
+			int length = oldSub.length();
+			int x = 0;
 
-      while (x <= y) {
-        sb.append(s.substring(x, y));
-        sb.append(newSub);
-        x = y + length;
-        y = s.indexOf(oldSub, x);
-      }
+			while (x <= y) {
+				sb.append(s.substring(x, y));
+				sb.append(newSub);
+				x = y + length;
+				y = s.indexOf(oldSub, x);
+			}
 
-      sb.append(s.substring(x));
+			sb.append(s.substring(x));
 
-      return sb.toString();
-    } else {
-      return s;
-    }
-  }
+			return sb.toString();
+		} else {
+			return s;
+		}
+	}
 
-  public static String replace(String s, String[] oldSubs, String[] newSubs) {
-    if ( (s == null) || (oldSubs == null) || (newSubs == null)) {
-      return null;
-    }
+	public static String replace(String s, String[] oldSubs, String[] newSubs) {
+		if ((s == null) || (oldSubs == null) || (newSubs == null)) {
+			return null;
+		}
 
-    if (oldSubs.length != newSubs.length) {
-      return s;
-    }
+		if (oldSubs.length != newSubs.length) {
+			return s;
+		}
 
-    for (int i = 0; i < oldSubs.length; i++) {
-      s = replace(s, oldSubs[i], newSubs[i]);
-    }
+		for (int i = 0; i < oldSubs.length; i++) {
+			s = replace(s, oldSubs[i], newSubs[i]);
+		}
 
-    return s;
-  }
+		return s;
+	}
 
-  public static String reverse(String s) {
-    if (s == null) {
-      return null;
-    }
+	public static String reverse(String s) {
+		if (s == null) {
+			return null;
+		}
 
-    char[] c = s.toCharArray();
-    char[] reverse = new char[c.length];
+		char[] c = s.toCharArray();
+		char[] reverse = new char[c.length];
 
-    for (int i = 0; i < c.length; i++) {
-      reverse[i] = c[c.length - i - 1];
-    }
+		for (int i = 0; i < c.length; i++) {
+			reverse[i] = c[c.length - i - 1];
+		}
 
-    return new String(reverse);
-  }
+		return new String(reverse);
+	}
 
-  public static String shorten(String s) {
-    return shorten(s, 20);
-  }
+	public static String shorten(String s) {
+		return shorten(s, 20);
+	}
 
-  public static String shorten(String s, int length) {
-    return shorten(s, length, "..");
-  }
+	public static String shorten(String s, int length) {
+		return shorten(s, length, "..");
+	}
 
-  public static String shorten(String s, String suffix) {
-    return shorten(s, 20, suffix);
-  }
+	public static String shorten(String s, String suffix) {
+		return shorten(s, 20, suffix);
+	}
 
-  public static String shorten(String s, int length, String suffix) {
-    if (s == null || suffix == null) {
-      return null;
-    }
+	public static String shorten(String s, int length, String suffix) {
+		if (s == null || suffix == null) {
+			return null;
+		}
 
-    if (s.length() > length) {
-      s = s.substring(0, length) + suffix;
-    }
+		if (s.length() > length) {
+			s = s.substring(0, length) + suffix;
+		}
 
-    return s;
-  }
+		return s;
+	}
 
-  public static String[] split(String s, String delimiter) {
-    if (s == null || delimiter == null) {
-      return new String[0];
-    }
+	public static String[] split(String s, String delimiter) {
+		if (s == null || delimiter == null) {
+			return new String[0];
+		}
 
-    if (!s.endsWith(delimiter)) {
-      s += delimiter;
-    }
+		if (!s.endsWith(delimiter)) {
+			s += delimiter;
+		}
 
-    s = s.trim();
+		s = s.trim();
 
-    if (s.equals(delimiter)) {
-      return new String[0];
-    }
+		if (s.equals(delimiter)) {
+			return new String[0];
+		}
 
-    List nodeValues = new ArrayList();
+		List nodeValues = new ArrayList();
 
-    if (delimiter.equals("\n") || delimiter.equals("\r")) {
-      try {
-        BufferedReader br = new BufferedReader(new StringReader(s));
+		if (delimiter.equals("\n") || delimiter.equals("\r")) {
+			try {
+				BufferedReader br = new BufferedReader(new StringReader(s));
 
-        String line = null;
+				String line = null;
 
-        while ( (line = br.readLine()) != null) {
-          nodeValues.add(line);
-        }
+				while ((line = br.readLine()) != null) {
+					nodeValues.add(line);
+				}
 
-        br.close();
-      } catch (IOException ioe) {
-        ioe.printStackTrace();
-      }
-    } else {
-      int offset = 0;
-      int pos = s.indexOf(delimiter, offset);
+				br.close();
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
+		} else {
+			int offset = 0;
+			int pos = s.indexOf(delimiter, offset);
 
-      while (pos != -1) {
-        nodeValues.add(s.substring(offset, pos));
+			while (pos != -1) {
+				nodeValues.add(s.substring(offset, pos));
 
-        offset = pos + delimiter.length();
-        pos = s.indexOf(delimiter, offset);
-      }
-    }
+				offset = pos + delimiter.length();
+				pos = s.indexOf(delimiter, offset);
+			}
+		}
 
-    return (String[]) nodeValues.toArray(new String[0]);
-  }
+		return (String[]) nodeValues.toArray(new String[0]);
+	}
 
-  public static boolean[] split(String s, String delimiter, boolean x) {
-    String[] array = split(s, delimiter);
-    boolean[] newArray = new boolean[array.length];
+	public static boolean[] split(String s, String delimiter, boolean x) {
+		String[] array = split(s, delimiter);
+		boolean[] newArray = new boolean[array.length];
 
-    for (int i = 0; i < array.length; i++) {
-      boolean value = x;
+		for (int i = 0; i < array.length; i++) {
+			boolean value = x;
 
-      try {
-        value = Boolean.valueOf(array[i]).booleanValue();
-      } catch (Exception e) {
-      }
+			try {
+				value = Boolean.valueOf(array[i]).booleanValue();
+			} catch (Exception e) {
+			}
 
-      newArray[i] = value;
-    }
+			newArray[i] = value;
+		}
 
-    return newArray;
-  }
+		return newArray;
+	}
 
-  public static double[] split(String s, String delimiter, double x) {
-    String[] array = split(s, delimiter);
-    double[] newArray = new double[array.length];
+	public static double[] split(String s, String delimiter, double x) {
+		String[] array = split(s, delimiter);
+		double[] newArray = new double[array.length];
 
-    for (int i = 0; i < array.length; i++) {
-      double value = x;
+		for (int i = 0; i < array.length; i++) {
+			double value = x;
 
-      try {
-        value = Double.parseDouble(array[i]);
-      } catch (Exception e) {
-      }
+			try {
+				value = Double.parseDouble(array[i]);
+			} catch (Exception e) {
+			}
 
-      newArray[i] = value;
-    }
+			newArray[i] = value;
+		}
 
-    return newArray;
-  }
+		return newArray;
+	}
 
-  public static float[] split(String s, String delimiter, float x) {
-    String[] array = split(s, delimiter);
-    float[] newArray = new float[array.length];
+	public static float[] split(String s, String delimiter, float x) {
+		String[] array = split(s, delimiter);
+		float[] newArray = new float[array.length];
 
-    for (int i = 0; i < array.length; i++) {
-      float value = x;
+		for (int i = 0; i < array.length; i++) {
+			float value = x;
 
-      try {
-        value = Float.parseFloat(array[i]);
-      } catch (Exception e) {
-      }
+			try {
+				value = Float.parseFloat(array[i]);
+			} catch (Exception e) {
+			}
 
-      newArray[i] = value;
-    }
+			newArray[i] = value;
+		}
 
-    return newArray;
-  }
+		return newArray;
+	}
 
-  public static int[] split(String s, String delimiter, int x) {
-    String[] array = split(s, delimiter);
-    int[] newArray = new int[array.length];
+	public static int[] split(String s, String delimiter, int x) {
+		String[] array = split(s, delimiter);
+		int[] newArray = new int[array.length];
 
-    for (int i = 0; i < array.length; i++) {
-      int value = x;
+		for (int i = 0; i < array.length; i++) {
+			int value = x;
 
-      try {
-        value = Integer.parseInt(array[i]);
-      } catch (Exception e) {
-      }
+			try {
+				value = Integer.parseInt(array[i]);
+			} catch (Exception e) {
+			}
 
-      newArray[i] = value;
-    }
+			newArray[i] = value;
+		}
 
-    return newArray;
-  }
+		return newArray;
+	}
 
-  public static long[] split(String s, String delimiter, long x) {
-    String[] array = split(s, delimiter);
-    long[] newArray = new long[array.length];
+	public static long[] split(String s, String delimiter, long x) {
+		String[] array = split(s, delimiter);
+		long[] newArray = new long[array.length];
 
-    for (int i = 0; i < array.length; i++) {
-      long value = x;
+		for (int i = 0; i < array.length; i++) {
+			long value = x;
 
-      try {
-        value = Long.parseLong(array[i]);
-      } catch (Exception e) {
-      }
+			try {
+				value = Long.parseLong(array[i]);
+			} catch (Exception e) {
+			}
 
-      newArray[i] = value;
-    }
+			newArray[i] = value;
+		}
 
-    return newArray;
-  }
+		return newArray;
+	}
 
-  public static short[] split(String s, String delimiter, short x) {
-    String[] array = split(s, delimiter);
-    short[] newArray = new short[array.length];
+	public static short[] split(String s, String delimiter, short x) {
+		String[] array = split(s, delimiter);
+		short[] newArray = new short[array.length];
 
-    for (int i = 0; i < array.length; i++) {
-      short value = x;
+		for (int i = 0; i < array.length; i++) {
+			short value = x;
 
-      try {
-        value = Short.parseShort(array[i]);
-      } catch (Exception e) {
-      }
+			try {
+				value = Short.parseShort(array[i]);
+			} catch (Exception e) {
+			}
 
-      newArray[i] = value;
-    }
+			newArray[i] = value;
+		}
 
-    return newArray;
-  }
+		return newArray;
+	}
 
-  public static final String stackTrace(Throwable t) {
-    String s = null;
+	public static final String stackTrace(Throwable t) {
+		String s = null;
 
-    try {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      t.printStackTrace(new PrintWriter(baos, true));
-      s = baos.toString();
-    } catch (Exception e) {
-    }
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			t.printStackTrace(new PrintWriter(baos, true));
+			s = baos.toString();
+		} catch (Exception e) {
+		}
 
-    return s;
-  }
+		return s;
+	}
+
+	public static boolean startsWith(String s, char begin) {
+		return startsWith(s, (new Character(begin)).toString());
+	}
+
+	public static boolean startsWith(String s, String begin) {
+		if ((s == null) || (begin == null)) {
+			return false;
+		}
+
+		if (begin.length() > s.length()) {
+			return false;
+		}
+
+		String temp = s.substring(0, begin.length());
 
-  public static boolean startsWith(String s, char begin) {
-    return startsWith(s, (new Character(begin)).toString());
-  }
+		if (temp.equalsIgnoreCase(begin)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-  public static boolean startsWith(String s, String begin) {
-    if ( (s == null) || (begin == null)) {
-      return false;
-    }
-
-    if (begin.length() > s.length()) {
-      return false;
-    }
-
-    String temp = s.substring(0, begin.length());
+	public static String wrap(String text) {
+		return wrap(text, 80);
+	}
 
-    if (temp.equalsIgnoreCase(begin)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+	public static String wrap(String text, int width) {
+		if (text == null) {
+			return null;
+		}
 
-  public static String wrap(String text) {
-    return wrap(text, 80);
-  }
+		StringBuilder sb = new StringBuilder();
 
-  public static String wrap(String text, int width) {
-    if (text == null) {
-      return null;
-    }
+		try {
+			BufferedReader br = new BufferedReader(new StringReader(text));
 
-    StringBuffer sb = new StringBuffer();
+			String s = "";
 
-    try {
-      BufferedReader br = new BufferedReader(new StringReader(text));
-
-      String s = "";
-
-      while ( (s = br.readLine()) != null) {
-        if (s.length() == 0) {
-          sb.append("\n");
-        } else {
-          while (true) {
-            int pos = s.lastIndexOf(' ', width);
-
-            if ( (pos == -1) && (s.length() > width)) {
-              sb.append(s.substring(0, width));
-              sb.append("\n");
-
-              s = s.substring(width, s.length()).trim();
-            } else if ( (pos != -1) && (s.length() > width)) {
-              sb.append(s.substring(0, pos));
-              sb.append("\n");
-
-              s = s.substring(pos, s.length()).trim();
-            } else {
-              sb.append(s);
-              sb.append("\n");
-
-              break;
-            }
-          }
-        }
-      }
-    } catch (IOException ioe) {
-      ioe.printStackTrace();
-    }
-
-    return sb.toString();
-  }
-
-  public static String getPassword(int length, String key) {
-
-    StringBuffer sb = new StringBuffer();
-
-    for (int i = 0; i < length; i++) {
-      sb.append(key.charAt( (int) (Math.random() * key.length())));
-    }
-
-    return sb.toString();
-  }
-
-  public static String getPassword(int length) {
-    String key =
-        "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    return getPassword(length, key);
-  }
-
-  /**
-   * Encode a string using algorithm specified in web.xml and return the
-   * resulting encrypted password. If exception, the plain credentials
-   * string is returned
-   *
-   * @param password Password or other credentials to use in authenticating
-   *        this username
-   * @param algorithm Algorithm used to do the digest
-   *
-   * @return encypted password based on the algorithm.
-   */
-  public static String encodePassword(String password, String algorithm) {
-    byte[] unencodedPassword = password.getBytes();
-
-    MessageDigest md = null;
-
-    try {
-      // first create an instance, given the provider
-      md = MessageDigest.getInstance(algorithm);
-    } catch (Exception e) {
-      System.err.print("Exception: " + e);
-
-      return password;
-    }
-
-    md.reset();
-
-    // call the update method one or more times
-    // (useful when you don't know the size of your data, eg. stream)
-    md.update(unencodedPassword);
-
-    // now calculate the hash
-    byte[] encodedPassword = md.digest();
-
-    StringBuffer buf = new StringBuffer();
-
-    for (int i = 0; i < encodedPassword.length; i++) {
-      if ( ( (int) encodedPassword[i] & 0xff) < 0x10) {
-        buf.append("0");
-      }
-
-      buf.append(Long.toString( (int) encodedPassword[i] & 0xff, 16));
-    }
-
-    return buf.toString();
-  }
-
-  /**
-   * Encode a string using Base64 encoding. Used when storing passwords
-   * as cookies.
-   *
-   * This is weak encoding in that anyone can use the decodeString
-   * routine to reverse the encoding.
-   *
-   * @param str
-   * @return String
-   */
-  public static String encodeString(String str) {
-    return Base64.encodeBytes((str.getBytes())).trim();
-  }
-
-  /**
-   * Decode a string using Base64 encoding.
-   *
-   * @param str
-   * @return String
-   */
-  public static String decodeString(String str) {
-    try {
-      return new String(Base64.decode(str));
-    } catch (IOException io) {
-      throw new RuntimeException(io.getMessage(), io.getCause());
-    }
-  }
+			while ((s = br.readLine()) != null) {
+				if (s.length() == 0) {
+					sb.append("\n");
+				} else {
+					while (true) {
+						int pos = s.lastIndexOf(' ', width);
+
+						if ((pos == -1) && (s.length() > width)) {
+							sb.append(s.substring(0, width));
+							sb.append("\n");
+
+							s = s.substring(width, s.length()).trim();
+						} else if ((pos != -1) && (s.length() > width)) {
+							sb.append(s.substring(0, pos));
+							sb.append("\n");
+
+							s = s.substring(pos, s.length()).trim();
+						} else {
+							sb.append(s);
+							sb.append("\n");
+
+							break;
+						}
+					}
+				}
+			}
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+
+		return sb.toString();
+	}
+
+	public static String getPassword(int length, String key) {
+
+		StringBuilder sb = new StringBuilder();
+
+		for (int i = 0; i < length; i++) {
+			sb.append(key.charAt((int) (Math.random() * key.length())));
+		}
+
+		return sb.toString();
+	}
+
+	public static String getPassword(int length) {
+		String key = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+		return getPassword(length, key);
+	}
+
+	/**
+	 * Encode a string using algorithm specified in web.xml and return the
+	 * resulting encrypted password. If exception, the plain credentials string
+	 * is returned
+	 * 
+	 * @param password
+	 *            Password or other credentials to use in authenticating this
+	 *            username
+	 * @param algorithm
+	 *            Algorithm used to do the digest
+	 * 
+	 * @return encypted password based on the algorithm.
+	 */
+	public static String encodePassword(String password, String algorithm) {
+		byte[] unencodedPassword = password.getBytes();
+
+		MessageDigest md = null;
+
+		try {
+			// first create an instance, given the provider
+			md = MessageDigest.getInstance(algorithm);
+		} catch (Exception e) {
+			System.err.print("Exception: " + e);
+
+			return password;
+		}
+
+		md.reset();
+
+		// call the update method one or more times
+		// (useful when you don't know the size of your data, eg. stream)
+		md.update(unencodedPassword);
+
+		// now calculate the hash
+		byte[] encodedPassword = md.digest();
+
+		StringBuilder buf = new StringBuilder();
+
+		for (int i = 0; i < encodedPassword.length; i++) {
+			if (((int) encodedPassword[i] & 0xff) < 0x10) {
+				buf.append("0");
+			}
+
+			buf.append(Long.toString((int) encodedPassword[i] & 0xff, 16));
+		}
+
+		return buf.toString();
+	}
+
+	/**
+	 * Encode a string using Base64 encoding. Used when storing passwords as
+	 * cookies.
+	 * 
+	 * This is weak encoding in that anyone can use the decodeString routine to
+	 * reverse the encoding.
+	 * 
+	 * @param str
+	 * @return String
+	 */
+	public static String encodeString(String str) {
+		return Base64.encodeBytes((str.getBytes())).trim();
+	}
+
+	/**
+	 * Decode a string using Base64 encoding.
+	 * 
+	 * @param str
+	 * @return String
+	 */
+	public static String decodeString(String str) {
+		try {
+			return new String(Base64.decode(str));
+		} catch (IOException io) {
+			throw new RuntimeException(io.getMessage(), io.getCause());
+		}
+	}
 
 }

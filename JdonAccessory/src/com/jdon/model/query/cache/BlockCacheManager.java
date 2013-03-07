@@ -101,7 +101,7 @@ public class BlockCacheManager {
 	}
 
 	private String getSQlKey(String sqlquery, Collection queryParams) {
-		StringBuffer sb = new StringBuffer(sqlquery);
+		StringBuilder sb = new StringBuilder(sqlquery);
 		Iterator iter = queryParams.iterator();
 		while (iter.hasNext()) {
 			Object queryParamO = iter.next();
