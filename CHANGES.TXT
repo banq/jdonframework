@@ -1,5 +1,5 @@
 ﻿==================================================================
-JDON FRAMEWORK 6.6.1  (03/2013)
+JDON FRAMEWORK 6.6.2  (03/2013)
 ==================================================================
 replace ehcache with Guava cache. improve throughput and performance.
 Guava cache configure in META-INF/container.xml
