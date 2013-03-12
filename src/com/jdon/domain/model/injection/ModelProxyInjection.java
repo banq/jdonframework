@@ -135,10 +135,4 @@ public class ModelProxyInjection {
 		return false;
 	}
 
-	public void finalize() {
-		this.containerCallback = null;
-		this.modelAdvisor = null;
-
-	}
-
 }

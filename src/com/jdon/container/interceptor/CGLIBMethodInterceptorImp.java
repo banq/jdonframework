@@ -42,7 +42,6 @@ public class CGLIBMethodInterceptorImp implements MethodInterceptor, Startable {
 
 	public Object intercept(Object object, Method invokedmethod, Object[] objects, MethodProxy methodProxy) throws Throwable {
 		if (invokedmethod.getName().equals("finalize")) {
-			clear();
 			return null;
 		}
 
@@ -85,12 +84,6 @@ public class CGLIBMethodInterceptorImp implements MethodInterceptor, Startable {
 			}
 			this.target = null;
 		}
-	}
-
-	@Override
-	protected void finalize() throws Throwable {
-		super.finalize();
-		clear();
 	}
 
 	@Override

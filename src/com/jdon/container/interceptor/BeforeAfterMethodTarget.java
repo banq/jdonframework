@@ -57,7 +57,6 @@ public class BeforeAfterMethodTarget implements Startable {
 
 	public Object invoke(Method invokedmethod, Object[] args, MethodProxy methodProxy) throws Throwable, Exception {
 		if (invokedmethod.getName().equals("finalize")) {
-			this.clear();
 			return null;
 		}
 
@@ -316,12 +315,6 @@ public class BeforeAfterMethodTarget implements Startable {
 			this.target = null;
 		}
 
-	}
-
-	@Override
-	protected void finalize() throws Throwable {
-		super.finalize();
-		clear();
 	}
 
 	@Override

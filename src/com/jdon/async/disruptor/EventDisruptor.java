@@ -47,9 +47,4 @@ public class EventDisruptor {
 		this.domainMessage = domainMessage;
 	}
 
-	public void finalize() {
-		domainMessage = null;
-
-	}
-
 }

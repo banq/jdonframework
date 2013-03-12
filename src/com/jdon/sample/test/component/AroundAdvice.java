@@ -65,7 +65,4 @@ public class AroundAdvice implements MethodInterceptor {
 
 	}
 
-	public void finalize() {
-		this.adviceArounds.clear();
-	}
 }

@@ -156,12 +156,6 @@ public class CacheInterceptor implements MethodInterceptor, Startable {
 	}
 
 	@Override
-	protected void finalize() throws Throwable {
-		super.finalize();
-		stop();
-	}
-
-	@Override
 	public void start() {
 		// TODO Auto-generated method stub
 

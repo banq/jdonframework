@@ -68,9 +68,4 @@ public class ContainerCallback implements Serializable, Startable {
 
 	}
 
-	public void finalize() {
-		stop();
-
-	}
-
 }
