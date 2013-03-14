@@ -80,6 +80,8 @@ public class IntroduceInfoHolder {
 		List<String> names = new ArrayList();
 
 		List<IntroduceInfo> introduceInfos = adviceNameIntroduceInfos.get(introducedName);
+		if (introduceInfos == null)
+			return names;
 		for (IntroduceInfo info : introduceInfos) {
 			names.add(getTargetName(info.getTarget()));
 		}

@@ -122,7 +122,17 @@ public final class Debug {
 				// logger = Logger.getLogger(module);
 				Logger logger = getLogger(module);
 				if (logger.isDebugEnabled())
-					logger.debug(callingClass, levelObjs[level], msg, t);
+					logger.debug(msg, t);
+				else if (logger.isErrorEnabled())
+					logger.error(msg, t);
+				else if (logger.isInfoEnabled())
+					logger.info(msg, t);
+				else if (logger.isWarnEnabled())
+					logger.warn(msg, t);
+				else if (logger.isFatalEnabled())
+					logger.fatal(msg, t);
+				else if (logger.isTraceEnabled())
+					logger.trace(msg, t);
 			} else {
 				StringBuilder prefixBuf = new StringBuilder();
 				prefixBuf.append(dateFormat.format(new java.util.Date()));
