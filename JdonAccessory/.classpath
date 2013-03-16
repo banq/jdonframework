@@ -22,7 +22,6 @@
 	<classpathentry kind="lib" path="D:/javasource/jdonframework/dist/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="D:/javasource/jdonframework/dist/cglib.jar"/>
 	<classpathentry kind="lib" path="D:/javasource/jdonframework/dist/commons-pool-1.5.1.jar"/>
-	<classpathentry kind="lib" path="D:/javasource/jdonframework/dist/disruptor-2.10.3.jar"/>
 	<classpathentry kind="lib" path="D:/javasource/jdonframework/dist/ehcache-1.6.2.jar"/>
 	<classpathentry kind="lib" path="D:/javasource/jdonframework/dist/jdom.jar"/>
 	<classpathentry kind="lib" path="D:/javasource/jdonframework/dist/jdonFramework.jar"/>

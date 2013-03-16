@@ -15,6 +15,7 @@
 
 package com.jdon.strutsutil;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,7 +25,10 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
+import com.jdon.controller.events.EventModel;
+import com.jdon.controller.model.ModelUtil;
 import com.jdon.model.ModelForm;
+import com.jdon.model.ModelHandler;
 import com.jdon.util.Debug;
 
 /**
@@ -53,7 +57,7 @@ public class ModelDispAction extends ModelBaseAction {
 
 		ModelForm modelForm = FormBeanUtil.getModelForm(actionMapping, actionForm, request);
 
-		Object model = viewPageUtil.getModelForEdit(actionMapping, modelForm, request, this.getServlet().getServletContext());
+		Object model = getModel(actionMapping, modelForm, request, this.getServlet().getServletContext());
 
 		if (model == null) { // 如果查询失败，显示出错信息
 			ActionMessages errors = new ActionMessages();
@@ -70,6 +74,61 @@ public class ModelDispAction extends ModelBaseAction {
 			return actionMapping.findForward(FormBeanUtil.FORWARD_SUCCESS_NAME);
 		}
 
+	}
+
+	public Object getModel(ActionMapping actionMapping, ModelForm modelForm, HttpServletRequest request, ServletContext sc) throws Exception {
+		Object model = null;
+		ModelHandler modelHandler = null;
+		try {
+			String formName = FormBeanUtil.getFormName(actionMapping);
+			modelHandler = modelManager.borrowtHandlerObject(formName);
+
+			ModelForm form = modelHandler.initForm(request);
+			if (form != null) {
+				form.setAction(ModelForm.EDIT_STR);
+				FormBeanUtil.saveActionForm(form, actionMapping, request);
+			} else {
+				form = modelForm;
+			}
+			model = fetchModel(request, sc, formName, modelHandler);
+			if (model != null) {
+				if (ModelUtil.isModel(model)) {
+					modelHandler.modelIFCopyToForm(model, form);
+				} else if (EventModel.class.isAssignableFrom(model.getClass())) {
+					// EventModel getMyModel(); <getMethod name="getMyModel()"/>
+					model = ((EventModel) model).getModelIF();
+					if (ModelUtil.isModel(model))
+						modelHandler.modelIFCopyToForm(model, form);
+				}
+			}
+
+		} catch (Exception ex) {
+			Debug.logError("[JdonFramework]please check your service 、 model or form, error is: " + ex, module);
+		} finally {
+			modelManager.returnHandlerObject(modelHandler); // 返回modelhandler再用
+		}
+		return model;
+	}
+
+	protected Object fetchModel(HttpServletRequest request, ServletContext sc, String formName, ModelHandler modelHandler) throws Exception {
+		Object model = null;
+		try {
+			Object keyValue = viewPageUtil.getParamKeyValue(request, modelHandler);
+			if (request.getSession(false) == null)
+				model = modelHandler.findModelIF(keyValue, sc);
+			else
+				model = modelHandler.findModelIF(keyValue, request);
+			if (model == null) {
+				Debug.logError("[JdonFramework] Error: got a NULL Model..", module);
+				throw new Exception("got a NULL Model");
+			} else {
+				viewPageUtil.addModelCache(formName, keyValue, modelHandler, model);
+			}
+		} catch (Exception ex) {
+			Debug.logError("[JdonFramework] the method 'findModelByKey' of your handler or 'getMethod' of service happened error: " + ex, module);
+			throw new Exception(ex);
+		}
+		return model;
 	}
 
 }

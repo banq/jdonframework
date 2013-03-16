@@ -126,7 +126,7 @@ public class EditeViewPageUtil {
 		}
 	}
 
-	private void addModelCache(String formName, Object keyValue, ModelHandler modelHandler, Object model) {
+	public void addModelCache(String formName, Object keyValue, ModelHandler modelHandler, Object model) {
 		ModelKey modelKey = new ModelKey(keyValue, formName);
 		if (ModelUtil.isModel(model.getClass()))
 			modelManager.addCache(modelKey, model);
