@@ -122,4 +122,11 @@ public class ModelManagerImp implements ModelManager {
 		return isNull;
 	}
 
+	@Override
+	public boolean containInCache(ModelKey modelKey) {
+		if (modelKey == null || modelKey.getModelClass() == null)
+			return false;
+		return modelCacheManager.containInCache(modelKey.getDataKey(), modelKey.getModelClass().getName());
+	}
+
 }

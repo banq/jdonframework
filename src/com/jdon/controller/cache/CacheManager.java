@@ -71,6 +71,10 @@ public class CacheManager implements Startable {
 			return null;
 	}
 
+	public boolean containObject(StringKey skey) {
+		return cache.contain(skey);
+	}
+
 	/**
 	 * 保存到缓存中
 	 * 

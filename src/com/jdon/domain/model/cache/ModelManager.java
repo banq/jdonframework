@@ -54,6 +54,12 @@ public interface ModelManager {
 	 */
 	public void removeCache(Object dataKey) throws Exception;
 
+	/**
+	 * 
+	 */
+
+	public boolean containInCache(ModelKey modelKey);
+
 	public void clearCache();
 
 }

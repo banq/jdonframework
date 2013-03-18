@@ -64,7 +64,8 @@ public class ModelCacheManager implements Startable {
 	}
 
 	protected void saveToCache(CacheKey cachKey, Object model) {
-		cacheManager.putObect(cachKey, model);
+		if (!cacheManager.containObject(cachKey))
+			cacheManager.putObect(cachKey, model);
 	}
 
 	private Object getModelFromCache(CacheKey cachKey) {
@@ -88,6 +89,11 @@ public class ModelCacheManager implements Startable {
 	public Object getCache(Object dataKey, String modelClassName) {
 		CacheKey cachKey = cacheKeyFactory.createCacheKey(dataKey.toString(), modelClassName);
 		return getModelFromCache(cachKey);
+	}
+
+	public boolean containInCache(Object dataKey, String modelClassName) {
+		CacheKey cachKey = cacheKeyFactory.createCacheKey(dataKey.toString(), modelClassName);
+		return cacheManager.containObject(cachKey);
 	}
 
 	/**

@@ -122,7 +122,8 @@ public class ModelDispAction extends ModelBaseAction {
 				Debug.logError("[JdonFramework] Error: got a NULL Model..", module);
 				throw new Exception("got a NULL Model");
 			} else {
-				viewPageUtil.addModelCache(formName, keyValue, modelHandler, model);
+				// viewPageUtil.addModelCache(formName, keyValue, modelHandler,
+				// model);
 			}
 		} catch (Exception ex) {
 			Debug.logError("[JdonFramework] the method 'findModelByKey' of your handler or 'getMethod' of service happened error: " + ex, module);
