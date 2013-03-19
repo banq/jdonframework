@@ -8,4 +8,4 @@ MyEventA=0
  RESULT=null
  RESULT=null1ok------------- ---------------- ---------------
 
-Testcase: testGetDisruptor took 0.057 sec
+Testcase: testGetDisruptor took 0.055 sec
