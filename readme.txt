@@ -9,10 +9,9 @@ Chinese: http://www.jdon.com/jdonframework/
 
 1. INTRODUCTION
 ---------------
-JdonFramework is a java opensource framework that supports Domain-Driven Design  DCI CQRS and Domain Events/Event Source development.
+JdonFramework is a java framework that establish asynchronous  concurrent  and higher throughput systems to implement Domain Driven Design + CQRS + EventSource .
 
-JdonFramework = DDD + DCI + Event Sourcing/CQRS.
-in JdonFramework, A Role played by a Domain Model triggers a interaction event, such as sending a event or message to other consumers. 
+JdonFramework = DDD + Event Sourcing + CQRS + asynchronous + concurrent + higher throughput.
 
 
 2. RELEASE NOTES
