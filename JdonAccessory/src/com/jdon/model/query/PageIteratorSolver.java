@@ -64,6 +64,8 @@ public class PageIteratorSolver {
 
 	private final BlockCacheManager blockCacheManager;
 
+	private BlockStrategy blockStrategy;
+
 	/**
 	 * active cache default is yes
 	 */
@@ -86,6 +88,7 @@ public class PageIteratorSolver {
 	public PageIteratorSolver(DataSource dataSource, CacheManager cacheManager) {
 		this.dataSource = dataSource;
 		this.blockCacheManager = new BlockCacheManager(cacheManager);
+		this.blockStrategy = new BlockStrategy(new BlockQueryJDBCTemp(dataSource), blockCacheManager);
 	}
 
 	/**
@@ -93,6 +96,7 @@ public class PageIteratorSolver {
 	 */
 	public PageIteratorSolver(DataSource dataSource, CacheManager cacheManager, BlockStrategy blockStrategy) {
 		this(dataSource, cacheManager);
+		this.blockStrategy = blockStrategy;
 	}
 
 	/**
@@ -113,6 +117,7 @@ public class PageIteratorSolver {
 		this.dataSource = dataSource;
 		CacheManager cacheManager = new CacheManager(new LRUCache("cache.xml"));
 		this.blockCacheManager = new BlockCacheManager(cacheManager);
+		this.blockStrategy = new BlockStrategy(new BlockQueryJDBCTemp(dataSource), blockCacheManager);
 	}
 
 	/**
@@ -226,16 +231,7 @@ public class PageIteratorSolver {
 			Debug.logError(" the parameters collection is null", module);
 			return new PageIterator();
 		}
-		BlockStrategy blockStrategy = new BlockStrategy(new BlockQueryJDBCTemp(dataSource), blockCacheManager);
 		if ((count > blockStrategy.getBlockLength()) || (count <= 0)) { // every
-			// query
-			// max
-			// length
-			// must
-			// be
-			// less
-			// than
-			// blockLength
 			count = blockStrategy.getBlockLength();
 		}
 		Block currentBlock = getBlock(sqlquery, queryParams, startIndex, count);
@@ -265,7 +261,6 @@ public class PageIteratorSolver {
 	 * @return if not locate, return null;
 	 */
 	public Block locate(String sqlquery, Collection queryParams, Object locateId) {
-		BlockStrategy blockStrategy = new BlockStrategy(new BlockQueryJDBCTemp(dataSource), blockCacheManager);
 		return blockStrategy.locate(sqlquery, queryParams, locateId);
 	}
 
@@ -277,7 +272,6 @@ public class PageIteratorSolver {
 	 * @return if not found, return null;
 	 */
 	public Block getBlock(String sqlquery, Collection queryParams, int startIndex, int count) {
-		BlockStrategy blockStrategy = new BlockStrategy(new BlockQueryJDBCTemp(dataSource), blockCacheManager);
 		return blockStrategy.getBlock(sqlquery, queryParams, startIndex, count);
 	}
 

@@ -13,6 +13,7 @@ JdonFramework is a java framework that establish asynchronous  concurrent  and h
 
 JdonFramework = DDD + Event Sourcing + CQRS + asynchronous + concurrent + higher throughput.
 
+JdonFramework = Spring(Ioc/DI) + Ruby(Mixin/AOP) + Scala(Asynchronous/highConcurrent)
 
 2. RELEASE NOTES
 ----------------
