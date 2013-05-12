@@ -1,14 +1,3 @@
-
 /classes
-/doc/api
-/JdonAccessory/classes
-/JdonAccessory/classes
-/JdonAccessory/report
-/examples\robot/lib
-/examples\robot/bin
-/example/cqrs+dci/robot/lib
-/example/cqrs+dci/robot/lib
-/example/jdonMVC+CQRS+ES/build
-/example/cqrs+es/match/bin
 /dist
 /jdon.log

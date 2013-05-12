@@ -1,8 +1,0 @@
-Testsuite: com.jdon.sample.DomainModelFinderTest
-Tests run: 1, Failures: 1, Errors: 0, Time elapsed: 0 sec
-
-Testcase: warning took 0 sec
-	FAILED
-No tests found in com.jdon.sample.DomainModelFinderTest
-junit.framework.AssertionFailedError: No tests found in com.jdon.sample.DomainModelFinderTest
-
