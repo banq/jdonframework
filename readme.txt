@@ -11,9 +11,9 @@ Chinese: http://www.jdon.com/jdonframework/
 ---------------
 JdonFramework is a java framework that you can use to build your Domain Driven Design + CQRS + EventSource  applications with asynchronous concurrency and higher throughput.
 
-JdonFramework = DDD + Event Sourcing + CQRS + asynchronous + concurrent + higher throughput.
+JdonFramework = DDD + Event Sourcing + CQRS + asynchronous + concurrency + higher throughput.
 
-JdonFramework = Spring(Ioc/DI) + Ruby(Mixin/AOP) + Scala(Asynchronous/highConcurrent)
+JdonFramework = Spring(Ioc/DI/AOP) + Ruby(Mixin/DCI) + Scala(Asynchronous/highConcurrent)
 
 2. RELEASE NOTES
 ----------------
