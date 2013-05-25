@@ -63,22 +63,23 @@ public class CacheInterceptor implements MethodInterceptor, Startable {
 		}
 		Debug.logVerbose("[JdonFramework] enter cacheInteceptor method:" + method.getName(), module);
 		Class modelClass = method.getReturnType();
+		String dataKey = getArguments(invocation);
+		if (dataKey == null || modelClass == null)
+			return invocation.proceed();
 		try {
-			String dataKey = getArguments(invocation);
-			if (dataKey == null)
-				return invocation.proceed();
 			ModelKey modelKey = new ModelKey(dataKey, modelClass);
 			Object model = modelManager.getCache(modelKey);
 			if (model == null) {
 				model = invocation.proceed(); // 下一个interceptor
-				if (modelClass.isAssignableFrom(model.getClass())) {
+				if (model != null && modelClass.isAssignableFrom(model.getClass())) {
 					Debug.logVerbose("[JdonFramework] save to cache", module);
 					model = modelManager.addCache(modelKey, model);
 				}
 			}
 			return model;
 		} catch (Exception e) {
-			Debug.logError("[JdonFramework]CacheInterceptor Exception error:" + e, module);
+			Debug.logError("[JdonFramework]CacheInterceptor Exception error:" + e + " method:" + method.getName() + " return class:" + modelClass
+					+ " dataKey:" + dataKey, module);
 		}
 		return invocation.proceed();
 	}
