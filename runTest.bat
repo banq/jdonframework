@@ -1,1 +1,0 @@
-java  -classpath ./dist/jdonFramework.jar;./dist/log4j.jar;./j2eelib/javax.servlet.jar com.jdon.controller.AppUtil

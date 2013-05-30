@@ -32,13 +32,24 @@ struts and jdbc template supports in JdonAccessory directory.
 
 4. GETTING STARTED
 ------------------
-press enter "ant" to compile and output .jar packages under "dist"  directory . not yet support Maven.
 
-In the "example" directory there are several examples for web application.
+compilr source:
+  ANT: press enter "ant" to compile and package a .jar file under "dist"  directory . 
+  MAVEN: press enter "mvn package" to compile and package a .jar file
+  
+apply jdonframework.jar to your project:
+  ANT: copy all .jar files "dist"  directory to your project classpath.
+  MAVEN:
+   <repository>
+      <id>jdonframework</id>
+      <url>https://github.com/banq/jdon-mvn-repo/raw/master/releases</url>
+  </repository>
 
-You can run runTest.bat in this directory to see how to play JdonFramework in Application.
-
-com.jdon.sample.* show how to fully using JdonFramework.
+    <dependency>
+        <groupId>com.jdon</groupId>
+        <artifactId>jdonframework</artifactId>
+        <version>6.6.4</version>
+     </dependency>            
 
 In the "doc\english" directory there are all documents about how to use.
 

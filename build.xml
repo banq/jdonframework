@@ -4,7 +4,10 @@
 
 	<!-- properies -->
 
-	<property name="src.dir" value="src" />
+	<property name="src.dir" value="src/main/java" />
+	<property name="src.res.dir" value="src/main/resources" />
+	<property name="test.dir" value="src/test/java" />	
+	<property name="test.res.dir" value="src/test/resources" />
 	<property name="report.dir" value="report" />
 	<property name="classes.dir" value="classes" />
 	<property name="lib.dir" value="lib" />
@@ -57,15 +60,29 @@
 		</javac>
 
 		<copy todir="${classes.dir}" overwrite="true">
-			<fileset dir="${src.dir}">
+			<fileset dir="${src.res.dir}">
 				<include name="**/*.xml" />
 				<include name="**/*.properties" />
 			</fileset>
 		</copy>
 		<copy todir="${classes.dir}/META-INF" overwrite="true">
-			<fileset dir="${src.dir}/META-INF">
+			<fileset dir="${src.res.dir}/META-INF">
 				<include name="**/*.*" />
 
+			</fileset>
+		</copy>
+		
+		<javac srcdir="${test.dir}" destdir="${classes.dir}" target="${version}" debug="true"   encoding="UTF-8"
+			fork="true" 
+			deprecation="no" 
+			memoryInitialSize="64m"
+			memoryMaximumSize="128m">			
+			<classpath refid="master-classpath" />			
+		</javac>
+			<copy todir="${classes.dir}" overwrite="true">
+			<fileset dir="${test.res.dir}">
+				<include name="**/*.xml" />
+				<include name="**/*.properties" />
 			</fileset>
 		</copy>
 		
