@@ -135,17 +135,22 @@ public class ClassUtil {
 
 	public static Method[] getAllDecaredMethods(Class clazz) {
 		List<Method> methods = new ArrayList<Method>();
-		// fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+		try {
 
-		Class[] superClasses = getAllSuperclasses(clazz);
-		for (Class superClass : superClasses) {
-			methods.addAll(Arrays.asList(superClass.getDeclaredMethods()));
+			// fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+
+			Class[] superClasses = getAllSuperclasses(clazz);
+			for (Class superClass : superClasses) {
+				methods.addAll(Arrays.asList(superClass.getDeclaredMethods()));
+			}
+
+			// superClasses = getParentAllInterfaces(clazz);
+			// for (Class superClass : superClasses) {
+			// methods.addAll(Arrays.asList(superClass.getDeclaredMethods()));
+			// }
+
+		} catch (Exception e) {
 		}
-
-		// superClasses = getParentAllInterfaces(clazz);
-		// for (Class superClass : superClasses) {
-		// methods.addAll(Arrays.asList(superClass.getDeclaredMethods()));
-		// }
 		return methods.toArray(new Method[methods.size()]);
 	}
 

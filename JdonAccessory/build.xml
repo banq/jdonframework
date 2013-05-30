@@ -6,7 +6,8 @@
 
 	<property name="j2eelib.dir" value="j2eelib" />
 	<property name="strutslib.dir" value="strutslib" />
-	<property name="src.dir" value="src" />
+	<property name="src.dir" value="src/main/java" />
+	<property name="src.res.dir" value="src/main/resources" />
 	<property name="report.dir" value="report" />
 	<property name="classes.dir" value="classes" />
 	<property name="lib.dir" value="../dist" />
@@ -67,19 +68,19 @@
 		</javac>
 
 		<copy todir="${classes.dir}" overwrite="true">
-			<fileset dir="${src.dir}">
+			<fileset dir="${src.res.dir}">
 				<include name="**/*.xml" />
 				<include name="**/*.properties" />
 			</fileset>
 		</copy>
 		<copy todir="${classes.dir}/META-INF" overwrite="true">
-			<fileset dir="${src.dir}/META-INF">
+			<fileset dir="${src.res.dir}/META-INF">
 				<include name="**/*.*" />
 
 			</fileset>
 		</copy>
 		<copy todir="${classes.dir}/META-INF/tlds" overwrite="true">
-			<fileset dir="${src.dir}/META-INF/tlds">
+			<fileset dir="${src.res.dir}/META-INF/tlds">
 				<include name="**/*.tld" />
 
 			</fileset>

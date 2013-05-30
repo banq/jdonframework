@@ -57,6 +57,8 @@ password=""
 driverClassName="com.mysql.jdbc.Driver"
 url="jdbc:mysql://localhost/test" />
  </Conext>
+ 
+
 
 6. startup jboss/bin/startup.bat  or tomat/bin/startup.bat
    check the console, if there are many errors, open jboss/server/default/log/server.log

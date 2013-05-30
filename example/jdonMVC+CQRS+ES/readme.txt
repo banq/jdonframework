@@ -1,5 +1,5 @@
 CRUD for a Model
-Struts + Jdon + JPA/Hibernate3.2 
+JdonMVC + Jdon + JDBC 
 
 
 this is a  simple application Demo for Jdon framework: struts + jdon + jdbc

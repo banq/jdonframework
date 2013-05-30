@@ -2,21 +2,20 @@
 <web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 <display-name>CRUD code</display-name>  
 
-  <!-- 如果你的class implements com.jdon.container.pico.Startable; 希望关闭应用时做些保存数据库的事情 -->
    <listener>
       <listener-class>com.jdon.container.startup.ServletContainerListener</listener-class>
    </listener>
 	
-	<!-- 模板引擎配在这里，如果不配，就会使用jsp -->
+	<!--  -->
 	
-	<!--  使用CT模板引擎
+	<!-- CT
 	<context-param>
 		<param-name>com.jdon.mvc.template.factory</param-name>
 		<param-value>com.jdon.mvc.template.ct.CommonTemplateFactory</param-value>
 	</context-param>
     -->
 	
-	<!--  使用velocity模板引擎
+	<!-- velocity
 	
 	<context-param>
 		<param-name>com.jdon.rest.template.factory</param-name>
@@ -54,5 +53,10 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     
-
+    <resource-ref>
+		<description>DB Connection</description>
+		<res-ref-name>jdbc/TestDS</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
 </web-app>
