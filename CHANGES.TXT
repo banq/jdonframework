@@ -1,6 +1,8 @@
 ﻿==================================================================
-JDON FRAMEWORK 6.6.2  (03/2013)
+JDON FRAMEWORK 6.6.4  (05/2013)
 ==================================================================
+add maven supports
+
 replace ehcache with Guava cache. improve throughput and performance.
 Guava cache configure in META-INF/container.xml
 topic/disruptor cache be deleted once time in every hour, when disrutor send message, is costs much CPU.
