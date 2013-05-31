@@ -18,9 +18,11 @@ JdonFramework = Spring(Ioc/DI/AOP) + Ruby(DCI) + Scala(Actor)
 2. RELEASE NOTES
 ----------------
 
-6.6.2 version.  
+6.6.4 version.  
 
 (1) in-memeory cache switchs to Guava cache insteadof ehcache.
+
+(2) add maven supports.
 
 3. DISTRIBUTION JAR FILES
 -------------------------
