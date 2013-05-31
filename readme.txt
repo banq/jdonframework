@@ -54,3 +54,5 @@ apply jdonframework.jar to your project:
 In the "doc\english" directory there are all documents about how to use.
 
 In the "doc\chinese" directory there are chinese documents about how to use.
+
+The "lib" directory only supports ANT compile and package, if you use maven, you can igonre or del it.

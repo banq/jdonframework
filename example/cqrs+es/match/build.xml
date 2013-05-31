@@ -10,14 +10,14 @@
 
 	<path id="master-classpath">
 		<fileset file="${jdonframeworklib.dir}/*.jar" />
-		<fileset file="${servletlib.dir}/jf/*.jar" />
+		<fileset file="${servletlib.dir}/*.jar" />
 	</path>
 
 
 	<target name="compile">
 		
 		<mkdir dir="bin"/>
-		<javac srcdir="src" destdir="bin" encoding="utf-8" debug="true">
+		<javac srcdir="src/main/java" destdir="bin" encoding="utf-8" debug="true">
 			<classpath refid="master-classpath" />
 		</javac>
 	</target>

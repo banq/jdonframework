@@ -11,7 +11,7 @@
 
 this is a demo for <a href="http://jivejdon.blogspot.com/2011/09/ddd-dci-and-domain-events-example.html">DDD DCI and Domain Events example</a>
 
-<form action="/myweb/myServlet" method="get">
+<form action="<%=request.getContextPath() %>/myServlet" method="get">
 enter your name:
 <input type="text" name="myname" id="mynameId" value="jdon">
 <input type="submit"/>

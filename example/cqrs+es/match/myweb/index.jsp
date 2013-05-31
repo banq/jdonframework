@@ -10,7 +10,7 @@
 
 this is a CQRS + Eventsourcing demo.
 
-<form action="/myweb/commandServlet" method="get">
+<form action="<%=request.getContextPath() %>/commandServlet" method="get">
 home name:
 <input type="text" name="homename"  value="jdonOne">
 ayway name:
@@ -19,6 +19,6 @@ ayway name:
 <input type="submit"/>
 </form>
 
-<a href="/myweb/queryServlet">query all matchs</a>
+<a href="<%=request.getContextPath() %>/queryServlet">query all matchs</a>
 </body>
 </html>

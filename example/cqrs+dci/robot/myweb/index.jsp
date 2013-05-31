@@ -12,12 +12,12 @@
 this is a demo for english:<a href="http://www.jdon.org/DomainEvents.html">DDD DCI and Domain Events example</a>
 chinese: http://www.jdon.com/jdonframework/dci.html
 
-<form action="/myweb/commandServlet" method="get">
+<form action="<%=request.getContextPath() %>/commandServlet" method="get">
 enter your name:
 <input type="text" name="myname" id="mynameId" value="jdon">
 <input type="submit"/>
 </form>
 
-<a href="/myweb/queryServlet">query all robots</a>
+<a href="<%=request.getContextPath() %>/queryServlet">query all robots</a>
 </body>
 </html>
