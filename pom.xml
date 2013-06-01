@@ -7,7 +7,7 @@
   </parent>
   <groupId>org.jdon</groupId>
   <artifactId>jdonframework</artifactId>
-  <version>6.6.6</version>
+  <version>6.6.7-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>jdonframework</name>
   <description>JdonFramework is a java framework that you can use to build your Domain Driven Design + CQRS + EventSource  applications with asynchronous concurrency and higher throughput.</description>
