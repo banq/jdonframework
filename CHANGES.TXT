@@ -1,7 +1,24 @@
 ﻿==================================================================
-JDON FRAMEWORK 6.6.4  (05/2013)
+JDON FRAMEWORK 6.6.4  (06/2013)
 ==================================================================
 add maven supports
+   <dependency>
+        <groupId>org.jdon</groupId>
+        <artifactId>jdonframework</artifactId>
+        <version>6.6.4</version>
+   </dependency>            
+
+another maven configure, maven reposotory is in project url, theire difference is groupid (org.jdon/com.jdon):
+  <repository>
+      <id>jdonframework</id>
+      <url>https://github.com/banq/jdon-mvn-repo/raw/master/releases</url>
+  </repository>
+
+    <dependency>
+        <groupId>com.jdon</groupId>
+        <artifactId>jdonframework</artifactId>
+        <version>6.6.4</version>
+     </dependency>
 
 replace ehcache with Guava cache. improve throughput and performance.
 Guava cache configure in META-INF/container.xml

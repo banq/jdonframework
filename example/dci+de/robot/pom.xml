@@ -17,10 +17,6 @@
 
  <repositories>
     <repository>
-      <id>jdonframework</id>
-      <url>https://github.com/banq/jdon-mvn-repo/raw/master/releases</url>
-  </repository>  
-    <repository>
       <id>jdon-jdbc</id>
       <url>https://github.com/banq/jdon-mvn-repo/raw/master/releases</url>
   </repository>
@@ -44,7 +40,7 @@
         </dependency>
         <!-- jdon lib start -->
      <dependency>
-        <groupId>com.jdon</groupId>
+        <groupId>org.jdon</groupId>
         <artifactId>jdonframework</artifactId>
         <version>6.6.4</version>
      </dependency>    

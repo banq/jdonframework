@@ -41,14 +41,9 @@ compilr source:
   
 apply jdonframework.jar to your project:
   ANT: copy all .jar files "dist"  directory to your project classpath.
-  MAVEN:
-   <repository>
-      <id>jdonframework</id>
-      <url>https://github.com/banq/jdon-mvn-repo/raw/master/releases</url>
-  </repository>
-
+  MAVEN:  
     <dependency>
-        <groupId>com.jdon</groupId>
+        <groupId>org.jdon</groupId>
         <artifactId>jdonframework</artifactId>
         <version>6.6.4</version>
      </dependency>            

@@ -17,7 +17,7 @@
 
  <repositories>
     <repository>
-      <id>jdonframework</id>
+      <id>jdonmvc-core</id>
       <url>https://github.com/banq/jdon-mvn-repo/raw/master/releases</url>
   </repository>  
     <repository>
@@ -135,7 +135,7 @@
         </dependency>    
         <!-- jdon lib start -->
      <dependency>
-        <groupId>com.jdon</groupId>
+        <groupId>org.jdon</groupId>
         <artifactId>jdonframework</artifactId>
         <version>6.6.4</version>
      </dependency>    

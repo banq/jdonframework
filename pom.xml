@@ -1,10 +1,13 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
-  <groupId>com.jdon</groupId>
+<parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
+  <groupId>org.jdon</groupId>
   <artifactId>jdonframework</artifactId>
-  <version>6.6.4</version>
+  <version>6.6.4-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>jdonframework</name>
   <description>JdonFramework is a java framework that you can use to build your Domain Driven Design + CQRS + EventSource  applications with asynchronous concurrency and higher throughput.</description>
@@ -17,12 +20,13 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  
-  <scm>
-    <url>http://svn.apache.org/viewcvs.cgi/maven</url>
-    <connection>http://svn.apache.org/viewcvs.cgi/maven</connection>
-  </scm>
 
+ <scm>
+    <connection>scm:git:git@github.com:banq/jdonframework.git</connection>
+    <developerConnection>scm:git:git@github.com:banq/jdonframework.git</developerConnection>
+    <url>git@github.com:banq/jdonframework.git</url>
+  </scm>
+  
  <developers>
     <developer>
       <id>banq</id>
@@ -148,7 +152,8 @@
                 </configuration>
             </plugin>
 
-            <plugin>
+
+<!--            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>2.1.2</version>
@@ -162,8 +167,7 @@
                     </execution>
                 </executions>
             </plugin>
-
-<!--            <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.7</version>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/jdonmvc/commons-beanutils-1.8.3.jar"/>
 	<classpathentry kind="lib" path="lib/jdonmvc/commons-collections-3.2.1.jar"/>
@@ -26,5 +26,5 @@
 	<classpathentry kind="lib" path="lib/jeelib/servlet.jar"/>
 	<classpathentry kind="lib" path="/jdonframework/dist/jdonFramework.jar"/>
 	<classpathentry kind="lib" path="/JdonAccessory/dist/jdon-jdbcTemp.jar"/>
-	<classpathentry kind="output" path="build/classes"/>
+	<classpathentry kind="output" path="classes"/>
 </classpath>

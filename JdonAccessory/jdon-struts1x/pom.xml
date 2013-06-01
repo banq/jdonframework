@@ -1,0 +1,76 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+   <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>  
+  <groupId>org.jdon</groupId>
+  <artifactId>jdon-struts1x</artifactId>  
+  <version>6.6.4</version>    
+
+  <name>jdon-struts1x</name>
+  <url>https://github.com/banq/jdonframework/</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <repositories>
+    <repository>
+      <id>jdonJ2EE</id>
+      <url>https://github.com/banq/jdon-mvn-repo/raw/master/releases</url>
+  </repository>
+  </repositories>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.jdon</groupId>
+        <artifactId>jdonframework</artifactId>
+        <version>6.6.4</version>
+     </dependency>               
+<dependency>
+	<groupId>com.jdon</groupId>
+	<artifactId>jdonJ2EE</artifactId>
+	<version>6.6.4</version>
+</dependency>
+<dependency>
+	<groupId>struts</groupId>
+	<artifactId>struts</artifactId>
+	<version>1.2.9</version>
+</dependency>
+    <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+<dependency>
+	<groupId>org.apache.tomcat</groupId>
+	<artifactId>jsp-api</artifactId>
+	<version>6.0.37</version>
+</dependency>
+<dependency>
+	<groupId>org.apache.logging.log4j</groupId>
+	<artifactId>log4j2</artifactId>
+	<version>2.0</version>
+</dependency>
+     <dependency>
+	     <groupId>jdom</groupId>
+	     <artifactId>jdom</artifactId>
+	     <version>1.0</version>
+     </dependency>
+                                                
+                                                                        
+  </dependencies>
+  
+
+  
+</project>
