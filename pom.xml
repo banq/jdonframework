@@ -6,9 +6,30 @@
   <artifactId>jdonframework</artifactId>
   <version>6.6.4</version>
   <packaging>jar</packaging>
-
   <name>jdonframework</name>
+  <description>JdonFramework is a java framework that you can use to build your Domain Driven Design + CQRS + EventSource  applications with asynchronous concurrency and higher throughput.</description>
   <url>https://github.com/banq/jdonframework</url>
+
+ <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  
+  <scm>
+    <url>http://svn.apache.org/viewcvs.cgi/maven</url>
+    <connection>http://svn.apache.org/viewcvs.cgi/maven</connection>
+  </scm>
+
+ <developers>
+    <developer>
+      <id>banq</id>
+      <name>Peng Chen Yang</name>
+      <email>banq@jdon.com</email>
+    </developer>
+  </developers>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
