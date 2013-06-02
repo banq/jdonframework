@@ -36,11 +36,9 @@ struts and jdbc template supports in JdonAccessory directory.
 ------------------
 
 compilr source:
-  ANT: press enter "ant" to compile and package a .jar file under "dist"  directory . 
   MAVEN: press enter "mvn package" to compile and package a .jar file
   
 apply jdonframework.jar to your project:
-  ANT: copy all .jar files "dist"  directory to your project classpath.
   MAVEN:  
     <dependency>
         <groupId>org.jdon</groupId>
