@@ -20,7 +20,7 @@
     <connection>scm:git:git@github.com:banq/jdonframework.git</connection>
     <developerConnection>scm:git:git@github.com:banq/jdonframework.git</developerConnection>
     <url>git@github.com:banq/jdonframework.git</url>
-    <tag>HEAD</tag>
+    <tag>jdonframework-6.6.4</tag>
   </scm>
   
  <developers>
@@ -164,6 +164,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
             </plugin>
 
             <plugin>
@@ -175,6 +180,35 @@
                 <artifactId>maven-scm-plugin</artifactId>
                 <version>1.8.1</version>
             </plugin>
+              <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.1.2</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+           <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.7</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
         </plugins>
     </build>
 
