@@ -1,7 +1,0 @@
-<Context path="" debug="5" reloadable="true" crossContext="true">
-  <Resource name="jdbc/TestDS" auth="Container" type="javax.sql.DataSource"
-               maxActive="100" maxIdle="30" maxWait="10000"
-               username="XXXX" password="XXXX" driverClassName="com.mysql.jdbc.Driver"
-               url="jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true"/>
-
-</Context>
