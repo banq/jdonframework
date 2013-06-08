@@ -46,6 +46,8 @@ apply jdonframework.jar to your project:
         <version>6.6.4</version>
      </dependency>            
 
+full pom.xml: https://github.com/banq/jdonframework/blob/master/doc/english/pom.xml
+
 In the "doc\english" directory there are all documents about how to use.
 
 In the "doc\chinese" directory there are chinese documents about how to use.
