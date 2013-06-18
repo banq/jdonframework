@@ -20,10 +20,6 @@
       <id>jdon-jdbc</id>
       <url>https://github.com/banq/jdon-mvn-repo/raw/master/releases</url>
   </repository>
-      <repository>
-          <id>disruptor</id>
-          <url>https://github.com/banq/jdon-mvn-repo/raw/master/releases</url>
-      </repository>  
   </repositories>
 
   <dependencies>
@@ -44,57 +40,7 @@
         <artifactId>jdonframework</artifactId>
         <version>6.6.4</version>
      </dependency>    
-       <dependency>
-            <groupId>org.picocontainer</groupId>
-            <artifactId>picocontainer</artifactId>
-            <version>1.2</version>
-     </dependency>    
-    <dependency>
-            <groupId>javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>3.4.GA</version>
-     </dependency>    
-    <dependency>
-          <groupId>com.google.guava</groupId>
-          <artifactId>guava</artifactId>
-         <version>14.0.1</version>
-     </dependency>    
-     <dependency>
-	     <groupId>regexp</groupId>
-	     <artifactId>regexp</artifactId>
-	     <version>1.2</version>
-     </dependency>
-     <dependency>
-        <groupId>com.lmax</groupId>
-        <artifactId>disruptor</artifactId>
-        <version>2.10.4</version>
-     </dependency>            
-     <dependency>
-	     <groupId>cglib</groupId>
-	     <artifactId>cglib</artifactId>
-	     <version>2.2.2</version>
-     </dependency>
-     <dependency>
-	     <groupId>aopalliance</groupId>
-      	<artifactId>aopalliance</artifactId>
-	     <version>1.0</version>
-     </dependency>  
-   <dependency>
-	     <groupId>jdom</groupId>
-	     <artifactId>jdom</artifactId>
-	     <version>1.0</version>
-     </dependency>
-     <dependency>
-	     <groupId>org.apache.logging.log4j</groupId>
-	     <artifactId>log4j2</artifactId>
-	     <version>2.0</version>
-     </dependency>     
-    <dependency>
-            <groupId>net.sf.scannotation</groupId>
-            <artifactId>scannotation</artifactId>
-            <version>1.0.2</version>
-     </dependency>    
-          
+  
      <!-- jdon lib end -->
      <dependency>
         <groupId>com.jdon</groupId>
