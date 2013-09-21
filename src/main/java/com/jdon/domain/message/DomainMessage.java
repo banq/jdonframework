@@ -15,16 +15,18 @@
  */
 package com.jdon.domain.message;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 import com.jdon.async.EventResultHandler;
 import com.jdon.async.disruptor.EventResultHandlerImp;
 
-public class DomainMessage {
+public class DomainMessage extends Command {
 
 	protected Object eventSource;
 
 	protected volatile EventResultHandler eventResultHandler;
 
-	private volatile Object eventResult = null;
+	protected volatile AtomicReference<Object> eventResultCache = new AtomicReference<Object>();
 
 	public DomainMessage(Object eventSource) {
 		super();
@@ -62,12 +64,17 @@ public class DomainMessage {
 	 * @return Event Result
 	 */
 	public Object getEventResult() {
-		if (eventResult == null) {
-			Object result = eventResultHandler.get();
-			if (result != null)
-				eventResult = result;
+		final Object existingValue = eventResultCache.get();
+		if (existingValue != null) {
+			return existingValue;
 		}
-		return eventResult;
+
+		if (eventResultHandler != null) {
+			final Object result = eventResultHandler.get();
+			if (result != null)
+				eventResultCache.compareAndSet(null, result);
+		}
+		return eventResultCache.get();
 	}
 
 	/**
@@ -76,12 +83,17 @@ public class DomainMessage {
 	 * @return
 	 */
 	public Object getBlockEventResult() {
-		if (eventResult == null) {
-			Object result = eventResultHandler.getBlockedValue();
-			if (result != null)
-				eventResult = result;
+		final Object existingValue = eventResultCache.get();
+		if (existingValue != null) {
+			return existingValue;
 		}
-		return eventResult;
+
+		if (eventResultHandler != null) {
+			final Object result = eventResultHandler.getBlockedValue();
+			if (result != null)
+				eventResultCache.compareAndSet(null, result);
+		}
+		return eventResultCache.get();
 	}
 
 	public void setEventResult(Object eventResultValue) {

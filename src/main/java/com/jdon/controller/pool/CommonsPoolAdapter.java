@@ -19,43 +19,52 @@ import org.apache.commons.pool.impl.GenericObjectPool;
 
 /**
  * ObjectPool pool = new StackObjectPool(new MyPoolableObjectFactory());
- * CommonsPoolAdapter cp = new CommonsPoolAdapter(pool);
- * MyObject mo = (MyObject)cp.borrowObject();
- * ....
- * cp.returnObject(mo);
- *
- * <p>@author <a href="mailto:banqiao@jdon.com">banq</a></p>
+ * CommonsPoolAdapter cp = new CommonsPoolAdapter(pool); MyObject mo =
+ * (MyObject)cp.borrowObject(); .... cp.returnObject(mo);
+ * 
+ * <p>
+ * 
+ * @author <a href="mailto:banqiao@jdon.com">banq</a>
+ *         </p>
  */
 public class CommonsPoolAdapter implements Pool {
-  private final GenericObjectPool pool;
+	private final GenericObjectPool pool;
 
-  public CommonsPoolAdapter(GenericObjectPool pool){
-      
-     this.pool = pool;     
-  }
+	public CommonsPoolAdapter(GenericObjectPool pool) {
 
-  public void setMaxPoolSize(int maxPoolSize){
-      pool.setMaxActive(maxPoolSize);
-  }
+		this.pool = pool;
+	}
 
-  public int getMaxPoolSize(){
-    return pool.getMaxActive();
-  }
+	public void setMaxPoolSize(int maxPoolSize) {
+		pool.setMaxActive(maxPoolSize);
+	}
 
-  public Object acquirePoolable() throws Exception{
-    return this.pool.borrowObject();
-  }
+	public int getMaxPoolSize() {
+		return pool.getMaxActive();
+	}
 
-  public void releasePoolable(Object object) throws Exception{
-    this.pool.returnObject(object);
-  }
+	public Object acquirePoolable() throws Exception {
+		return this.pool.borrowObject();
+	}
 
-  public int getNumActive(){
-    return this.pool.getNumActive();
-  }
+	public void releasePoolable(Object object) throws Exception {
+		this.pool.returnObject(object);
+	}
 
-  public int getNumIdle(){
-    return this.pool.getNumIdle();
-  }
+	public int getNumActive() {
+		return this.pool.getNumActive();
+	}
+
+	public int getNumIdle() {
+		return this.pool.getNumIdle();
+	}
+
+	public void close() {
+		pool.clear();
+		try {
+			pool.close();
+		} catch (Exception e) {
+		}
+	}
 
 }

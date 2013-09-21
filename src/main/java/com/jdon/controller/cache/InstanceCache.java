@@ -16,6 +16,7 @@
 package com.jdon.controller.cache;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.jdon.container.pico.Startable;
@@ -92,6 +93,10 @@ public class InstanceCache implements Startable {
 	 */
 	public boolean contain(Object key) {
 		return pool.containsKey(key);
+	}
+
+	public Set keys() {
+		return pool.keySet();
 	}
 
 }

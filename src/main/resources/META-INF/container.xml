@@ -165,10 +165,14 @@
 	
 	<!-- disruptorParams concurrent event  -->
 	<component name="disruptorParams" class="com.jdon.async.disruptor.DisruptorParams">
-	    <constructor value="2048" />
+	    <constructor value="2048" />	    
     </component>
     
     <component name="disruptorFactory" class="com.jdon.async.disruptor.DisruptorFactory"></component>
+    <component name="disruptorPoolFactory" class="com.jdon.async.disruptor.pool.DisruptorPoolFactory"></component>
+    
+	<component name="disruptorForCommandFactory" class="com.jdon.async.disruptor.DisruptorForCommandFactory"></component>
+	<component name="disruptorCommandPoolFactory" class="com.jdon.async.disruptor.pool.DisruptorCommandPoolFactory"></component>
 	
     <component name="futureDirector" class="com.jdon.async.future.FutureDirector">
 			<constructor value="50" />

@@ -19,6 +19,7 @@ import junit.framework.Assert;
 
 import com.jdon.annotation.Component;
 import com.jdon.annotation.model.OnEvent;
+import com.jdon.sample.test.event.TestEvent;
 
 @Component("consumer")
 public class B {
@@ -26,7 +27,7 @@ public class B {
 	@OnEvent("maTest")
 	public void mb(TestEvent testEvent) throws Exception {
 		testEvent.setResult(testEvent.getS() + 1);
-		System.out.print("mb.." + testEvent.getResult());
+		System.out.print("event.@OnEvent.mb.." + testEvent.getResult() + "\n");
 		Assert.assertEquals(testEvent.getResult(), 100);
 	}
 }

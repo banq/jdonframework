@@ -34,7 +34,7 @@ public class RepositoryImp implements MyModelRepository {
 
 	@OnEvent("saveMyModel")
 	public void save(MyModel myModel) {
-		System.out.print("\n No.1 @OnEvent:" + this.getClass().getName());
+		System.out.print("\n No.2 @OnEvent:" + this.getClass().getName());
 
 	}
 

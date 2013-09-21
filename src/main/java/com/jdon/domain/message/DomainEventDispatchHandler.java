@@ -43,6 +43,11 @@ public class DomainEventDispatchHandler implements DomainEventHandler<EventDisru
 		this.containerWrapper = containerWrapper;
 	}
 
+	public String getSortName() {
+		Object o = containerWrapper.lookupOriginal(consumerMethodHolder.getClassName());
+		return o.getClass().getName();
+	}
+
 	@Override
 	public void onEvent(EventDisruptor event, final boolean endOfBatch) throws Exception {
 		try {
@@ -54,7 +59,7 @@ public class DomainEventDispatchHandler implements DomainEventHandler<EventDisru
 			}
 			Object parameter = event.getDomainMessage().getEventSource();
 			if (parameter == null) {
-				Debug.logError("[Jdonframework]the publisher method with @Send need return type" + pTypes[0].getName(), module);
+				Debug.logError("[Jdonframework]DomainMessage's EventSource is null, need " + pTypes[0].getName(), module);
 				return;
 			}
 

@@ -15,77 +15,55 @@
  */
 package com.jdon.async;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 
+import org.aopalliance.intercept.MethodInvocation;
+
+import com.jdon.annotation.model.Receiver;
 import com.jdon.annotation.model.Send;
 import com.jdon.async.disruptor.DisruptorFactory;
+import com.jdon.async.disruptor.DisruptorForCommandFactory;
 import com.jdon.async.disruptor.EventDisruptor;
 import com.jdon.async.future.EventResultFuture;
 import com.jdon.async.future.FutureDirector;
 import com.jdon.async.future.FutureListener;
 import com.jdon.container.pico.Startable;
+import com.jdon.controller.model.ModelUtil;
+import com.jdon.domain.message.Command;
 import com.jdon.domain.message.DomainMessage;
+import com.jdon.domain.message.consumer.ModelConsumerMethodHolder;
+import com.jdon.domain.model.injection.ModelProxyInjection;
 import com.jdon.util.Debug;
 import com.lmax.disruptor.RingBuffer;
 import com.lmax.disruptor.dsl.Disruptor;
 
 public class EventMessageFirer implements Startable {
 	public final static String module = EventMessageFirer.class.getName();
-	private ScheduledExecutorService scheduExecStatic = Executors.newScheduledThreadPool(1);
 
 	private DisruptorFactory disruptorFactory;
+	private DisruptorForCommandFactory disruptorForCommandFactory;
 	private FutureDirector futureDirector;
-	private Map<String, Disruptor> topicDisruptors;
+	private ModelProxyInjection modelProxyInjection;
 
-	public EventMessageFirer(DisruptorFactory disruptorFactory, FutureDirector futureDirector) {
+	public EventMessageFirer(DisruptorFactory disruptorFactory, DisruptorForCommandFactory disruptorForCommandFactory, FutureDirector futureDirector,
+			ModelProxyInjection modelProxyInjection) {
 		super();
 		this.disruptorFactory = disruptorFactory;
+		this.disruptorForCommandFactory = disruptorForCommandFactory;
 		this.futureDirector = futureDirector;
-		this.topicDisruptors = new ConcurrentHashMap();
+		this.modelProxyInjection = modelProxyInjection;
 	}
 
 	public void start() {
-		Runnable task = new Runnable() {
-			public void run() {
-				stopDisruptor();
-			}
-		};
-		scheduExecStatic.scheduleAtFixedRate(task, 60 * 60, 60 * 60, TimeUnit.SECONDS);
+
 	}
 
 	public void stop() {
-		if (topicDisruptors != null) {
-			stopDisruptor();
-			topicDisruptors.clear();
-			topicDisruptors = null;
-		}
 		if (futureDirector != null) {
 			futureDirector.stop();
 			futureDirector = null;
 		}
-		disruptorFactory = null;
-		scheduExecStatic.shutdownNow();
-	}
-
-	private void stopDisruptor() {
-		Map mydisruptors = new HashMap(topicDisruptors);
-		topicDisruptors.clear();
-		Iterator keys = mydisruptors.keySet().iterator();
-		while (keys.hasNext()) {
-			Object key = keys.next();
-			Disruptor disruptor = (Disruptor) mydisruptors.get(key);
-			try {
-				disruptor.halt();
-			} catch (Exception e) {
-			}
-		}
-
 	}
 
 	public void fire(DomainMessage domainMessage, Send send, FutureListener futureListener) {
@@ -96,24 +74,71 @@ public class EventMessageFirer implements Startable {
 
 	}
 
-	private Disruptor getDisruptor(String topic) {
-		Disruptor disruptor = (Disruptor) topicDisruptors.get(topic);
-		if (disruptor == null) {
-			disruptor = disruptorFactory.createDisruptor(topic);
-			if (disruptor == null) {
-				Debug.logWarning("not create disruptor for " + topic, module);
-				return null;
-			}
-			topicDisruptors.put(topic, disruptor);
-		}
-		return disruptor;
-	}
-
 	public void fire(DomainMessage domainMessage, Send send) {
 		String topic = send.value();
-		Disruptor disruptor = getDisruptor(topic);
+		if (disruptorForCommandFactory.isContain(topic)) {
+			return;
+		}
+		if (!disruptorFactory.isContain(topic)) {
+			Debug.logError(" no found any consumer annonated with @Consumer or its methods with @OnEvent for topic=" + topic, module);
+			return;
+		}
+
+		try {
+
+			Disruptor disruptor = disruptorFactory.getDisruptor(topic);
+			if (disruptor == null) {
+				Debug.logWarning("not create disruptor for " + topic, module);
+				return;
+			}
+
+			RingBuffer ringBuffer = disruptor.getRingBuffer();
+			long sequence = ringBuffer.next();
+
+			EventDisruptor eventDisruptor = (EventDisruptor) ringBuffer.get(sequence);
+			if (eventDisruptor == null)
+				return;
+			eventDisruptor.setTopic(topic);
+			eventDisruptor.setDomainMessage(domainMessage);
+			ringBuffer.publish(sequence);
+
+		} catch (Exception e) {
+			Debug.logError("fire error: " + e.getMessage() + " for" + send.value() + " from:" + domainMessage.getEventSource() + " ", module);
+		} finally {
+
+		}
+	}
+
+	public void fireToModel(DomainMessage domainMessage, Send send, MethodInvocation invocation) {
+		String topic = send.value();
+		if (disruptorFactory.isContain(topic))
+			return;
+		ModelConsumerMethodHolder modelConsumerMethodHolder = disruptorForCommandFactory.getModelConsumerMethodHolder(topic);
+		if (modelConsumerMethodHolder == null) {
+			Debug.logError(" no found any consumer annonated with @OnCommand for topic=" + topic, module);
+			return;
+		}
+		Object[] arguments = invocation.getArguments();
+		if (arguments.length == 0) {
+			Debug.logError("there is no a destination parameter(@Receiver) in this method:" + invocation.getMethod().getName() + topic, module);
+			return;
+		}
+
+		Object model = fetchCommandReceiver(invocation.getMethod(), arguments);
+		if (model == null || !ModelUtil.isModel(model)) {
+			Debug.logError(" there is no a destination parameter(@Receiver)  in this method:" + invocation.getMethod().getName()
+					+ " or the destination class not annotated with @Model", module);
+			return;
+		}
+		//
+		modelProxyInjection.injectProperties(model);
+		// target model is the owner of the disruptor, single thread to modify
+		// aggregate root model's state.
+		((Command) domainMessage).setDestination(model);
+
+		Disruptor disruptor = disruptorForCommandFactory.getDisruptor(topic);
 		if (disruptor == null) {
-			Debug.logWarning("not create disruptor for " + topic, module);
+			Debug.logWarning("not create command disruptor for " + topic, module);
 			return;
 		}
 
@@ -130,10 +155,25 @@ public class EventMessageFirer implements Startable {
 			ringBuffer.publish(sequence);
 
 		} catch (Exception e) {
-			Debug.logError("fire error: " + send.value() + " domainMessage:" + domainMessage.getEventSource(), module);
+			Debug.logError("fireToModel error: " + send.value() + " domainMessage:" + domainMessage.getEventSource() + " mode:"
+					+ arguments[0].getClass().getName(), module);
 		} finally {
 
 		}
+	}
+
+	private Object fetchCommandReceiver(Method method, Object[] arguments) {
+		int i = 0;
+		Annotation[][] paramAnnotations = method.getParameterAnnotations();
+		for (Annotation[] anns : paramAnnotations) {
+			Object parameter = arguments[i++];
+			for (Annotation annotation : anns) {
+				if (annotation instanceof Receiver) {
+					return parameter;
+				}
+			}
+		}
+		return null;
 	}
 
 }

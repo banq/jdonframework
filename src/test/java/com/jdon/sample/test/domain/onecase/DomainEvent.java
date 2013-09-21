@@ -43,15 +43,16 @@ public class DomainEvent {
 		this.id = id;
 	}
 
+	// decorator for myMethod,
+	public void myMethod1() {
+		myMethod();
+	}
+
 	// async call @Component("mychannel") and @Consumer("mychannel")
 	@Send("mychannel")
 	public DomainMessage myMethod() {
 		DomainMessage em = new DomainMessage(this.name);
 		return em;
-	}
-
-	public void myMethod1() {
-		myMethod();
 	}
 
 	public String getName() {

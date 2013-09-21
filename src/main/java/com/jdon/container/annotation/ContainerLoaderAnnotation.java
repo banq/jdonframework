@@ -6,6 +6,7 @@ import com.jdon.container.annotation.type.ComponentLoader;
 import com.jdon.container.annotation.type.ConsumerLoader;
 import com.jdon.container.annotation.type.InroduceLoader;
 import com.jdon.container.annotation.type.InterceptorLoader;
+import com.jdon.container.annotation.type.ModelConsumerLoader;
 import com.jdon.container.annotation.type.ServiceLoader;
 import com.jdon.container.interceptor.IntroduceInfoHolder;
 import com.jdon.container.pico.ConfigInfo;
@@ -47,6 +48,9 @@ public class ContainerLoaderAnnotation {
 
 		ConsumerLoader consumerLoader = new ConsumerLoader(annotationScaner);
 		consumerLoader.loadAnnotationConsumers(annotationHolder, context, containerWrapper);
+
+		ModelConsumerLoader modelConsumerLoader = new ModelConsumerLoader(annotationScaner);
+		modelConsumerLoader.loadAnnotationModels(annotationHolder, context, containerWrapper);
 
 		ServiceLoader serviceLoader = new ServiceLoader(annotationScaner, consumerLoader);
 		serviceLoader.loadAnnotationServices(annotationHolder, context, containerWrapper);

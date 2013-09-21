@@ -24,7 +24,7 @@ public class RepositoryImp2 {
 
 	@OnEvent("saveMyModel")
 	public void todo(MyModel myModel) {
-		System.out.print("\n No.2 @OnEvent:" + this.getClass().getName());
+		System.out.print("\n No.3 @OnEvent:" + this.getClass().getName());
 	}
 
 }

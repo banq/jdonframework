@@ -15,6 +15,7 @@
  */
 package com.jdon.async.disruptor;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Map;
@@ -22,6 +23,8 @@ import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 
+import com.jdon.async.disruptor.pool.DisruptorPoolFactory;
+import com.jdon.async.disruptor.pool.DomainEventHandlerLast;
 import com.jdon.container.ContainerWrapper;
 import com.jdon.container.annotation.type.ConsumerLoader;
 import com.jdon.container.finder.ContainerCallback;
@@ -32,7 +35,6 @@ import com.jdon.domain.message.consumer.ConsumerMethodHolder;
 import com.jdon.util.Debug;
 import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.ClaimStrategy;
-import com.lmax.disruptor.EventFactory;
 import com.lmax.disruptor.MultiThreadedClaimStrategy;
 import com.lmax.disruptor.WaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
@@ -56,7 +58,7 @@ import com.lmax.disruptor.dsl.EventHandlerGroup;
  * @author banq
  * 
  */
-public class DisruptorFactory implements EventFactory, Startable {
+public class DisruptorFactory implements Startable {
 	public final static String module = DisruptorFactory.class.getName();
 	protected final Map<String, TreeSet<DomainEventHandler>> handlesMap;
 
@@ -64,10 +66,14 @@ public class DisruptorFactory implements EventFactory, Startable {
 
 	private ContainerWrapper containerWrapper;
 
-	public DisruptorFactory(DisruptorParams disruptorParams, ContainerCallback containerCallback) {
+	private DisruptorPoolFactory disruptorPoolFactory;
+
+	public DisruptorFactory(DisruptorParams disruptorParams, ContainerCallback containerCallback, DisruptorPoolFactory disruptorPoolFactory) {
 		this.RingBufferSize = disruptorParams.getRingBufferSize();
 		this.containerWrapper = containerCallback.getContainerWrapper();
 		this.handlesMap = new ConcurrentHashMap<String, TreeSet<DomainEventHandler>>();
+		this.disruptorPoolFactory = disruptorPoolFactory;
+		this.disruptorPoolFactory.setDisruptorFactory(this);
 
 	}
 
@@ -76,13 +82,15 @@ public class DisruptorFactory implements EventFactory, Startable {
 		this.RingBufferSize = "8";
 		this.containerWrapper = null;
 		this.handlesMap = new ConcurrentHashMap<String, TreeSet<DomainEventHandler>>();
+		this.disruptorPoolFactory = new DisruptorPoolFactory();
+		this.disruptorPoolFactory.setDisruptorFactory(this);
 	}
 
 	private Disruptor createDw(String topic) {
 		// executorService = Executors.newFixedThreadPool(100);
 		WaitStrategy waitStrategy = new BlockingWaitStrategy();
 		ClaimStrategy claimStrategy = new MultiThreadedClaimStrategy(Integer.parseInt(RingBufferSize));
-		return new Disruptor(this, Executors.newCachedThreadPool(), claimStrategy, waitStrategy);
+		return new Disruptor(new EventDisruptorFactory(), Executors.newCachedThreadPool(), claimStrategy, waitStrategy);
 	}
 
 	public Disruptor addEventMessageHandler(String topic, TreeSet<DomainEventHandler> handlers) {
@@ -98,7 +106,18 @@ public class DisruptorFactory implements EventFactory, Startable {
 				eh = eh.handleEventsWith(dea);
 			}
 		}
+		if (eh != null) {
+			eh.handleEventsWith(new DomainEventHandlerLast(this));
+		}
 		return dw;
+	}
+
+	public Disruptor getDisruptor(String topic) {
+		return this.disruptorPoolFactory.getDisruptor(topic);
+	}
+
+	public void releaseDisruptor(Object owner) {
+
 	}
 
 	/**
@@ -111,8 +130,9 @@ public class DisruptorFactory implements EventFactory, Startable {
 		TreeSet handlers = handlesMap.get(topic);
 		if (handlers == null)// not inited
 		{
-			handlers = loadEvenHandler(topic);
-			handlers = loadOnEventConsumers(topic, handlers);
+			handlers = getTreeSet();
+			handlers.addAll(loadEvenHandler(topic));
+			handlers.addAll(loadOnEventConsumers(topic));
 			if (handlers.size() == 0) {
 				// maybe by mistake in @Component(topicName)
 				Object o = containerWrapper.lookup(topic);
@@ -130,6 +150,14 @@ public class DisruptorFactory implements EventFactory, Startable {
 		return disruptor;
 	}
 
+	public boolean isContain(String topic) {
+		if (containerWrapper.lookup(ConsumerLoader.TOPICNAME + topic) == null && containerWrapper.lookup(ConsumerLoader.TOPICNAME2 + topic) == null) {
+			return false;
+		} else
+			return true;
+
+	}
+
 	/**
 	 * if there are many consumers, execution order will be alphabetical list by
 	 * Name of @Consumer class.
@@ -137,8 +165,8 @@ public class DisruptorFactory implements EventFactory, Startable {
 	 * @param topic
 	 * @return
 	 */
-	protected TreeSet<DomainEventHandler> loadEvenHandler(String topic) {
-		TreeSet<DomainEventHandler> ehs = this.getTreeSet();
+	protected Collection loadEvenHandler(String topic) {
+		Collection ehs = new ArrayList();
 		Collection<String> consumers = (Collection<String>) containerWrapper.lookup(ConsumerLoader.TOPICNAME + topic);
 		if (consumers == null || consumers.size() == 0) {
 			Debug.logWarning("[Jdonframework]there is no any consumer class annotated with @Consumer(" + topic + ") ", module);
@@ -153,7 +181,8 @@ public class DisruptorFactory implements EventFactory, Startable {
 
 	}
 
-	protected TreeSet<DomainEventHandler> loadOnEventConsumers(String topic, TreeSet<DomainEventHandler> ehs) {
+	protected Collection loadOnEventConsumers(String topic) {
+		Collection ehs = new ArrayList();
 		Collection consumerMethods = (Collection) containerWrapper.lookup(ConsumerLoader.TOPICNAME2 + topic);
 		if (consumerMethods == null)
 			return ehs;
@@ -170,8 +199,16 @@ public class DisruptorFactory implements EventFactory, Startable {
 		return new TreeSet(new Comparator() {
 			public int compare(Object num1, Object num2) {
 				String inum1, inum2;
-				inum1 = num1.getClass().getName();
-				inum2 = num2.getClass().getName();
+				if (num1 instanceof DomainEventDispatchHandler) {
+					inum1 = ((DomainEventDispatchHandler) num1).getSortName();
+				} else {
+					inum1 = num1.getClass().getName();
+				}
+				if (num2 instanceof DomainEventDispatchHandler) {
+					inum2 = ((DomainEventDispatchHandler) num2).getSortName();
+				} else {
+					inum2 = num2.getClass().getName();
+				}
 				if (inum1.compareTo(inum2) < 1) {
 					return -1; // returning the first object
 				} else {
@@ -181,11 +218,6 @@ public class DisruptorFactory implements EventFactory, Startable {
 			}
 
 		});
-	}
-
-	// create a Event;
-	public EventDisruptor newInstance() {
-		return new EventDisruptor();
 	}
 
 	@Override

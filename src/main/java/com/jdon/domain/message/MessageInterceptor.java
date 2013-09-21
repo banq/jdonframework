@@ -77,6 +77,8 @@ public class MessageInterceptor implements MethodInterceptor, Startable {
 			if (listener != null && listener instanceof FutureListener)
 				eventMessageFirer.fire(message, send, (FutureListener) listener);
 
+			eventMessageFirer.fireToModel(message, send, invocation);
+
 		} catch (Exception e) {
 			Debug.logError("invoke error: " + e, module);
 		}

@@ -48,6 +48,21 @@ public class RoleAssigner {
 		modelProxyInjection.injectProperties(datamodel);
 	}
 
+	/**
+	 * assign a object as a AggregateRoot role, AggregateRoot can receive a
+	 * command and reactive a event in CQRS.
+	 * 
+	 * when we get a domain mode from repository with @introduce("modelcache")
+	 * and @Around, the mode has been assign as a AggregateRoot;no need call
+	 * this method.
+	 * 
+	 * @param datamodel
+	 */
+	public Object assignAggregateRoot(Object datamodel) {
+		modelProxyInjection.injectProperties(datamodel);
+		return modelAdvisor.createProxy(datamodel);
+	}
+
 	public Object assignRoleEvents(Object role) {
 		return modelAdvisor.createProxy(role);
 	}

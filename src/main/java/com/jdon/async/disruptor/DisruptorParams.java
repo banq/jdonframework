@@ -17,19 +17,15 @@ package com.jdon.async.disruptor;
 
 public class DisruptorParams {
 
-	private String RingBufferSize;
+	private final String ringBufferSize;
 
 	public DisruptorParams(String ringBufferSize) {
 		super();
-		RingBufferSize = ringBufferSize;
+		this.ringBufferSize = ringBufferSize;
 	}
 
 	public String getRingBufferSize() {
-		return RingBufferSize;
-	}
-
-	public void setRingBufferSize(String ringBufferSize) {
-		RingBufferSize = ringBufferSize;
+		return this.ringBufferSize;
 	}
 
 }

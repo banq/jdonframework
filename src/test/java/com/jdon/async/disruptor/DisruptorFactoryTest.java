@@ -52,12 +52,11 @@ public class DisruptorFactoryTest extends TestCase {
 
 			@Override
 			public void onEvent(EventDisruptor event, final boolean endOfBatch) throws Exception {
-				System.out.println("MyEventA=" + event.getDomainMessage().getEventSource());
+				System.out.println("MyEventA2=" + event.getDomainMessage().getEventSource());
 				event.getDomainMessage().setEventResult(null);
 
 			}
 		};
-
 		handlers.add(handler2);
 		handlers.add(handler);
 

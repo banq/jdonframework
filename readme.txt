@@ -18,11 +18,13 @@ JdonFramework = Spring(Ioc/DI/AOP) + Ruby(DCI) + Scala(Actor)
 2. RELEASE NOTES
 ----------------
 
-6.6.4 version.  
+6.7 version.  
 
-(1) in-memeory cache switchs to Guava cache insteadof ehcache.
+add command of CQRS:
+GUI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Component
 
-(2) add maven supports.
+A aggregate root in Jdon acts as Actors of AKKA or Erlang.
+
 
 3. DISTRIBUTION JAR FILES
 -------------------------

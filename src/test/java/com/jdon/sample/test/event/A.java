@@ -17,6 +17,8 @@ package com.jdon.sample.test.event;
 
 import com.jdon.annotation.Component;
 import com.jdon.annotation.Introduce;
+import com.jdon.sample.test.event.AI;
+import com.jdon.sample.test.event.TestEvent;
 
 @Component("producer")
 @Introduce("componentmessage")
@@ -25,7 +27,7 @@ public class A implements AI {
 	// @Send("maTest")
 	// see AI.ma()
 	public TestEvent ma() {
-		System.out.print("ma..");
+		System.out.print("event.send.ma..");
 		return new TestEvent(99);
 	}
 }

@@ -23,7 +23,7 @@ import com.lmax.disruptor.SingleThreadedClaimStrategy;
 public class EventResultHandlerImp implements EventResultHandler {
 
 	// MILLISECONDS default is one seconds
-	protected int timeoutforeturnResult = 10000;
+	protected int timeoutforeturnResult = 1000;
 
 	protected ValueEventProcessor valueEventProcessor;
 
@@ -57,7 +57,7 @@ public class EventResultHandlerImp implements EventResultHandler {
 
 	public Object getBlockedValue() {
 		Object result = null;
-		EventResultDisruptor ve = valueEventProcessor.waitForBlocking(timeoutforeturnResult * 100);
+		EventResultDisruptor ve = valueEventProcessor.waitForBlocking(timeoutforeturnResult * 10);
 		if (ve != null) {
 			result = ve.getValue();
 			ve.clear();

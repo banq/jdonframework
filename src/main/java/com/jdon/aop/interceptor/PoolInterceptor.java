@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -61,7 +62,7 @@ public class PoolInterceptor implements MethodInterceptor, Startable {
 
 	private PoolConfigure poolConfigure;
 
-	private List isPoolableCache = new ArrayList();
+	private List isPoolableCache = new CopyOnWriteArrayList();
 
 	private List unPoolableCache = new ArrayList();
 
@@ -206,6 +207,16 @@ public class PoolInterceptor implements MethodInterceptor, Startable {
 			this.poolFactorys.clear();
 			this.targetMetaRequestsHolder.clear();
 		}
+
+		ContainerWrapper containerWrapper = containerCallback.getContainerWrapper();
+		InstanceCache instanceCache = (InstanceCache) containerWrapper.lookup(ComponentKeys.INSTANCE_CACHE);
+		if (instanceCache != null)
+			for (Object key : instanceCache.keys()) {
+				if (key instanceof String) {
+					CommonsPoolFactory commonsPoolFactory = (CommonsPoolFactory) instanceCache.get((String) key);
+					commonsPoolFactory.getPool().close();
+				}
+			}
 
 		this.containerCallback = null;
 		this.isPoolableCache = null;
