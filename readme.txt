@@ -23,7 +23,7 @@ JdonFramework = Spring(Ioc/DI/AOP) + Ruby(DCI) + Scala(Actor)
 add command of CQRS:
 GUI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Component
 
-A aggregate root in Jdon acts as Actors of AKKA or Erlang.
+A aggregate root in Jdon acts like Actors of AKKA or Erlang.
 
 
 3. DISTRIBUTION JAR FILES

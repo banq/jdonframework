@@ -5,7 +5,9 @@ add CQRS's Command for a aggregate root with @Model.
 
 GUI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Component
 
-so aggregate root in Jdon acts as Actors of AKKA or Erlang.
+a aggregate root in Jdon acts like Actors of AKKA or Erlang.
+
+example: https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/cqrs
 
 ==================================================================
 JDON FRAMEWORK 6.6.4  (06/2013)

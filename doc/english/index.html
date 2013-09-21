@@ -134,8 +134,8 @@ Domain-Driven Dsign Development, supports in-memory cache model.                
 <p>when a Component/Service sends messages to a Domain Model(aggregate root), in CQRS we call the message is a command, and whe a domain model send message to a Component, we call it reactive  a event. see below:</p>
 <p><img src="images/commandevent.png" alt="command event" width="530" height="300"></p>
 <p>a command action the behavior(startMatch) of a aggregate root(domain model), and a event happend in this behavior, the event will be send by message to another aggregate root or a Component that maybe save it to repository.</p>
-<p><strong>1. Component(producer with @Component) -- &gt; Domian model(consumer with @Model)</strong></p>
-<p>this mode is for Command, one command is sent from UI, and sent to one aggregate root, one command has one action on the method of the aggregate root.</p>
+<p><strong>1. Component(producer with @Component) -- &gt; Model(consumer with @Model)</strong></p>
+<p>this mode is for CQRS's Command, one command is sent from UI, and sent to one aggregate root, one command has one action on the method of the aggregate root. this mode  works since jdon v6.7,</p>
 <p>in this mode producer:consumer can only be 1:1, one command can only be sent to one method of one domain model. </p>
 <p>The A in this sample is a producer with @Component:</p>
 <table width="750" border="0">
@@ -210,7 +210,7 @@ System.out.print(&quot;ok &quot; + &quot;  &quot; + (stop - start));</td>
 <p>send to BModel =oneok   5</p>
 <p>this mode :component --&gt; aggregate root is used for implemetion  a command from GUI or other invoker, its source can be another event. in this mode, the state of aggregate root is changed by only single thread, it is threadsafe. and no blocking and no lock.this mode can implement transaction against 2PC or JTA.</p>
 <p>&nbsp;</p>
-<p><strong>2. Domain Model(producer with @Model) -- &gt; Component(consumer with @Component)</strong></p>
+<p><strong>2.  Model(producer with @Model) -- &gt; Component(consumer with @Component)</strong></p>
 <p>After a agrregate root (domain model) receive a command , and it will reactive a event that can be sent to a Component or another aggregate root. we call it is domain events. this section we focus a event sent to a Component.</p>
 <p>  we can inject a Component(<strong>with </strong> @Component) into a agrregate root that acts as a producer.</p>
 <p>the domain model code:</p>
@@ -366,7 +366,7 @@ System.out.print(&quot;ok &quot; + &quot;  &quot; + (stop - start));</td>
 [junit] ok   31</p>
 <p>above codes is from <a href="https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/SampleAppTest.java" target="_blank">com.jdon.SampleAppTest</a> testEvent() </p>
 <p>&nbsp;</p>
-<p><strong>3. Model(producer with @Component) -- &gt; Model(consumer with @Component)</strong></p>
+<p><strong>3. Model(aggregate root A) -- &gt; Model(aggregate root B)</strong></p>
 <p>Aggregates
   are
   always
@@ -385,11 +385,11 @@ System.out.print(&quot;ok &quot; + &quot;  &quot; + (stop - start));</td>
   aggregate
   roots.</p>
 <p>when a aggregates root want to cal another aggregates root , it only can be implemented by domain events, a output event act as a input command for another aggregates root.</p>
-<p>this mode consist of above three modes:</p>
+<p>this mode consists of  three modes above:</p>
 <p>1. Aggrgate root A reactive a event to a Component (model ---&gt; Component)</p>
 <p>2.the Component transfer the event to a command for Aggrgate root B (Component ----&gt;Component)</p>
 <p>3.the command will be sent to Aggrgate root B (component --&gt;model)</p>
-<p>&nbsp;</p>
+<p>this mode's source code is in Github: <a href="https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/cqrs" target="_blank">https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/cqrs</a></p>
 <div> </div>
                     <hr>
                     <H3>Blog</H3>
