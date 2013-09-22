@@ -26,7 +26,6 @@ import javax.ws.rs.core.Context;
 
 import org.apache.log4j.Logger;
 
-import com.jdon.controller.WebAppUtil;
 import com.jdon.domain.dci.RoleAssigner;
 import com.jdon.framework.test.domain.UploadFile;
 import com.jdon.framework.test.domain.UserModel;
@@ -139,7 +138,6 @@ public class ResourceManagerContext {
 			uploadVO = new UploadVO(file.getFileName(), file.getFileData(), file.getContentType());
 		}
 
-		CommandHandler commandHandler = (CommandHandler) WebAppUtil.getComponentInstance("commandHandler", request);
 		commandHandler.saveUser(oldUser, new UpdateCommand(user, uploadVO));
 		return new State("/result.jsp");
 	}

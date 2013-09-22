@@ -17,18 +17,15 @@ package com.jdon.framework.test.web;
 
 import com.jdon.annotation.Component;
 import com.jdon.annotation.Introduce;
-import com.jdon.annotation.model.Receiver;
-import com.jdon.annotation.model.Send;
 import com.jdon.domain.message.DomainMessage;
 import com.jdon.framework.test.domain.UserModel;
 import com.jdon.framework.test.domain.command.UpdateCommand;
 
 @Component("commandHandler")
-@Introduce("message")
+@Introduce("componentmessage")
 public class CommandHandlerImpl implements CommandHandler {
 
-	@Send("UserSaveCommand")
-	public DomainMessage saveUser(@Receiver UserModel userModel, UpdateCommand updateCommand) {
+	public DomainMessage saveUser(UserModel userModel, UpdateCommand updateCommand) {
 		return new DomainMessage(updateCommand);
 	}
 

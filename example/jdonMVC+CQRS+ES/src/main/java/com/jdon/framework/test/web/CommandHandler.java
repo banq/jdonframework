@@ -15,12 +15,14 @@
  */
 package com.jdon.framework.test.web;
 
+import com.jdon.annotation.model.Receiver;
+import com.jdon.annotation.model.Send;
 import com.jdon.domain.message.DomainMessage;
 import com.jdon.framework.test.domain.UserModel;
 import com.jdon.framework.test.domain.command.UpdateCommand;
 
 public interface CommandHandler {
-
-	DomainMessage saveUser(UserModel userModel, UpdateCommand updateCommand);
+	@Send("UserSaveCommand")
+	DomainMessage saveUser(@Receiver UserModel userModel, UpdateCommand updateCommand);
 
 }
