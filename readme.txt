@@ -18,7 +18,7 @@ JdonFramework = Spring(Ioc/DI/AOP) + Ruby(DCI) + Scala(Actor)
 2. RELEASE NOTES
 ----------------
 
-6.7 version.  
+6.6.6 version.  
 
 add command of CQRS:
 GUI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Component
