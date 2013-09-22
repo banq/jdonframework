@@ -19,7 +19,8 @@
  <scm>
     <connection>scm:git:git@github.com:banq/jdonframework.git</connection>
     <developerConnection>scm:git:git@github.com:banq/jdonframework.git</developerConnection>
-    <url>git@github.com:banq/jdonframework.git</url>    
+    <url>git@github.com:banq/jdonframework.git</url>  
+    <tag>jdonframework-6.6.7</tag>  
   </scm>
   
  <developers>
