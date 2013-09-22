@@ -101,10 +101,10 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
                       <li>
 Domain-Driven Dsign Development, supports in-memory cache model.                    </li>
                       <li>
-                        Actor model, like ErLang/scala MailBox, based on  LMAX's Disruptor provides :never blocks ,nothing blocks, concurrent programming;  Event-driven Architecture(EDA); asynchronous programming,concurrency pattern, lazy evaluation.</li>
+                        Actor model, like ErLang/scala MailBox, based on  LMAX's Disruptor , never blocks ,nothing blocks, concurrent programming;  Event-driven Architecture(EDA); asynchronous programming,concurrency pattern, lazy evaluation.</li>
                       <li>DI and AOP framework, POJO autowiring that implements Dependency Injection, and all components can be replaced, even include the framework itself. introduce any pojo as a inteceptor.</li>
                       <li> Command Query Responsibility Segregation(CQRS/CQS) , support the default implementations for CRUD and   auto paginator for query of large datas .</li>
-                      <li><a href="http://en.wikipedia.org/wiki/Lazy_evaluation">Lazy initialization or evaluation</a>, improving performance  by in-memory cache. memory-consumption-wise</li>
+                      <li><a href="http://en.wikipedia.org/wiki/Lazy_evaluation">Lazy loading or evaluation</a>, a aggregate root   loads its childern objects until them need to use, improving performance  by in-memory cache. memory-consumption-wise</li>
                       <li><a href="springIntegration.html">Be easily integration with Spring framework</a>.</li>
                     </ol>
                     <P>Jdon Framework = <a href="http://domaindrivendesign.org/" target="_blank">DDD</a> + Domain Events(CQRS)+ <a href="http://www.martinfowler.com/articles/injection.html" target="_blank">Ioc/DI</a> + AOP + CRUD + Cache</P>
@@ -121,9 +121,9 @@ Domain-Driven Dsign Development, supports in-memory cache model.                
 <p>&nbsp;</p>
 <hr>
 <h3>How to use?</h3>
-<p>In Jdon there are two kinds of model: Component and Domain Model(aggregate root). Component class is annotated with @Component, and Domain Model class is annotated with @Model.</p>
-<p> When a Domain Model is referenced by  Component, it is a aggregate root, if it is referencedby another model, it is not a aggregate root, maybe normal Entity or Value Object.</p>
-<p> Domain Model instances  live in in-memory cache, and Component instances live in the container that its lifcycle is application scope.</p>
+<p>In Jdon there are two kinds of model: Component and  Model. a Component class is annotated with @Component, and a  Model class is annotated with @Model.</p>
+<p> When a  Model is referenced by  Component, it is a aggregate root, if it is referencedby another model, it is not a aggregate root, maybe normal Entity or Value Object.</p>
+<p>  Model instances  live in in-memory cache, and Component instances live in the container that its lifcycle is equal to application scope.</p>
 <p>Component can be use to implement DDD's service or other application manager, such as repository or Email sender..</p>
 <p>Service (annotated with @Service) is same as Component, their difference is their usage, Service class services for the client, be equals to SOA service.</p>
 <p>Jdon provide four kinds of asynchronous concurrency communication(Producer/Consumer) with these two models.</p>
@@ -133,7 +133,9 @@ Domain-Driven Dsign Development, supports in-memory cache model.                
 <p>4. model------&gt; model</p>
 <p>when a Component/Service sends messages to a Domain Model(aggregate root), in CQRS we call the message is a command, and whe a domain model send message to a Component, we call it reactive  a event. see below:</p>
 <p><img src="images/commandevent.png" alt="command event" width="530" height="300"></p>
-<p>a command action the behavior(startMatch) of a aggregate root(domain model), and a event happend in this behavior, the event will be send by message to another aggregate root or a Component that maybe save it to repository.</p>
+<p>a command actions the behavior(startMatch) of a aggregate root(domain model), and a event happend in this behavior, the event will be sent to another aggregate root or a Component that maybe save it to repository.</p>
+<p><img src="images/actor.png" alt="actors model" width="499" height="168"></p>
+<p>&nbsp;</p>
 <p><strong>1. Component(producer with @Component) -- &gt; Model(consumer with @Model)</strong></p>
 <p>this mode is for CQRS's Command, one command is sent from UI, and sent to one aggregate root, one command has one action on the method of the aggregate root. this mode  works since jdon v6.7,</p>
 <p>in this mode producer:consumer can only be 1:1, one command can only be sent to one method of one domain model. </p>
@@ -208,6 +210,7 @@ System.out.print(&quot;ok &quot; + &quot;  &quot; + (stop - start));</td>
 </table>
 <p>it output:</p>
 <p>send to BModel =oneok   5</p>
+<p>above source in :<a href="https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/command">https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/command</a></p>
 <p>this mode :component --&gt; aggregate root is used for implemetion  a command from GUI or other invoker, its source can be another event. in this mode, the state of aggregate root is changed by only single thread, it is threadsafe. and no blocking and no lock.this mode can implement transaction against 2PC or JTA.</p>
 <p>&nbsp;</p>
 <p><strong>2.  Model(producer with @Model) -- &gt; Component(consumer with @Component)</strong></p>
@@ -299,7 +302,7 @@ System.out.print(&quot;ok &quot; + &quot;  &quot; + (stop - start));</td>
     </li>
   <li>Communicates through asynchronous&amp;  non-blocking message passing</li>
   </ul>
-<p>&nbsp;</p>
+<p>above sources: <a href="https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/domain/simplecase">https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/domain/simplecase</a></p>
 <p><strong>3. Component(producer with @Component) -- &gt; Component(consumer with @Component)</strong></p>
 <p>this mode is simple, The A in this sample is a producer with @Component:</p>
 <table width="750" border="0">
@@ -364,7 +367,7 @@ System.out.print(&quot;ok &quot; + &quot;  &quot; + (stop - start));</td>
 <p>output:</p>
 <p> [junit] event.send.ma..event.@OnEvent.mb..100<br>
 [junit] ok   31</p>
-<p>above codes is from <a href="https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/SampleAppTest.java" target="_blank">com.jdon.SampleAppTest</a> testEvent() </p>
+<p>above codes is from<a href="https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/event">https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/event</a></p>
 <p>&nbsp;</p>
 <p><strong>3. Model(aggregate root A) -- &gt; Model(aggregate root B)</strong></p>
 <p>Aggregates

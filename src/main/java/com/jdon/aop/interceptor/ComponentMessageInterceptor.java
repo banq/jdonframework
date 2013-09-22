@@ -18,7 +18,6 @@ package com.jdon.aop.interceptor;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
-import com.jdon.annotation.Interceptor;
 import com.jdon.annotation.model.Send;
 import com.jdon.async.EventMessageFirer;
 import com.jdon.async.future.FutureListener;
@@ -37,7 +36,7 @@ import com.jdon.util.Debug;
  * @author banq
  * 
  */
-@Interceptor("componentmessage")
+// @Interceptor("componentmessage")
 public class ComponentMessageInterceptor implements MethodInterceptor, Startable {
 	public final static String module = MessageInterceptor.class.getName();
 

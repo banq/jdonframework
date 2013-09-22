@@ -137,7 +137,9 @@ public class SampleAppTest extends TestCase {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
+		AppUtil appUtil = new AppUtil();
+		AI a = (AI) appUtil.getService("producer");
+		a.ma();
 	}
 
 	protected void tearDown() throws Exception {

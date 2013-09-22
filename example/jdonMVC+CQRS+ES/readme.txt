@@ -71,5 +71,5 @@ password=""     is user name's password
    check the console, if there are many errors, open jboss/server/default/log/server.log
    and will find it maybe caused by database connection, carefully check step 7/8
    
-6. open browser, http://localhost:8080/testWeb/  
+6. open browser, http://localhost:8080/jdonmvc_cqrs_es/  
    DEMO:  http://www.jdon.com/testWeb/

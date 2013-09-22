@@ -48,6 +48,10 @@ response.setDateHeader("Expires", 0);
 <a href="newUser.jsp">add</a>
 
 </div>
+* if you cann't find any items that you just added, please modify database config in  META-INF/context.xml
+<p>
+* reload this page, you will find the pictures if you just uploaded them.
+
 
 </body>
 </html>

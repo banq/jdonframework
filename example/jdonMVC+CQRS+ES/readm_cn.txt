@@ -65,7 +65,7 @@ url="jdbc:mysql://localhost/test" />
    and will find it maybe caused by database connection, carefully check step 7/8
    
 7. copy dist/testWeb.war to tomcat/webapps  or jboss/server/default/deploy
-   open browser, http://localhost:8080/testWeb/
+   open browser, http://localhost:8080/jdonmvc_cqrs_es/
    same DEMO in Internet:  http://www.jdon.com/testWeb/
 
 注意：如果你编译build.xml打包testWeb.war，需要修改其中deploy.dir为你的服务器

@@ -26,13 +26,14 @@ import javax.ws.rs.core.Context;
 
 import org.apache.log4j.Logger;
 
+import com.jdon.controller.WebAppUtil;
 import com.jdon.domain.dci.RoleAssigner;
 import com.jdon.framework.test.domain.UploadFile;
 import com.jdon.framework.test.domain.UserModel;
-import com.jdon.framework.test.domain.event.UploadSavedEvent;
+import com.jdon.framework.test.domain.command.UpdateCommand;
 import com.jdon.framework.test.domain.event.UserCreatedEvent;
 import com.jdon.framework.test.domain.event.UserDeletedEvent;
-import com.jdon.framework.test.domain.event.UserUpdatedEvent;
+import com.jdon.framework.test.domain.vo.UploadVO;
 import com.jdon.framework.test.query.UserQuery;
 import com.jdon.framework.test.repository.EntityFactory;
 import com.jdon.mvc.annotations.In;
@@ -64,6 +65,9 @@ public class ResourceManagerContext {
 
 	@In(value = "roleAssigner", type = BeanType.COMPONENT)
 	private RoleAssigner roleAssigner;
+
+	@In(value = "commandHandler", type = BeanType.COMPONENT)
+	private CommandHandler commandHandler;
 
 	@Path("/")
 	public Represent index() {
@@ -129,11 +133,14 @@ public class ResourceManagerContext {
 			return new State("/");
 
 		UserModel oldUser = this.getUser(user.getUserId());
-		oldUser.update(new UserUpdatedEvent(user));
 		FormFile file = (FormFile) request.getSession().getAttribute("formFile");
+		UploadVO uploadVO = null;
 		if (file != null) {
-			oldUser.setUploadFile(new UploadSavedEvent(file.getFileName(), file.getFileData(), file.getContentType()));
+			uploadVO = new UploadVO(file.getFileName(), file.getFileData(), file.getContentType());
 		}
+
+		CommandHandler commandHandler = (CommandHandler) WebAppUtil.getComponentInstance("commandHandler", request);
+		commandHandler.saveUser(oldUser, new UpdateCommand(user, uploadVO));
 		return new State("/result.jsp");
 	}
 

@@ -17,8 +17,10 @@ package com.jdon.framework.test.domain;
 
 import com.jdon.annotation.Model;
 import com.jdon.annotation.model.Inject;
-import com.jdon.framework.test.domain.event.UploadSavedEvent;
+import com.jdon.annotation.model.OnCommand;
+import com.jdon.framework.test.domain.command.UpdateCommand;
 import com.jdon.framework.test.domain.event.UserUpdatedEvent;
+import com.jdon.framework.test.domain.vo.UploadVO;
 import com.jdon.framework.test.event.domain.publisher.EventSourcing;
 import com.jdon.framework.test.event.domain.publisher.LazyLoaderRole;
 
@@ -49,14 +51,17 @@ public class UserModel {
 
 	private int count = -1;
 
-	public void update(UserUpdatedEvent userUpdatedEvent) {
-		if (!userUpdatedEvent.getNewUserDTO().getUserId().equals(this.userId)) {
+	@OnCommand("UserSaveCommand")
+	public void update(UpdateCommand updateCommand) {
+		if (!updateCommand.getNewUserDTO().getUserId().equals(this.userId)) {
 			System.err.print("update not this user");
 			return;
 		}
-		this.name = userUpdatedEvent.getNewUserDTO().getName();
-		this.email = userUpdatedEvent.getNewUserDTO().getEmail();
-		this.es.updated(userUpdatedEvent);
+		this.name = updateCommand.getNewUserDTO().getName();
+		this.email = updateCommand.getNewUserDTO().getEmail();
+		this.es.updated(new UserUpdatedEvent(updateCommand.getNewUserDTO()));
+
+		this.setUploadFile(updateCommand.getUploadVO());
 	}
 
 	public String getName() {
@@ -117,7 +122,7 @@ public class UserModel {
 		return getAttachment().getUploadFile();
 	}
 
-	public void setUploadFile(UploadSavedEvent event) {
+	public void setUploadFile(UploadVO event) {
 		es.saveUpload(event);
 		UploadFile uploadFile = new UploadFile();
 		uploadFile.setData(event.getFilesData());
