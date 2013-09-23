@@ -109,37 +109,34 @@ Domain-Driven Dsign Development, supports in-memory cache model.                
                     </ol>
                     <P>Jdon Framework = <a href="http://domaindrivendesign.org/" target="_blank">DDD</a> + Domain Events(CQRS)+ <a href="http://www.martinfowler.com/articles/injection.html" target="_blank">Ioc/DI</a> + AOP + CRUD + Cache</P>
                     <hr>
-                    <h3>How to start?</h3>
-                    <p>Maven pom.xml :</p>
+                    <h3>getting Started</h3>
+                    <p>　　Maven pom.xml :</p>
                     <p>　&lt;dependency&gt;<br>
                       　　　　&lt;groupId&gt;org.jdon&lt;/groupId&gt;<br>
                       　　　　&lt;artifactId&gt;jdonframework&lt;/artifactId&gt;<br>
-                      　　　　&lt;version&gt;6.6.4&lt;/version&gt;<br>
+                      　　　　&lt;version&gt;6.6.6&lt;/version&gt;<br>
                       　　&lt;/dependency&gt; </p>
                     <p>&nbsp;</p>
-<p><a href="pom.xml">full pom.xml </a></p>
-<p>&nbsp;</p>
-<hr>
-<h3>How to use?</h3>
-<p>In Jdon there are two kinds of model: Component and  Model. a Component class is annotated with @Component, and a  Model class is annotated with @Model.</p>
-<p> When a  Model is referenced by  Component, it is a aggregate root, if it is referencedby another model, it is not a aggregate root, maybe normal Entity or Value Object.</p>
-<p>  Model instances  live in in-memory cache, and Component instances live in the container that its lifcycle is equal to application scope.</p>
-<p>Component can be use to implement DDD's service or other application manager, such as repository or Email sender..</p>
-<p>Service (annotated with @Service) is same as Component, their difference is their usage, Service class services for the client, be equals to SOA service.</p>
-<p>Jdon provide four kinds of asynchronous concurrency communication(Producer/Consumer) with these two models.</p>
-<p>1. Component -----&gt; model</p>
-<p>2. model -------&gt;Component</p>
-<p>3. Compponent ------&gt; Component</p>
-<p>4. model------&gt; model</p>
-<p>when a Component/Service sends messages to a Domain Model(aggregate root), in CQRS we call the message is a command, and whe a domain model send message to a Component, we call it reactive  a event. see below:</p>
+<p>　　Since jdonframework 6.6.6</p>
+<p>　　In Jdon there are two kinds of model: Component and  Model. a Component class is annotated with @Component, and a  Model class is annotated with @Model.</p>
+<p> 　　When a  Model is referenced by  Component, it is a aggregate root, if it is referencedby another model, it is not a aggregate root, maybe normal Entity or Value Object.</p>
+<p>  　　Model instances  live in in-memory cache, and Component instances live in the container that its lifcycle is equal to application scope.</p>
+<p>　　Component can be use to implement DDD's service or other application manager, such as repository or Email sender..</p>
+<p>　　Service (annotated with @Service) is same as Component, their difference is their usage, Service class services for the client, be equals to SOA service.</p>
+<p>　　Jdon provide four kinds of asynchronous concurrency communication(Producer/Consumer) with these two models.</p>
+<p>　　1. Component -----&gt; model</p>
+<p>　　2. model -------&gt;Component</p>
+<p>　　3. Compponent ------&gt; Component</p>
+<p>　　4. model------&gt; model</p>
+<p>　　when a Component/Service sends messages to a Domain Model(aggregate root), in CQRS we call the message is a command, and whe a domain model send message to a Component, we call it reactive  a event. see below:</p>
 <p><img src="images/commandevent.png" alt="command event" width="530" height="300"></p>
-<p>a command actions the behavior(startMatch) of a aggregate root(domain model), and a event happend in this behavior, the event will be sent to another aggregate root or a Component that maybe save it to repository.</p>
+<p>　　a command actions the behavior(startMatch) of a aggregate root(domain model), and a event happend in this behavior, the event will be sent to another aggregate root or a Component that maybe save it to repository.</p>
 <p><img src="images/actor.png" alt="actors model" width="499" height="168"></p>
-<p>&nbsp;</p>
-<p><strong>1. Component(producer with @Component) -- &gt; Model(consumer with @Model)</strong></p>
-<p>this mode is for CQRS's Command, one command is sent from UI, and sent to one aggregate root, one command has one action on the method of the aggregate root. this mode  works since jdon v6.7,</p>
-<p>in this mode producer:consumer can only be 1:1, one command can only be sent to one method of one domain model. </p>
-<p>The A in this sample is a producer with @Component:</p>
+<h3>1. Component and Model</h3>
+<p> 　　Component(producer with @Component) -- &gt; Model(consumer with @Model)</p>
+<p>　　this mode is for CQRS's Command, one command is sent from UI, and sent to one aggregate root, one command has one action on the method of the aggregate root. this mode  works.</p>
+<p>　　in this mode producer:consumer can only be 1:1, one command can only be sent to one method of one domain model. </p>
+<p>　　The A in this sample is a producer with @Component:</p>
 <table width="750" border="0">
   <tr>
     <td bgcolor="#CCCCCC"><p>&nbsp;</p>
@@ -162,7 +159,7 @@ Domain-Driven Dsign Development, supports in-memory cache model.                
       <p></p></td>
   </tr>
 </table>
-<p>the method &quot;ma&quot; annotated with @Send must have a method parameter:BModel that annotated with @Model, that means send a command message to this domain model , the model is a receiver for a command, so must annotate with <strong>@Receiver</strong>.</p>
+<p>　　the method &quot;ma&quot; annotated with @Send must have a method parameter:BModel that annotated with @Model, that means send a command message to this domain model , the model is a receiver for a command, so must annotate with <strong>@Receiver</strong>.</p>
 <table width="750" border="0">
   <tr>
     <td bgcolor="#CCCCCC"><p><br>
@@ -190,8 +187,9 @@ Domain-Driven Dsign Development, supports in-memory cache model.                
       <p></p></td>
   </tr>
 </table>
-<p>the topic name &quot;CommandmaTest&quot;  is  unique; because  producer : consumer is 1:1. one command has one action(onCommand).</p>
-<p>below is the client code:</p>
+<p>　　the topic name &quot;CommandmaTest&quot;  is  unique; because  producer : consumer is 1:1. one command has one action(onCommand). @<strong>OnCommand</strong> is annotated on the method of consumer.</p>
+<p>　　the procuder(AICommand) 's ma method commands the consumer(BModel)'s save method. AICommand is a Component and BModel is a Model.</p>
+<p>　　below is the client code:</p>
 <table width="750" border="0">
   <tr>
     <td bgcolor="#CCCCCC"> AppUtil appUtil = new AppUtil();<br>
@@ -208,15 +206,17 @@ Assert.assertEquals(testCommand.getOutput(), 199);<br>
 System.out.print(&quot;ok &quot; + &quot;  &quot; + (stop - start));</td>
   </tr>
 </table>
-<p>it output:</p>
-<p>send to BModel =oneok   5</p>
-<p>above source in :<a href="https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/command">https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/command</a></p>
-<p>this mode :component --&gt; aggregate root is used for implemetion  a command from GUI or other invoker, its source can be another event. in this mode, the state of aggregate root is changed by only single thread, it is threadsafe. and no blocking and no lock.this mode can implement transaction against 2PC or JTA.</p>
-<p>&nbsp;</p>
-<p><strong>2.  Model(producer with @Model) -- &gt; Component(consumer with @Component)</strong></p>
-<p>After a agrregate root (domain model) receive a command , and it will reactive a event that can be sent to a Component or another aggregate root. we call it is domain events. this section we focus a event sent to a Component.</p>
-<p>  we can inject a Component(<strong>with </strong> @Component) into a agrregate root that acts as a producer.</p>
-<p>the domain model code:</p>
+<p>　　it output:</p>
+<p>　　send to BModel =oneok   5</p>
+<p>　　above source in :<a href="https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/command">https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/command</a></p>
+<p>　　in this mode the component receives any commands from UI or others events, and handles them to a aggregate root :</p>
+<p>　　UI -------&gt;commandHandler(@Component) ------&gt;aggregate root model</p>
+<p> 　　in this mode, the state of aggregate root is changed by only single thread, it is threadsafe. and no blocking and no lock, like Actors mode of AKKA or ERlang, or like Node.js EDA. instead of 2PC or JTA, this mode can make transaction work well in high throughput way. </p>
+<h3>2.Model and Component</h3>
+<p><strong>　　</strong>Model(producer with @Model) -- &gt; Component(consumer with @Component)</p>
+<p>　　After a agrregate root (domain model) receive a command , and it will reactive a event that can be sent to a Component or another aggregate root. we call it is domain events.</p>
+<p>  　　we can inject a Component(<strong>with </strong> @Component) into a agrregate root that acts as a producer.</p>
+<p>　　the domain model code:</p>
 <table width="750" border="0">
   <tr>
     <td bgcolor="#CCCCCC"><p>@<strong>Model</strong><br>
@@ -236,7 +236,7 @@ System.out.print(&quot;ok &quot; + &quot;  &quot; + (stop - start));</td>
       <p>}</p></td>
   </tr>
 </table>
-<p>we inject MyModelDomainEvent into &quot;MyModel&quot; with @<strong>Inject</strong>, the injected object &quot;MyModelDomainEvent&quot; is a Component:</p>
+<p>　　we inject MyModelDomainEvent into &quot;MyModel&quot; with @<strong>Inject</strong>, the injected object &quot;MyModelDomainEvent&quot; is a Component:</p>
 <table width="750" border="0">
   <tr>
     <td bgcolor="#CCCCCC"><p>package com.jdon.sample.test.domain.simplecase;</p>
@@ -257,8 +257,8 @@ System.out.print(&quot;ok &quot; + &quot;  &quot; + (stop - start));</td>
       </p></td>
   </tr>
 </table>
-<p>MyModelDomainEvent is annotated with @<strong>Introduce</strong>(&quot;message&quot;),  in this producer class there are two topic that means two kinds of domain events.</p>
-<p>let's see how to implement a consumer for a domain event. the consumer is too a Component, see below:</p>
+<p>　　MyModelDomainEvent is annotated with @<strong>Introduce</strong>(&quot;message&quot;),  in this producer class there are two topic that means two kinds of domain events.</p>
+<p>　　let's see how to implement a consumer for a domain event. the consumer is too a Component, see below:</p>
 <table width="750" border="0">
   <tr>
     <td bgcolor="#CCCCCC"><p>@<strong>Consumer</strong>(&quot;MyModel.findName&quot;)<br>
@@ -272,8 +272,8 @@ System.out.print(&quot;ok &quot; + &quot;  &quot; + (stop - start));</td>
       </p></td>
   </tr>
 </table>
-<p>FindNameListener is annotated with @<strong>Consumer</strong>, not @<strong>Component</strong>, this is another consumer style, when using @<strong>Consumer</strong>, we need implement a interface <strong>DomainEventHandler</strong>, and implement its method <strong>onEvent</strong>, if we using @<strong>Component</strong>, we need use @<strong>OnEvent</strong> together.</p>
-<p>above consumer is for the producer @<strong>Send</strong>(&quot;MyModel.findName&quot;), another consumer for this producer @<strong>Send</strong>(&quot;saveMyModel&quot;) of this sample uses @Component and @OnEvent:</p>
+<p>　　FindNameListener is annotated with @<strong>Consumer</strong>, not @<strong>Component</strong>, this is another consumer style, when using @<strong>Consumer</strong>, we need implement a interface <strong>DomainEventHandler</strong>, and implement its method <strong>onEvent</strong>, if we using @<strong>Component</strong>, we need use @<strong>OnEvent</strong> together.</p>
+<p>　　above consumer is for the producer @<strong>Send</strong>(&quot;MyModel.findName&quot;), another consumer for this producer @<strong>Send</strong>(&quot;saveMyModel&quot;) of this sample uses @Component and @OnEvent:</p>
 <table width="750" border="0">
   <tr>
     <td bgcolor="#CCCCCC"><p>@<strong>Component</strong>(&quot;mymrepository&quot;)<br>
@@ -292,9 +292,9 @@ System.out.print(&quot;ok &quot; + &quot;  &quot; + (stop - start));</td>
       <p>}</p></td>
   </tr>
 </table>
-<p>in this producer RepositoryImp , it is a Repository of DDD, and it also fetch a aggregate root from repository, @Introduce(&quot;modelCache&quot;) and @Around enable in-memory cache before the database. only when there is no the model object in cache, it will got from the database. @Introduce(&quot;modelCache&quot;) and @Around is necessary for using jdon framework. if not use them, any domain events will disable.</p>
-<p>another way,we can call com.jdon.domain.dci.RoleAssigner assignAggregateRoot method to let any normal object be act as a aggregate root.</p>
-<p>we have known about two modes between Component and aggregate root, if using these two modes in a aggregate root, it can be regarded as a Actors mode like Akka or Erlang: </p>
+<p>　　this consumer is a class RepositoryImp that it is a Repository of DDD, and it also fetch a aggregate root from repository, @Introduce(&quot;modelCache&quot;) and @Around enable in-memory cache before the database. only when there is no the model object in cache, it will got from the database. @Introduce(&quot;modelCache&quot;) and @Around is necessary for using jdon framework. if not use them, any domain events will disable.</p>
+<p>　　another way,we can call com.jdon.domain.dci.RoleAssigner assignAggregateRoot method to let any normal object be act as a aggregate root.</p>
+<p>　　we have known about two modes between Component and aggregate root, if using these two modes in a aggregate root, it can be regarded as a Actors mode like Akka or Erlang: </p>
 <ul>
   <li>    Share NOTHING, </li>
   <li>Isolated lightweight event-based processes,  </li>
@@ -302,17 +302,42 @@ System.out.print(&quot;ok &quot; + &quot;  &quot; + (stop - start));</td>
     </li>
   <li>Communicates through asynchronous&amp;  non-blocking message passing</li>
   </ul>
-<p>above sources: <a href="https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/domain/simplecase">https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/domain/simplecase</a></p>
-<p><strong>3. Component(producer with @Component) -- &gt; Component(consumer with @Component)</strong></p>
-<p>this mode is simple, The A in this sample is a producer with @Component:</p>
+<p>　　above sources: <a href="https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/domain/simplecase">https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/domain/simplecase</a></p>
+<p>&nbsp;</p>
+<h3>3.Component and Component</h3>
+<p><strong>　　</strong>Component(producer with @Component) -- &gt; Component(consumer with @Component)</p>
+<p>　　in this mode there are two ways:</p>
+<p>　　1. dependency inject </p>
+<p>　　2. producer and consumer based on Event.</p>
+<p>　　Dependency inject is like IOC, Jdon only supports class construtor inject:</p>
+<table width="650" border="0">
+  <tr>
+    <td bgcolor="#CCCCCC"><p>&nbsp;</p>
+      <p>@Component<br />
+        public class A{</p>
+      <p>　　private B b;</p>
+      <p>　　//inject b instance<br />
+        　　public A(B b){<br />
+        　　　　this.b = b;<br />
+        　　} <br />
+        }</p>
+      <p>@Component<br />
+        public class B{</p>
+      <p>}</p>
+      <p></p></td>
+  </tr>
+</table>
+<p>　　after B was injected into A, A can directly invoke any B's method. another way is more loose couple,between A and B there are communicates through asynchronous&amp;  non-blocking message passing  .</p>
+<p>　　The A in this sample is a producer with @Component:</p>
+<p>&nbsp;</p>
 <table width="750" border="0">
   <tr>
     <td bgcolor="#CCCCCC"><p>&nbsp;</p>
       <p>package com.jdon.sample.test.event;</p>
       <p>import com.jdon.annotation.model.Send;</p>
       <p>public interface AI {</p>
-      <p> 　@<strong>Send</strong>(&quot;maTest&quot;)<br>
-        　public TestEvent ma();<br>
+      <p>　　@<strong>Send</strong>(&quot;maTest&quot;)<br>
+        　　public TestEvent ma();<br>
         }</p>
       <p>&nbsp;</p>
       <p>@<strong>Component</strong>(&quot;producer&quot;)<br>
@@ -326,7 +351,7 @@ System.out.print(&quot;ok &quot; + &quot;  &quot; + (stop - start));</td>
       <p></p></td>
     </tr>
 </table>
-<p>The B in this sample is a consumer with @Component, and its consumer method must be annotated with @<strong>OnEvent</strong>,</p>
+<p>　　The B in this sample is a consumer with @Component, and its consumer method must be annotated with @<strong>OnEvent</strong>,</p>
 <p>&nbsp;</p>
 <table width="750" border="0">
   <tr>
@@ -343,10 +368,10 @@ System.out.print(&quot;ok &quot; + &quot;  &quot; + (stop - start));</td>
 <p></p></td>
   </tr>
 </table>
-<p>the value &quot;maTest&quot; of @<strong>OnEvent</strong> must be same as the value of @<strong>Send</strong>. and the return type &quot;TestEvent&quot; of the method with @<strong>Send</strong> must be same as the input paramter type of the @<strong>OnEvent</strong>, so the producer can handle a object to the consumer.</p>
-<p>if the consumer want to return a result to the producer, recommend to use method setEventResult of <a href="https://github.com/banq/jdonframework/blob/master/src/main/java/com/jdon/domain/message/DomainMessage.java" target="_blank">com.jdon.domain.message.DomainMessage</a>, and the producer can fetch the result by its getBlockEventResult() or getEventResult(), getBlockEventResult() can block until get the result.</p>
+<p>　　the value &quot;maTest&quot; of @<strong>OnEvent</strong> must be same as the value of @<strong>Send</strong>. and the return type &quot;TestEvent&quot; of the method with @<strong>Send</strong> must be same as the input paramter type of the @<strong>OnEvent</strong>, so the producer can handle a object to the consumer.</p>
+<p>　　if the consumer want to return a result to the producer, recommend to use method setEventResult of <a href="https://github.com/banq/jdonframework/blob/master/src/main/java/com/jdon/domain/message/DomainMessage.java" target="_blank">com.jdon.domain.message.DomainMessage</a>, and the producer can fetch the result by its getBlockEventResult() or getEventResult(), getBlockEventResult() can block until get the result.</p>
 <p>&nbsp;</p>
-<p>Test client code:</p>
+<p>　　Test client code:</p>
 <table width="750" border="0">
   <tr>
     <td bgcolor="#CCCCCC"><p>&nbsp;</p>
@@ -364,13 +389,14 @@ System.out.print(&quot;ok &quot; + &quot;  &quot; + (stop - start));</td>
 <p></p></td>
   </tr>
 </table>
-<p>output:</p>
-<p> [junit] event.send.ma..event.@OnEvent.mb..100<br>
-[junit] ok   31</p>
-<p>above codes is from<a href="https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/event">https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/event</a></p>
+<p>　　output:</p>
+<p> 　　[junit] event.send.ma..event.@OnEvent.mb..100<br>
+　　[junit] ok   31</p>
+<p>　　above codes is from<a href="https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/event">https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/event</a></p>
 <p>&nbsp;</p>
-<p><strong>3. Model(aggregate root A) -- &gt; Model(aggregate root B)</strong></p>
-<p>Aggregates
+<h3>4.Model and Model</h3>
+<p><strong>　　</strong>Model(aggregate root A) -- &gt; Model(aggregate root B)</p>
+<p>　　Aggregates
   are
   always
   internally
@@ -387,12 +413,12 @@ System.out.print(&quot;ok &quot; + &quot;  &quot; + (stop - start));</td>
   to
   aggregate
   roots.</p>
-<p>when a aggregates root want to cal another aggregates root , it only can be implemented by domain events, a output event act as a input command for another aggregates root.</p>
-<p>this mode consists of  three modes above:</p>
-<p>1. Aggrgate root A reactive a event to a Component (model ---&gt; Component)</p>
-<p>2.the Component transfer the event to a command for Aggrgate root B (Component ----&gt;Component)</p>
-<p>3.the command will be sent to Aggrgate root B (component --&gt;model)</p>
-<p>this mode's source code is in Github: <a href="https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/cqrs" target="_blank">https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/cqrs</a></p>
+<p>　　when a aggregates root want to cal another aggregates root , it only can be implemented by domain events, a output event act as a input command for another aggregates root.</p>
+<p>　　this mode consists of  three modes above:</p>
+<p>　　1. Aggrgate root A reactive a event to a Component (model ---&gt; Component)</p>
+<p>　　2.the Component transfer the event to a command for Aggrgate root B (Component ----&gt;Component)</p>
+<p>　　3.the command will be sent to Aggrgate root B (component --&gt;model)</p>
+<p>　　this mode's source code is in Github: <a href="https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/cqrs" target="_blank">https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/cqrs</a></p>
 <div> </div>
                     <hr>
                     <H3>Blog</H3>

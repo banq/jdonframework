@@ -51,8 +51,6 @@ public class UserEventHandler {
 				uploadFile.setId(Integer.toString(uploadFile.hashCode()));
 				uploadRepository.createUploadFile(uploadFile);
 			}
-			// send event bus , refresh query cache, populate data to query
-			userQuery.clearCacheOfItem();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -62,8 +60,6 @@ public class UserEventHandler {
 	public void updated(UserUpdatedEvent event) {
 		try {
 			userRepository.update(event.getNewUserDTO());
-			// send event bus , refresh query cache, populate data to query
-			userQuery.clearCacheOfItem();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -75,8 +71,6 @@ public class UserEventHandler {
 		try {
 			userRepository.delete(event.getUserId());
 			uploadRepository.deleteUploadFile(event.getUserId());
-			// send event bus , refresh query cache, populate data to query
-			userQuery.clearCacheOfItem();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

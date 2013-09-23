@@ -18,17 +18,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
+import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
 import com.jdon.annotation.Component;
 import com.jdon.annotation.Introduce;
 import com.jdon.annotation.pointcut.Around;
-import com.jdon.framework.test.Constants;
 import com.jdon.framework.test.domain.UserModel;
+import com.jdon.framework.test.repository.ModelCacheManager;
 import com.jdon.framework.test.repository.UserRepository;
 import com.jdon.model.query.JdbcTemp;
 
@@ -44,7 +42,9 @@ public class UserDAOJdbc implements UserRepository {
 
 	private final static Logger logger = Logger.getLogger(UserDAOJdbc.class);
 
-	private JdbcTemp jdbcTemp;
+	private final JdbcTemp jdbcTemp;
+
+	private final ModelCacheManager modelCacheManager;
 
 	/**
 	 * Constants must be configured in jdonframework.xml CacheManager has been
@@ -55,14 +55,9 @@ public class UserDAOJdbc implements UserRepository {
 	 * @param constants
 	 * @param cacheManager
 	 */
-	public UserDAOJdbc(Constants constants) {
-		try {
-			Context ic = new InitialContext();
-			DataSource dataSource = (DataSource) ic.lookup(constants.getJndiname());
-			jdbcTemp = new JdbcTemp(dataSource);
-		} catch (Exception slx) {
-			logger.error(slx);
-		}
+	public UserDAOJdbc(ModelCacheManager modelCacheManager) throws NamingException {
+		this.jdbcTemp = new JdbcTemp(modelCacheManager.getDataSource());
+		this.modelCacheManager = modelCacheManager;
 	}
 
 	public void save(UserModel userTest) throws Exception {
@@ -71,16 +66,20 @@ public class UserDAOJdbc implements UserRepository {
 
 		List queryParams = new ArrayList();
 		queryParams.add(userTest.getUserId());
-		queryParams.add(userTest.getName());
+		queryParams.add(userTest.getUsername());
 		jdbcTemp.operate(queryParams, sql);
+
+		modelCacheManager.clearModelList();
 	}
 
 	public void update(UserModel userTest) throws Exception {
 		String sql = "update testuser set name=? where userId=?";
 		List queryParams = new ArrayList();
-		queryParams.add(userTest.getName());
+		queryParams.add(userTest.getUsername());
 		queryParams.add(userTest.getUserId());
 		jdbcTemp.operate(queryParams, sql);
+
+		modelCacheManager.removeModelFromCache(userTest.getUserId());
 	}
 
 	public void delete(String userId) throws Exception {
@@ -88,6 +87,9 @@ public class UserDAOJdbc implements UserRepository {
 		List queryParams = new ArrayList();
 		queryParams.add(userId);
 		jdbcTemp.operate(queryParams, sql);
+
+		modelCacheManager.removeModelFromCache(userId);
+		modelCacheManager.clearModelList();
 	}
 
 	@Around
@@ -106,7 +108,7 @@ public class UserDAOJdbc implements UserRepository {
 			if (iter.hasNext()) {
 				Map map = (Map) iter.next();
 				ret = new UserModel();
-				ret.setName((String) map.get("name"));
+				ret.setUsername((String) map.get("name"));
 				ret.setUserId((String) map.get("userId"));
 			}
 		} catch (Exception e) {

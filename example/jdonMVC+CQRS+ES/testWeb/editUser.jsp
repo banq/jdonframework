@@ -15,7 +15,7 @@
     <form action="${pageContext.request.contextPath}/user" method="post">
         <input type="hidden" name="_method" value="PUT"/>
         <input type="hidden" name="user.userId" value="${user.userId}"/>
-        username:<input type="text" name="user.name" value="${user.name}"/>
+        username:<input type="text" name="user.username" value="${user.username}"/>
         email:<input type="text" name="user.email" value="${user.email}"/>
         <br>
         <c:if test="${not empty  user.uploadFile}">

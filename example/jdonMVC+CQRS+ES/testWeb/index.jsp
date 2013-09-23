@@ -35,7 +35,7 @@ response.setDateHeader("Expires", 0);
         	  pic :<img src="<%=request.getContextPath() %>/showUpload?pid=${user.userId}"  border='0' width="20" height="20"/>	
         </c:if>
 </td>
-<td>${user.userId}</td><td>${user.name}</td>
+<td>${user.userId}</td><td>${user.username}</td>
 <td><a href="user/${user.userId}">edit</a>&nbsp;
 <form action="user/${user.userId}" method="post">
 <input type="hidden" name="_method" value="DELETE" />

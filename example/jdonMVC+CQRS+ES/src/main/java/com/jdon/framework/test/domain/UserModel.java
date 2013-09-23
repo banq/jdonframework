@@ -34,7 +34,7 @@ import com.jdon.framework.test.event.domain.publisher.LazyLoaderRole;
 public class UserModel {
 
 	private String userId;
-	private String name;
+	private String username;
 	private String email;
 
 	private String password;
@@ -57,23 +57,23 @@ public class UserModel {
 			System.err.print("update not this user");
 			return;
 		}
-		this.name = updateCommand.getNewUserDTO().getName();
+		this.username = updateCommand.getNewUserDTO().getUsername();
 		this.email = updateCommand.getNewUserDTO().getEmail();
 		this.es.updated(new UserUpdatedEvent(updateCommand.getNewUserDTO()));
 
 		this.setUploadFile(updateCommand.getUploadVO());
 	}
 
-	public String getName() {
-		return name;
-	}
-
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getUserId() {

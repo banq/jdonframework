@@ -19,32 +19,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
 import com.jdon.annotation.Component;
-import com.jdon.controller.cache.CacheManager;
 import com.jdon.controller.model.PageIterator;
-import com.jdon.framework.test.Constants;
 import com.jdon.framework.test.domain.UserModel;
+import com.jdon.framework.test.repository.ModelCacheManager;
 import com.jdon.framework.test.repository.UserRepository;
-import com.jdon.model.query.PageIteratorSolver;
 
 @Component("userQuery")
 public class UserQuery {
 
 	private final UserRepository userRepository;
 
-	private final PageIteratorSolver pageIteratorSolverOfUser;
+	private final ModelCacheManager modelCacheManager;
 
-	public UserQuery(UserRepository userRepository, CacheManager cacheManager, Constants constants) throws NamingException {
+	public UserQuery(UserRepository userRepository, ModelCacheManager modelCacheManager) {
 		this.userRepository = userRepository;
-		DataSource dataSource;
-		Context ic = new InitialContext();
-		dataSource = (DataSource) ic.lookup(constants.getJndiname());
-		this.pageIteratorSolverOfUser = new PageIteratorSolver(dataSource, cacheManager);
+		this.modelCacheManager = modelCacheManager;
 
 	}
 
@@ -62,11 +52,8 @@ public class UserQuery {
 	public List getUsers() {
 		String GET_ALL_ITEMS_ALLCOUNT = "select count(1) from testuser ";
 		String GET_ALL_ITEMS = "select userId  from testuser ";
-		PageIterator pageIterator = pageIteratorSolverOfUser.getDatas("", GET_ALL_ITEMS_ALLCOUNT, GET_ALL_ITEMS, 0, 9999999);
+		PageIterator pageIterator = modelCacheManager.getPageIteratorSolverOfUser().getDatas("", GET_ALL_ITEMS_ALLCOUNT, GET_ALL_ITEMS, 0, 9999999);
 		return Arrays.asList(pageIterator.getKeys());
 	}
 
-	public void clearCacheOfItem() {
-		pageIteratorSolverOfUser.clearCache();
-	}
 }

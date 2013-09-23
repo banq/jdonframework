@@ -116,9 +116,9 @@
         </dependency>    
         <!-- jdon lib start -->
      <dependency>
-        <groupId>com.jdon</groupId>
+        <groupId>org.jdon</groupId>
         <artifactId>jdonframework</artifactId>
-        <version>6.7</version>
+        <version>6.6.6</version>
         
      </dependency>    
      <!-- jdon lib end -->

@@ -16,7 +16,7 @@ user
             <tr>
                 <td align="right">name</td>
                 <td>
-                    <input name="user.name" type="text" value="${user.name}">
+                    <input name="user.username" type="text" value="${user.username}">
                     <span><font color="#FF0000"> ${errorsMap.name} </font></span>
                 </td>
             </tr>
