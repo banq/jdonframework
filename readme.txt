@@ -45,7 +45,7 @@ apply jdonframework.jar to your project:
     <dependency>
         <groupId>org.jdon</groupId>
         <artifactId>jdonframework</artifactId>
-        <version>6.6.4</version>
+        <version>6.6.6</version>
      </dependency>            
 
 full pom.xml: https://github.com/banq/jdonframework/blob/master/doc/english/pom.xml
