@@ -15,11 +15,7 @@
  */
 package com.jdon.async.disruptor;
 
-import java.util.concurrent.TimeUnit;
-
-import com.lmax.disruptor.AlertException;
 import com.lmax.disruptor.RingBuffer;
-import com.lmax.disruptor.Sequence;
 import com.lmax.disruptor.SequenceBarrier;
 
 public class ValueEventProcessor {
@@ -33,7 +29,6 @@ public class ValueEventProcessor {
 	}
 
 	public void send(Object result) {
-		ringBuffer.setGatingSequences(new Sequence(-1));
 
 		waitAtSequence = ringBuffer.next();
 		EventResultDisruptor ve = ringBuffer.get(waitAtSequence);
@@ -44,12 +39,10 @@ public class ValueEventProcessor {
 	public EventResultDisruptor waitFor(long timeoutforeturnResult) {
 		SequenceBarrier barrier = ringBuffer.newBarrier();
 		try {
-			long a = barrier.waitFor(waitAtSequence, timeoutforeturnResult, TimeUnit.MILLISECONDS);
+			long a = barrier.waitFor(waitAtSequence);
 			if (ringBuffer != null)
 				return ringBuffer.get(a);
-		} catch (AlertException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			barrier.alert();
@@ -63,12 +56,10 @@ public class ValueEventProcessor {
 	public EventResultDisruptor waitForBlocking(long timeoutforeturnResult) {
 		SequenceBarrier barrier = ringBuffer.newBarrier();
 		try {
-			long a = barrier.waitFor(waitAtSequence, timeoutforeturnResult, TimeUnit.MILLISECONDS);
+			long a = barrier.waitFor(waitAtSequence);
 			if (ringBuffer != null)
 				return ringBuffer.get(a);
-		} catch (AlertException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			barrier.alert();

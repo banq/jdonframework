@@ -15,22 +15,23 @@
  */
 package com.jdon.async.disruptor;
 
+import java.util.concurrent.TimeUnit;
+
 import com.jdon.async.EventResultHandler;
-import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.RingBuffer;
-import com.lmax.disruptor.SingleThreadedClaimStrategy;
+import com.lmax.disruptor.TimeoutBlockingWaitStrategy;
 
 public class EventResultHandlerImp implements EventResultHandler {
 
 	// MILLISECONDS default is one seconds
-	protected int timeoutforeturnResult = 1000;
+	protected int timeoutforeturnResult = 10000;
 
 	protected ValueEventProcessor valueEventProcessor;
 
 	public EventResultHandlerImp() {
 		super();
-		RingBuffer ringBuffer = new RingBuffer<EventResultDisruptor>(new EventResultFactory(), new SingleThreadedClaimStrategy(8),
-				new BlockingWaitStrategy());
+		RingBuffer ringBuffer = RingBuffer.createSingleProducer(new EventResultFactory(), 1, new TimeoutBlockingWaitStrategy(timeoutforeturnResult,
+				TimeUnit.MILLISECONDS));
 		this.valueEventProcessor = new ValueEventProcessor(ringBuffer);
 
 	}

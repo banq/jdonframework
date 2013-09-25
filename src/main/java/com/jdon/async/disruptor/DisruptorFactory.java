@@ -18,7 +18,6 @@ package com.jdon.async.disruptor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.Map;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
@@ -34,11 +33,10 @@ import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.domain.message.consumer.ConsumerMethodHolder;
 import com.jdon.util.Debug;
 import com.lmax.disruptor.BlockingWaitStrategy;
-import com.lmax.disruptor.ClaimStrategy;
-import com.lmax.disruptor.MultiThreadedClaimStrategy;
 import com.lmax.disruptor.WaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.EventHandlerGroup;
+import com.lmax.disruptor.dsl.ProducerType;
 
 /**
  * SLEEPING is a better option when you have a large number of event processors
@@ -60,7 +58,7 @@ import com.lmax.disruptor.dsl.EventHandlerGroup;
  */
 public class DisruptorFactory implements Startable {
 	public final static String module = DisruptorFactory.class.getName();
-	protected final Map<String, TreeSet<DomainEventHandler>> handlesMap;
+	protected final ConcurrentHashMap<String, TreeSet<DomainEventHandler>> handlesMap;
 
 	private String RingBufferSize;
 
@@ -86,17 +84,20 @@ public class DisruptorFactory implements Startable {
 		this.disruptorPoolFactory.setDisruptorFactory(this);
 	}
 
-	private Disruptor createDw(String topic) {
-		// executorService = Executors.newFixedThreadPool(100);
-		WaitStrategy waitStrategy = new BlockingWaitStrategy();
-		ClaimStrategy claimStrategy = new MultiThreadedClaimStrategy(Integer.parseInt(RingBufferSize));
-		return new Disruptor(new EventDisruptorFactory(), Executors.newCachedThreadPool(), claimStrategy, waitStrategy);
+	public Disruptor createDw(String topic) {
+		int size = Integer.parseInt(RingBufferSize);
+		return new Disruptor(new EventDisruptorFactory(), size, Executors.newCachedThreadPool());
 	}
 
-	public Disruptor addEventMessageHandler(String topic, TreeSet<DomainEventHandler> handlers) {
+	public Disruptor createSingleDw(String topic) {
+		int size = Integer.parseInt(RingBufferSize);
+		WaitStrategy waitStrategy = new BlockingWaitStrategy();
+		return new Disruptor(new EventDisruptorFactory(), size, Executors.newCachedThreadPool(), ProducerType.SINGLE, waitStrategy);
+	}
+
+	public Disruptor addEventMessageHandler(Disruptor dw, String topic, TreeSet<DomainEventHandler> handlers) {
 		if (handlers.size() == 0)
 			return null;
-		Disruptor dw = createDw(topic);
 		EventHandlerGroup eh = null;
 		for (DomainEventHandler handler : handlers) {
 			DomainEventHandlerAdapter dea = new DomainEventHandlerAdapter(handler);
@@ -116,17 +117,54 @@ public class DisruptorFactory implements Startable {
 		return this.disruptorPoolFactory.getDisruptor(topic);
 	}
 
+	public Disruptor getDisruptorSingle(String topic) {
+		return this.disruptorPoolFactory.getDisruptorSingle(topic);
+	}
+
 	public void releaseDisruptor(Object owner) {
 
 	}
 
 	/**
-	 * one event one EventDisruptor
+	 * one topic one EventDisruptor
 	 * 
 	 * @param topic
 	 * @return
 	 */
 	public Disruptor createDisruptor(String topic) {
+		TreeSet handlers = getHandles(topic);
+		if (handlers == null)
+			return null;
+
+		Disruptor dw = createDw(topic);
+		Disruptor disruptor = addEventMessageHandler(dw, topic, handlers);
+		if (disruptor == null)
+			return null;
+		disruptor.start();
+		return disruptor;
+	}
+
+	/**
+	 * single producer :single consumer
+	 * 
+	 * no lock
+	 * 
+	 * @param topic
+	 * @return
+	 */
+	public Disruptor createSingleDisruptor(String topic) {
+		TreeSet handlers = getHandles(topic);
+		if (handlers == null)
+			return null;
+		Disruptor dw = createSingleDw(topic);
+		Disruptor disruptor = addEventMessageHandler(dw, topic, handlers);
+		if (disruptor == null)
+			return null;
+		disruptor.start();
+		return disruptor;
+	}
+
+	private TreeSet getHandles(String topic) {
 		TreeSet handlers = handlesMap.get(topic);
 		if (handlers == null)// not inited
 		{
@@ -143,11 +181,7 @@ public class DisruptorFactory implements Startable {
 			}
 			handlesMap.put(topic, handlers);
 		}
-		Disruptor disruptor = addEventMessageHandler(topic, handlers);
-		if (disruptor == null)
-			return null;
-		disruptor.start();
-		return disruptor;
+		return handlers;
 	}
 
 	public boolean isContain(String topic) {

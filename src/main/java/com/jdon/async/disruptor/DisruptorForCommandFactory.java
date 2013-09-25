@@ -19,7 +19,6 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Executors;
 
 import com.jdon.async.disruptor.pool.DisruptorCommandPoolFactory;
 import com.jdon.async.disruptor.pool.DomainCommandHandlerLast;
@@ -30,10 +29,6 @@ import com.jdon.container.pico.Startable;
 import com.jdon.domain.message.DomainCommandDispatchHandler;
 import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.domain.message.consumer.ModelConsumerMethodHolder;
-import com.lmax.disruptor.BlockingWaitStrategy;
-import com.lmax.disruptor.ClaimStrategy;
-import com.lmax.disruptor.MultiThreadedClaimStrategy;
-import com.lmax.disruptor.WaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.EventHandlerGroup;
 
@@ -47,22 +42,16 @@ public class DisruptorForCommandFactory implements Startable {
 
 	private DisruptorCommandPoolFactory disruptorCommandPoolFactory;
 
+	private DisruptorFactory disruptorFactory;
+
 	public DisruptorForCommandFactory(DisruptorParams disruptorParams, ContainerCallback containerCallback,
-			DisruptorCommandPoolFactory disruptorCommandPoolFactory) {
+			DisruptorCommandPoolFactory disruptorCommandPoolFactory, DisruptorFactory disruptorFactory) {
 		this.RingBufferSize = disruptorParams.getRingBufferSize();
 		this.containerWrapper = containerCallback.getContainerWrapper();
 		this.handlesMap = new ConcurrentHashMap<String, TreeSet<DomainEventHandler>>();
 		this.disruptorCommandPoolFactory = disruptorCommandPoolFactory;
 		this.disruptorCommandPoolFactory.setDisruptorForCommandFactory(this);
-	}
-
-	public DisruptorForCommandFactory() {
-		// @todo configure in xml
-		this.RingBufferSize = "8";
-		this.containerWrapper = null;
-		this.handlesMap = new ConcurrentHashMap<String, TreeSet<DomainEventHandler>>();
-		this.disruptorCommandPoolFactory = new DisruptorCommandPoolFactory();
-		this.disruptorCommandPoolFactory.setDisruptorForCommandFactory(this);
+		this.disruptorFactory = disruptorFactory;
 	}
 
 	public Disruptor getDisruptor(String topic) {
@@ -74,10 +63,7 @@ public class DisruptorForCommandFactory implements Startable {
 	}
 
 	private Disruptor createDw(String topic) {
-		// executorService = Executors.newFixedThreadPool(100);
-		WaitStrategy waitStrategy = new BlockingWaitStrategy();
-		ClaimStrategy claimStrategy = new MultiThreadedClaimStrategy(Integer.parseInt(RingBufferSize));
-		return new Disruptor(new EventDisruptorFactory(), Executors.newCachedThreadPool(), claimStrategy, waitStrategy);
+		return disruptorFactory.createDw(topic);
 	}
 
 	private Disruptor createDisruptorWithEventHandler(String topic) {

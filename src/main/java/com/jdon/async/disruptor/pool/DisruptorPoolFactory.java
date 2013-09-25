@@ -94,6 +94,21 @@ public class DisruptorPoolFactory implements Startable {
 		return disruptor;
 	}
 
+	public Disruptor getDisruptorSingle(String topic) {
+		Disruptor disruptor = (Disruptor) topicDisruptors.get(topic);
+		if (disruptor == null) {
+			disruptor = disruptorFactory.createSingleDisruptor(topic);
+			if (disruptor == null) {
+				Debug.logWarning("not create Single disruptor for " + topic, module);
+				return null;
+			}
+			Disruptor disruptorOLd = topicDisruptors.putIfAbsent(topic, disruptor);
+			if (disruptorOLd != null)
+				disruptor = disruptorOLd;
+		}
+		return disruptor;
+	}
+
 	public DisruptorFactory getDisruptorFactory() {
 		return disruptorFactory;
 	}
