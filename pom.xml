@@ -50,10 +50,6 @@
   
   <repositories>
         <repository>
-            <id>disruptor</id>
-            <url>https://github.com/banq/jdon-mvn-repo/raw/master/releases</url>
-        </repository>
-        <repository>
             <id>log4j2</id>
             <url>https://github.com/banq/jdon-mvn-repo/raw/master/releases</url>
         </repository>
@@ -98,10 +94,10 @@
 	     <version>1.2</version>
      </dependency>
      <dependency>
-        <groupId>com.lmax</groupId>
-        <artifactId>disruptor</artifactId>
-        <version>2.10.4</version>
-     </dependency>            
+	     <groupId>com.lmax</groupId>
+	     <artifactId>disruptor</artifactId>
+	     <version>3.2.0</version>
+     </dependency>                 
      <dependency>
 	     <groupId>cglib</groupId>
 	     <artifactId>cglib</artifactId>
