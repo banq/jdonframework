@@ -25,21 +25,13 @@ UI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Co
 
 A aggregate root in Jdon acts like Actors of AKKA or Erlang.
 
+stable version download: 
+http://sourceforge.net/projects/jdon/files/JdonFramework/6.X_DDD/
+
 
 3. DISTRIBUTION JAR FILES
 -------------------------
 
-The Jdon Framework module jar files can be found in the 'dist' directory. 
-jdonFramework.jar is the core of Jdon Framework.
-
-struts and jdbc template supports in JdonAccessory directory.
-
-4. GETTING STARTED
-------------------
-
-compilr source:
-  MAVEN: press enter "mvn package" to compile and package a .jar file
-  
 apply jdonframework.jar to your project:
   MAVEN:  
     <dependency>
@@ -48,8 +40,14 @@ apply jdonframework.jar to your project:
         <version>6.6.6</version>
      </dependency>            
 
+
+4. GETTING STARTED
+------------------
+  
 In the "doc\english" directory there are all documents about how to use.
 
 In the "doc\chinese" directory there are chinese documents about how to use.
 
-In the "example" directory there are serveral examples that show how to use jdon, in these examples directory run 'mvn package'.
+In the "example" directory there are serveral examples that show how to use jdon, in these examples directory run 'mvn package' to get war file.
+
+In the "JdonAccessory" directory there are struts1.x MVC and jdbc templates.
