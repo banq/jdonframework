@@ -118,7 +118,7 @@
      <dependency>
         <groupId>org.jdon</groupId>
         <artifactId>jdonframework</artifactId>
-        <version>6.6.6</version>
+        <version>6.6.8</version>
         
      </dependency>    
      <!-- jdon lib end -->

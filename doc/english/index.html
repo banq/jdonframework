@@ -47,7 +47,7 @@
                   <h3 align="left">Latest News</h3>
                   <DIV 
 style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; MARGIN-LEFT: 0px; BORDER-RIGHT-WIDTH: 2px">
-                    <p><STRONG><a href="http://sourceforge.net/projects/jdon/files/JdonFramework/6.X_DDD/">JdonFramework_6.6.6  released!</a></STRONG> <strong> 09/2013</strong></p>
+                    <p><STRONG><a href="http://sourceforge.net/projects/jdon/files/JdonFramework/6.X_DDD/">JdonFramework_6.6.8  released!</a></STRONG> <strong> 09/2013</strong></p>
                     <p><a href="match.html">DDD CQRS EventSourcing example source: football Match</a></p>
                     <p><a href="ces.html"><strong>CES:Context Event and State</strong></a>                    </p>
                     <P><a href="https://github.com/banq/jdonframework/tree/master/example">JdonFramework DDD + CQRS + EventSourcing examples                    </a></P>
@@ -106,18 +106,16 @@ Domain-Driven Dsign Development, supports in-memory cache model.                
                       <li><a href="http://en.wikipedia.org/wiki/Lazy_evaluation">Lazy loading or evaluation</a>, a aggregate root   loads its childern objects until them need to use, improving performance  by in-memory cache. memory-consumption-wise</li>
                       <li><a href="springIntegration.html">Be easily integration with Spring framework</a>.</li>
                     </ol>
-                    <P>Jdon Framework = <a href="http://domaindrivendesign.org/" target="_blank">DDD</a> + Domain Events(CQRS)+ <a href="http://www.martinfowler.com/articles/injection.html" target="_blank">Ioc/DI</a> + AOP + CRUD + Cache</P>
+                    <P>&nbsp;</P>
                     <hr>
                     <h3>getting Started</h3>
                     <p>　　Maven pom.xml :</p>
                     <p>　&lt;dependency&gt;<br>
                       　　　　&lt;groupId&gt;org.jdon&lt;/groupId&gt;<br>
                       　　　　&lt;artifactId&gt;jdonframework&lt;/artifactId&gt;<br>
-                      　　　　&lt;version&gt;6.6.6&lt;/version&gt;<br>
+                      　　　　&lt;version&gt;6.6.8&lt;/version&gt;<br>
                       　　&lt;/dependency&gt; </p>
-                    <p>&nbsp;</p>
-<p>　　Since jdonframework 6.6.6</p>
-<p>　　In Jdon there are two kinds of model: Component and  Model. a Component class is annotated with @Component, and a  Model class is annotated with @Model.</p>
+                    <p>　　In Jdon there are two kinds of model: Component and  Model. a Component class is annotated with @Component, and a  Model class is annotated with @Model.</p>
 <p> 　　When a  Model is referenced by  Component, it is a aggregate root, if it is referencedby another model, it is not a aggregate root, maybe normal Entity or Value Object.</p>
 <p>  　　Model instances  live in in-memory cache, and Component instances live in the container that its lifcycle is equal to application scope.</p>
 <p>　　Component can be use to implement DDD's service or other application manager, such as repository or Email sender..</p>
