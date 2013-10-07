@@ -47,4 +47,8 @@ public class EventDisruptor {
 		this.domainMessage = domainMessage;
 	}
 
+	public String getTopic() {
+		return topic;
+	}
+
 }

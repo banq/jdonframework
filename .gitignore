@@ -6,3 +6,5 @@
 /dist
 /weblib
 /report
+/.project
+/.classpath

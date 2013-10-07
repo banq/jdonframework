@@ -21,6 +21,7 @@ import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.jdon.async.disruptor.pool.DisruptorCommandPoolFactory;
+import com.jdon.async.disruptor.pool.DomainCommandHandlerFirst;
 import com.jdon.async.disruptor.pool.DomainCommandHandlerLast;
 import com.jdon.container.ContainerWrapper;
 import com.jdon.container.annotation.type.ModelConsumerLoader;
@@ -36,8 +37,6 @@ public class DisruptorForCommandFactory implements Startable {
 	public final static String module = DisruptorForCommandFactory.class.getName();
 	protected final Map<String, TreeSet<DomainEventHandler>> handlesMap;
 
-	private String RingBufferSize;
-
 	private ContainerWrapper containerWrapper;
 
 	private DisruptorCommandPoolFactory disruptorCommandPoolFactory;
@@ -46,7 +45,6 @@ public class DisruptorForCommandFactory implements Startable {
 
 	public DisruptorForCommandFactory(DisruptorParams disruptorParams, ContainerCallback containerCallback,
 			DisruptorCommandPoolFactory disruptorCommandPoolFactory, DisruptorFactory disruptorFactory) {
-		this.RingBufferSize = disruptorParams.getRingBufferSize();
 		this.containerWrapper = containerCallback.getContainerWrapper();
 		this.handlesMap = new ConcurrentHashMap<String, TreeSet<DomainEventHandler>>();
 		this.disruptorCommandPoolFactory = disruptorCommandPoolFactory;
@@ -78,19 +76,13 @@ public class DisruptorForCommandFactory implements Startable {
 			return null;
 
 		Disruptor dw = createDw(topic);
-		EventHandlerGroup eh = null;
+		EventHandlerGroup eh = dw.handleEventsWith(new DomainCommandHandlerFirst(this));
 
 		for (DomainEventHandler handler : handlers) {
 			DomainEventHandlerAdapter dea = new DomainEventHandlerAdapter(handler);
-			if (eh == null) {
-				eh = dw.handleEventsWith(dea);
-			} else {
-				eh = eh.handleEventsWith(dea);
-			}
+			eh = eh.handleEventsWith(dea);
 		}
-		if (eh != null) {
-			eh.handleEventsWith(new DomainCommandHandlerLast(this));
-		}
+		eh.handleEventsWith(new DomainCommandHandlerLast(this));
 		return dw;
 	}
 
@@ -139,7 +131,6 @@ public class DisruptorForCommandFactory implements Startable {
 	public void stop() {
 		this.containerWrapper = null;
 		this.handlesMap.clear();
-		this.RingBufferSize = null;
 
 	}
 

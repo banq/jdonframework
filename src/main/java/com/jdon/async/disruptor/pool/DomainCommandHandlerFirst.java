@@ -13,49 +13,38 @@
  * limitations under the License.
  * 
  */
-package com.jdon.async.disruptor;
+package com.jdon.async.disruptor.pool;
 
-import com.jdon.async.disruptor.pool.DisruptorSwitcher;
-import com.jdon.container.pico.Startable;
-import com.jdon.domain.message.DomainEventHandler;
+import com.jdon.async.disruptor.DisruptorForCommandFactory;
+import com.jdon.async.disruptor.EventDisruptor;
 import com.lmax.disruptor.EventHandler;
 import com.lmax.disruptor.LifecycleAware;
 
-public class DomainEventHandlerAdapter implements EventHandler<EventDisruptor>, LifecycleAware {
-	private DomainEventHandler handler;
+public class DomainCommandHandlerFirst implements EventHandler<EventDisruptor>, LifecycleAware {
+
+	private DisruptorForCommandFactory disruptorForCommandFactory;
 	private DisruptorSwitcher disruptorSwitcher;
 
-	public DomainEventHandlerAdapter(DomainEventHandler handler) {
+	public DomainCommandHandlerFirst(DisruptorForCommandFactory disruptorForCommandFactory) {
 		super();
-		this.handler = handler;
 		this.disruptorSwitcher = new DisruptorSwitcher();
-	}
-
-	public void onEvent(EventDisruptor event, long sequence, boolean endOfBatch) throws Exception {
-		try {
-			disruptorSwitcher.setCommandTopic(event.getTopic());
-			handler.onEvent(event, endOfBatch);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void onStart() {
-		if (handler instanceof Startable) {
-			Startable st = (Startable) handler;
-			st.start();
-		}
-
+		this.disruptorForCommandFactory = disruptorForCommandFactory;
 	}
 
 	@Override
 	public void onShutdown() {
-		if (handler instanceof Startable) {
-			Startable st = (Startable) handler;
-			st.stop();
-		}
+		// TODO Auto-generated method stub
 
 	}
 
+	@Override
+	public void onStart() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onEvent(EventDisruptor event, long arg1, boolean arg2) throws Exception {
+
+	}
 }

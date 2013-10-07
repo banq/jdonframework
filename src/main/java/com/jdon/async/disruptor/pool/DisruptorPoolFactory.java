@@ -31,12 +31,14 @@ import com.lmax.disruptor.dsl.Disruptor;
 public class DisruptorPoolFactory implements Startable {
 	public final static String module = DisruptorPoolFactory.class.getName();
 
+	private DisruptorSwitcher disruptorSwitcher;
 	private DisruptorFactory disruptorFactory;
 	private ConcurrentHashMap<String, Disruptor> topicDisruptors;
 	private ScheduledExecutorService scheduExecStatic = Executors.newScheduledThreadPool(1);
 
 	public DisruptorPoolFactory() {
 		super();
+		this.disruptorSwitcher = new DisruptorSwitcher();
 		this.topicDisruptors = new ConcurrentHashMap();
 	}
 
@@ -79,27 +81,20 @@ public class DisruptorPoolFactory implements Startable {
 
 	}
 
+	public Disruptor createAutoDisruptor(String topic) {
+		if (disruptorSwitcher.getCommandTopic() != null) {
+			return disruptorFactory.createSingleDisruptor(topic);
+		} else
+			return disruptorFactory.createDisruptor(topic);
+
+	}
+
 	public Disruptor getDisruptor(String topic) {
 		Disruptor disruptor = (Disruptor) topicDisruptors.get(topic);
 		if (disruptor == null) {
-			disruptor = disruptorFactory.createDisruptor(topic);
+			disruptor = createAutoDisruptor(topic);
 			if (disruptor == null) {
 				Debug.logWarning("not create disruptor for " + topic, module);
-				return null;
-			}
-			Disruptor disruptorOLd = topicDisruptors.putIfAbsent(topic, disruptor);
-			if (disruptorOLd != null)
-				disruptor = disruptorOLd;
-		}
-		return disruptor;
-	}
-
-	public Disruptor getDisruptorSingle(String topic) {
-		Disruptor disruptor = (Disruptor) topicDisruptors.get(topic);
-		if (disruptor == null) {
-			disruptor = disruptorFactory.createSingleDisruptor(topic);
-			if (disruptor == null) {
-				Debug.logWarning("not create Single disruptor for " + topic, module);
 				return null;
 			}
 			Disruptor disruptorOLd = topicDisruptors.putIfAbsent(topic, disruptor);

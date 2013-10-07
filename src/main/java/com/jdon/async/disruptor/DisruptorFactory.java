@@ -117,10 +117,6 @@ public class DisruptorFactory implements Startable {
 		return this.disruptorPoolFactory.getDisruptor(topic);
 	}
 
-	public Disruptor getDisruptorSingle(String topic) {
-		return this.disruptorPoolFactory.getDisruptorSingle(topic);
-	}
-
 	public void releaseDisruptor(Object owner) {
 
 	}

@@ -30,16 +30,20 @@ import com.jdon.model.query.PageIteratorSolver;
 @Component()
 public class ModelCacheManager implements Startable {
 
-	private final PageIteratorSolver pageIteratorSolverOfUser;
+	private PageIteratorSolver pageIteratorSolverOfUser;
 
 	private final ModelManager modelManager;
 
-	private final DataSource dataSource;
+	private DataSource dataSource;
 
-	public ModelCacheManager(CacheManager cacheManager, Constants constants, ModelManager modelManager) throws NamingException {
-		Context ic = new InitialContext();
-		this.dataSource = (DataSource) ic.lookup(constants.getJndiname());
-		this.pageIteratorSolverOfUser = new PageIteratorSolver(dataSource, cacheManager);
+	public ModelCacheManager(CacheManager cacheManager, Constants constants, ModelManager modelManager) {
+		try {
+			Context ic = new InitialContext();
+			this.dataSource = (DataSource) ic.lookup(constants.getJndiname());
+			this.pageIteratorSolverOfUser = new PageIteratorSolver(dataSource, cacheManager);
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
 		this.modelManager = modelManager;
 
 	}
