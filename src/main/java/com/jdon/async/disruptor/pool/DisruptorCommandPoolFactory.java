@@ -78,15 +78,15 @@ public class DisruptorCommandPoolFactory implements Startable {
 
 	}
 
-	public Disruptor getDisruptor(String topic) {
-		Disruptor disruptor = (Disruptor) topicDisruptors.get(topic);
+	public Disruptor getDisruptor(String topic, Object target) {
+		Disruptor disruptor = (Disruptor) topicDisruptors.get(topic + target);
 		if (disruptor == null) {
 			disruptor = disruptorForCommandFactory.createDisruptor(topic);
 			if (disruptor == null) {
 				Debug.logWarning("not create disruptor for " + topic, module);
 				return null;
 			}
-			Disruptor disruptorOLd = topicDisruptors.putIfAbsent(topic, disruptor);
+			Disruptor disruptorOLd = topicDisruptors.putIfAbsent(topic + target, disruptor);
 			if (disruptorOLd != null)
 				disruptor = disruptorOLd;
 		}

@@ -13,18 +13,15 @@
  * limitations under the License.
  * 
  */
-package com.jdon.sample.test.cqrs;
+package com.jdon.annotation.model;
 
-import com.jdon.annotation.model.Owner;
-import com.jdon.annotation.model.Receiver;
-import com.jdon.annotation.model.Send;
-import com.jdon.domain.message.DomainMessage;
-import com.jdon.sample.test.cqrs.a.AggregateRootA;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public interface AService {
+@Target(ElementType.PARAMETER)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Owner {
 
-	@Send("CommandtoEventA")
-	public DomainMessage commandA(@Owner String rootId, @Receiver AggregateRootA model, int state);
-
-	AggregateRootA getAggregateRootA(String id);
 }

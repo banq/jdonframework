@@ -27,7 +27,7 @@ public class TestMain {
 		AppUtil appUtil = new AppUtil();
 		AService service = (AService) appUtil.getComponentInstance("aService");
 		AggregateRootA aggregateRootA = service.getAggregateRootA("11");
-		DomainMessage res = service.commandA(aggregateRootA, 100);
+		DomainMessage res = service.commandA("11", aggregateRootA, 100);
 
 		long start = System.currentTimeMillis();
 		int result = 0;

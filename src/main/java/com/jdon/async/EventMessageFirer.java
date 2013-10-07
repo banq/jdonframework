@@ -17,9 +17,12 @@ package com.jdon.async;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.aopalliance.intercept.MethodInvocation;
 
+import com.jdon.annotation.model.Owner;
 import com.jdon.annotation.model.Receiver;
 import com.jdon.annotation.model.Send;
 import com.jdon.async.disruptor.DisruptorFactory;
@@ -124,19 +127,24 @@ public class EventMessageFirer implements Startable {
 			return;
 		}
 
-		Object model = fetchCommandReceiver(invocation.getMethod(), arguments);
-		if (model == null || !ModelUtil.isModel(model)) {
+		Map params = fetchCommandReceiver(invocation.getMethod(), arguments);
+		if (params.size() == 0 || !ModelUtil.isModel(params.get("Receiver"))) {
 			Debug.logError(" there is no a destination parameter(@Receiver)  in this method:" + invocation.getMethod().getName()
 					+ " or the destination class not annotated with @Model", module);
 			return;
 		}
 		//
-		modelProxyInjection.injectProperties(model);
+		modelProxyInjection.injectProperties(params.get("Receiver"));
 		// target model is the owner of the disruptor, single thread to modify
 		// aggregate root model's state.
-		((Command) domainMessage).setDestination(model);
+		((Command) domainMessage).setDestination(params.get("Receiver"));
 
-		Disruptor disruptor = disruptorForCommandFactory.getDisruptor(topic);
+		Object owner = "System";
+		if (params.containsKey("Owner")) {
+			owner = params.get("Owner");
+		}
+
+		Disruptor disruptor = disruptorForCommandFactory.getDisruptor(topic, owner);
 		if (disruptor == null) {
 			Debug.logWarning("not create command disruptor for " + topic, module);
 			return;
@@ -162,18 +170,22 @@ public class EventMessageFirer implements Startable {
 		}
 	}
 
-	private Object fetchCommandReceiver(Method method, Object[] arguments) {
+	private Map fetchCommandReceiver(Method method, Object[] arguments) {
+		Map result = new HashMap();
 		int i = 0;
 		Annotation[][] paramAnnotations = method.getParameterAnnotations();
 		for (Annotation[] anns : paramAnnotations) {
 			Object parameter = arguments[i++];
 			for (Annotation annotation : anns) {
 				if (annotation instanceof Receiver) {
-					return parameter;
+					result.put("Receiver", parameter);
+					return result;
+				} else if (annotation instanceof Owner) {
+					result.put("Owner", parameter);
 				}
 			}
 		}
-		return null;
+		return result;
 	}
 
 }

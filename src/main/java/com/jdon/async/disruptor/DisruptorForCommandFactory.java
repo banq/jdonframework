@@ -52,8 +52,8 @@ public class DisruptorForCommandFactory implements Startable {
 		this.disruptorFactory = disruptorFactory;
 	}
 
-	public Disruptor getDisruptor(String topic) {
-		return this.disruptorCommandPoolFactory.getDisruptor(topic);
+	public Disruptor getDisruptor(String topic, Object target) {
+		return this.disruptorCommandPoolFactory.getDisruptor(topic, target);
 	}
 
 	public void releaseDisruptor(Object owner) {
