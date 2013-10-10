@@ -32,7 +32,14 @@ public class DomainMessage extends Command {
 		super();
 		this.eventSource = eventSource;
 		// default is EventResultHandlerImp
-		this.eventResultHandler = new EventResultHandlerImp();
+		this.eventResultHandler = new EventResultHandlerImp(10000);
+	}
+
+	public DomainMessage(Object eventSource, int timeoutforeturnResult) {
+		super();
+		this.eventSource = eventSource;
+		// default is EventResultHandlerImp
+		this.eventResultHandler = new EventResultHandlerImp(timeoutforeturnResult);
 	}
 
 	public Object getEventSource() {

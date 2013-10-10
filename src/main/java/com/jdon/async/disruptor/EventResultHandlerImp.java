@@ -24,11 +24,9 @@ import com.lmax.disruptor.TimeoutBlockingWaitStrategy;
 public class EventResultHandlerImp implements EventResultHandler {
 
 	// MILLISECONDS default is one seconds
-	protected int timeoutforeturnResult = 10000;
-
 	protected ValueEventProcessor valueEventProcessor;
 
-	public EventResultHandlerImp() {
+	public EventResultHandlerImp(int timeoutforeturnResult) {
 		super();
 		RingBuffer ringBuffer = RingBuffer.createSingleProducer(new EventResultFactory(), 1, new TimeoutBlockingWaitStrategy(timeoutforeturnResult,
 				TimeUnit.MILLISECONDS));
@@ -46,7 +44,7 @@ public class EventResultHandlerImp implements EventResultHandler {
 
 	public Object get() {
 		Object result = null;
-		EventResultDisruptor ve = valueEventProcessor.waitFor(timeoutforeturnResult);
+		EventResultDisruptor ve = valueEventProcessor.waitFor();
 		if (ve != null) {
 			result = ve.getValue();
 			ve.clear();
@@ -58,7 +56,7 @@ public class EventResultHandlerImp implements EventResultHandler {
 
 	public Object getBlockedValue() {
 		Object result = null;
-		EventResultDisruptor ve = valueEventProcessor.waitForBlocking(timeoutforeturnResult * 10);
+		EventResultDisruptor ve = valueEventProcessor.waitForBlocking();
 		if (ve != null) {
 			result = ve.getValue();
 			ve.clear();
@@ -71,12 +69,11 @@ public class EventResultHandlerImp implements EventResultHandler {
 		valueEventProcessor.clear();
 	}
 
-	public int getTimeoutforeturnResult() {
-		return timeoutforeturnResult;
-	}
-
+	/**
+	 * deprecated since 6.6.8
+	 */
 	public void setWaitforTimeout(int timeoutforeturnResult) {
-		this.timeoutforeturnResult = timeoutforeturnResult;
+		System.err.print("deprecated since 6.6.8");
 	}
 
 }

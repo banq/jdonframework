@@ -10,15 +10,12 @@ package com.jdon.controller.model;
 public class ModelUtil {
 
 	public static boolean isModel(Object model) {
-		if (model == null)
-			return false;
+		if (model == null) return false;
 		return isModel(model.getClass());
 	}
-
+	
 	public static boolean isModel(Class clazz) {
 		boolean isModelIF = false;
-		if (clazz == null)
-			return isModelIF;
 		if (ModelIF.class.isAssignableFrom(clazz) || clazz.isAnnotationPresent(com.jdon.annotation.Model.class))
 			isModelIF = true;
 		return isModelIF;
@@ -39,14 +36,13 @@ public class ModelUtil {
 		}
 		return isCachable;
 	}
-
-	public static void setCachable(Object model, boolean cachable) {
-		if (model == null)
-			return;
+	
+	public static void setCachable(Object model, boolean cachable){
+		if (model == null) return;
 		if (ModelIF.class.isAssignableFrom(model.getClass())) {
 			ModelIF modelc = (ModelIF) model;
 			modelc.setCacheable(cachable);
-		}
+		} 
 	}
 
 	public static boolean isModified(Object model) {
@@ -64,14 +60,13 @@ public class ModelUtil {
 		}
 		return isModified;
 	}
-
-	public static void setModified(Object model, boolean modified) {
-		if (model == null)
-			return;
+	
+	public static void setModified(Object model, boolean modified){
+		if (model == null) return;
 		if (ModelIF.class.isAssignableFrom(model.getClass())) {
 			ModelIF modelc = (ModelIF) model;
 			modelc.setModified(modified);
-		}
+		} 
 	}
 
 }

@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.jdon.async.disruptor.pool.DisruptorCommandPoolFactory;
 import com.jdon.async.disruptor.pool.DomainCommandHandlerFirst;
-import com.jdon.async.disruptor.pool.DomainCommandHandlerLast;
+import com.jdon.async.disruptor.pool.DomainEventHandlerDecorator;
 import com.jdon.container.ContainerWrapper;
 import com.jdon.container.annotation.type.ModelConsumerLoader;
 import com.jdon.container.finder.ContainerCallback;
@@ -79,10 +79,9 @@ public class DisruptorForCommandFactory implements Startable {
 		EventHandlerGroup eh = dw.handleEventsWith(new DomainCommandHandlerFirst(this));
 
 		for (DomainEventHandler handler : handlers) {
-			DomainEventHandlerAdapter dea = new DomainEventHandlerAdapter(handler);
+			DomainEventHandlerAdapter dea = new DomainEventHandlerDecorator(handler);
 			eh = eh.handleEventsWith(dea);
 		}
-		eh.handleEventsWith(new DomainCommandHandlerLast(this));
 		return dw;
 	}
 

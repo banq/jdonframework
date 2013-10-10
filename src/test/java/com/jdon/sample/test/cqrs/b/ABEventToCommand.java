@@ -27,5 +27,6 @@ public class ABEventToCommand implements AbEventToCommandIF {
 	public DomainMessage ma(AggregateRootB bModel, int state) {
 		System.out.print("\n send command to AggregateRootB =" + bModel.getId());
 		return new DomainMessage(new ParameterVO(state));
+
 	}
 }

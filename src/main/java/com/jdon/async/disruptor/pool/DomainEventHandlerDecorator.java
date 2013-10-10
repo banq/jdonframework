@@ -13,45 +13,26 @@
  * limitations under the License.
  * 
  */
-package com.jdon.async.disruptor;
+package com.jdon.async.disruptor.pool;
 
-import com.jdon.container.pico.Startable;
+import com.jdon.async.disruptor.DomainEventHandlerAdapter;
+import com.jdon.async.disruptor.EventDisruptor;
 import com.jdon.domain.message.DomainEventHandler;
-import com.lmax.disruptor.EventHandler;
-import com.lmax.disruptor.LifecycleAware;
 
-public class DomainEventHandlerAdapter implements EventHandler<EventDisruptor>, LifecycleAware {
-	private DomainEventHandler handler;
+public class DomainEventHandlerDecorator extends DomainEventHandlerAdapter {
+	private DisruptorSwitcher disruptorSwitcher;
 
-	public DomainEventHandlerAdapter(DomainEventHandler handler) {
-		super();
-		this.handler = handler;
+	public DomainEventHandlerDecorator(DomainEventHandler handler) {
+		super(handler);
+		this.disruptorSwitcher = new DisruptorSwitcher();
 	}
 
 	public void onEvent(EventDisruptor event, long sequence, boolean endOfBatch) throws Exception {
 		try {
-			handler.onEvent(event, endOfBatch);
+			disruptorSwitcher.setCommandTopic(event.getTopic());
+			super.onEvent(event, sequence, endOfBatch);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
-	@Override
-	public void onStart() {
-		if (handler instanceof Startable) {
-			Startable st = (Startable) handler;
-			st.start();
-		}
-
-	}
-
-	@Override
-	public void onShutdown() {
-		if (handler instanceof Startable) {
-			Startable st = (Startable) handler;
-			st.stop();
-		}
-
-	}
-
 }

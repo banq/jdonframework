@@ -36,7 +36,7 @@ public class ValueEventProcessor {
 		ringBuffer.publish(waitAtSequence);
 	}
 
-	public EventResultDisruptor waitFor(long timeoutforeturnResult) {
+	public EventResultDisruptor waitFor() {
 		SequenceBarrier barrier = ringBuffer.newBarrier();
 		try {
 			long a = barrier.waitFor(waitAtSequence);
@@ -53,7 +53,7 @@ public class ValueEventProcessor {
 	/**
 	 * not really block, the waiting time is longer than not block.
 	 */
-	public EventResultDisruptor waitForBlocking(long timeoutforeturnResult) {
+	public EventResultDisruptor waitForBlocking() {
 		SequenceBarrier barrier = ringBuffer.newBarrier();
 		try {
 			long a = barrier.waitFor(waitAtSequence);

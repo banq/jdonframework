@@ -16,15 +16,12 @@
 package com.jdon.async.disruptor;
 
 import java.util.TreeSet;
-import java.util.concurrent.TimeUnit;
 
 import junit.framework.TestCase;
 
 import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.domain.message.DomainMessage;
 import com.lmax.disruptor.RingBuffer;
-import com.lmax.disruptor.SequenceBarrier;
-import com.lmax.disruptor.TimeoutBlockingWaitStrategy;
 import com.lmax.disruptor.dsl.Disruptor;
 
 public class DisruptorFactoryTest extends TestCase {
@@ -94,31 +91,4 @@ public class DisruptorFactoryTest extends TestCase {
 		System.out.print("ok");
 	}
 
-	public void testValueEventProcessor() {
-		RingBuffer ringBuffer = RingBuffer.createSingleProducer(new EventResultFactory(), 1, new TimeoutBlockingWaitStrategy(10000,
-				TimeUnit.MILLISECONDS));
-		ValueEventProcessor vp = new ValueEventProcessor(ringBuffer);
-
-		long waitAtSequence = ringBuffer.next();
-		EventResultDisruptor ve = (EventResultDisruptor) ringBuffer.get(waitAtSequence);
-		ve.setValue("200");
-		ringBuffer.publish(waitAtSequence);
-
-		String result = null;
-		SequenceBarrier barrier = ringBuffer.newBarrier();
-		try {
-			long a = barrier.waitFor(waitAtSequence);
-			if (ringBuffer != null) {
-
-				ve = (EventResultDisruptor) ringBuffer.get(a);
-				result = (String) ve.getValue();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			barrier.alert();
-		}
-
-		System.out.print("\n result=" + result);
-	}
 }

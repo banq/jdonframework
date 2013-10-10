@@ -37,7 +37,7 @@ public class AServiceImpl implements AService {
 
 	public DomainMessage commandA(String rootId, AggregateRootA model, int state) {
 		System.out.print("\n send to AggregateRootA =" + model.getId());
-		return new DomainMessage(new ParameterVO(state));
+		return new DomainMessage(new ParameterVO(state), 60000);
 	}
 
 }

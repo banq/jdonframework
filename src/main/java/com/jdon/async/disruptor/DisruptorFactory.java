@@ -23,7 +23,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 
 import com.jdon.async.disruptor.pool.DisruptorPoolFactory;
-import com.jdon.async.disruptor.pool.DomainEventHandlerLast;
 import com.jdon.container.ContainerWrapper;
 import com.jdon.container.annotation.type.ConsumerLoader;
 import com.jdon.container.finder.ContainerCallback;
@@ -106,9 +105,6 @@ public class DisruptorFactory implements Startable {
 			} else {
 				eh = eh.handleEventsWith(dea);
 			}
-		}
-		if (eh != null) {
-			eh.handleEventsWith(new DomainEventHandlerLast(this));
 		}
 		return dw;
 	}

@@ -32,11 +32,11 @@ public class TestMain {
 		long start = System.currentTimeMillis();
 		int result = 0;
 		DomainMessage res1 = (DomainMessage) res.getBlockEventResult();
-		if (res1.getBlockEventResult() != null)
+		if (res1 != null && res1.getBlockEventResult() != null)
 			result = (Integer) res1.getBlockEventResult();
 
 		long stop = System.currentTimeMillis();
 		Assert.assertEquals(result, 400);
-		System.out.print("\n ok \n" + result + (stop - start));
+		System.out.print("\n ok \n" + result + " time:" + (stop - start));
 	}
 }
