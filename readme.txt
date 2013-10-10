@@ -18,7 +18,7 @@ JdonFramework = Ioc/DI/AOP + reactive Actors model
 2. RELEASE NOTES
 ----------------
 
-6.6.8 version.  
+6.8 version.  
 
 add command of CQRS:
 UI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Component
