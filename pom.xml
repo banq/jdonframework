@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.jdon</groupId>
   <artifactId>jdonframework</artifactId>
-  <version>6.8-SNAPSHOT</version>
+  <version>6.8</version>
   <packaging>jar</packaging>
   <name>jdonframework</name>
   <description>JdonFramework is a java framework that you can use to build your Domain Driven Design + CQRS + EventSource  applications with asynchronous concurrency and higher throughput.</description>
@@ -20,7 +20,7 @@
     <connection>scm:git:git@github.com:banq/jdonframework.git</connection>
     <developerConnection>scm:git:git@github.com:banq/jdonframework.git</developerConnection>
     <url>git@github.com:banq/jdonframework.git</url>  
-    <tag>jdonframework-6.8</tag>  
+    <tag>v6.8</tag>  
   </scm>
   
  <developers>
