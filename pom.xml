@@ -19,8 +19,7 @@
  <scm>
     <connection>scm:git:git@github.com:banq/jdonframework.git</connection>
     <developerConnection>scm:git:git@github.com:banq/jdonframework.git</developerConnection>
-    <url>git@github.com:banq/jdonframework.git</url>  
-    <tag>jdonframework-6.8</tag>  
+    <url>git@github.com:banq/jdonframework.git</url>      
   </scm>
   
  <developers>
@@ -148,7 +147,7 @@
                         <useReleaseProfile>false</useReleaseProfile>
                         <arguments>-Psonatype-oss-release</arguments>
                         <pushChanges>false</pushChanges>
-                        <localCheckout>true</localCheckout>
+                        <localCheckout>false</localCheckout>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
                 </configuration>
             </plugin>

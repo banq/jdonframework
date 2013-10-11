@@ -37,7 +37,7 @@ apply jdonframework.jar to your project:
     <dependency>
         <groupId>org.jdon</groupId>
         <artifactId>jdonframework</artifactId>
-        <version>6.6.8</version>
+        <version>6.8</version>
      </dependency>            
 
 
