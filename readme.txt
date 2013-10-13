@@ -51,3 +51,8 @@ In the "doc\chinese" directory there are chinese documents about how to use.
 In the "example" directory there are serveral examples that show how to use jdon, in these examples directory run 'mvn package' to get war file.
 
 In the "JdonAccessory" directory there are struts1.x MVC and jdbc templates.
+
+5. Contact
+------------------
+twiiter: @jdonframework 
+ 
