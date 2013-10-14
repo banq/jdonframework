@@ -52,7 +52,11 @@ In the "example" directory there are serveral examples that show how to use jdon
 
 In the "JdonAccessory" directory there are struts1.x MVC and jdbc templates.
 
-5. Contact
+5. DEMO
+------------------
+online: http://www.jdon.com/testWeb/
+
+6. Contact
 ------------------
 twiiter: @jdonframework 
  
