@@ -1,7 +1,10 @@
 
-CRUD增删改查案例  Struts + Jdon + JDBC
+CRUD增删改查案例  JdonMVC + Jdon + JDBC
 DEMO网址:  http://www.jdon.com/testWeb/
 
+
+gradle: gradlew.bat war
+maven: mvn package
 
 安装运行步骤：
 

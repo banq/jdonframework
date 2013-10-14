@@ -147,14 +147,14 @@
                     <webResources>
                         <resource>
                             <filtering>true</filtering>
-                            <directory>${basedir}/testWeb</directory>
+                            <directory>${basedir}/src/main/webapp</directory>
                             <includes>
                                 <include>*.*</include>
                             </includes>
                         </resource>
                         <resource>
                             <filtering>true</filtering>
-                            <directory>${basedir}/testWeb/WEB-INF</directory>
+                            <directory>${basedir}/src/main/webapp/WEB-INF</directory>
                             <includes>
                                 <include>*.xml</include>
                             </includes>
@@ -162,7 +162,7 @@
                         </resource>
                         <resource>
                         <filtering>true</filtering>
-                            <directory>${basedir}/testWeb/META-INF</directory>
+                            <directory>${basedir}/src/main/webapp/META-INF</directory>
                             <includes>
                                 <include>*.xml</include>
                             </includes>
