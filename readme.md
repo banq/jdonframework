@@ -47,8 +47,8 @@ public class AggregateRootA {
 	private int state = 100;
 	
 	@Inject
-  private DomainEventProduceIF domainEventProducer;
-
+	private DomainEventProduceIF domainEventProducer;
+	
 	@OnCommand("CommandtoEventA")  //command comes in
 	public Object save(ParameterVO parameterVO) {
 	  //update root's state with a non-blocking way
