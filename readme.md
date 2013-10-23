@@ -35,6 +35,34 @@ by using jdon, a aggregate root can act as a mailbox that is a asynchronous and 
 Event is a better interactive way for aggregate root with each other, instead of directly exposing behavior and hold references to others. 
 and it can better protect root entity's internal state not expose. and can safely update root's state with a non-blocking way.
 
+examples:
+When UI command comes to a aggregate root, update root's state, and it will send a domain event to other consumers:
+
+UI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Component
+
+@Model
+public class AggregateRootA {
+
+	..
+	private int state = 100;
+	
+	@Inject
+  private DomainEventProduceIF domainEventProducer;
+
+	@OnCommand("CommandtoEventA")  //command comes in
+	public Object save(ParameterVO parameterVO) {
+	  //update root's state with a non-blocking way
+		this.state = parameterVO.getValue() + state;
+		
+     // a reactive event will send to other consumers in domainEventProducer
+		return domainEventProducer.sendtoAnotherAggragate(aggregateRootBId, this.state);
+
+	}
+
+  ...
+}
+
+full example: [click here](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/cqrs/a/AggregateRootA.java)
 
 RELEASE NOTES
 ===================================  
