@@ -28,8 +28,8 @@ Why Jdon?
 ===================================  
 Jdon framework introduces reactive model to implement DDD's Aggregate Root, 
 by using jdon, a aggregate root can act as a mailbox that is a asynchronous and non-blocking event-sending and event-recipient metaphor.
-Event is a better way for aggregate root that directly exposed behavior and hold references to others. 
-Event can better protect root entity's internal state not expose.
+Event is a better interactive way for aggregate root with each other, instead of directly exposing behavior and hold references to others. 
+and it can better protect root entity's internal state not expose.
 
 
 RELEASE NOTES
@@ -51,15 +51,20 @@ DISTRIBUTION JAR FILES
 
 apply jdonframework.jar to your project:
   MAVEN:  
-    <dependency>
-        <groupId>org.jdon</groupId>
-        <artifactId>jdonframework</artifactId>
-        <version>6.8</version>
-     </dependency>            
+  
+		<dependency>
+			<groupId>org.jdon</groupId>
+			<artifactId>jdonframework</artifactId>
+			<version>6.8</version>
+		</dependency>            
 
 
 GETTING STARTED
 ===================================  
+online documents :
+	English: http://www.jdon.org         
+	Chinese: http://www.jdon.com/jdonframework/
+
   
 In the "doc\english" directory there are all documents about how to use.
 
@@ -72,11 +77,6 @@ In the "JdonAccessory" directory there are struts1.x MVC and jdbc templates.
 DEMO
 ------------------
 online: http://www.jdon.com/testWeb/
-
-Document
-===================================  
-English: http://www.jdon.org         
-Chinese: http://www.jdon.com/jdonframework/
 
 
 Contact
