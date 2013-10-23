@@ -68,19 +68,34 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
                     <p><img src="images/dci+de.png" width="589" height="380" alt="dci+de"></p>
                     <p>&nbsp;</p>
                     <p>&nbsp;</p>
-                    <h3><em>Domain-driven design (DDD)</em></h3>
+                    <p><strong>Domain-driven design (DDD)</strong></p>
 <P> <em>Domain-driven design (DDD) is an approach to developing software for complex needs by deeply connecting the implementation to an evolving model of the core business concepts. <a href="http://en.wikipedia.org/wiki/Domain-driven_design">details</a></em>.</P>
                     <P><img src="images/dddbook.png" width="171" height="220" alt="ddd"></P>
                     <p id="body_23140068"><a href="http://www.infoq.com/interviews/Technology-Influences-DDD#">Eric Evans on How Technology Influences DDD(2012) </a></p>
-<P>CQRS:  Command-query Responsibility Segregation      It's a pattern that I first heard described by <a href="http://codebetter.com/gregyoung/">Greg Young</a>. At its heart is a simple notion that you can use a different model to update information than the model you use to read information. <a href="http://martinfowler.com/bliki/CQRS.html">details</a>.</P>
-<P>Domain Events:  <em>Captures the memory of something interesting which affects the domain</em>. <a href="http://martinfowler.com/eaaDev/DomainEvent.html">details</a>, see <a href="http://www.udidahan.com/2008/02/29/how-to-create-fully-encapsulated-domain-models/" rel="bookmark" title="Permanent Link: How to create fully encapsulated Domain Models">How to create fully encapsulated Domain Models</a></P>
+                    <p>DDD's servral concepts are the Heart and Soul of OOP: </p>
+                    <p> Entities and Identity, Value Objects <br>
+                      Aggregate Root<br>
+                      Bounded context</p>
+<p>&nbsp;</p>
+                    <p><strong>Reactive</strong></p>
+                    <p>Reactive Programming is a hot topic , especially with such things as the <a href="http://www.reactivemanifesto.org/" target="_blank">Reactive Manifesto</a>. 
+                      Reactive architecture allows developers to build systems that are event-driven(EDA), scalable, resilient and responsive: delivering highly responsive user experiences with a real-time feel, backed by a scalable and resilient application stack, ready to be deployed on multicore and cloud computing architectures.</p>
+                    <p><br>
+                      a reactive application is non-blocking that is under heavy load can thus have lower latency and higher throughput than a traditional application based on blocking synchronization and communication primitives.<br>
+                    </p>
+<P><strong>CQRS</strong></P>
+<P> Command-query Responsibility Segregation      At its heart is a simple notion that you can use a different model to update information than the model you use to read information. <a href="http://martinfowler.com/bliki/CQRS.html">details</a>.</P>
+<P>&nbsp;</P>
+<P><strong>Domain Events</strong></P>
+<P> <em>Captures the memory of something interesting which affects the domain</em>. <a href="http://martinfowler.com/eaaDev/DomainEvent.html">details</a>, see <a href="http://www.udidahan.com/2008/02/29/how-to-create-fully-encapsulated-domain-models/" rel="bookmark" title="Permanent Link: How to create fully encapsulated Domain Models">How to create fully encapsulated Domain Models</a></P>
+<P>&nbsp;</P>
 <P>With JdonFramework you can easily develope a <a href="http://martinfowler.com/eaaDev/EventSourcing.html" target="_blank" onMouseDown="return rwt(this,'','','','1','AFQjCNEKPs4mGoA7jGKQ5GogosnIYvkS2A','VBWdcuas7M2MSmMGaC9cGQ','0CE8QFjAA',null,event)"><em>Event Sourcing</em></a> and CQRS system.   in CQRS, by disruptor Jdon can send domain events to <a href="https://twitter.com/search/?src=hash&q=%23rabbitmq" title="#rabbitmq" data-query-source="hashtag_click"><strong>#</strong><strong><strong>rabbitmq</strong></strong></a>and <a href="https://twitter.com/search/?src=hash&q=%23zeromq" title="#zeromq" data-query-source="hashtag_click">#<strong>zeromq</strong></a> - <a href="https://twitter.com/search/?src=hash&q=%23distributed" title="#distributed" data-query-source="hashtag_click">#<strong>distributed</strong></a>.</P>
 <P><a href="http://en.wikipedia.org/wiki/Data,_context_and_interaction" target="_blank">DCI:Data Context and Interactions</a>: in a Context, a Role   played by   a Data model   triggers    interaction behavior.</P>
 <P><a href="http://web1.udemy.com/blog/object-oriented-programming-a-critical-approach/" target="_blank">Object Oriented Programming: A Critical Approach</a> say: OO is really about message passing:</P>
 <p>&ldquo;The message-sending metaphor provides modularity by decoupling the intent of a message (embodied in its name) from the method used by the recipient to carry out the intent. Structural information is similarly protected because all access to the internal state of an object is through this same message interface.&rdquo;</p>
 <P>by using jdon, a aggregate root can act as a mailbox that is a asynchronous and non-blocking event-sending and event-recipient metaphor..see below picture, more details in : <a href="http://www.jdon.org/DomainEvents.html" target="_blank">Robot sample</a></P>
 <P><img src="images/m.jpg" width="533" height="446" alt="modularity"></P>
-<P>Event is a better interactive way for aggregate root with each other, instead of directly exposing behavior and hold references to others. and it can better protect root entity's internal state not expose.</P>
+<P>Event is a better interactive way for aggregate root with each other, instead of directly exposing behavior and hold references to others. and it can better protect root entity's internal state not expose. and can safely modify root's state with a non-blocking way.</P>
 <P><img src="images/aggregate.png" width="461" height="452" alt="aggregate root"></P>
 <P><strong>Domain Events(Event Sourcing) for Evans DDD </strong>:</P>
                     <P>Real domain logic is in the Domain Model,
@@ -108,13 +123,7 @@ Domain-Driven Dsign Development, supports in-memory cache model.                
                     <P>&nbsp;</P>
                     <hr>
                     <h3>getting Started</h3>
-                    <p>　　Maven pom.xml :</p>
-                    <p>　&lt;dependency&gt;<br>
-                      　　　　&lt;groupId&gt;org.jdon&lt;/groupId&gt;<br>
-                      　　　　&lt;artifactId&gt;jdonframework&lt;/artifactId&gt;<br>
-                      　　　　&lt;version&gt;6.8&lt;/version&gt;<br>
-                      　　&lt;/dependency&gt; </p>
-                    <p>　　In Jdon there are two kinds of model: Component and  Model. a Component class is annotated with @Component, and a  Model class is annotated with @Model.</p>
+                    <p>　　　In Jdon there are two kinds of model: Component and  Model. a Component class is annotated with @Component, and a  Model class is annotated with @Model.</p>
 <p> 　　When a  Model is referenced by  Component, it is a aggregate root, if it is referencedby another model, it is not a aggregate root, maybe normal Entity or Value Object.</p>
 <p>  　　Model instances  live in in-memory cache, and Component instances live in the container that its lifcycle is equal to application scope.</p>
 <p>　　Component can be use to implement DDD's service or other application manager, such as repository or Email sender..</p>

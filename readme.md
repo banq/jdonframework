@@ -23,13 +23,17 @@ DDD's servral concepts are the Heart and Soul of OOP:
 		Entities and Identity, Value Objects 
 		Aggregate Root
 		Bounded context
+		
+Why CQRS?
+===================================  
+CQRS: Command-query Responsibility Segregation, at its heart is a simple notion that you can use a different model to update information than the model you use to read information.
 
 Why Jdon?
 ===================================  
 Jdon framework introduces reactive model to implement DDD's Aggregate Root, 
 by using jdon, a aggregate root can act as a mailbox that is a asynchronous and non-blocking event-sending and event-recipient metaphor.
 Event is a better interactive way for aggregate root with each other, instead of directly exposing behavior and hold references to others. 
-and it can better protect root entity's internal state not expose.
+and it can better protect root entity's internal state not expose. and can safely modify root's state with a non-blocking way.
 
 
 RELEASE NOTES
