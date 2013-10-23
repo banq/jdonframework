@@ -18,7 +18,7 @@ Why DDD?
 ===================================  
 Domain-driven design (DDD) is an approach to developing software for complex needs by deeply connecting the implementation to an evolving model of the core business concepts,
 
-DDD's servral concepts are the Heart and Soul of OOP:  
+DDD's servral concepts are the Heart and Soul of OOD:  
 
 		Entities and Identity, Value Objects 
 		Aggregate Root
