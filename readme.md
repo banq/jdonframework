@@ -51,13 +51,14 @@ UI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Co
 		@OnCommand("CommandtoEventA")  //command comes in
 		public Object save(ParameterVO parameterVO) {
 		
-		  //update root's state with a non-blocking way
+			//update root's state with a non-blocking way
 			this.state = parameterVO.getValue() + state;
 		
-     	//a reactive event will be send to other consumers in domainEventProducer
+			//a reactive event will be send to other consumers in domainEventProducer
 			return domainEventProducer.sendtoAnotherAggragate(aggregateRootBId, this.state);
 
 		}
+		
 	}
 
 full example: [click here](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/cqrs/a/AggregateRootA.java)
