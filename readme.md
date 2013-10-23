@@ -7,14 +7,29 @@ JdonFramework = DDD + Event Sourcing + CQRS + asynchronous + concurrency + highe
 JdonFramework = Ioc/DI/AOP + reactive Actors model
 
 
-The Need to go Reactive
+Why Reactive?
 ===================================  
 
-Reactive Programming is a hot topic as of late, especially with such things as the [Reactive Manifesto](http://www.reactivemanifesto.org/). 
-Applications, especially on the web have changed over the years from being a simple static page, to DHTML with animations, to the Ajax revolution. Each time, we're adding more complexity, more data, and asynchronous behavior to our applications. How do we manage it all? How do we scale it? By moving towards "Reactive Architectures" which are event-driven, resilient and responsive. With the Reactive Extensions, you have all the tools you need to help build these systems.
+Reactive Programming is a hot topic , especially with such things as the [Reactive Manifesto](http://www.reactivemanifesto.org/). 
+Reactive architecture allows developers to build systems that are event-driven(EDA), scalable, resilient and responsive: delivering highly responsive user experiences with a real-time feel, backed by a scalable and resilient application stack, ready to be deployed on multicore and cloud computing architectures.
+a reactive application is non-blocking that is under heavy load can thus have lower latency and higher throughput than a traditional application based on blocking synchronization and communication primitives.
 
-INTRODUCTION
+Why DDD?
 ===================================  
+Domain-driven design (DDD) is an approach to developing software for complex needs by deeply connecting the implementation to an evolving model of the core business concepts,
+
+DDD's servral concepts are the Heart and Soul of OOP:  
+
+Entities and Identity, Value Objects 
+Aggregate Root
+Bounded context
+
+Why Jdon?
+===================================  
+Jdon framework introduces reactive model to implement DDD's Aggregate Root, 
+by using jdon, a aggregate root can act as a mailbox that is a asynchronous and non-blocking event-sending and event-recipient metaphor.
+Event is a better way for aggregate root that directly exposed behavior and hold references to others. 
+Event can better protect root entity's internal state not expose.
 
 
 RELEASE NOTES
