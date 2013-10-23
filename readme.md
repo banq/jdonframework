@@ -112,7 +112,7 @@ online: http://www.jdon.com/testWeb/
 
 Communication
 ------------------
-twiiter: @jdonframework 
+twiiter: [@jdonframework](http://twitter.com/jdonframework)
 
 Bugs and Feedback
 ------------------
