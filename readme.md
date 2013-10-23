@@ -43,20 +43,21 @@ UI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Co
 	@Model
 	public class AggregateRootA {
 
-	private int state = 100;
+		private int state = 100;
 	
-	@Inject
-	private DomainEventProduceIF domainEventProducer;
+		@Inject
+		private DomainEventProduceIF domainEventProducer;
 	
-	@OnCommand("CommandtoEventA")  //command comes in
-	public Object save(ParameterVO parameterVO) {
-	  //update root's state with a non-blocking way
-		this.state = parameterVO.getValue() + state;
+		@OnCommand("CommandtoEventA")  //command comes in
+		public Object save(ParameterVO parameterVO) {
 		
-     // a reactive event will send to other consumers in domainEventProducer
-		return domainEventProducer.sendtoAnotherAggragate(aggregateRootBId, this.state);
+		  //update root's state with a non-blocking way
+			this.state = parameterVO.getValue() + state;
+		
+     	//a reactive event will be send to other consumers in domainEventProducer
+			return domainEventProducer.sendtoAnotherAggragate(aggregateRootBId, this.state);
 
-	}
+		}
 	}
 
 full example: [click here](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/cqrs/a/AggregateRootA.java)
