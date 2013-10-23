@@ -40,10 +40,9 @@ When UI command comes to a aggregate root, update root's state, and it will send
 
 UI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Component
 
-@Model
-public class AggregateRootA {
+	@Model
+	public class AggregateRootA {
 
-	..
 	private int state = 100;
 	
 	@Inject
@@ -58,9 +57,7 @@ public class AggregateRootA {
 		return domainEventProducer.sendtoAnotherAggragate(aggregateRootBId, this.state);
 
 	}
-
-  ...
-}
+	}
 
 full example: [click here](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/cqrs/a/AggregateRootA.java)
 
