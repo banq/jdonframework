@@ -95,7 +95,7 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
 <p>&ldquo;The message-sending metaphor provides modularity by decoupling the intent of a message (embodied in its name) from the method used by the recipient to carry out the intent. Structural information is similarly protected because all access to the internal state of an object is through this same message interface.&rdquo;</p>
 <P>by using jdon, a aggregate root can act as a mailbox that is a asynchronous and non-blocking event-sending and event-recipient metaphor..see below picture, more details in : <a href="http://www.jdon.org/DomainEvents.html" target="_blank">Robot sample</a></P>
 <P><img src="images/m.jpg" width="533" height="446" alt="modularity"></P>
-<P>Event is a better interactive way for aggregate root with each other, instead of directly exposing behavior and hold references to others. and it can better protect root entity's internal state not expose. and can safely modify root's state with a non-blocking way.</P>
+<P>Event is a better interactive way for aggregate root with each other, instead of directly exposing behavior and hold references to others. and it can better protect root entity's internal state not expose. and can safely modify root's state in non-blocking way.</P>
 <P><img src="images/aggregate.png" width="461" height="452" alt="aggregate root"></P>
 <P><strong>Domain Events(Event Sourcing) for Evans DDD </strong>:</P>
                     <P>Real domain logic is in the Domain Model,
