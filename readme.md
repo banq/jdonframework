@@ -1,22 +1,30 @@
 JDON FRAMEWORK
----------------------------------------
+===================================  
 English: http://www.jdon.org
 
          http://htmlpreview.github.com/?https://github.com/banq/jdonframework/blob/master/doc/english/index.html
 
 Chinese: http://www.jdon.com/jdonframework/
 
+The Need to go Reactive
+===================================  
 
-1. INTRODUCTION
----------------
+Reactive Programming is a hot topic as of late, especially with such things as the Reactive Manifesto. 
+Applications, especially on the web have changed over the years from being a simple static page, to DHTML with animations, to the Ajax revolution. Each time, we're adding more complexity, more data, and asynchronous behavior to our applications. How do we manage it all? How do we scale it? By moving towards "Reactive Architectures" which are event-driven, resilient and responsive. With the Reactive Extensions, you have all the tools you need to help build these systems.
+
+INTRODUCTION
+===================================  
 JdonFramework is a java reactive framework that you can use to build your Domain Driven Design + CQRS + EventSourcing  applications with asynchronous concurrency and higher throughput.
 
 JdonFramework = DDD + Event Sourcing + CQRS + asynchronous + concurrency + higher throughput.
 
 JdonFramework = Ioc/DI/AOP + reactive Actors model
 
-2. RELEASE NOTES
-----------------
+The Need to go Reactive
+
+
+RELEASE NOTES
+===================================  
 
 6.8 version.  
 
@@ -29,8 +37,8 @@ stable version download:
 http://sourceforge.net/projects/jdon/files/JdonFramework/6.X_DDD/
 
 
-3. DISTRIBUTION JAR FILES
--------------------------
+DISTRIBUTION JAR FILES
+===================================  
 
 apply jdonframework.jar to your project:
   MAVEN:  
@@ -41,8 +49,8 @@ apply jdonframework.jar to your project:
      </dependency>            
 
 
-4. GETTING STARTED
-------------------
+GETTING STARTED
+===================================  
   
 In the "doc\english" directory there are all documents about how to use.
 
@@ -52,7 +60,7 @@ In the "example" directory there are serveral examples that show how to use jdon
 
 In the "JdonAccessory" directory there are struts1.x MVC and jdbc templates.
 
-5. DEMO
+DEMO
 ------------------
 online: http://www.jdon.com/testWeb/
 
