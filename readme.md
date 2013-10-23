@@ -20,9 +20,9 @@ Domain-driven design (DDD) is an approach to developing software for complex nee
 
 DDD's servral concepts are the Heart and Soul of OOP:  
 
-Entities and Identity, Value Objects 
-Aggregate Root
-Bounded context
+		Entities and Identity, Value Objects 
+		Aggregate Root
+		Bounded context
 
 Why Jdon?
 ===================================  
