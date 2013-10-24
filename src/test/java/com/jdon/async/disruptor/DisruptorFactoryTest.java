@@ -16,12 +16,17 @@
 package com.jdon.async.disruptor;
 
 import java.util.TreeSet;
+import java.util.concurrent.TimeUnit;
 
 import junit.framework.TestCase;
 
 import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.domain.message.DomainMessage;
+import com.lmax.disruptor.AlertException;
 import com.lmax.disruptor.RingBuffer;
+import com.lmax.disruptor.SequenceBarrier;
+import com.lmax.disruptor.TimeoutBlockingWaitStrategy;
+import com.lmax.disruptor.TimeoutException;
 import com.lmax.disruptor.dsl.Disruptor;
 
 public class DisruptorFactoryTest extends TestCase {
@@ -89,6 +94,28 @@ public class DisruptorFactoryTest extends TestCase {
 		// }
 
 		System.out.print("ok");
+	}
+
+	public void testValueEventProcessor() throws AlertException, InterruptedException, TimeoutException {
+		RingBuffer ringBuffer = RingBuffer.createSingleProducer(new EventResultFactory(), 8, new TimeoutBlockingWaitStrategy(10000,
+				TimeUnit.MILLISECONDS));
+		ValueEventProcessor valueEventProcessor = new ValueEventProcessor(ringBuffer);
+
+		int numMessages = ringBuffer.getBufferSize();
+		int offset = 1000;
+		for (int i = 0; i < numMessages + offset; i++) {
+			valueEventProcessor.send(i);
+		}
+
+		long expectedSequence = numMessages + offset - 1;
+		SequenceBarrier barrier = ringBuffer.newBarrier();
+		long available = barrier.waitFor(expectedSequence);
+		assertEquals(expectedSequence, available);
+		System.out.print("\n expectedSequence=" + expectedSequence);
+
+		for (int i = offset; i < numMessages + offset; i++) {
+			System.out.print("\n i=" + ((EventResultDisruptor) ringBuffer.get(i)).getValue());
+		}
 	}
 
 }

@@ -20,7 +20,7 @@ import com.lmax.disruptor.SequenceBarrier;
 
 public class ValueEventProcessor {
 
-	protected RingBuffer<EventResultDisruptor> ringBuffer;
+	protected final RingBuffer<EventResultDisruptor> ringBuffer;
 
 	private long waitAtSequence = 0;
 
@@ -76,7 +76,11 @@ public class ValueEventProcessor {
 	}
 
 	public void clear() {
-		this.ringBuffer = null;
+
+	}
+
+	public RingBuffer<EventResultDisruptor> getRingBuffer() {
+		return ringBuffer;
 	}
 
 }
