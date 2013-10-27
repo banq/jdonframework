@@ -45,10 +45,10 @@ UI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Co
 
 		private int state = 100;
 	
-		@Inject
+		@Inject   //event Observable(Producer)
 		private DomainEventProduceIF domainEventProducer;
 	
-		@OnCommand("CommandtoEventA")  //command comes in
+		@OnCommand("CommandtoEventA")  //command Observers(Consumer) 
 		public Object save(ParameterVO parameterVO) {
 		
 			//update root's state in non-blocking way 
@@ -60,6 +60,30 @@ UI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Co
 		}
 		
 	}
+	
+the 'save' method annotated with @OnCommand is a "Observer" or "Consumer"  sometimes called a ¡°watcher¡± or ¡°reactor.¡± This model in general is often referred to as the ¡°[reactor pattern](http://en.wikipedia.org/wiki/Reactor_pattern)¡±.
+and its 'Observable' or "Producer" is a method annotated with @Send.
+ 
+	public interface AService {
+
+		@Send("CommandtoEventA")
+		public DomainMessage commandA(@Owner String rootId, @Receiver AggregateRootA model, int state);
+	} 
+
+An Observable(Producer) emits items or sends notifications to its Observers(Consumer) by a asynchronous and non-blocking queue made by LMAX Disruptor's RingBuffer.
+@Send("CommandtoEventA") ---> @OnCommand("CommandtoEventA") 
+
+there are two kinds of Observers(Consumer):
+
+@Send --> @OnCommand
+@Send --> @OnEvent
+
+OnCommand is for command producer, and OnEvent is for event producer.
+a difference of command with event is that:
+
+when a event happend otherwhere comes in a aggregate root we call the event
+transform to a command, and the command will action a method ('save' in this example), and in this method there will be some events happend again.
+
 
 full example: [click here](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/cqrs/a/AggregateRootA.java)
 

@@ -97,14 +97,15 @@ public class DisruptorFactoryTest extends TestCase {
 	}
 
 	public void testValueEventProcessor() throws AlertException, InterruptedException, TimeoutException {
-		RingBuffer ringBuffer = RingBuffer.createSingleProducer(new EventResultFactory(), 8, new TimeoutBlockingWaitStrategy(10000,
+		RingBuffer ringBuffer = RingBuffer.createSingleProducer(new EventResultFactory(), 32, new TimeoutBlockingWaitStrategy(10000,
 				TimeUnit.MILLISECONDS));
 		ValueEventProcessor valueEventProcessor = new ValueEventProcessor(ringBuffer);
 
 		int numMessages = ringBuffer.getBufferSize();
-		int offset = 1000;
+		int offset = 0;
 		for (int i = 0; i < numMessages + offset; i++) {
 			valueEventProcessor.send(i);
+			System.out.print("\n push=" + i);
 		}
 
 		long expectedSequence = numMessages + offset - 1;
@@ -113,8 +114,8 @@ public class DisruptorFactoryTest extends TestCase {
 		assertEquals(expectedSequence, available);
 		System.out.print("\n expectedSequence=" + expectedSequence);
 
-		for (int i = offset; i < numMessages + offset; i++) {
-			System.out.print("\n i=" + ((EventResultDisruptor) ringBuffer.get(i)).getValue());
+		for (int i = 0; i < numMessages + offset; i++) {
+			System.out.print("\n i=" + ((EventResultDisruptor) ringBuffer.get(i)).getValue() + " " + i);
 		}
 	}
 
