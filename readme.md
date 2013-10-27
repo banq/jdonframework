@@ -75,14 +75,14 @@ An Observable(Producer) emits items or sends notifications to its Observers(Cons
 
 there are two kinds of Observers(Consumer):
 
-	@Send --> @OnCommand
-	@Send --> @OnEvent
+	@Send --> @OnCommand  (1:1 Queue)
+	@Send --> @OnEvent    (1:N topic)
 
 OnCommand is a 'Command' Observers(Consumer), and OnEvent is a 'Event' Observers(Consumer).
 a difference of 'Command' with 'Event' is that:
 
 when a event happend otherwhere comes in a aggregate root we call the event
-transform to a command, and the command will action a method ('save' in this example), 
+transform into a command, and the command will action a method ('save' in this example), 
 and in this method  another some events  will be happend.
 
 
