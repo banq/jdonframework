@@ -75,14 +75,14 @@ An Observable(Producer) emits items or sends notifications to its Observers(Cons
 
 there are two kinds of Observers(Consumer):
 
-@Send --> @OnCommand
-@Send --> @OnEvent
+	@Send --> @OnCommand
+	@Send --> @OnEvent
 
-OnCommand is for command producer, and OnEvent is for event producer.
-a difference of command with event is that:
+OnCommand is a 'Command' Observers(Consumer), and OnEvent is a 'Event' Observers(Consumer).
+a difference of 'Command' with 'Event' is that:
 
 when a event happend otherwhere comes in a aggregate root we call the event
-transform to a command, and the command will action a method ('save' in this example), and in this method there will be some events happend again.
+transform to a command, and the command will action a method ('save' in this example), and in this method there will be another some events happend again.
 
 
 full example: [click here](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/cqrs/a/AggregateRootA.java)
