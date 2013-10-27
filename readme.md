@@ -85,8 +85,26 @@ when a event happend otherwhere comes in a aggregate root we call the event
 transform into a command, and the command will action a method ('save' in this example), 
 and in this method another some events will happen.
 
-
 full example: [click here](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/cqrs/a/AggregateRootA.java)
+
+GETTING STARTED
+===================================  
+online documents :
+	English: http://www.jdon.org         
+	Chinese: http://www.jdon.com/jdonframework/
+
+  
+In the "doc\english" directory there are all documents about how to use.
+
+In the "doc\chinese" directory there are chinese documents about how to use.
+
+In the "example" directory there are serveral examples that show how to use jdon, in these examples directory run 'mvn package' to get war file.
+
+In the "JdonAccessory" directory there are struts1.x MVC and jdbc templates.
+
+DEMO
+------------------
+online: http://www.jdon.com/testWeb/
 
 RELEASE NOTES
 ===================================  
@@ -113,26 +131,6 @@ apply jdonframework.jar to your project:
 			<artifactId>jdonframework</artifactId>
 			<version>6.8</version>
 		</dependency>            
-
-
-GETTING STARTED
-===================================  
-online documents :
-	English: http://www.jdon.org         
-	Chinese: http://www.jdon.com/jdonframework/
-
-  
-In the "doc\english" directory there are all documents about how to use.
-
-In the "doc\chinese" directory there are chinese documents about how to use.
-
-In the "example" directory there are serveral examples that show how to use jdon, in these examples directory run 'mvn package' to get war file.
-
-In the "JdonAccessory" directory there are struts1.x MVC and jdbc templates.
-
-DEMO
-------------------
-online: http://www.jdon.com/testWeb/
 
 
 Communication
