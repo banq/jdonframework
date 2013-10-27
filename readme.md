@@ -61,7 +61,7 @@ UI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Co
 		
 	}
 	
-the 'save' method annotated with @OnCommand is a "Observer" or "Consumer"  sometimes called a ¡°watcher¡± or ¡°reactor.¡± This model in general is often referred to as the ¡°[reactor pattern](http://en.wikipedia.org/wiki/Reactor_pattern)¡±.
+the 'save' method annotated with @OnCommand is a "Observer" or "Consumer"  sometimes called a "watcher" or "reactor". This model in general is often referred to as the "[reactor pattern](http://en.wikipedia.org/wiki/Reactor_pattern)".
 and its 'Observable' or "Producer" is a method annotated with @Send.
  
 	public interface AService {
