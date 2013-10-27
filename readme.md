@@ -82,7 +82,8 @@ OnCommand is a 'Command' Observers(Consumer), and OnEvent is a 'Event' Observers
 a difference of 'Command' with 'Event' is that:
 
 when a event happend otherwhere comes in a aggregate root we call the event
-transform to a command, and the command will action a method ('save' in this example), and in this method there will be another some events happend again.
+transform to a command, and the command will action a method ('save' in this example), 
+and in this method  another some events  will be happend.
 
 
 full example: [click here](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/cqrs/a/AggregateRootA.java)
