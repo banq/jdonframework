@@ -51,7 +51,7 @@ UI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Co
 		@OnCommand("CommandtoEventA")  //command Observers(Consumer) 
 		public Object save(ParameterVO parameterVO) {
 		
-			//update root's state in non-blocking way 
+			//update root's state in non-blocking single thread way 
 			this.state = parameterVO.getValue() + state;
 		
 			//a reactive event will be send to other consumers in domainEventProducer
