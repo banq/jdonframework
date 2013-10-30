@@ -216,7 +216,14 @@ System.out.print(&quot;ok &quot; + &quot;  &quot; + (stop - start));</td>
 <p>　　above source in :<a href="https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/command">https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/command</a></p>
 <p>　　in this mode the component receives any commands from UI or others events, and handles them to a aggregate root :</p>
 <p>　　UI -------&gt;commandHandler(@Component) ------&gt;aggregate root model</p>
-<p> 　　in this mode, the state of aggregate root is changed by only single thread, it is threadsafe. and no blocking and no lock, like Actors mode of AKKA or ERlang, or like Node.js EDA. instead of 2PC or JTA, this mode can make transaction work well in high throughput way. </p>
+<p> 　　in this mode, @Model is a actor and representing Aggregate Root , the state of aggregate root is changed by only single thread, it is threadsafe. and no blocking and no lock, like Actors mode of AKKA or ERlang, or like Node.js EDA. instead of 2PC or JTA, this mode can make transaction work well in high throughput way. </p>
+<p>　　When we apply Jdon in a web application,  the system  works something like this:</p>
+<ul>
+  <li>Some command comes in to modify a given Aggregate Root (AR) entity</li>
+  <li>If an @Model representing the AR is not already running in the system, create it _atomically_ (i.e. make sure you never have more than one @Model representing a specific entity)</li>
+  <li>@Model should be removed after a period of idleness. This will avoid keeping actors around for entities with low interaction rates, but ensure 'hot' entities are kept in memory for performance (starting a new @Model requires loading events from an event store in order to restore the memory image representing the entity state), all these things are be done by cache in jdon. see below : @Introduce(&quot;modelCache&quot;)</li>
+</ul>
+<p>&nbsp;</p>
 <h3>2.Model and Component</h3>
 <p><strong>　　</strong>Model(producer with @Model) -- &gt; Component(consumer with @Component)</p>
 <p>　　After a agrregate root (domain model) receive a command , and it will reactive a event that can be sent to a Component or another aggregate root. we call it is domain events.</p>
@@ -299,7 +306,8 @@ System.out.print(&quot;ok &quot; + &quot;  &quot; + (stop - start));</td>
 </table>
 <p>　　this consumer is a class RepositoryImp that it is a Repository of DDD, and it also fetch a aggregate root from repository, @Introduce(&quot;modelCache&quot;) and @Around enable in-memory cache before the database. only when there is no the model object in cache, it will got from the database. @Introduce(&quot;modelCache&quot;) and @Around is necessary for using jdon framework. if not use them, any domain events will disable.</p>
 <p>　　another way,we can call com.jdon.domain.dci.RoleAssigner assignAggregateRoot method to let any normal object be act as a aggregate root.</p>
-<p>　　we have known about two modes between Component and aggregate root, if using these two modes in a aggregate root, it can be regarded as a Actors mode like Akka or Erlang: </p>
+<p>　　the in-memory cache make Aggregate Root living in memory, you can configure any cache product(ehcache, Redis ) for it. ensure 'hot' entities are kept in memory for performance.</p>
+<p>　　we have known about two interactive modes between Component and aggregate root, if using these two modes in a aggregate root, it can be regarded as a Actors mode like Akka or Erlang: </p>
 <ul>
   <li>    Share NOTHING, </li>
   <li>Isolated lightweight event-based processes,  </li>
