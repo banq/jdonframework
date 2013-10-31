@@ -78,12 +78,11 @@ there are two kinds of Observers(Consumer):
 	@Send --> @OnCommand  (1:1 Queue)
 	@Send --> @OnEvent    (1:N topic)
 
-OnCommand is a 'Command' Observers(Consumer), and OnEvent is a 'Event' Observers(Consumer).
-a difference of 'Command' with 'Event' is that:
+the difference between 'OnCommand' and 'OnEvent':
 
-when a event happend otherwhere comes in a aggregate root we call the event
-transform into a command, and the command will action a method ('save' in this example), 
-and in this method another some events will happen.
+when a event happend otherwhere comes in a aggregate root we regard this event
+as a command, and it will action a method annotated with @OnCommand, 
+and in this method some events will happen. and they will action those methods annotated with @OnEvent.
 
 full example: [click here](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/cqrs/a/AggregateRootA.java)
 
