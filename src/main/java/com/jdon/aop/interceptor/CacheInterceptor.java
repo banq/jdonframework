@@ -15,8 +15,8 @@
 package com.jdon.aop.interceptor;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -47,7 +47,7 @@ public class CacheInterceptor implements MethodInterceptor, Startable {
 
 	public String match_MethodName = "get";
 
-	private List isModelCache = new ArrayList();
+	private Set isModelCache = new HashSet();
 
 	public CacheInterceptor(ModelManager modelManager) {
 		this.modelManager = modelManager;

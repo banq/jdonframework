@@ -16,10 +16,10 @@
 package com.jdon.aop.interceptor;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -53,11 +53,11 @@ import com.jdon.util.Debug;
 public class SessionContextInterceptor implements MethodInterceptor, Startable {
 	private final static String module = SessionContextInterceptor.class.getName();
 
-	private final List isSessionContextAcceptables = new ArrayList();
+	private final Set isSessionContextAcceptables = new HashSet();
 
 	private final Map<String, Method> isSessionContextAcceptablesAnnotations = new HashMap();
 
-	private final List unSessionContextAcceptables = new ArrayList();
+	private final Set unSessionContextAcceptables = new HashSet();
 
 	private final ContainerCallback containerCallback;
 

@@ -15,10 +15,11 @@
  */
 package com.jdon.aop.interceptor;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.aopalliance.intercept.MethodInterceptor;
@@ -64,7 +65,7 @@ public class PoolInterceptor implements MethodInterceptor, Startable {
 
 	private List isPoolableCache = new CopyOnWriteArrayList();
 
-	private List unPoolableCache = new ArrayList();
+	private Set unPoolableCache = new HashSet();
 
 	private TargetMetaRequestsHolder targetMetaRequestsHolder;
 

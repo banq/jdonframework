@@ -19,7 +19,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ClassUtil {
 
@@ -49,7 +51,7 @@ public class ClassUtil {
 		if (clazz == null) {
 			return new Class[0];
 		}
-		List<Class> classList = new ArrayList<Class>();
+		Set<Class> classList = new HashSet<Class>();
 		while (clazz != null) {
 			Class[] interfaces = clazz.getInterfaces();
 			for (Class interf : interfaces) {

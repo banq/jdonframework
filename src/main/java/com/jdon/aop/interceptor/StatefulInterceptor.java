@@ -15,8 +15,8 @@
  */
 package com.jdon.aop.interceptor;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -49,9 +49,9 @@ import com.jdon.util.Debug;
 public class StatefulInterceptor implements MethodInterceptor, Startable {
 	private final static String module = StatefulInterceptor.class.getName();
 
-	private final List isStatefulCache = new ArrayList();
+	private final Set isStatefulCache = new HashSet();
 
-	private final List unStatefulCache = new ArrayList();
+	private final Set unStatefulCache = new HashSet();
 
 	private final ContainerCallback containerCallback;
 

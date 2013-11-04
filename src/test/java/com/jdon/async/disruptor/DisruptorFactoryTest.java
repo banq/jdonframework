@@ -97,7 +97,7 @@ public class DisruptorFactoryTest extends TestCase {
 	}
 
 	public void testValueEventProcessor() throws AlertException, InterruptedException, TimeoutException {
-		RingBuffer ringBuffer = RingBuffer.createSingleProducer(new EventResultFactory(), 32, new TimeoutBlockingWaitStrategy(10000,
+		RingBuffer ringBuffer = RingBuffer.createSingleProducer(new EventResultFactory(), 4, new TimeoutBlockingWaitStrategy(10000,
 				TimeUnit.MILLISECONDS));
 		ValueEventProcessor valueEventProcessor = new ValueEventProcessor(ringBuffer);
 
