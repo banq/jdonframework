@@ -72,7 +72,7 @@ public class CacheManager implements Startable {
 	}
 
 	public boolean containObject(StringKey skey) {
-		return cache.contain(skey);
+		return cache.contain(skey.getKey());
 	}
 
 	/**
@@ -81,20 +81,12 @@ public class CacheManager implements Startable {
 	 * @param cacheKey
 	 * @param value
 	 */
-	public void putObect(CacheKey ckey, Object value) {
+	public void putObect(StringKey ckey, Object value) {
 		if (ckey == null)
 			return;
 		if (cache.contain(ckey.getKey()))
 			return;
 		cache.put(ckey.getKey(), new CacheableWrapper(ckey.getDataKey(), value));
-	}
-
-	public void putObect(String skey, Object value) {
-		if (skey == null)
-			return;
-		if (cache.contain(skey))
-			return;
-		cache.put(skey, new CacheableWrapper(skey, value));
 	}
 
 	/**

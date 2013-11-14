@@ -23,9 +23,9 @@ package com.jdon.controller.cache;
  * @version 1.0
  */
 public class CacheKey implements StringKey {
-	private String cacheType;
-	private String dataKey;
-	private String dataTypeName;
+	private final String cacheType;
+	private final String dataKey;
+	private final String dataTypeName;
 
 	public CacheKey(String cacheType, String dataKey, String dataTypeName) {
 		this.cacheType = cacheType;
@@ -43,18 +43,6 @@ public class CacheKey implements StringKey {
 
 	public String getDataTypeName() {
 		return dataTypeName;
-	}
-
-	public void setCacheType(String cacheType) {
-		this.cacheType = cacheType;
-	}
-
-	public void setDataKey(String dataKey) {
-		this.dataKey = dataKey;
-	}
-
-	public void setDataTypeName(String dataTypeName) {
-		this.dataTypeName = dataTypeName;
 	}
 
 	// cacheType + dataTypeName + dataKey

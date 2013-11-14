@@ -17,6 +17,9 @@ package com.jdon.controller.cache;
 
 public interface StringKey {
 
+	// cacheType + dataTypeName + dataKey
 	public String getKey();
 
+	// data key
+	public String getDataKey();
 }

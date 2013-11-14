@@ -16,9 +16,9 @@ public class CacheableWrapper implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String cachedValueKey;
+	private final String cachedValueKey;
 
-	private Object cachedValue;
+	private final Object cachedValue;
 
 	public CacheableWrapper(String cachedValueKey, Object cachedValue) {
 		super();
@@ -30,16 +30,8 @@ public class CacheableWrapper implements java.io.Serializable {
 		return cachedValueKey;
 	}
 
-	public void setCachedValueKey(String cachedValueKey) {
-		this.cachedValueKey = cachedValueKey;
-	}
-
 	public Object getCachedValue() {
 		return cachedValue;
-	}
-
-	public void setCachedValue(Object cachedValue) {
-		this.cachedValue = cachedValue;
 	}
 
 }
