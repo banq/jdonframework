@@ -29,18 +29,20 @@ package com.jdon.domain.model.cache;
  */
 public class ModelKey {
 
-	private Object dataKey;
-	private String formName;
-	private Class modelClass;
+	private final Object dataKey;
+	private final String formName;
+	private final Class modelClass;
 
 	public ModelKey(Object dataKey, String formName) {
 		this.dataKey = dataKey;
 		this.formName = formName;
+		this.modelClass = null;
 	}
 
 	public ModelKey(Object dataKey, Class modelClass) {
 		this.dataKey = dataKey;
 		this.modelClass = modelClass;
+		this.formName = null;
 	}
 
 	public Object getDataKey() {
@@ -53,18 +55,6 @@ public class ModelKey {
 
 	public Class getModelClass() {
 		return modelClass;
-	}
-
-	public void setDataKey(Object dataKey) {
-		this.dataKey = dataKey;
-	}
-
-	public void setFormName(String formName) {
-		this.formName = formName;
-	}
-
-	public void setModelClass(Class modelClass) {
-		this.modelClass = modelClass;
 	}
 
 	/**
