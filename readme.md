@@ -33,7 +33,7 @@ Why Jdon?
 Jdon framework introduces reactive model to implement DDD's Aggregate Root, 
 by using jdon, a aggregate root can act as a mailbox that is a asynchronous and non-blocking event-sending and event-recipient metaphor.
 Event is a better interactive way for aggregate root with each other, instead of directly exposing behavior and hold references to others. 
-and it can better protect root entity's internal state not expose. and can safely update root's state in non-blocking way .
+and it can better protect root entity's internal state not expose. and can safely update root's state in non-blocking way [Single Writer Principle](http://www.javacodegeeks.com/2012/08/single-writer-principle.html).
 
 examples:
 When UI command comes to a aggregate root, update root's state, and it will send a domain event to other consumers:
@@ -51,7 +51,7 @@ UI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Co
 		@OnCommand("CommandtoEventA")  //command Observers(Consumer) 
 		public Object save(ParameterVO parameterVO) {
 		
-			//update root's state in non-blocking single thread way 
+			//update root's state in non-blocking single thread way (Single Writer)
 			this.state = parameterVO.getValue() + state;
 		
 			//a reactive event will be send to other consumers in domainEventProducer
