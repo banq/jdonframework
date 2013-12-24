@@ -20,9 +20,6 @@ import junit.framework.TestCase;
 
 import com.jdon.controller.AppUtil;
 import com.jdon.domain.message.DomainMessage;
-import com.jdon.domain.model.cache.ModelCacheManager;
-import com.jdon.domain.model.cache.ModelKey;
-import com.jdon.domain.model.cache.ModelManager;
 import com.jdon.sample.test.command.AComponentIF;
 import com.jdon.sample.test.command.BModel;
 import com.jdon.sample.test.command.TestCommand;
@@ -30,7 +27,6 @@ import com.jdon.sample.test.component.BInterface;
 import com.jdon.sample.test.cqrs.AService;
 import com.jdon.sample.test.cqrs.a.AggregateRootA;
 import com.jdon.sample.test.domain.onecase.service.IServiceSample;
-import com.jdon.sample.test.domain.simplecase.MyModel;
 import com.jdon.sample.test.domain.simplecase.service.IServiceSampleTwo;
 import com.jdon.sample.test.event.AI;
 import com.jdon.sample.test.event.TestEvent;
@@ -142,22 +138,8 @@ public class SampleAppTest extends TestCase {
 	 */
 	public static void main(String[] args) {
 		AppUtil appUtil = new AppUtil();
-		ModelCacheManager modelCacheManager = (ModelCacheManager) appUtil.getComponentInstance("modelCacheManager");
-		MyModel myModel = new MyModel();
-		myModel.setId(new Long(123));
-		myModel.setName("test");
-		modelCacheManager.saveCache(myModel.getId(), MyModel.class.getName(), myModel);
-		if (modelCacheManager.containInCache(myModel.getId(), MyModel.class.getName()))
-			System.out.print("ok");
-		else
-			System.out.print("no");
-
-		ModelManager modelManager = (ModelManager) appUtil.getComponentInstance("modelManager");
-		ModelKey modelKey = new ModelKey(myModel.getId(), MyModel.class);
-		if (modelManager.containInCache(modelKey))
-			System.out.print("ok");
-		else
-			System.out.print("no");
+		IServiceSample serviceSample = (IServiceSample) appUtil.getService("serviceSample");
+		Assert.assertEquals("hello", serviceSample.eventPointEntry("hello"));
 
 	}
 

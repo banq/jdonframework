@@ -113,6 +113,8 @@ public final class Debug {
 	}
 
 	public static void log(int level, Throwable t, String msg, String module) {
+		if (msg == null)
+			msg = "[jdonframework]";
 		log(level, t, msg, module, "com.jdon.util.Debug");
 	}
 
@@ -170,7 +172,7 @@ public final class Debug {
 	}
 
 	public static void log(Throwable t) {
-		log(Debug.ALWAYS, t, null, null);
+		log(Debug.ALWAYS, t, t.getMessage(), null);
 	}
 
 	public static void log(Throwable t, String msg) {
@@ -194,7 +196,7 @@ public final class Debug {
 	}
 
 	public static void logVerbose(Throwable t) {
-		log(Debug.VERBOSE, t, null, null);
+		log(Debug.VERBOSE, t, t.getMessage(), null);
 	}
 
 	public static void logVerbose(Throwable t, String msg) {
@@ -218,7 +220,7 @@ public final class Debug {
 	}
 
 	public static void logTiming(Throwable t) {
-		log(Debug.TIMING, t, null, null);
+		log(Debug.TIMING, t, t.getMessage(), null);
 	}
 
 	public static void logTiming(Throwable t, String msg) {
@@ -242,7 +244,7 @@ public final class Debug {
 	}
 
 	public static void logInfo(Throwable t) {
-		log(Debug.INFO, t, null, null);
+		log(Debug.INFO, t, t.getMessage(), null);
 	}
 
 	public static void logInfo(Throwable t, String msg) {
@@ -266,7 +268,7 @@ public final class Debug {
 	}
 
 	public static void logImportant(Throwable t) {
-		log(Debug.IMPORTANT, t, null, null);
+		log(Debug.IMPORTANT, t, t.getMessage(), null);
 	}
 
 	public static void logImportant(Throwable t, String msg) {
@@ -290,7 +292,7 @@ public final class Debug {
 	}
 
 	public static void logWarning(Throwable t) {
-		log(Debug.WARNING, t, null, null);
+		log(Debug.WARNING, t, t.getMessage(), null);
 	}
 
 	public static void logWarning(Throwable t, String msg) {
@@ -314,7 +316,7 @@ public final class Debug {
 	}
 
 	public static void logError(Throwable t) {
-		log(Debug.ERROR, t, null, null);
+		log(Debug.ERROR, t, t.getMessage(), null);
 	}
 
 	public static void logError(Throwable t, String msg) {
@@ -338,7 +340,7 @@ public final class Debug {
 	}
 
 	public static void logFatal(Throwable t) {
-		log(Debug.FATAL, t, null, null);
+		log(Debug.FATAL, t, t.getMessage(), null);
 	}
 
 	public static void logFatal(Throwable t, String msg) {

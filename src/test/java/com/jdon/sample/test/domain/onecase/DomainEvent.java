@@ -21,7 +21,7 @@ import com.jdon.annotation.model.Send;
 import com.jdon.domain.message.DomainMessage;
 
 @Model
-@Introduce("message")
+@Introduce("domainEvents")
 public class DomainEvent {
 	private Long id;
 	private String name;
@@ -43,16 +43,18 @@ public class DomainEvent {
 		this.id = id;
 	}
 
-	// decorator for myMethod,
-	public void myMethod1() {
-		myMethod();
-	}
-
-	// async call @Component("mychannel") and @Consumer("mychannel")
+	/**
+	 * ractive call @Component("mychannel") and @Consumer("mychannel") this
+	 * method only be invoked by outside this class. if it is invoked in this
+	 * class, the domaine events will not be actvie.
+	 * 
+	 * it is different from @OnCommand("CommandtoEventA"), not single thread.
+	 * 
+	 * @return
+	 */
 	@Send("mychannel")
 	public DomainMessage myMethod() {
-		DomainMessage em = new DomainMessage(this.name);
-		return em;
+		return new DomainMessage("100", 60000);
 	}
 
 	public String getName() {

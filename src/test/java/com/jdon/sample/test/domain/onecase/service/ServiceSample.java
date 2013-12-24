@@ -16,6 +16,7 @@
 package com.jdon.sample.test.domain.onecase.service;
 
 import com.jdon.annotation.Service;
+import com.jdon.domain.message.DomainMessage;
 import com.jdon.sample.test.domain.onecase.DomainEvent;
 import com.jdon.sample.test.domain.onecase.repository.Repository;
 
@@ -30,16 +31,11 @@ public class ServiceSample implements IServiceSample {
 	}
 
 	public String eventPointEntry(String name) {
-		DomainEvent domainEvent = repository.getModel(new Long(100));
-		domainEvent.setName(name);
 
 		DomainEvent domainEvent2 = repository.getModel(new Long(100));
-		System.out.print("name=" + domainEvent2.getName());
-
-		domainEvent2.myMethod1();
-
-		domainEvent2.myMethod();
-		return domainEvent2.getName();
+		DomainMessage em = domainEvent2.myMethod();
+		String result = (String) em.getBlockEventResult();
+		return result;
 
 	}
 

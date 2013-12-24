@@ -13,6 +13,8 @@
   <interceptor name="modelCache" class="com.jdon.domain.model.cache.DomainCacheInterceptor" pointcut="domain" />
   
   <interceptor name="message" class="com.jdon.domain.message.MessageInterceptor" pointcut="model" />
+  
+  <interceptor name="domainEvents" class="com.jdon.domain.message.MessageInterceptor" pointcut="model" />
       <!-- com.jdon.aop.joinpoint -->
    <interceptor name="componentmessage" class="com.jdon.aop.interceptor.ComponentMessageInterceptor" pointcut="domain" />      
   	
