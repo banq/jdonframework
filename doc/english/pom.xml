@@ -8,7 +8,7 @@
   <packaging>war</packaging>
 
   <name>testWeb</name>
-  <url>http://www.jdon.org</url>
+  <url>http://banq.github.io/jdon</url>
 
    <properties>
         <warExplodedDirectory>target/exploded/${artifactId}.war</warExplodedDirectory>

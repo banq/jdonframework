@@ -42,7 +42,7 @@
             <table width="100%" border="0" cellspacing="2" cellpadding="2">
               <tr>
                 <td>
-                  <h1><a href="index.html">JDon.org</a></h1>
+                  <h1><a href="index.html">Jdon Framework</a></h1>
 				<!-- #BeginEditable "main" -->                 
                   <h3 align="left">Latest News</h3>
                   <DIV 
@@ -76,7 +76,7 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
                       in-memeory model can concurrently publish events to its  subscribers.</p>
 <p> JdonFramework's event engine is from <a href="http://code.google.com/p/disruptor/">Disruptor</a> that be recommended by <a href="http://martinfowler.com/articles/lmax.html">LMAX Architecture</a> wriiten by Martin Fowler. (Nothing Blocks)                    </p>
                     <p>Feature of Jdonframework: combining DCI with DDD aggregate and Domain Events.</p>
-                    <p><img src="images/dci+de.png" width="589" height="380" alt="dci+de"></p>
+                    <p><img src="images/dcide.png" width="589" height="380" alt="dci+de"></p>
                     <p>&nbsp;</p>
                     <p>&nbsp;</p>
                     <p><strong>Domain-driven design (DDD)</strong></p>
@@ -104,7 +104,7 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
 <P><a href="http://en.wikipedia.org/wiki/Data,_context_and_interaction" target="_blank">DCI:Data Context and Interactions</a>: in a Context, a Role   played by   a Data model   triggers    interaction behavior.</P>
 <P><a href="http://web1.udemy.com/blog/object-oriented-programming-a-critical-approach/" target="_blank">Object Oriented Programming: A Critical Approach</a> say: OO is really about message passing:</P>
 <p>&ldquo;The message-sending metaphor provides modularity by decoupling the intent of a message (embodied in its name) from the method used by the recipient to carry out the intent. Structural information is similarly protected because all access to the internal state of an object is through this same message interface.&rdquo;</p>
-<P>by using jdon, a aggregate root can act as a mailbox that is a asynchronous and non-blocking event-sending and event-recipient metaphor..see below picture, more details in : <a href="http://www.jdon.org/DomainEvents.html" target="_blank">Robot sample</a></P>
+<P>by using jdon, a aggregate root can act as a mailbox that is a asynchronous and non-blocking event-sending and event-recipient metaphor..see below picture, more details in : <a href="http://banq.github.io/jdon/DomainEvents.html" target="_blank">Robot sample</a></P>
 <P><img src="images/m.jpg" width="533" height="446" alt="modularity"></P>
 <P>Event is a better interactive way for aggregate root with each other, instead of directly exposing behavior and hold references to others. and it can better protect root entity's internal state not expose. and can safely modify root's state in non-blocking way.</P>
 <P><img src="images/aggregate.png" width="461" height="452" alt="aggregate root"></P>
@@ -115,18 +115,7 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
                       new domain object has been created. An appropriate listener receives this
                       message and calls a method on a persistence service. This service knows
                       how to store the object in the database.</P>
-                    <p><a href="http://www.infoq.com/presentations/CAP-DDD" target="_blank" onMouseDown="return rwt(this,'','','','1','AFQjCNFlhttddxYBmff4ijj2n-SfPXGUxw','','0CCwQFjAA','','',event)"><em>Eric evans: Acknowledging CAP at the Root -- in the Domain Model</em></a></p>
-<div class="adsensf" id="vgad336x280">
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- 页上左336 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:336px;height:280px"
-     data-ad-client="ca-pub-7573657117119544"
-     data-ad-slot="6751585519"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-</div>                    <div style="width:525px;text-align:left" id="__ss_2881760"><a style="font:14px Helvetica,Arial,Sans-serif;display:block;margin:12px 0 3px 0;text-decoration:underline;" href="http://www.slideshare.net/banq/ddd-framework-for-java-jdonframework-2881760" title="DDD Framework for Java: JdonFramework">DDD Framework for Java: Jdon Framework</a><object style="margin:0px" width="525" height="455"><param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=jdonframework-100110220925-phpapp02&stripped_title=ddd-framework-for-java-jdonframework-2881760" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=jdonframework-100110220925-phpapp02&stripped_title=ddd-framework-for-java-jdonframework-2881760" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="525" height="455"></embed></object><div style="font-size:11px;font-family:tahoma,arial;height:26px;padding-top:2px;">View more <a style="text-decoration:underline;" href="http://www.slideshare.net/">presentations</a> from <a style="text-decoration:underline;" href="http://www.slideshare.net/banq">Sunny peng</a>.</div></div>
+                    <p><a href="http://www.infoq.com/presentations/CAP-DDD" target="_blank" onMouseDown="return rwt(this,'','','','1','AFQjCNFlhttddxYBmff4ijj2n-SfPXGUxw','','0CCwQFjAA','','',event)"><em>Eric evans: Acknowledging CAP at the Root -- in the Domain Model</em></a></p>    <div style="width:525px;text-align:left" id="__ss_2881760"><a style="font:14px Helvetica,Arial,Sans-serif;display:block;margin:12px 0 3px 0;text-decoration:underline;" href="http://www.slideshare.net/banq/ddd-framework-for-java-jdonframework-2881760" title="DDD Framework for Java: JdonFramework">DDD Framework for Java: Jdon Framework</a><object style="margin:0px" width="525" height="455"><param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=jdonframework-100110220925-phpapp02&stripped_title=ddd-framework-for-java-jdonframework-2881760" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=jdonframework-100110220925-phpapp02&stripped_title=ddd-framework-for-java-jdonframework-2881760" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="525" height="455"></embed></object><div style="font-size:11px;font-family:tahoma,arial;height:26px;padding-top:2px;">View more <a style="text-decoration:underline;" href="http://www.slideshare.net/">presentations</a> from <a style="text-decoration:underline;" href="http://www.slideshare.net/banq">Sunny peng</a>.</div></div>
                    
                     <P><strong>  Key  Features:</strong></P>
                     <P>&nbsp;</P>
@@ -502,6 +491,27 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
                   <p>contact me: banQ<img src="images/email23ghsd486-(%5Ek.gif">163.com or twiiter:<a href="https://twitter.com/jdonframework" target="_blank"> @jdonframework  </a> or <a href="https://github.com/banq/jdonframework" target="_blank">GitHub </a></p>
                   <p>&nbsp;</p>
                 <!-- #EndEditable -->
+                  <div class="adsensf" id="vgad336x280">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 页上左336 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7573657117119544"
+     data-ad-slot="6751585519"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 页上左336 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7573657117119544"
+     data-ad-slot="6751585519"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>         
 			    </td>
               </tr>
             </table>			
@@ -510,7 +520,7 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
       <tr>
         <td align="right"><table width="100%" height="200" border="0" align="center" cellpadding="3" cellspacing="0" dwcopytype="CopyTableCell">
             <tr>
-              <td align="left"  valign="top"><p align="center"><a href="http://www.jdon.org"><img src="images/jdone.gif" width="120" height="60" border="0"></a></p>
+              <td align="left"  valign="top"><p align="center"><a href="http://http://banq.github.io/jdon/"><img src="images/jdone.gif" width="120" height="60" border="0"></a></p>
                   <p ><B><a href="https://sourceforge.net/projects/jdon/files/" target="_blank">Download</a></B>                  </p>
                   <p ><B><a href="doc.htm" target="_blank">Document</a></B></p>
                   <p ><a href="quickconf.html"><strong>Qucik Start</strong></a> </p>

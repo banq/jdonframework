@@ -89,7 +89,7 @@ full example: [click here](https://github.com/banq/jdonframework/blob/master/src
 GETTING STARTED
 ===================================  
 online documents :
-	English: http://www.jdon.org         
+	English: http://banq.github.io/jdon/ 
 	Chinese: http://www.jdon.com/jdonframework/
 
   
