@@ -38,15 +38,14 @@ and it can better protect root entity's internal state not expose. and can safel
 examples:
 When UI command comes to a aggregate root, update root's state, and it will send a domain event to other consumers:
 
-UI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Component
+UI ---Command---> a aggregate root ---DomainEvents--->
+
+Consumer:
 
 	@Model
 	public class AggregateRootA {
 
 		private int state = 100;
-	
-		@Inject   //event Observable(Producer)
-		private DomainEventProduceIF domainEventProducer;
 	
 		@OnCommand("CommandtoEventA")  //command Observers(Consumer) 
 		public Object save(ParameterVO parameterVO) {
@@ -54,31 +53,27 @@ UI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Co
 			//update root's state in non-blocking single thread way (Single Writer)
 			this.state = parameterVO.getValue() + state;
 		
-			//a reactive event will be send to other consumers in domainEventProducer
-			return domainEventProducer.sendtoAnotherAggragate(aggregateRootBId, this.state);
-
+	
 		}
 		
 	}
 	
-the 'save' method annotated with @OnCommand is a "Observer" or "Consumer"  sometimes called a "watcher" or "reactor". This model in general is often referred to as the "[reactor pattern](http://en.wikipedia.org/wiki/Reactor_pattern)".
-and its 'Observable' or "Producer" is a method annotated with @Send.
- 
+Producer: 
 	public interface AService {
 
 		@Send("CommandtoEventA")
 		public DomainMessage commandA(@Owner String rootId, @Receiver AggregateRootA model, int state);
 	} 
 
-An Observable(Producer) emits items or sends notifications to its Observers(Consumer) by a asynchronous and non-blocking queue made by LMAX Disruptor's RingBuffer.
+Producer emits to its Consumer by a asynchronous and non-blocking queue made by LMAX Disruptor's RingBuffer.
 @Send("CommandtoEventA") ---> @OnCommand("CommandtoEventA") 
 
-there are two kinds of Observers(Consumer):
+there are two kinds of Consumer:
 
 	@Send --> @OnCommand  (1:1 Queue)
 	@Send --> @OnEvent    (1:N topic)
 
-the difference between 'OnCommand' and 'OnEvent':
+difference between 'OnCommand' and 'OnEvent' is:
 
 when a event happend otherwhere comes in a aggregate root we regard this event
 as a command, and it will action a method annotated with @OnCommand, 

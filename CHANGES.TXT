@@ -3,7 +3,7 @@ JDON FRAMEWORK 6.8  (10/2013)
 ==================================================================
 add CQRS's Command for a aggregate root with @Model.
 
-UI(a aggregate root) ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Component
+UI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Component
 
 a aggregate root in Jdon acts like Actors of AKKA or Erlang.
 

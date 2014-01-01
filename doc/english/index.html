@@ -47,7 +47,7 @@
                   <h3 align="left">Latest News</h3>
                   <DIV 
 style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; MARGIN-LEFT: 0px; BORDER-RIGHT-WIDTH: 2px">
-                    <p><STRONG><a href="http://sourceforge.net/projects/jdon/files/JdonFramework/6.X_DDD/">JdonFramework_6.8  released!</a></STRONG> <strong> 09/2013</strong></p>
+                    <p><STRONG><a href="http://sourceforge.net/projects/jdon/files/JdonFramework/6.X_DDD/">JdonFramework_6.8  released!</a></STRONG> <strong> 10/2013</strong></p>
                     <p><a href="match.html">DDD CQRS EventSourcing example source: football Match</a></p>
                     <p><a href="ces.html"><strong>CES:Context Event and State</strong></a>                    </p>
                     <P><a href="https://github.com/banq/jdonframework/tree/master/example">JdonFramework DDD + CQRS + EventSourcing examples                    </a></P>
@@ -104,7 +104,7 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
 <P><a href="http://en.wikipedia.org/wiki/Data,_context_and_interaction" target="_blank">DCI:Data Context and Interactions</a>: in a Context, a Role   played by   a Data model   triggers    interaction behavior.</P>
 <P><a href="http://web1.udemy.com/blog/object-oriented-programming-a-critical-approach/" target="_blank">Object Oriented Programming: A Critical Approach</a> say: OO is really about message passing:</P>
 <p>&ldquo;The message-sending metaphor provides modularity by decoupling the intent of a message (embodied in its name) from the method used by the recipient to carry out the intent. Structural information is similarly protected because all access to the internal state of an object is through this same message interface.&rdquo;</p>
-<P>by using jdon, a aggregate root can act as a mailbox that is a asynchronous and non-blocking event-sending and event-recipient metaphor..see below picture, more details in : <a href="http://banq.github.io/jdon/DomainEvents.html" target="_blank">Robot sample</a></P>
+<P>by using jdon, a aggregate root can act as a mailbox that is a asynchronous and non-blocking event-sending and event-recipient metaphor..see below picture, more details in : <a href="DomainEvents.html" target="_blank">Robot sample</a></P>
 <P><img src="images/m.jpg" width="533" height="446" alt="modularity"></P>
 <P>Event is a better interactive way for aggregate root with each other, instead of directly exposing behavior and hold references to others. and it can better protect root entity's internal state not expose. and can safely modify root's state in non-blocking way.</P>
 <P><img src="images/aggregate.png" width="461" height="452" alt="aggregate root"></P>
@@ -115,7 +115,7 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
                       new domain object has been created. An appropriate listener receives this
                       message and calls a method on a persistence service. This service knows
                       how to store the object in the database.</P>
-                    <p><a href="http://www.infoq.com/presentations/CAP-DDD" target="_blank" onMouseDown="return rwt(this,'','','','1','AFQjCNFlhttddxYBmff4ijj2n-SfPXGUxw','','0CCwQFjAA','','',event)"><em>Eric evans: Acknowledging CAP at the Root -- in the Domain Model</em></a></p>    <div style="width:525px;text-align:left" id="__ss_2881760"><a style="font:14px Helvetica,Arial,Sans-serif;display:block;margin:12px 0 3px 0;text-decoration:underline;" href="http://www.slideshare.net/banq/ddd-framework-for-java-jdonframework-2881760" title="DDD Framework for Java: JdonFramework">DDD Framework for Java: Jdon Framework</a><object style="margin:0px" width="525" height="455"><param name="movie" value="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=jdonframework-100110220925-phpapp02&stripped_title=ddd-framework-for-java-jdonframework-2881760" /><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always"/><embed src="http://static.slidesharecdn.com/swf/ssplayer2.swf?doc=jdonframework-100110220925-phpapp02&stripped_title=ddd-framework-for-java-jdonframework-2881760" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="525" height="455"></embed></object><div style="font-size:11px;font-family:tahoma,arial;height:26px;padding-top:2px;">View more <a style="text-decoration:underline;" href="http://www.slideshare.net/">presentations</a> from <a style="text-decoration:underline;" href="http://www.slideshare.net/banq">Sunny peng</a>.</div></div>
+                    <p><iframe src="http://www.slideshare.net/slideshow/embed_code/2881760" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/banq/ddd-framework-for-java-jdonframework-2881760" title="DDD Framework for Java: JdonFramework" target="_blank">DDD Framework for Java: JdonFramework</a> </strong> from <strong><a href="http://www.slideshare.net/banq" target="_blank">Sunny peng</a></strong> </div>
                    
                     <P><strong>  Key  Features:</strong></P>
                     <P>&nbsp;</P>
@@ -520,7 +520,7 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
       <tr>
         <td align="right"><table width="100%" height="200" border="0" align="center" cellpadding="3" cellspacing="0" dwcopytype="CopyTableCell">
             <tr>
-              <td align="left"  valign="top"><p align="center"><a href="http://http://banq.github.io/jdon/"><img src="images/jdone.gif" width="120" height="60" border="0"></a></p>
+              <td align="left"  valign="top"><p align="center"><img src="images/jdone.gif" width="120" height="60" border="0"></p>
                   <p ><B><a href="https://sourceforge.net/projects/jdon/files/" target="_blank">Download</a></B>                  </p>
                   <p ><B><a href="doc.htm" target="_blank">Document</a></B></p>
                   <p ><a href="quickconf.html"><strong>Qucik Start</strong></a> </p>
