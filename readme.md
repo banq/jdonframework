@@ -35,6 +35,8 @@ by using jdon, a aggregate root can act as a mailbox that is a asynchronous and 
 Event is a better interactive way for aggregate root with each other, instead of directly exposing behavior and hold references to others. 
 and it can better protect root entity's internal state not expose. and can safely update root's state in non-blocking way [Single Writer Principle](http://www.javacodegeeks.com/2012/08/single-writer-principle.html).
 
+Jdon moves mutable state from database to memory, and uses Aggregate Root to guard it, traditional database's data operations (by SQL or JPA/ORM) not need any more, only need send a Command or Event to drive Aggregate Root to change its mutable state by its behaviours
+
 examples:
 When UI command comes to a aggregate root, update root's state, and it will send a domain event to other consumers:
 
