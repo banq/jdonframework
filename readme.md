@@ -30,26 +30,19 @@ CQRS: Command-query Responsibility Segregation, at its heart is a simple notion 
 
 Why Jdon?
 ===================================  
-Jdon framework introduces reactive model to implement DDD's Aggregate Root, 
-by using jdon, a aggregate root can act as a mailbox that is a asynchronous and non-blocking event-sending and event-recipient metaphor.
+Jdon introduces reactive and event-driven into domain, using jdon, a aggregate root can act as a mailbox(like scala's Actors) that is a asynchronous and non-blocking event-sending and event-recipient metaphor.
 Event is a better interactive way for aggregate root with each other, instead of directly exposing behavior and hold references to others. 
 and it can better protect root entity's internal state not expose. and can safely update root's state in non-blocking way [Single Writer Principle](http://www.javacodegeeks.com/2012/08/single-writer-principle.html).
 
 Jdon moves mutable state from database to memory, and uses Aggregate Root to guard it, traditional database's data operations (by SQL or JPA/ORM) not need any more, only need send a Command or Event to drive Aggregate Root to change its mutable state by its behaviours
 
-examples:
-When UI command comes to a aggregate root, update root's state, and it will send a domain event to other consumers:
-
-UI ---Command---> a aggregate root ---DomainEvents--->
-
-Consumer:
 
 	@Model
 	public class AggregateRootA {
 
 		private int state = 100;
 	
-		@OnCommand("CommandtoEventA")  //command Observers(Consumer) 
+		@OnCommand("CommandtoEventA")  
 		public Object save(ParameterVO parameterVO) {
 		
 			//update root's state in non-blocking single thread way (Single Writer)
@@ -60,24 +53,19 @@ Consumer:
 		
 	}
 	
-Producer: 
-	public interface AService {
+Jdonframework work mode is Producer/Consumer, A producer emits to its Consumer by a asynchronous and non-blocking queue made by LMAX Disruptor's RingBuffer.
+such as:
 
-		@Send("CommandtoEventA")
-		public DomainMessage commandA(@Owner String rootId, @Receiver AggregateRootA model, int state);
-	} 
-
-Producer emits to its Consumer by a asynchronous and non-blocking queue made by LMAX Disruptor's RingBuffer.
 @Send("CommandtoEventA") ---> @OnCommand("CommandtoEventA") 
 
-there are two kinds of Consumer:
+There are two kinds of Consumer in jdon:
 
 	@Send --> @OnCommand  (1:1 Queue)
 	@Send --> @OnEvent    (1:N topic)
 
-difference between 'OnCommand' and 'OnEvent' is:
+Difference between 'OnCommand' and 'OnEvent' is:
 
-when a event happend otherwhere comes in a aggregate root we regard this event
+When a event happend otherwhere comes in a aggregate root we regard this event
 as a command, and it will action a method annotated with @OnCommand, 
 and in this method some events will happen. and they will action those methods annotated with @OnEvent.
 
