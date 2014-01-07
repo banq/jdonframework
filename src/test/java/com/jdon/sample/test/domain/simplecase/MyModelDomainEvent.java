@@ -28,8 +28,8 @@ public class MyModelDomainEvent {
 	}
 
 	@Send("saveMyModel")
-	public DomainMessage save(MyModel myModel) {
-		return new DomainMessage(myModel);
+	public DomainMessage save(MyModelCreatedEvent myModelCreatedEvent) {
+		return new DomainMessage(myModelCreatedEvent);
 	}
 
 }

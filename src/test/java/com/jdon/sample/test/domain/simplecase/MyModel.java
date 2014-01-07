@@ -54,7 +54,7 @@ public class MyModel {
 	}
 
 	public void save() {
-		myModelDomainEvent.save(this);
+		myModelDomainEvent.save(new MyModelCreatedEvent(this.id, this.name));
 	}
 
 	public String sayHelloSynchronous() {

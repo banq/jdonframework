@@ -20,6 +20,7 @@ import com.jdon.annotation.Introduce;
 import com.jdon.annotation.model.OnEvent;
 import com.jdon.annotation.pointcut.Around;
 import com.jdon.sample.test.domain.simplecase.MyModel;
+import com.jdon.sample.test.domain.simplecase.MyModelCreatedEvent;
 
 @Component("mymrepository")
 @Introduce("modelCache")
@@ -33,7 +34,7 @@ public class RepositoryImp implements MyModelRepository {
 	}
 
 	@OnEvent("saveMyModel")
-	public void save(MyModel myModel) {
+	public void save(MyModelCreatedEvent myModelCreatedEvent) {
 		System.out.print("\n No.2 @OnEvent:" + this.getClass().getName());
 
 	}

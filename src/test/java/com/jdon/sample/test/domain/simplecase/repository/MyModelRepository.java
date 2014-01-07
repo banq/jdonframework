@@ -16,10 +16,11 @@
 package com.jdon.sample.test.domain.simplecase.repository;
 
 import com.jdon.sample.test.domain.simplecase.MyModel;
+import com.jdon.sample.test.domain.simplecase.MyModelCreatedEvent;
 
 public interface MyModelRepository {
 
 	public MyModel getModel(Long key);
 
-	public void save(MyModel myModel);
+	public void save(MyModelCreatedEvent myModelCreatedEvent);
 }
