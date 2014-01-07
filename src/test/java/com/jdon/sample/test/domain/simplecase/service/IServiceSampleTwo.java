@@ -19,7 +19,5 @@ public interface IServiceSampleTwo {
 
 	public Object eventPointEntry();
 
-	String nameFinderContext();
-
 	void onEventTest();
 }

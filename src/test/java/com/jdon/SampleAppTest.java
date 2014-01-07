@@ -92,15 +92,6 @@ public class SampleAppTest extends TestCase {
 
 	}
 
-	public void testDCIDomainEvent() {
-
-		IServiceSampleTwo serviceSample = (IServiceSampleTwo) appUtil.getService("serviceSampleTwo");
-		String res = (String) serviceSample.nameFinderContext();
-		System.out.print(res);
-		Assert.assertEquals(res, "Asynchronous eventMessage=100");
-
-	}
-
 	public void testOnEvent() {
 
 		IServiceSampleTwo serviceSample = (IServiceSampleTwo) appUtil.getService("serviceSampleTwo");
