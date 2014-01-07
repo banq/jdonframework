@@ -17,6 +17,7 @@ package com.jdon.sample.test.domain.simplecase.dci;
 
 import com.jdon.annotation.Component;
 import com.jdon.domain.dci.RoleAssigner;
+import com.jdon.sample.test.domain.simplecase.FindNameEvent;
 import com.jdon.sample.test.domain.simplecase.MyModel;
 
 @Component
@@ -30,7 +31,7 @@ public class NameFinderContext {
 
 	public Object interact(MyModel myModel, NameFinderRole role) {
 		NameFinderRole r = (NameFinderRole) roleAssigner.assign(myModel, role);
-		return r.asyncFindName(myModel);
+		return r.asyncFindName(new FindNameEvent(myModel.getId()));
 	}
 
 }

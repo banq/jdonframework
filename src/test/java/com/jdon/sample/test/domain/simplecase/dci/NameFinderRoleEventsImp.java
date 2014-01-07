@@ -18,14 +18,14 @@ package com.jdon.sample.test.domain.simplecase.dci;
 import com.jdon.annotation.Introduce;
 import com.jdon.annotation.model.Send;
 import com.jdon.domain.message.DomainMessage;
-import com.jdon.sample.test.domain.simplecase.MyModel;
+import com.jdon.sample.test.domain.simplecase.FindNameEvent;
 
 @Introduce("message")
 public class NameFinderRoleEventsImp implements NameFinderRole {
 
 	@Send("MyModel.findName")
-	public DomainMessage asyncFindName(MyModel myModel) {
-		return new DomainMessage(myModel);
+	public DomainMessage asyncFindName(FindNameEvent findNameEvent) {
+		return new DomainMessage(findNameEvent);
 	}
 
 }

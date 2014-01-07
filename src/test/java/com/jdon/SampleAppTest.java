@@ -138,8 +138,10 @@ public class SampleAppTest extends TestCase {
 	 */
 	public static void main(String[] args) {
 		AppUtil appUtil = new AppUtil();
-		IServiceSample serviceSample = (IServiceSample) appUtil.getService("serviceSample");
-		Assert.assertEquals("hello", serviceSample.eventPointEntry("hello"));
+		IServiceSampleTwo serviceSample = (IServiceSampleTwo) appUtil.getService("serviceSampleTwo");
+		String res = (String) serviceSample.eventPointEntry();
+		System.out.print(res);
+		Assert.assertEquals(res, "Synchronous sayHello and Asynchronous eventMessage=100");
 
 	}
 

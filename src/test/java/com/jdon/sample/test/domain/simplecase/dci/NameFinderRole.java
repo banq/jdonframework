@@ -16,10 +16,10 @@
 package com.jdon.sample.test.domain.simplecase.dci;
 
 import com.jdon.domain.message.DomainMessage;
-import com.jdon.sample.test.domain.simplecase.MyModel;
+import com.jdon.sample.test.domain.simplecase.FindNameEvent;
 
 public interface NameFinderRole {
 
-	public DomainMessage asyncFindName(MyModel myModel);
+	public DomainMessage asyncFindName(FindNameEvent findNameEvent);
 
 }

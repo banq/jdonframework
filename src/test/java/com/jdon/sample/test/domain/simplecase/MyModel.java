@@ -47,7 +47,7 @@ public class MyModel {
 
 	public String getName() {
 		if (this.name == null) {
-			DomainMessage message = myModelDomainEvent.asyncFindName(this);
+			DomainMessage message = myModelDomainEvent.asyncFindName(new FindNameEvent(this.id));
 			this.name = (String) message.getBlockEventResult();
 		}
 		return name;

@@ -23,8 +23,8 @@ import com.jdon.domain.message.DomainEventHandler;
 public class FindNameListener implements DomainEventHandler {
 
 	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
-		MyModel myModel = (MyModel) event.getDomainMessage().getEventSource();
-		System.out.println("Asynchronous eventMessage=" + myModel.getId());
-		event.getDomainMessage().setEventResult("Asynchronous eventMessage=" + myModel.getId());
+		FindNameEvent findNameEvent = (FindNameEvent) event.getDomainMessage().getEventSource();
+		System.out.println("Asynchronous eventMessage=" + findNameEvent.getId());
+		event.getDomainMessage().setEventResult("Asynchronous eventMessage=" + findNameEvent.getId());
 	}
 }
