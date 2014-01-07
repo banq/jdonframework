@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en"><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+<!-- #BeginEditable "doctitle" -->
+<title>Big Data the 'reactive' way</title>  
+<!-- #EndEditable -->
+<!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
+    <!-- Bootstrap core CSS -->
+     <link rel="stylesheet" href="css/bootstrap.min.css">   
+
+    <!-- Custom styles for this template -->
+    <link href="css/starter-template.css" rel="stylesheet">
+
+   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->    
+  </head>
+<body>
+ <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">Jdon Framework</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+                <li class="active"><a href="index.html">Home</a></li>
+               <li><a href="https://sourceforge.net/projects/jdon/files/">Download</a></li>
+               <li><a href="doc.htm" >Document</a></li>
+               <li><a href="quickconf.html">Qucik Start</a> </li>
+               <li><a href="examples.html">Examples</a></li>
+               <li ><a href="https://github.com/banq/jdonframework">Github</a></li>
+               <li><a href="articles.html">Articles</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    
+
+    <div class="container">
+     <div class="starter-template">     
+    
+ <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">  
+  <tr>     
+    <td bgcolor="#FFFFFF"  valign="top" align="left">
+
+                  
+				<!-- #BeginEditable "main" --> 
+                  <h1>Big Data the 'reactive' way                  </h1>
+                  <p><a href="http://www.javaadvent.com/2013/12/big-data-reactive-way.html">publisher</a></p>
+                  <p>　　A metatrend going on in the IT industry is a shift from query-based, batch oriented systems to (soft) realtime updated systems. While this is associated with financial trading only, there are many other examples such as "Just-In-Time"-logistic systems, flight companies doing realtime pricing of passenger seats based on demand and load, C2C auction system like EBay, real time traffic control and many more.<br>
+                    <br>
+                    It is likely this trend will continue, as <strong><em>the (commercial) value of information is time dependent</em></strong>, value decreases with age of information.<br>
+                    <br>
+                    Automated trading in the finance sector is just a forerunner in this area, because some microseconds time advantage can be worth millions of dollars. Its natural real time processing systems evolve in this domain faster.<br>
+                    <br>
+                    However big parts of traditional IT infrastructure is not designed for reactive, event based systems. From query based databases to request-response based Http protcol, the common paradigm is to store and query data "when needed".<br>
+                    <br>
+                  </p>
+                  <h4>Current Databases are static and query-oriented</h4>
+                  <div><br>
+                  </div>
+                  Current approaches to data management such as SQL and NOSQL databases focus on data transactions and <strong>static query </strong>of data. Databases provide convenience in slicing and dicing data but they do not support update of complex queries in real time. Uprising NOSQL databases still focus on computing a static result.<br>
+                  Databases are clearly not "reactive".<br>
+                  <br>
+                  <h4>Current Messaging Products provide poor query/filtering options</h4>
+                  <div><br>
+                  </div>
+                  Current messaging products are weak at filtering. Messages are separated into different streams (or topics), so clients can do a raw preselection on the data received. However this frequently means a client application receives like 10 times more data than needed, doing fine grained filtering 'on-top'.<br>
+                  A big disadvantage is, that the topic approach builts filter capabilities "into" the system's data design.<br>
+                  E.g. if a stock exchange system splits streams on a per-stock base, a client application still needs to subscribe to all streams in order to provide a dynamically updated list of "most active" stocks. Querying usually means "replay+search the complete message history".<br>
+                    <br>
+                  <h3>A scalable, "continuous query" distributed Datagrid. </h3>
+                  <div><br>
+                  </div>
+                  I had the enjoyment to do conceptional &amp; technical design for a large scale realtime system, so I'd like to share a generic scalable solution for continuous query processing at high volume and large scale.<br>
+                  <br>
+                  It is common, that real-time processing systems are designed "event sourced". This means, persistence is replaced by journaling transactions. System state is kept in memory, the transaction journal is required for historic analysis and crash recovery only.<br>
+                  Client applications do not query, but listen to event streams instead. A common issue with event sourced systems is the problem of "late joining client". A late client would have to replay the whole system event journal in order to get an up-to-date snapshot of the system state.<br>
+                  In order to support late joining clients, a kind of "Last Value Cache" (LVC) component is required. The LVC holds current system state and allows late joiners to bootstrap by querying.<br>
+                  In a high performance, large data system, the LVC component becomes a bottleneck as the number of clients rises.<br>
+                  <br>
+                  <h4>Generalizing the Last Value Cache: Continuous Queries</h4>
+                  <br>
+                  In a continuous query data cache, a query result is kept up to date automatically. Queries are replaced by subscriptions.<br>
+                  <blockquote><strong>subscribe </strong>* from Orders where<br>
+                    symbol in ['ALV', 'BMW'] and<br>
+                    volume &gt; 1000 and<br>
+                    owner='MyCompany'</blockquote>
+                  creates a message stream, which initially performs a query operation, after that updates the result set whenever a data change affecting the query result happened (transparent to the client application). The system ensures each subscriber receives exactly the change notifications necessary to keep its "live" query results up-to-date.<br>
+                  <br>
+                  <br>
+                  <table cellpadding="0" cellspacing="0">
+                    <tbody>
+                      <tr>
+                        <td><a href="http://4.bp.blogspot.com/-CXMJKza-lPo/UptEsV6buvI/AAAAAAAAAHI/NS7uyMVDHfI/s1600/Real+Live.png" imageanchor="1"><img src="http://4.bp.blogspot.com/-CXMJKza-lPo/UptEsV6buvI/AAAAAAAAAHI/NS7uyMVDHfI/s640/Real+Live.png" alt="" width="640" height="640" border="0"></a></td>
+                      </tr>
+                      <tr>
+                        <td>A distributed continous query system: The LVC Nodes hold data. Transactions are sent to them on a message bus (red). The LVC nodes compute the actual difference caused by a transaction and send change notifications on a message bus (blue).  This enables "processing nodes" to keep a mirror of their relevant data partition up-to-date. External clients connected via TCP/Http do not listen to the message bus (because multicast is not an option in WAN). "Subscription processors" keep the client's continuous queries up-to-date by listening to the (blue) message bus and dispatching required change notifications only to client's point2point connection.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <strong><br>
+                  </strong> <strong><br>
+                  </strong> <br>
+                  <br>
+                  <strong><br>
+                  </strong> <br>
+                  <strong><br>
+                  </strong> <strong><br>
+                  </strong> <strong>   </strong><br>
+                  <strong>  </strong><br>
+                  <strong><br>
+                  </strong> <strong>Difference of data access patterns compared to static data management:</strong><br>
+                  <strong><br>
+                  </strong> <br>
+                  <ul>
+                    <li>High write volume<br>
+                      Real time systems create a high volume of write access/change in data.</li>
+                    <li>Fewer full table scans.<br>
+                      Only late-joining clients or changes of a query's condition require a full data scan. Because continuous queries make "refreshing" a query result obsolete, Read/Write ratio is ~ 1:1 (if one counts the change notification resulting from a transaction as "Read Access").</li>
+                    <li>The majority of load is generated, when evaluating queries of active continuous subscriptions with each change of data. Consider a transaction load of 100.000 changes per second with 10.000 active continuous queries: this requires 100.000*10.000 = <strong>1 Billion evaluations of query conditions per second</strong>. That's still an underestimation: When a record gets updated, it must be tested whether the record has matched a query condition before the update and whether it matches after the update. A record's update may result in an add (because it matches after the change) or a remove transaction (because the record does not match anymore after a change) to a query subscription (or 'update', or 'skip' ofc).</li>
+                  </ul>
+                  <br>
+                  <strong>Data Cluster Nodes </strong><strong>("LastValueCache Nodes")</strong><br>
+                  <br>
+                  Data is organized in tables, column oriented. Each table's data is evenly partitioned amongst all data grid nodes (=last value cache node="LVC node"). By adding data nodes to the cluster, capacity is increased and snapshot queries (initializing a subscription) are sped up by increased concurrency.<br>
+                  <br>
+                  There are three basic transactions/messages processed by the data grid nodes:<br>
+                  <br>
+                  <ul>
+                    <li>AddRow(table,newRow), </li>
+                    <li>RemoveRow(table,rowId), </li>
+                    <li>UpdateRow(table, rowId, diff). </li>
+                  </ul>
+                  <br>
+                  The data grid nodes provide a lambda-alike (row iterator) interface supporting the iteration of a table's rows  using plain java code. This can be used to perform map-reduce jobs and as a specialization, the initial query required by newly subscribing clients. Since ongoing computation of continuous queries is done in the "Gateway" nodes, the load of data nodes and the number of clients correlate weakly only.<br>
+                  <br>
+                  All transactions processed by a data grid node are (re-)broadcasted using multicast "Change Notification" messages.<br>
+                  <br>
+                  <h4>Gateway Nodes</h4>
+                  <br>
+                  Gateway nodes track subscriptions/connections to client applications. They listen to the global stream of change notifications and check whether a change influences the result of a continuous query (=subscription). This is very CPU intensive.<br>
+                  <br>
+                  Two things make this work:<br>
+                  <br>
+                  <ol>
+                    <li>by using plain java to define a query, query conditions profit from JIT compilation, no need to parse and interpret a query language. HotSpot is one of the best optimizing JIT compilers on the planet.</li>
+                    <li>Since multicast is used for the stream of global changes, one can add additional Gateway nodes with ~no impact on throughput of the cluster.</li>
+                  </ol>
+                  <br>
+                  <h4>Processor (or Mutator) Nodes</h4>
+                  <div><br>
+                  </div>
+                  <div>These nodes implement logic on-top of the cluster data. E.g. a statistics processor does a continuous query for each table, incrementally counts the number of rows of each table and writes the results back to a "statistics" table, so a monitoring client application can subscribe to realtime data of current table sizes. Another example would be a "Matcher processor" in a stock exchange, listening to orders for a stock, if orders match, it removes them and adds a Trade to the "trades" table.</div>
+                  <div>If one sees the whole cluster as kind of a "giant spreadsheet", processors implement the formulas of this spreadsheet.</div>
+                  <div><br>
+                    <h4>Scaling Up</h4>
+                  </div>
+                  <div><br>
+                  </div>
+                  <div>
+                    <ul>
+                      <li>with data size:<br>
+                        increase number of LVC nodes</li>
+                      <li>Number of Clients<br>
+                        increase subscription processor nodes.</li>
+                      <li>TP/S<br>
+                        scale up processor nodes and LVC nodes</li>
+                    </ul>
+                    Of cause the system relies heavily on availability of a "real" multicast messaging bus system. Any point to point oriented or broker-oriented networking/messaging will be a massive bottleneck.<br>
+                    <br>
+                    <br>
+                  </div>
+                  <h3></h3>
+                  <h3>Conclusion</h3>
+                  <div><br>
+                    Building real time processing software backed by a continuous query system simplifies application development a lot.</div>
+                  <div>
+                    <ul>
+                      <li>Its model-view-controller at large scale. <br>
+                        Astonishing: patterns used in GUI applications for decades have not been extended regulary to the backing data storage systems.</li>
+                      <li>Any server side processing can be partitioned in a natural way. A processor node creates an in-memory mirror of its data partition using continuous queries. Processing results are streamed back to the data grid. Computing intensive jobs, e.g. risk computation of derivatives can be scaled by adding processor instances subscribing to distinct partitions of the data ("sharding").</li>
+                      <li>The size of the Code Base reduces significantly (both business logic and Front-End). <br>
+                        A lot of code in handcrafted systems deals with keeping data up to date.</li>
+                    </ul>
+                  </div>
+                  <h4></h4>
+                  <h4>About me</h4>
+                  I am a technical architect/senior developer consultant at an european company involved heavily in stock &amp; derivative trading systems.<br>
+                  <p>&nbsp;</p>
+                  <div class="adsensf" id="vgad336x">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- 页上左336 -->
+                    <ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7573657117119544"
+     data-ad-slot="6751585519"></ins>
+                    <script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+                  </script>
+                  </div>
+          <!-- #EndEditable -->
+                 
+			  	
+          </td>
+		  <td width="340" valign="top"  bgcolor="#FFFFD7"> 
+          <div class="adsensf" id="vgad336x280">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 页上左336 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7573657117119544"
+     data-ad-slot="6751585519"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 页上左336 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7573657117119544"
+     data-ad-slot="6751585519"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>         
+ </td>
+  </tr>
+</table>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000"  align="center">
+              <tr>
+                <td></td>
+              </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td height="20" bgcolor="#CAC9BB" align="center">
+  
+  </td>
+</tr>
+</table>
+ </div>
+</div><!-- /.container -->
+
+<!-- InstanceBeginEditable name="EditRegion3" --><!-- InstanceEndEditable -->
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+<!-- AddThis Smart Layers BEGIN -->
+<!-- Go to http://www.addthis.com/get/smart-layers to customize -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52c4b79515624135"></script>
+<script type="text/javascript">
+  addthis.layers({
+    'theme' : 'transparent',
+    'share' : {
+      'position' : 'left',
+      'numPreferredServices' : 5
+    },  
+    'whatsnext' : {},  
+    'recommended' : {} 
+  });
+</script>
+<!-- AddThis Smart Layers END -->    
+</body>
+<!-- InstanceEnd --></html>

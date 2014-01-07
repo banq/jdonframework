@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en"><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+<!-- #BeginEditable "doctitle" -->
+<title>why jdon?</title>  
+<!-- #EndEditable -->
+<!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
+    <!-- Bootstrap core CSS -->
+     <link rel="stylesheet" href="css/bootstrap.min.css">   
+
+    <!-- Custom styles for this template -->
+    <link href="css/starter-template.css" rel="stylesheet">
+
+   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->    
+  </head>
+<body>
+ <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">Jdon Framework</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+                <li class="active"><a href="index.html">Home</a></li>
+               <li><a href="https://sourceforge.net/projects/jdon/files/">Download</a></li>
+               <li><a href="doc.htm" >Document</a></li>
+               <li><a href="quickconf.html">Qucik Start</a> </li>
+               <li><a href="examples.html">Examples</a></li>
+               <li ><a href="https://github.com/banq/jdonframework">Github</a></li>
+               <li><a href="articles.html">Articles</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    
+
+    <div class="container">
+     <div class="starter-template">     
+    
+ <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">  
+  <tr>     
+    <td bgcolor="#FFFFFF"  valign="top" align="left">
+
+                  
+				<!-- #BeginEditable "main" --> 
+                  <h1>Why Jdon?</h1>
+                  <p>&nbsp;</p>
+                  <p>　　Differnce with Spring framework, Jdon framework is a event-driven framework, Implement event-driven scenarios using the traditional request response is a thinking mismatch.</p>
+                  <p>　　　In a typical traditional example , the user request in the UI (in the browser, REST client or elsewhere) to the request parsing and dispatching in the web layer, to the service components in the middleware, through the caching and down to the database. If one of these layers does not participate—making blocking calls to the database, relying on shared mutable state, calling out to expensive synchronous operations—then the whole pipeline stalls and users will suffer through increased latency and reduced scalability.</p>
+                <p>　　In  event-driven scenarios , the user send a command from UI to Aggregate Root entity,this command will change the entity's state, so here we can introudce <a href="single-writer-principle.html">singel write pricinple</a>, but in request/reponse mode, here introduces ACID transaction, such as JTA(Spring or EJB session bean) or Optimistic lock(Hibernate/JPA), this is  blocking synchronization.<br>
+                  <br>
+                　　 Jdon introduces reactive and event-driven  into domain,  a command activates a Aggregate Root's method by disruptor's single thread, and it will react a event again, here the command and the event is nonblocking and asynchronous, the event can drive Respository saving data to database in another concurrent thread;  in traditional scenarios one request use a thread from Controller of MVC to Service to Dao(saving data to database).,if in the long process there is a &quot;synchronized&quot; or a lock(even Optimistic lock), all other operations in this thread will be blocked, this is traditional performance bottleneck. Jdon moves mutable state from database to memory, and uses Aggregate Root to guard it, traditional database's data operations (by SQL or JPA/ORM) not need any more, only need send a Command or Event to drive  Aggregate Root to change its mutable state by its behaviours.                 if you worry about im-memory state will lost when power off, you can in the meantime send a domain event(another thread) to persiste the state or this event that  lead up to that state, the domain event not blocks your state modification. you can have high <em>throughput</em> and <em>lower latency</em>.</p>
+                <p>　　An Aggregate is not just an composition of objects that belong together to represent a certain state. An Aggregate manages behaviours that belong together, and keeps state only where they are relevant to those behaviours. jdon provides Command or Event to react those behaviours, instead of  synchronous method calls.</p>
+                  <p>　　Traditional request response is a synchronous method calls. in Jdon event-driven scenarios ,The sender(producer) and recipient(consumer) can be implemented without regards to the details of how the events are propagated, allowing the interfaces to focus on the content of the communication. This leads to an implementation which is easier to extend, evolve and maintain, giving you more flexibility and reducing maintenance cost.</p>
+                  <p>　　 A  jdon application is non-blocking,  under heavy load the app can  have <em>lower latency and higher throughput</em> than a traditional application based on blocking synchronization and communication primitives. This results in lower operational costs, increased utilization and happier end-users.</p>
+                  <p>　　Domain events provided by Jdon can be used for Event Sourcing, We forget about persisting state altogether, and instead, we only persist the Domain Events that lead up to that state. We preserve the meaning, instead of the outcome. When we need the state, to make a decision, we replay the events and interpret them. The beauty of this, is that if we change our minds about how to interpret the behaviour, we are not stuck with the state the we decided to persist in the past.                  </p>
+                  <p>　　Traditional request response has its multi-layers : UI --&gt; MVC --&gt; Service --&gt;DB, business logic exists in many Service, not easy to modify and extend,  Jdon is fit for new popluar  multi-layers architecture : Angular.js =&gt;REST + Domian(micro-service + Aggregate), Angular.js is client MVC,  backend is a RESTful service, micro-service is DDD bounded context , through REST expose its functions, Jdon can play the role of Domain container.</p>
+                  <p>&nbsp;</p>
+                  <div class="adsensf" id="vgad336x">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- 页上左336 -->
+                    <ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7573657117119544"
+     data-ad-slot="6751585519"></ins>
+                    <script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+                  </script>
+                  </div>
+          <!-- #EndEditable -->
+                 
+			  	
+          </td>
+		  <td width="340" valign="top"  bgcolor="#FFFFD7"> 
+          <div class="adsensf" id="vgad336x280">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 页上左336 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7573657117119544"
+     data-ad-slot="6751585519"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 页上左336 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7573657117119544"
+     data-ad-slot="6751585519"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>         
+ </td>
+  </tr>
+</table>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000"  align="center">
+              <tr>
+                <td></td>
+              </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td height="20" bgcolor="#CAC9BB" align="center">
+  
+  </td>
+</tr>
+</table>
+ </div>
+</div><!-- /.container -->
+
+<!-- InstanceBeginEditable name="EditRegion3" --><!-- InstanceEndEditable -->
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+<!-- AddThis Smart Layers BEGIN -->
+<!-- Go to http://www.addthis.com/get/smart-layers to customize -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52c4b79515624135"></script>
+<script type="text/javascript">
+  addthis.layers({
+    'theme' : 'transparent',
+    'share' : {
+      'position' : 'left',
+      'numPreferredServices' : 5
+    },  
+    'whatsnext' : {},  
+    'recommended' : {} 
+  });
+</script>
+<!-- AddThis Smart Layers END -->    
+</body>
+<!-- InstanceEnd --></html>

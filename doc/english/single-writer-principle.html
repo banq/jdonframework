@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en"><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+<!-- #BeginEditable "doctitle" -->
+<title>Single Writer Principle</title>  
+<!-- #EndEditable -->
+<!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
+    <!-- Bootstrap core CSS -->
+     <link rel="stylesheet" href="css/bootstrap.min.css">   
+
+    <!-- Custom styles for this template -->
+    <link href="css/starter-template.css" rel="stylesheet">
+
+   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->    
+  </head>
+<body>
+ <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">Jdon Framework</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+                <li class="active"><a href="index.html">Home</a></li>
+               <li><a href="https://sourceforge.net/projects/jdon/files/">Download</a></li>
+               <li><a href="doc.htm" >Document</a></li>
+               <li><a href="quickconf.html">Qucik Start</a> </li>
+               <li><a href="examples.html">Examples</a></li>
+               <li ><a href="https://github.com/banq/jdonframework">Github</a></li>
+               <li><a href="articles.html">Articles</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    
+
+    <div class="container">
+     <div class="starter-template">     
+    
+ <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">  
+  <tr>     
+    <td bgcolor="#FFFFFF"  valign="top" align="left">
+
+                  
+				<!-- #BeginEditable "main" --> 
+                  <h1><strong>Single Writer Principle</strong></h1>
+                  <p><a href="http://www.javacodegeeks.com/2012/08/single-writer-principle.html">original url</a></p>
+                  <p>　　When trying to build a highly scalable system the single biggest limitation on scalability is having multiple writers contend for any item of data or resource. Sure, algorithms can be bad, but let&rsquo;s assume they have a reasonable <a href="http://en.wikipedia.org/wiki/Big_O_notation" rel="external nofollow" title="" target="_blank">Big O notation</a> so we&rsquo;ll focus on the scalability limitations of the systems design.</p>
+                  <p>I keep seeing people just accept having multiple writers as the norm. There is a lot of research in computer science for managing this contention that boils down to 2 basic approaches. One is to provide mutual exclusion to the contended resource while the mutation takes place; the other is to take an optimistic strategy and swap in the changes if the underlying resource has not changed while you created the new copy.</p>
+                  <p><strong>Mutual Exclusion</strong></p>
+                  <p>Mutual exclusion is the means by which only one writer can have access to a protected resource at a time, and is usually implemented with a locking strategy. Locking strategies require an arbitrator, usually the operating system kernel, to get involved when the contention occurs to decide who gains access and in what order. This can be a very expensive process often requiring many more CPU cycles than the actual transaction to be applied to the business logic would use. Those waiting to enter the <a href="http://en.wikipedia.org/wiki/Critical_section" rel="external nofollow" title="" target="_blank">critical section</a>, in advance of performing the mutation must queue, and this queuing effect ( <a href="http://en.wikipedia.org/wiki/Little%27s_law" rel="external nofollow" title="" target="_blank">Little&rsquo;s Law</a>) causes latency to become unpredictable and ultimately restricts throughput.</p>
+                  <p><strong>Optimistic Concurrency Control</strong></p>
+                  <p panel-id="panel-id.0">Optimistic strategies involve taking a copy of the data, modifying it, then copying back the changes if data has not mutated in the meantime. If a change has happened in the meantime you repeat the process until successful. This repeating of the process increases with contention and therefore causes a queuing effect just like with mutual exclusion. If you work with a source code control system, such as Subversion or CVS, then you are using this algorithm every day. Optimistic strategies can work with data but do not work so well with resources such as hardware because you cannot take a copy of the hardware! The ability to perform the changes atomically to data is made possible by <a href="http://en.wikipedia.org/wiki/Compare-and-swap" rel="external nofollow" title="" target="_blank">CAS</a> instructions offered by the hardware.</p>
+                  <p panel-id="panel-id.0">Most locking strategies are composed from optimistic strategies for changing the lock state or mutual exclusion primitive.</p>
+                  <p panel-id="panel-id.0"><strong>Managing Contention vs. Doing Real Work</strong></p>
+                  <p panel-id="panel-id.0">CPUs can typically process one or more instructions per cycle. For example, modern Intel CPU cores each have 6 execution units that can be doing a combination of arithmetic, branch logic, word manipulation and memory loads/stores in parallel. If while doing work the CPU core incurs a cache miss, and has to go to main memory, it will stall for hundreds of cycles until the result of that memory request returns. To try and improve things the CPU will make some speculative guesses as to what a memory request will return to continue processing. If a second miss occurs the CPU will no longer speculate and simply wait for the memory request to return because it cannot typically keep the state for speculative execution beyond 2 cache misses. Managing cache misses is the single largest limitation to scaling the performance of our current generation of CPUs.</p>
+                  <p panel-id="panel-id.0">Now what does this have to do with managing contention? Well if two or more threads are using locks to provide mutual exclusion, at best they will be going to the L3 cache, or over a socket interconnect, to access share state of the lock using CAS operations. These lock/CAS instructions cost 10s of cycles in the best case when un-contended, plus they cause out-of-order execution for the CPU to be suspended and load/store buffers to be flushed. At worst, collisions occur and the kernel will need to get involved and put one or more of the threads to sleep until the lock is released. This rescheduling of the blocked thread will result in cache pollution. The situation can be even worse when the thread is re-scheduled on another core with a cold cache resulting in many cache misses.</p>
+                  <p panel-id="panel-id.0">For highly contended data it is very easy to get into a situation whereby the system spends significantly more time managing contention than doing real work. The table below gives an idea of basic costs for managing contention when the program state is very small and easy to reload from the L2/L3 cache, never mind main memory.</p>
+                  <table border="1" cellpadding="5" panel-id="panel-id.0">
+                    <tbody>
+                      <tr>
+                        <th>Method</th>
+                        <th>Time (ms)</th>
+                      </tr>
+                      <tr>
+                        <td>One Thread</td>
+                        <td>300</td>
+                      </tr>
+                      <tr>
+                        <td>One Thread with Memory Barrier</td>
+                        <td>4,700</td>
+                      </tr>
+                      <tr>
+                        <td>One Thread with CAS</td>
+                        <td>5,700</td>
+                      </tr>
+                      <tr>
+                        <td>Two Threads with CAS</td>
+                        <td>18,000</td>
+                      </tr>
+                      <tr>
+                        <td>One Thread with Lock</td>
+                        <td>10,000</td>
+                      </tr>
+                      <tr>
+                        <td>Two Threads with Lock</td>
+                        <td>118,000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p panel-id="panel-id.0">This table illustrates the costs of incrementing a 64-bit counter 500 million times using a variety of techniques on a 2.4Ghz Westmere processor. I can hear people coming back with &ldquo;but this is a trivial example and real-world applications are not that contended&rdquo;. This is true but remember real-world applications have way more state, and what do you think happens to all that state which is warm in cache when the context switch occurs??? By measuring the basic cost of contention it is possible to extrapolate the scalability limits of a system which has contention points. As multi-core becomes ever more significant another approach is required. My last <a href="http://mechanical-sympathy.blogspot.com/2011/09/adventures-with-atomiclong.html" rel="external nofollow" title="" target="_blank">post</a> illustrates the micro level effects of CAS operations on modern CPUs, whereby Sandybridge can be worse for CAS and locks.</p>
+                  <p panel-id="panel-id.0"><strong>Single Writer Designs</strong></p>
+                  <p panel-id="panel-id.0">Now, what if you could design a system whereby any item of data, or resource, is only mutated by a single writer/thread? It is actually easier than you think in my experience. It is OK if multiple threads, or other execution contexts, read the same data. CPUs can broadcast read only copies of data to other cores via the cache coherency sub-system. This has a cost but it scales very well.</p>
+                  <p panel-id="panel-id.0">If you have a system that can honour this single writer principle then each execution context can spend all its time and resources processing the logic for its purpose, and not be wasting cycles and resource on dealing with the contention problem. You can also scale up without limitation until the hardware is saturated. There is also a really nice benefit in that when working on architectures, such as x86/x64, where at a hardware level they have a <a href="http://en.wikipedia.org/wiki/Memory_model_%28computing%29" rel="external nofollow" title="" target="_blank">memory model</a>, whereby load/store memory operations have preserved order, thus<a href="http://mechanical-sympathy.blogspot.com/2011/07/memory-barriersfences.html" rel="external nofollow" title="" target="_blank">memory barriers</a> are not required if you adhere strictly to the single writer principle. On x86/x64 &lsquo; <em>loads can be re-ordered with older stores</em>&lsquo; according to the memory model so memory barriers are required when multiple threads mutate the same data across cores. The single writer principle avoids this issue because it never has to deal with writing the latest version of a data item that may have been written by another thread and currently in the store buffer of another core.</p>
+                  <p panel-id="panel-id.0">So how can we drive towards single writer designs? I&rsquo;ve found it is a very natural thing. Consider how humans, or any other autonomous creatures of nature, operate with their model of the world. We all have our own model of the world contained in our own heads, i.e. We have a copy of the world state for our own use. We mutate the state in our heads based on inputs (events/messages) we receive via our senses. As we process these inputs and apply them to our model we may take action that produces outputs, which others can take as their own inputs. None of us reach directly into each other&rsquo;s heads and mess with the neurons. If we did this it would be a serious breach of encapsulation! Originally, Object Oriented (OO) design was all about message passing, and somehow along the way we bastardised the message passing to be method calls and even allowed direct field manipulation – Yuk! Who&rsquo;s bright idea was it to allow public access to fields of an object? You deserve your own special hell.</p>
+                  <p panel-id="panel-id.0">At university I studied <a href="http://en.wikipedia.org/wiki/Transputer" rel="external nofollow" title="" target="_blank">transputers</a> and interesting languages like <a href="http://en.wikipedia.org/wiki/Occam_%28programming_language%29" rel="external nofollow" title="" target="_blank">Occam</a>. I thought very elegant designs appeared by having the nodes collaborate via message passing rather than mutating shared state. I&rsquo;m sure some of this has inspired the <a href="http://code.google.com/p/disruptor/" rel="external nofollow" title="" target="_blank">Disruptor</a>. My experience with the Disruptor has shown that is it possible to build systems with one or more orders of magnitude better throughput than locking or contended state based approaches. It also gives much more predictable latency that stays constant until the hardware is saturated rather than the traditional J-curve latency profile.</p>
+                  <p panel-id="panel-id.0">It is interesting to see the emergence of numerous approaches that lend themselves to single writer solutions such as Node.js, Erlang, Actor patterns, and SEDA to name a few. Unfortunately most use queue based implementations underneath, which breaks the single writer principle, whereas the Disruptor strives to separate the concerns so that the single writer principle can be preserved for the common cases.</p>
+                  <p panel-id="panel-id.0">Now I&rsquo;m not saying locks and optimistic strategies are bad and should not be used. They are excellent for many problems. For example, bootstrapping a concurrent system or making major state stages in configuration or reference data. However if the main flow of transactions act on contended data, and locks or optimistic strategies have to be employed, then the scalability is fundamentally limited.</p>
+                  <p panel-id="panel-id.0"><strong>The Principle at Scale</strong></p>
+                  <p panel-id="panel-id.0">This principle works at all levels of scale. <a href="http://en.wikipedia.org/wiki/Benoit_Mandelbrot" rel="external nofollow" title="" target="_blank">Mandelbrot</a> got this so right. CPU cores are just nodes of execution and the cache system provides message passing for communication. The same patterns apply if the processing node is a server and the communication system is a local network. If a service, in <a href="http://en.wikipedia.org/wiki/Service-oriented_architecture" rel="external nofollow" title="" target="_blank">SOA</a> architecture parlance, is the only service that can write to its data store it can be made to scale and perform much better. Let&rsquo;s say that underlying data is stored in a database and other services can go directly to that data, without sending a message to the service that owns the data, then the data is contended and requires the database to manage the contention and coherence of that data. This prevents the service from caching copies of the data for faster response to the clients and restricts how the data can be sharded. Encapsulation has just been broken at a more macro level when multiple different services write to the same data store.</p>
+                  <p panel-id="panel-id.0"><strong>Summary</strong></p>
+                  <p panel-id="panel-id.0">If a system is decomposed into components that keep their own relevant state model, without a central shared model, and all communication is achieved via message passing then you have a system without contention naturally. This type of system obeys the single writer principle if the messaging passing sub-system is not implemented as queues. If you cannot move straight to a model like this, but are finding scalability issues related to contention, then start by asking the question, &ldquo;How do I change this code to preserve the<em>Single Writer Principle</em> and thus avoid the contention?&rdquo;</p>
+                  <p panel-id="panel-id.0">The <em>Single Writer Principle</em> is that for any item of data, or resource, that item of data should be owned by a single execution context for all mutations.</p>
+                  <p>&nbsp;</p>
+                  <div class="adsensf" id="vgad336x">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- 页上左336 -->
+                    <ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7573657117119544"
+     data-ad-slot="6751585519"></ins>
+                    <script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+                  </script>
+                  </div>
+          <!-- #EndEditable -->
+                 
+			  	
+          </td>
+		  <td width="340" valign="top"  bgcolor="#FFFFD7"> 
+          <div class="adsensf" id="vgad336x280">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 页上左336 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7573657117119544"
+     data-ad-slot="6751585519"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 页上左336 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7573657117119544"
+     data-ad-slot="6751585519"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>         
+ </td>
+  </tr>
+</table>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000"  align="center">
+              <tr>
+                <td></td>
+              </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td height="20" bgcolor="#CAC9BB" align="center">
+  
+  </td>
+</tr>
+</table>
+ </div>
+</div><!-- /.container -->
+
+<!-- InstanceBeginEditable name="EditRegion3" --><!-- InstanceEndEditable -->
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+<!-- AddThis Smart Layers BEGIN -->
+<!-- Go to http://www.addthis.com/get/smart-layers to customize -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52c4b79515624135"></script>
+<script type="text/javascript">
+  addthis.layers({
+    'theme' : 'transparent',
+    'share' : {
+      'position' : 'left',
+      'numPreferredServices' : 5
+    },  
+    'whatsnext' : {},  
+    'recommended' : {} 
+  });
+</script>
+<!-- AddThis Smart Layers END -->    
+</body>
+<!-- InstanceEnd --></html>

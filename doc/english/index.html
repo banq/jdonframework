@@ -1,151 +1,124 @@
-<html><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
-<head>
+<!DOCTYPE html>
+<html lang="en"><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 <!-- #BeginEditable "doctitle" -->
-<title>JdonFramework - DDD + CQRS + EventSourcing java reactive framework</title>  
-<META NAME="Description" CONTENT="JdonFramework is a java opensource framework that supports Domain-Driven Design  DCI CQRS and Domain Events/Event Source development.">
-<meta name="Keywords" content="Domain-Driven Design,DDD,EventSourcing,ES,Event,Domain Events,CQRS,CQR,DCI,Disruptor,Guava,EDA,java framework,software,freeware,free download,Domain Model,MDD,Model-Driven Development,SOA,JEE,j2ee,web,android,erp,Java,JavaEE,UML,scalable,software programs,programmer,online courses" />
+<title>Jdon Framework</title>  
 <!-- #EndEditable -->
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
-<link rel="shortcut icon" href="http://www.jdon.com/favicon.ico">
 <!-- InstanceBeginEditable name="head" -->
-
 <!-- InstanceEndEditable -->
-<link href="views.css" rel="stylesheet" type="text/css">
-</head>
-<body bgcolor="#dddddd" text="#000000">
- <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+    <!-- Bootstrap core CSS -->
+     <link rel="stylesheet" href="css/bootstrap.min.css">   
 
-  <tr> 
-    <td height="11" colspan="7" bgcolor="#FFFFFF" class="bianxian"> 
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" height="1" bordercolor="#000000">
-        <tr> 
-          <td> 
-            <table width="100%" border="0" cellspacing="0" cellpadding="0" height="200" bgcolor="#000000" background="images/background.jpg">
-              <tr> 
-                <td></td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-  <tr> 
+    <!-- Custom styles for this template -->
+    <link href="css/starter-template.css" rel="stylesheet">
+
+   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->    
+  </head>
+<body>
+ <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">Jdon Framework</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+                <li class="active"><a href="index.html">Home</a></li>
+               <li><a href="https://sourceforge.net/projects/jdon/files/">Download</a></li>
+               <li><a href="doc.htm" >Document</a></li>
+               <li><a href="quickconf.html">Qucik Start</a> </li>
+               <li><a href="examples.html">Examples</a></li>
+               <li ><a href="https://github.com/banq/jdonframework">Github</a></li>
+               <li><a href="articles.html">Articles</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
     
-    <td bgcolor="#FFFFFF"  valign="top">
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr> 
-          <td valign="top" width="100"><table width="100%" border="0" cellspacing="0" cellpadding="3" height="200" align="center">
-      <tr>
-        <td align="right"><table width="100%" height="200" border="0" align="center" cellpadding="3" cellspacing="0" dwcopytype="CopyTableCell">
-            <tr>
-              <td align="left"  valign="top"><p align="center"><img src="images/jdone.gif" width="120" height="60" border="0"></p>
-                  <p ><B><a href="https://sourceforge.net/projects/jdon/files/" target="_blank">Download</a></B>                  </p>
-                  <p ><B><a href="doc.htm" target="_blank">Document</a></B></p>
-                  <p ><a href="quickconf.html"><strong>Qucik Start</strong></a> </p>
-                  <p ><a href="https://github.com/banq/jdonframework/tree/master/example" target="_blank"><strong>Examples</strong></a></p>
-                  <p ><a href="https://github.com/banq/jdonframework"><strong>Github</strong></a></p>
-<p ><B><a href="http://sourceforge.net/projects/jdon/files/jivejdon/4.x/" target="_blank">jivejdon</a></B></p>
-                  <p ><a href="http://code.google.com/p/jdonmvc/downloads/list"><strong>JdonMVC</strong></a></p>
-                  <p ><a href="http://www.jdon.com/jdonframework/"><strong>Jdon中文</strong></a></p>
-<p >&nbsp;</p>
 
-<p >Twitter:
-  <br >
-  <a href="https://twitter.com/jdonframework" target="_blank"><strong>@jdonframework</strong></a></p>
-                  <!-- InstanceBeginEditable name="Menu" --> <!-- InstanceEndEditable --> </td>
-            </tr>
-        </table></td>
-        </tr>
-      </table></td>
-         
-          <td valign="top" > 
-            <table width="100%" border="0" cellspacing="2" cellpadding="2">
-              <tr>
-                <td>
+    <div class="container">
+     <div class="starter-template">     
+    
+ <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">  
+  <tr>     
+    <td bgcolor="#FFFFFF"  valign="top" align="left">
+
                   
-				<!-- #BeginEditable "main" -->                 
-                  <h3 align="left">Latest News</h3>
+				<!-- #BeginEditable "main" --> 
+                  <h1 align="left">Latest News</h1>
                   <DIV 
 style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; MARGIN-LEFT: 0px; BORDER-RIGHT-WIDTH: 2px">
-                    <p><STRONG><a href="http://sourceforge.net/projects/jdon/files/JdonFramework/6.X_DDD/">JdonFramework_6.8  released!</a></STRONG> <strong> 10/2013</strong></p>
-                    <p><a href="match.html">DDD CQRS EventSourcing example source: football Match</a></p>
-                    <p><a href="ces.html"><strong>CES:Context Event and State</strong></a>                    </p>
-                    <P><a href="https://github.com/banq/jdonframework/tree/master/example">JdonFramework DDD + CQRS + EventSourcing examples                    </a></P>
-                    <P>Sample DEMO: <a href="http://www.jdon.com/testWeb/" target="_blank">http://www.jdon.com/testWeb/</a><br>
-                      Sample  Download:<br>
-                      <a href="http://sourceforge.net/projects/jdon/files/JdonFramework-App/samples-6.5/">JdonMVC+Jdon/Struts+Jdon/SpringMVC3+Jdon</a></P>
-<p><a href="springIntegration.html">How to integrate Jdon Framework  with Spring</a></p>
+                    <p><STRONG><a href="http://sourceforge.net/projects/jdon/files/JdonFramework/6.X_DDD/">JdonFramework_6.8  released!</a></STRONG> <strong> 10/2013</strong>                  </p>
                   </DIV>
-<div class="adsensf" id="vgad336x280">
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- 页上左336 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:336px;height:280px"
-     data-ad-client="ca-pub-7573657117119544"
-     data-ad-slot="6751585519"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-</div>                  
-                  <H3> Jdon Framework :  CQRS/DDD/ES Java Framework </H3>
-                                    <DIV 
+                 
+                  <H3> Jdon Framework : a CQRS/DDD/ES Framework </H3>
+                  <DIV 
 style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; MARGIN-LEFT: 0px; BORDER-RIGHT-WIDTH: 2px">
                     <P>JdonFramework is a java reactive framework that you can use to build your Domain Driven Design + CQRS + EventSource  applications with asynchronous concurrency and higher throughput.</P>
-                    <P>JdonFramework = Ioc/DI/AOP + reactive Actors model</P>
-<p>domain events in JdonFramework: a 
-                      in-memeory model can concurrently publish events to its  subscribers.</p>
-<p> JdonFramework's event engine is from <a href="http://code.google.com/p/disruptor/">Disruptor</a> that be recommended by <a href="http://martinfowler.com/articles/lmax.html">LMAX Architecture</a> wriiten by Martin Fowler. (Nothing Blocks)                    </p>
+                    <P>Jdon introduces reactive and event-driven  into domain, a aggregate root entity's state can be modified by Node.js style event-driven way,and it can concurrently publish reactive events to its  subscribers.</P>
+                    <p> JdonFramework's event engine is from <a href="http://code.google.com/p/disruptor/">Disruptor</a> that be recommended by <a href="http://martinfowler.com/articles/lmax.html">LMAX Architecture</a> wriiten by Martin Fowler. (nonblocking and asynchronous) </p>
                     <p>Feature of Jdonframework: combining DCI with DDD aggregate and Domain Events.</p>
                     <p><img src="images/dcide.png" width="589" height="380" alt="dci+de"></p>
                     <p>&nbsp;</p>
                     <p>&nbsp;</p>
                     <p><strong>Domain-driven design (DDD)</strong></p>
-<P> <em>Domain-driven design (DDD) is an approach to developing software for complex needs by deeply connecting the implementation to an evolving model of the core business concepts. <a href="http://en.wikipedia.org/wiki/Domain-driven_design">details</a></em>.</P>
+                    <P> <em>Domain-driven design (DDD) is an approach to developing software for complex needs by deeply connecting the implementation to an evolving model of the core business concepts. <a href="http://en.wikipedia.org/wiki/Domain-driven_design">details</a></em>.</P>
                     <P><img src="images/dddbook.png" width="171" height="220" alt="ddd"></P>
                     <p id="body_23140068"><a href="http://www.infoq.com/interviews/Technology-Influences-DDD#">Eric Evans on How Technology Influences DDD(2012) </a></p>
                     <p>DDD's servral concepts are the Heart and Soul of OOP: </p>
                     <p> Entities and Identity, Value Objects <br>
                       Aggregate Root<br>
                       Bounded context</p>
-<p>&nbsp;</p>
+                    <p>&nbsp;</p>
                     <p><strong>Reactive</strong></p>
                     <p>Reactive Programming is a hot topic , especially with such things as the <a href="http://www.reactivemanifesto.org/" target="_blank">Reactive Manifesto</a>. 
                       Reactive architecture allows developers to build systems that are event-driven(EDA), scalable, resilient and responsive: delivering highly responsive user experiences with a real-time feel, backed by a scalable and resilient application stack, ready to be deployed on multicore and cloud computing architectures.</p>
                     <p><br>
                       a reactive application is non-blocking that is under heavy load can thus have lower latency and higher throughput than a traditional application based on blocking synchronization and communication primitives.<br>
                     </p>
-<P><strong>CQRS</strong></P>
-<P> Command-query Responsibility Segregation      At its heart is a simple notion that you can use a different model to update information than the model you use to read information. <a href="http://martinfowler.com/bliki/CQRS.html">details</a>.</P>
-<P>&nbsp;</P>
-<P><strong>Domain Events</strong></P>
-<P> <em>Captures the memory of something interesting which affects the domain</em>. <a href="http://martinfowler.com/eaaDev/DomainEvent.html">details</a>, see <a href="http://www.udidahan.com/2008/02/29/how-to-create-fully-encapsulated-domain-models/" rel="bookmark" title="Permanent Link: How to create fully encapsulated Domain Models">How to create fully encapsulated Domain Models</a></P>
-<P>&nbsp;</P>
-<P>With JdonFramework you can easily develope a <a href="http://martinfowler.com/eaaDev/EventSourcing.html" target="_blank" onMouseDown="return rwt(this,'','','','1','AFQjCNEKPs4mGoA7jGKQ5GogosnIYvkS2A','VBWdcuas7M2MSmMGaC9cGQ','0CE8QFjAA',null,event)"><em>Event Sourcing</em></a> and CQRS system.   in CQRS, by disruptor Jdon can send domain events to <a href="https://twitter.com/search/?src=hash&q=%23rabbitmq" title="#rabbitmq" data-query-source="hashtag_click"><strong>#</strong><strong><strong>rabbitmq</strong></strong></a>and <a href="https://twitter.com/search/?src=hash&q=%23zeromq" title="#zeromq" data-query-source="hashtag_click">#<strong>zeromq</strong></a> - <a href="https://twitter.com/search/?src=hash&q=%23distributed" title="#distributed" data-query-source="hashtag_click">#<strong>distributed</strong></a>.</P>
-<P><a href="http://en.wikipedia.org/wiki/Data,_context_and_interaction" target="_blank">DCI:Data Context and Interactions</a>: in a Context, a Role   played by   a Data model   triggers    interaction behavior.</P>
-<P><a href="http://web1.udemy.com/blog/object-oriented-programming-a-critical-approach/" target="_blank">Object Oriented Programming: A Critical Approach</a> say: OO is really about message passing:</P>
-<p>&ldquo;The message-sending metaphor provides modularity by decoupling the intent of a message (embodied in its name) from the method used by the recipient to carry out the intent. Structural information is similarly protected because all access to the internal state of an object is through this same message interface.&rdquo;</p>
-<P>by using jdon, a aggregate root can act as a mailbox that is a asynchronous and non-blocking event-sending and event-recipient metaphor..see below picture, more details in : <a href="DomainEvents.html" target="_blank">Robot sample</a></P>
-<P><img src="images/m.jpg" width="533" height="446" alt="modularity"></P>
-<P>Event is a better interactive way for aggregate root with each other, instead of directly exposing behavior and hold references to others. and it can better protect root entity's internal state not expose. and can safely modify root's state in non-blocking way.</P>
-<P><img src="images/aggregate.png" width="461" height="452" alt="aggregate root"></P>
-<P><strong>Domain Events(Event Sourcing) for Evans DDD </strong>:</P>
+                    <P><strong>CQRS</strong></P>
+                    <P> Command-query Responsibility Segregation      At its heart is a simple notion that you can use a different model to update information than the model you use to read information. <a href="http://martinfowler.com/bliki/CQRS.html">details</a>.</P>
+                    <P>&nbsp;</P>
+                    <P><strong>Domain Events</strong></P>
+                    <P> <em>Captures the memory of something interesting which affects the domain</em>. <a href="http://martinfowler.com/eaaDev/DomainEvent.html">details</a>, see <a href="http://www.udidahan.com/2008/02/29/how-to-create-fully-encapsulated-domain-models/" rel="bookmark" title="Permanent Link: How to create fully encapsulated Domain Models">How to create fully encapsulated Domain Models</a></P>
+                    <P>&nbsp;</P>
+                    <P>With JdonFramework you can easily develope a <a href="http://martinfowler.com/eaaDev/EventSourcing.html" target="_blank" onMouseDown="return rwt(this,'','','','1','AFQjCNEKPs4mGoA7jGKQ5GogosnIYvkS2A','VBWdcuas7M2MSmMGaC9cGQ','0CE8QFjAA',null,event)"><em>Event Sourcing</em></a> and CQRS system.   in CQRS, by disruptor Jdon can send domain events to <a href="https://twitter.com/search/?src=hash&q=%23rabbitmq" title="#rabbitmq" data-query-source="hashtag_click"><strong>#</strong><strong><strong>rabbitmq</strong></strong></a>and <a href="https://twitter.com/search/?src=hash&q=%23zeromq" title="#zeromq" data-query-source="hashtag_click">#<strong>zeromq</strong></a> - <a href="https://twitter.com/search/?src=hash&q=%23distributed" title="#distributed" data-query-source="hashtag_click">#<strong>distributed</strong></a>.</P>
+                    <P><a href="http://en.wikipedia.org/wiki/Data,_context_and_interaction" target="_blank">DCI:Data Context and Interactions</a>: in a Context, a Role   played by   a Data model   triggers    interaction behavior.</P>
+                    <P><a href="http://web1.udemy.com/blog/object-oriented-programming-a-critical-approach/" target="_blank">Object Oriented Programming: A Critical Approach</a> say: OO is really about message passing:</P>
+                    <p>&ldquo;The message-sending metaphor provides modularity by decoupling the intent of a message (embodied in its name) from the method used by the recipient to carry out the intent. Structural information is similarly protected because all access to the internal state of an object is through this same message interface.&rdquo;</p>
+                    <P>by using jdon, a aggregate root can act as a mailbox that is a asynchronous and non-blocking event-sending and event-recipient metaphor..see below picture, more details in : <a href="DomainEvents.html" target="_blank">Robot sample</a></P>
+                    <P><img src="images/m.jpg" width="533" height="446" alt="modularity"></P>
+                    <P>Event is a better interactive way for aggregate root with each other, instead of directly exposing behavior and hold references to others. and it can better protect root entity's internal state not expose. and can safely modify root's state in non-blocking way.</P>
+                    <P><img src="images/aggregate.png" width="461" height="452" alt="aggregate root"></P>
+                    <P><strong>Domain Events(Event Sourcing) for Evans DDD </strong>:</P>
                     <P>Real domain logic is in the Domain Model,
                       Outside the domain are these adapters, that listen to messages sent by
                       the domain. For instance, the domain could ‘broadcast’ a message(Domain Events) that a
                       new domain object has been created. An appropriate listener receives this
                       message and calls a method on a persistence service. This service knows
                       how to store the object in the database.</P>
-                    <p><iframe src="http://www.slideshare.net/slideshow/embed_code/2881760" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/banq/ddd-framework-for-java-jdonframework-2881760" title="DDD Framework for Java: JdonFramework" target="_blank">DDD Framework for Java: JdonFramework</a> </strong> from <strong><a href="http://www.slideshare.net/banq" target="_blank">Sunny peng</a></strong> </div>
-                   
+                    <p>
+                      <iframe src="http://www.slideshare.net/slideshow/embed_code/2881760" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen> </iframe>
+                    <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/banq/ddd-framework-for-java-jdonframework-2881760" title="DDD Framework for Java: JdonFramework" target="_blank">DDD Framework for Java: JdonFramework</a></strong> from <strong><a href="http://www.slideshare.net/banq" target="_blank">Sunny peng</a></strong></div>
                     <P><strong>  Key  Features:</strong></P>
                     <P>&nbsp;</P>
                     <ol>
-                      <li>
-Domain-Driven Dsign Development, supports in-memory cache model.                    </li>
-                      <li>
-                        Actor model, like ErLang/scala MailBox, based on  LMAX's Disruptor , never blocks ,nothing blocks, concurrent programming;  Event-driven Architecture(EDA); asynchronous programming,concurrency pattern, lazy evaluation.</li>
+                      <li> Domain-Driven Dsign Development, supports in-memory cache model. </li>
+                      <li> Actor model, like ErLang/scala MailBox, based on  LMAX's Disruptor , never blocks ,nothing blocks, concurrent programming;  Event-driven Architecture(EDA); asynchronous programming,concurrency pattern, lazy evaluation.</li>
                       <li>DI and AOP framework, POJO autowiring that implements Dependency Injection, and all components can be replaced, even include the framework itself. introduce any pojo as a inteceptor.</li>
                       <li> Command Query Responsibility Segregation(CQRS/CQS) , support the default implementations for CRUD and   auto paginator for query of large datas .</li>
                       <li><a href="http://en.wikipedia.org/wiki/Lazy_evaluation">Lazy loading or evaluation</a>, a aggregate root   loads its childern objects until them need to use, improving performance  by in-memory cache. memory-consumption-wise</li>
@@ -155,23 +128,22 @@ Domain-Driven Dsign Development, supports in-memory cache model.                
                     <hr>
                     <h3>Getting Started</h3>
                     <p>　　　In Jdon there are two kinds of model: Component and  Model. a Component class is annotated with @Component, and a  Model class is annotated with @Model.</p>
-<p> 　　When a  Model is referenced by  Component, it is a aggregate root, if it is referencedby another model, it is not a aggregate root, maybe normal Entity or Value Object.</p>
-<p>  　　Model instances  live in in-memory cache, and Component instances live in the container that its lifcycle is equal to application scope.</p>
-<p>　　Component can be use to implement DDD's service or other application manager, such as repository or Email sender..</p>
-<p>　　Service (annotated with @Service) is same as Component, their difference is their usage, Service class services for the client, be equals to SOA service.</p>
-<p>　　Jdon provide four kinds of asynchronous concurrency communication(Producer/Consumer) with these two models.</p>
-<p>　　1. Component -----&gt; model</p>
-<p>　　2. model -------&gt;Component</p>
-<p>　　3. Compponent ------&gt; Component</p>
-<p>　　4. model------&gt; model</p>
-<p>　　when a Component/Service sends messages to a Domain Model(aggregate root), in CQRS we call the message is a command, and whe a domain model send message to a Component, we call it reactive  a event. see below:</p>
-<p><img src="images/commandevent.png" alt="command event" width="530" height="300"></p>
-<p>　　a command actions the behavior(startMatch) of a aggregate root(domain model), and a event happend in this behavior, the event will be sent to another aggregate root or a Component that maybe save it to repository.</p>
-<p><img src="images/actor.png" alt="actors model" width="499" height="168"></p>
-<p>details <a href="doc.htm#fourway">here</a></p>
-<h3>&nbsp;</h3>
-<div> </div>
-
+                    <p> 　　When a  Model is referenced by  Component, it is a aggregate root, if it is referencedby another model, it is not a aggregate root, maybe normal Entity or Value Object.</p>
+                    <p> 　　Model instances  live in in-memory cache, and Component instances live in the container that its lifcycle is equal to application scope.</p>
+                    <p>　　Component can be use to implement DDD's service or other application manager, such as repository or Email sender..</p>
+                    <p>　　Service (annotated with @Service) is same as Component, their difference is their usage, Service class services for the client, be equals to SOA service.</p>
+                    <p>　　Jdon provide four kinds of asynchronous concurrency communication(Producer/Consumer) with these two models.</p>
+                    <p>　　1. Component -----&gt; model</p>
+                    <p>　　2. model -------&gt;Component</p>
+                    <p>　　3. Compponent ------&gt; Component</p>
+                    <p>　　4. model------&gt; model</p>
+                    <p>　　when a Component/Service sends messages to a Domain Model(aggregate root), in CQRS we call the message is a command, and whe a domain model send message to a Component, we call it reactive  a event. see below:</p>
+                    <p><img src="images/commandevent.png" alt="command event" width="530" height="300"></p>
+                    <p>　　a command actions the behavior(startMatch) of a aggregate root(domain model), and a event happend in this behavior, the event will be sent to another aggregate root or a Component that maybe save it to repository.</p>
+                    <p><img src="images/actor.png" alt="actors model" width="499" height="168"></p>
+                    <p>details <a href="doc.htm#fourway">here</a></p>
+                    <h3>&nbsp;</h3>
+                    <div> </div>
                     <hr>
                     <H3>Blog</H3>
                     <p><a href="match.html">DDD CQRS EventSourcing example source: football Match</a></p>
@@ -181,49 +153,31 @@ Domain-Driven Dsign Development, supports in-memory cache model.                
                     <p><a href="Immutability.html">Immutability is Easy </a></p>
                     <p><a href="non-blocking.html">how to easily develop a non-blocking concurrent application ? </a></p>
                     <p>&nbsp;</p>
-<H4>History</H4>
+                    <h3>History</h3>
                   </DIV>
                   <DIV 
 style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; MARGIN-LEFT: 0px; BORDER-RIGHT-WIDTH: 2px">
                     <P>Jdon framework  was submitted to sf.net in Dec 2004.
-                    and release a stable and mature version in JUN 2005. until Jdon Framework 6.2 released in 2009, JF is truly stableDDD framework for java. </P>
-                    <h4>Others resources                    </h4>
-                    <p><a href="http://www.javacodegeeks.com/2013/06/the-biggest-flaw-of-spring-web-applications.html" title="Permalink to The Biggest Flaw of Spring Web Applications" target="_blank" rel="bookmark">The Biggest Flaw of Spring Web Applications</a>                    </p>
-                    <p><a href="http://www.javacodegeeks.com/2012/08/single-writer-principle.html">Single Writer Principle</a>                    </p>
-                    <p><a href="http://www.reactivemanifesto.org/" target="_blank">The Reactive Manifesto</a></p>
-                    <p><a href="http://www.slideshare.net/jeppec/what-soa-eda-and-cqrs-version" target="_blank">What do your SOA have</a>?</p>
-                    <p><a href="http://books.google.com/books?id=X7DpD5g3VP8C&pg=PT9&hl=zh-CN&source=gbs_toc_r#v=onepage&q&f=false" target="_blank">Book Review: Implementing Domain-Driven Design</a></p>
-<p><a href="http://msdn.microsoft.com/en-us/library/jj554200.aspx" target="_blank">MSDN:DDD+CQRS</a></p>
+                      and release a stable and mature version in JUN 2005. until Jdon Framework 6.2 released in 2009, JF is truly stableDDD framework for java. </P>
+                      <h3>Contact</h3>
+                       <a href="https://twitter.com/jdonframework" target="_blank"><strong>@jdonframework</strong></a>
+                    <h4>&nbsp;</h4>
                   </DIV>
-                  <DIV 
-style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; MARGIN-LEFT: 0px; BORDER-RIGHT-WIDTH: 2px"></DIV>
-                  <!-- 
-		<section>
-			<title>News and events</title>
-			<ul>
-				<li>
-					<link href="http://apachecon.com/2003/US/index.html">
-						<img src="http://jakarta.apache.org/images/logos/ac2003-150.gif" alt="apachecon 2003 logo" width="150" height="86"/>
-					</link>
-					<link href="http://apachecon.com/2003/US/index.html">ApacheCon US 2003</link>
-			          (16-19 November 2003) is now open for registration. ApacheCon is
-			          the conference for all things Apache. Come along and learn about
-			          a range of new technologies, meet some Apache folks and share
-			          the knowledge. David Bau is scheduled to speak about XMLBeans 
-			          on Monday, Nov 17 from 2:30 to 3:30 
-			          (<link href="http://apachecon.com/2003/US/html/sessions.html">ApacheCon Schedule</link>).
-			        </li>
-			</ul>
-		</section>
-		-->
-        <a href='http://www.pledgie.com/campaigns/18602'><img alt='Click here to lend your support to: Jdonframework and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/18602.png?skin_name=chrome' border='0' /></a>
-                  <p>contact me: banQ<img src="images/email23ghsd486-(%5Ek.gif">163.com or twiiter:<a href="https://twitter.com/jdonframework" target="_blank"> @jdonframework  </a> or <a href="https://github.com/banq/jdonframework" target="_blank">GitHub </a></p>
-                  <p>&nbsp;</p>
-                <!-- #EndEditable -->
+                  <h1 align="center">&nbsp;</h1> 
+                  <div class="adsensf" id="vgad336x">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- 页上左336 -->
+                    <ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7573657117119544"
+     data-ad-slot="6751585519"></ins>
+                    <script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+                  </script>
+                  </div>
+                   <!-- #EndEditable -->
                  
-			    </td>
-              </tr>
-            </table>			
+			  	
           </td>
 		  <td width="340" valign="top"  bgcolor="#FFFFD7"> 
           <div class="adsensf" id="vgad336x280">
@@ -245,11 +199,8 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
 </div>         
-   </td>
-      </tr>
-    </table></td>
+ </td>
   </tr>
 </table>
 
@@ -261,12 +212,30 @@ style="BORDER-TOP-WIDTH: 2px; BORDER-LEFT-WIDTH: 2px; BORDER-BOTTOM-WIDTH: 2px; 
 </table>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
 <tr><td height="20" bgcolor="#CAC9BB" align="center">
-  <p><span class="small"><font color="#555555"><br>
-  </font></span></p>
+  
   </td>
 </tr>
 </table>
-<br>
+ </div>
+</div><!-- /.container -->
+
 <!-- InstanceBeginEditable name="EditRegion3" --><!-- InstanceEndEditable -->
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+<!-- AddThis Smart Layers BEGIN -->
+<!-- Go to http://www.addthis.com/get/smart-layers to customize -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52c4b79515624135"></script>
+<script type="text/javascript">
+  addthis.layers({
+    'theme' : 'transparent',
+    'share' : {
+      'position' : 'left',
+      'numPreferredServices' : 5
+    },  
+    'whatsnext' : {},  
+    'recommended' : {} 
+  });
+</script>
+<!-- AddThis Smart Layers END -->    
 </body>
 <!-- InstanceEnd --></html>

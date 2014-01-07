@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en"><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+<!-- #BeginEditable "doctitle" -->
+<title>a DDD example of container truck management system</title>  
+<!-- #EndEditable -->
+<!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
+    <!-- Bootstrap core CSS -->
+     <link rel="stylesheet" href="css/bootstrap.min.css">   
+
+    <!-- Custom styles for this template -->
+    <link href="css/starter-template.css" rel="stylesheet">
+
+   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->    
+  </head>
+<body>
+ <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">Jdon Framework</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+                <li class="active"><a href="index.html">Home</a></li>
+               <li><a href="https://sourceforge.net/projects/jdon/files/">Download</a></li>
+               <li><a href="doc.htm" >Document</a></li>
+               <li><a href="quickconf.html">Qucik Start</a> </li>
+               <li><a href="examples.html">Examples</a></li>
+               <li ><a href="https://github.com/banq/jdonframework">Github</a></li>
+               <li><a href="articles.html">Articles</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    
+
+    <div class="container">
+     <div class="starter-template">     
+    
+ <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">  
+  <tr>     
+    <td bgcolor="#FFFFFF"  valign="top" align="left">
+
+                  
+				<!-- #BeginEditable "main" --> 
+                  <h1>A DDD example of container truck management system</h1>
+                  <p>&nbsp;</p>
+                  <p> 　　　This is a consulting DDD case for a shanghai transportation company(shanghai Yangshan harbor which is maximum harbour in the world) ,this paper  shows some processes and ideas of analysis and design.</p>
+                  <p>&nbsp;</p>
+                  <h3>Requirement</h3>
+                  <p>&nbsp;</p>
+                  <p>I. Background<br>
+                  　　Improve vehicle utilization and fleet efficiency, improve the efficiency of yard operations , improve the management level of intelligent fleet and reduce costs.</p>
+                  <p>&nbsp;</p>
+                  <p>II. functional requirements</p>
+                  <p>  　　Dispatch center manages all tasks, monitor task execution status and improve the rationality of distributed tasks , reduce human error rates and unreasonable truck
+                  cost.</p>
+                  <p>　　Can be embedded GPS monitoring, according to the vehicle transport tasks, you can display information corresponding vehicle GPS monitoring system,</p>
+                  <p>　　                  SMS can achieve vehicle tasks distributed before each task execution task messages can be sent to the driver's cell phone .</p>
+                  <p>　　The driver can reply different information indicates that the task execution , the system promptly modify the current state of the driver and the vehicle based on the replies received</p>
+                  <p>　　</p>
+                  <h3>Understand requirement</h3>
+                  <p>&nbsp;</p>
+                  <p>　　According to the requirements document , the first project from the beginning to understand the flow chart positioning throughout a large system ,</p>
+                  <p>　　Route planning is so important for transportation company, it has set up a two-stage designer:</p>
+                  <ul>
+                    <li> first level designer responsibility :dispatch   and assigned received tasks to specific transport container fleet. </li>
+                    <li>second level designer responsibility  :according to container's geographical  situation and then assign specific tasks to the truck driver and  then truck driver transits the container to the customer.</li>
+                    <li></li>
+                  </ul>
+                  <h3>Modeling</h3>
+                  <p>&nbsp;</p>
+                  <p><span left-pos="0|9" right-pos="0|9" space="">　　The use case diagram</span><span left-pos="15|3" right-pos="15|3" space="0| "> can be </span><span left-pos="18|6" right-pos="18|6" space="0| ">used to</span><span left-pos="24|6" right-pos="24|6" space="0| "> find out the</span><span left-pos="9|6" right-pos="9|6" space="0| "> basic</span><span left-pos="30|6" right-pos="30|6" space="0| "> requirements,</span><span left-pos="36|9" right-pos="36|9" space="0| "></span> the company's managers have their own understanding for the requirements, they will mislead our analysis. in this system , &quot;Task&quot; may be our focus, because task is managers's focus, but it is not domain melody, not  a aggregate root entity.</p>
+                  <p>　　At first we regarded a  task as a root entity, <span left-pos="87|6" right-pos="87|6" space="0| ">a entity</span><span left-pos="93|3" right-pos="93|3" space="0| "> should have a</span><span left-pos="96|12" right-pos="96|12" space="0| "> unique identifier</span><span left-pos="108|3" right-pos="108|3" space="">,</span> what is unique identifier of task? task's time or task's no.? what is important for a task? after discussion <span left-pos="168|12" right-pos="168|12" space="0| ">we found the task</span><span left-pos="180|15" right-pos="180|15" space="0| "> main core is</span><span left-pos="195|6" right-pos="195|6" space="0| "> planning</span><span left-pos="201|15" right-pos="201|15" space="0| "> a vehicle running</span><span left-pos="216|6" right-pos="216|6" space="0| "> route</span>. </p>
+                <p> 　　Next step, we according below method to check if &quot;Task &quot; is fit for requirement functions:</p>
+                  <p><img src="images/ces.png" width="630" height="357" alt="ces"></p>
+                  <p>&nbsp;</p>
+                  <p>　　Task is the Entity, it should has a state that can be changed by user's command, in a dreiver arrived container inventory, he send loading a container event to system, the loading event will modify the state of the task, but Task's state should be planning or running or finished, the loading event change which state of them?</p>
+                  <p>　　At last, we realize business <span left-pos="51|6" right-pos="51|6" space="0| " tabcount="-1">cohesion</span><span left-pos="57|6" right-pos="57|6" space="0| "> </span><span left-pos="99|3,81|9" right-pos="99|3,81|9" space="0| "> is the</span><span left-pos="102|3" right-pos="102|3" space="0| "> "</span><span left-pos="105|3" right-pos="105|3" space="0| ">truck</span><span left-pos="108|3" right-pos="108|3" space="0| ">"</span> entity, it should be aggregate root, truck's route specification is main core of a task. task only a explicit output for tracing truck's route planning and transport process.</p>
+                  <p><img src="http://www.jdon.com/simgs/idea/truck.png" alt=""/></p>
+                  <p>&nbsp;</p>
+                  <h3>Implemention</h3>
+                  <p>　　After we get the domain model, we can use jdonframework to implements it. programmer's codes include: repository implemention (such as mysql), and UI implemention(Angular.js and mobile app.)</p>
+                  <p>&nbsp;</p>
+                  <p>&nbsp;</p>
+                  <div class="adsensf" id="vgad336x">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- 页上左336 -->
+                    <ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7573657117119544"
+     data-ad-slot="6751585519"></ins>
+                    <script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+                  </script>
+                  </div>
+          <!-- #EndEditable -->
+                 
+			  	
+          </td>
+		  <td width="340" valign="top"  bgcolor="#FFFFD7"> 
+          <div class="adsensf" id="vgad336x280">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 页上左336 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7573657117119544"
+     data-ad-slot="6751585519"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 页上左336 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7573657117119544"
+     data-ad-slot="6751585519"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>         
+ </td>
+  </tr>
+</table>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000"  align="center">
+              <tr>
+                <td></td>
+              </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td height="20" bgcolor="#CAC9BB" align="center">
+  
+  </td>
+</tr>
+</table>
+ </div>
+</div><!-- /.container -->
+
+<!-- InstanceBeginEditable name="EditRegion3" --><!-- InstanceEndEditable -->
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+<!-- AddThis Smart Layers BEGIN -->
+<!-- Go to http://www.addthis.com/get/smart-layers to customize -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52c4b79515624135"></script>
+<script type="text/javascript">
+  addthis.layers({
+    'theme' : 'transparent',
+    'share' : {
+      'position' : 'left',
+      'numPreferredServices' : 5
+    },  
+    'whatsnext' : {},  
+    'recommended' : {} 
+  });
+</script>
+<!-- AddThis Smart Layers END -->    
+</body>
+<!-- InstanceEnd --></html>

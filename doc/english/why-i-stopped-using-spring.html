@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,9 +7,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 <!-- #BeginEditable "doctitle" -->
-<title>Jdon Framework</title>  
+<title>Why I stopped using Spring</title>  
 <!-- #EndEditable -->
-<!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
     <!-- Bootstrap core CSS -->
      <link rel="stylesheet" href="css/bootstrap.min.css">   
 
@@ -38,11 +38,11 @@
           <ul class="nav navbar-nav">
                 <li class="active"><a href="index.html">Home</a></li>
                <li><a href="https://sourceforge.net/projects/jdon/files/">Download</a></li>
-               <li><a href="../doc.htm" >Document</a></li>
-               <li><a href="../quickconf.html">Qucik Start</a> </li>
-               <li><a href="../examples.html">Examples</a></li>
+               <li><a href="doc.htm" >Document</a></li>
+               <li><a href="quickconf.html">Qucik Start</a> </li>
+               <li><a href="examples.html">Examples</a></li>
                <li ><a href="https://github.com/banq/jdonframework">Github</a></li>
-               <li><a href="../articles.html">Articles</a></li>
+               <li><a href="articles.html">Articles</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -58,9 +58,19 @@
 
                   
 				<!-- #BeginEditable "main" --> 
-                  <h1>标题</h1>
-                  <p><a href="http://verraes.net/2014/01/domain-driven-design-is-linguistic/">original url</a></p>
-                  <p>　　</p>
+                  <h1>Why I stopped using Spring</h1>
+                  <p><a href="http://johannesbrodwall.com/2013/12/09/why-i-stopped-using-spring/">original url</a></p>
+                  <p>by <a href="http://johannesbrodwall.com/author/admin-2/" title="View all posts by Johannes Brodwall">JOHANNES BRODWALL</a> posted on <a href="http://johannesbrodwall.com/2013/12/09/why-i-stopped-using-spring/" title="07:51" rel="bookmark">DECEMBER 9, 2013</a></p>
+                  <p>　　My post on <a href="http://architects.dzone.com/articles/humble-architects" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://architects.dzone.com']);">DZone about Humble Architects</a> sparked somewhat of a controversy, especially around my disparaging comments regarding Spring and Dependency Injection Frameworks. In this post, I expand on why I stopped using Spring.</p>
+                  <p>I was one of the earliest adopter of Spring in Norway. We developed a large system where we eventually had to start thinking about things like different mechanisms for reuse of XML configuration. Eventually, this evolved into the @Autowire and component-scan which took away the problem with huge configuration files, but in return reduced the ability to reason about the whole source code – instead isolating developers in a very small island in the application.</p>
+                  <p>The applications tended to blossom in complexity as either the culture, the tool, the documentation or something else made developers build unnecessary layer upon unnecessary layer.</p>
+                  <p>Later, I tried to build applications without a Dependency Injection framework, but taking with me the lessons about when to use &ldquo;new&rdquo;, when to have a setter or a constructor argument and which types were good to use as dependencies and which created coupling to infrastructure.</p>
+                  <p>So I found that some of the instincts that the DI container had given me made me improve the design, but at the same time, I found that when I removed the container, the solution became smaller (which is good!), easier to navigate and understand and easier to test.</p>
+                  <p>This leaves me with a dilemma. I found that the cost of using the container is very high – it creates a force towards increasing complexity and size and reduced coherence. But at the same time, it taught me some good design skills as well.</p>
+                  <p>In the end, creating a coherent, small system is to me of much higher value than to create one that is decoupled just for the sake of decoupling. Coherence and decoupling are opposing forces and I side with coherence.</p>
+                  <p>At the same time, I found that the culture around dependency injection has a very strong preference for reuse. But reuse does introduce coupling. If module A reuses module B, module A and B are coupled. A change in B might affect A for better (a bug fix) or worse (an introduced bug). If the savings from the reuse are high, this is a trade-off worth making. If the savings are low – it is not.</p>
+                  <p>So reuse and decoupling are opposing forces. I find myself siding with decoupling.</p>
+                  <p>When there is a conflict, I value coherence over decoupling and decoupling over reuse. The culture where Spring is in use seems to have opposite values.</p>
                   <p>&nbsp;</p>
                   <div class="adsensf" id="vgad336x">
                     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -117,7 +127,7 @@
  </div>
 </div><!-- /.container -->
 
-<!-- TemplateBeginEditable name="EditRegion3" --><!-- TemplateEndEditable -->
+<!-- InstanceBeginEditable name="EditRegion3" --><!-- InstanceEndEditable -->
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 <!-- AddThis Smart Layers BEGIN -->
@@ -136,4 +146,4 @@
 </script>
 <!-- AddThis Smart Layers END -->    
 </body>
-</html>
+<!-- InstanceEnd --></html>

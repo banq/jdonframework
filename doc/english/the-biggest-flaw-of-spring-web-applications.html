@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en"><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+<!-- #BeginEditable "doctitle" -->
+<title>The Biggest Flaw of Spring Web Applications</title>  
+<!-- #EndEditable -->
+<!-- InstanceBeginEditable name="head" --><!-- InstanceEndEditable -->
+    <!-- Bootstrap core CSS -->
+     <link rel="stylesheet" href="css/bootstrap.min.css">   
+
+    <!-- Custom styles for this template -->
+    <link href="css/starter-template.css" rel="stylesheet">
+
+   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->    
+  </head>
+<body>
+ <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">Jdon Framework</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+                <li class="active"><a href="index.html">Home</a></li>
+               <li><a href="https://sourceforge.net/projects/jdon/files/">Download</a></li>
+               <li><a href="doc.htm" >Document</a></li>
+               <li><a href="quickconf.html">Qucik Start</a> </li>
+               <li><a href="examples.html">Examples</a></li>
+               <li ><a href="https://github.com/banq/jdonframework">Github</a></li>
+               <li><a href="articles.html">Articles</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    
+
+    <div class="container">
+     <div class="starter-template">     
+    
+ <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">  
+  <tr>     
+    <td bgcolor="#FFFFFF"  valign="top" align="left">
+
+                  
+				<!-- #BeginEditable "main" --> 
+                  <h1><strong>The Biggest Flaw of Spring Web Applications</strong></h1>
+                  <p><a href="http://www.javacodegeeks.com/2013/06/the-biggest-flaw-of-spring-web-applications.html">original url</a></p>
+                  <p>　　The developers who are using Spring Framework in their applications are good to talk about the benefits of <a href="http://www.martinfowler.com/articles/injection.html" target="_blank" rel="external nofollow" title="">dependency injection</a>. Unfortunately, they are not so good to leverage its benefits such as the <a href="http://en.wikipedia.org/wiki/Single_responsibility_principle" target="_blank" rel="external nofollow" title="">single responsible principle</a> and <a href="http://en.wikipedia.org/wiki/Separation_of_concerns" target="_blank" rel="external nofollow" title="">separation of concerns</a> in their applications. If we take a look at any Spring powered web application, the odds are that the application is implemented by using these common and equally erroneous design principles:</p>
+                  <ol>
+                    <li>The domain model objects are used only to store the data of the application. In other words, the domain model follows <a href="http://www.martinfowler.com/bliki/AnemicDomainModel.html" target="_blank" rel="external nofollow" title="">the anemic domain model anti-pattern</a>.</li>
+                    <li>The business logic lies in the service layer which manages the data of the domain objects.</li>
+                    <li>The service layer has one service class per each entity of the application.</li>
+                  </ol>
+                  <p>The question is: If this is so common, how can it be wrong? Let&rsquo;s find out.</p>
+                  <h2>Old Habits Die Hard</h2>
+                  <p>The reason why Spring web applications look this way is that this is the way things have always been done, and old habits die hard, especially if they are enforced by senior developers or software architects. The problem is that these people are very good at defending their opinions. One of their favourite arguments is that our application follows the separation of concerns principle because it has been divided into several layers and each layer has specific responsibilities.</p>
+                  <p>A typical Spring web application has the following layers:</p>
+                  <ul>
+                    <li><strong>The web layer</strong> which is responsible of processing user&rsquo;s input and returning the correct response back to the user. The web layer communicates only with the service layer.</li>
+                    <li><strong>The service layer</strong> which acts as a transaction boundary. It is also responsible of authorization and contains the business logic of our application. The service layer manages the domain model objects and communicates with other services and the repository layer.</li>
+                    <li><strong>The repository / data access layer</strong> which is responsible of communicating with the used data storage.</li>
+                  </ul>
+                  <p>The separation of concerns principle is defined as follows:</p>
+                  <p>Separation of concerns (Soc) is a design principle for separation a computer program into distinct sections, such that each section addresses a separate concern. Although it is true that a typical Spring web application follows this principle in some level, the reality is that the application has a monolithic service layer which has too many responsibilities. To be more specific, the service layer has two major problems:</p>
+                  <h4>First, the business logic of the application is found from the the service layer.</h4>
+                  <p>This is a problem because the business logic is scattered around the service layer. If we need to check how a certain business rule is implemented, we have to find it first. This might not be easy. Also, if the same business rule is needed in multiple service classes, the odds are that the rule is simply copied from one service to another. This leads into a maintenance nightmare.</p>
+                  <h4>Second, the service layer has one service class per each domain model class.</h4>
+                  <p>This violates the single responsibility principle which is defined as follows: The single responsibility principle states that every class should have a single responsibility, and that responsibility should be entirely encapsulated by the class. All its services should be narrowly aligned with that responsibility.</p>
+                  <p>The service classes have a lot of dependencies and a lot of <a href="https://en.wikipedia.org/wiki/Circular_dependency" target="_blank" rel="external nofollow" title="">circular dependencies</a>. The service layer of a typical Spring web application does not consist of <a href="http://en.wikipedia.org/wiki/Loose_coupling" target="_blank" rel="external nofollow" title="">loosely coupled</a> services which have only one responsibility. It is a more like a net of tightly coupled and monolithic services. This makes is it hard to understand, maintain and reuse. This might sound a bit harsh but the service layer is often the most problematic part of a Spring web application. Luckily for us, all hope is not lost.</p>
+                  <h2>Breaking Free</h2>
+                  <p>The current situation is bad, but it is not totally hopeless. Let&rsquo;s find out how we can break free from old habits.</p>
+                  <p><strong>First, we have to move the business logic of our application from the service layer to the domain model classes.</strong></p>
+                  <p>The reason why this make sense should be clear to us if we think of the following example:</p>
+                  <p>Let&rsquo;s assume that I am a service class and you are a domain model object. If a tell you to jump off from a roof, would you prefer to have a veto right to my decision?</p>
+                  <p>Moving the business logic from the service layer to the domain model classes gives us three advantages:</p>
+                  <ol>
+                    <li>The responsibilities of our code are divided in a logical way. The service layer takes care of the application logic and our domain model classes takes care of the business logic.</li>
+                    <li>The business logic of our application is found from a single place. If we need to verify how a specific business rule is implemented, we always know where to look for.</li>
+                    <li>The source code of the service layer is cleaner and does not contain any copy paste code.</li>
+                  </ol>
+                  <p><strong>Second, we have to divide the entity specific services into smaller services which serves only a single purpose.</strong></p>
+                  <p>For example, if our application has a single service class which provides CRUD operations for persons and operations related to user accounts, we should divide it into two separate service classes:</p>
+                  <ul>
+                    <li>The first service provides CRUD operations for persons.</li>
+                    <li>The second service provides operations related to user accounts.</li>
+                  </ul>
+                  <p>This gives us three big advantages:</p>
+                  <ol>
+                    <li>Each service class has a logical set of responsibilities.</li>
+                    <li>Each service class has less dependencies which means that they are no longer tightly coupled giants. They are smaller and loosely coupled components.</li>
+                    <li>The service classes are easier to understand, maintain and reuse.</li>
+                  </ol>
+                  <p>These two simple steps will help us to clean up the architecture of our application, and increase the productivity and happiness of our fellow developers.</p>
+                  <p>Now, we might be wondering if all this is really necessary and if so, when it is critical to address these issues?</p>
+                  <h2>Sometimes Life Is Black and White</h2>
+                  <p>I have often heard an argument which states that we should not pay much attention to the &ldquo;architecture&rdquo; because our application is small and simple. Although this argument has some truth in it, we must remember that a <a href="http://www.petrikainulainen.net/software-development/processes/there-are-no-small-projects/" rel="external nofollow" title="" target="_blank">project which starts small can grow into something much bigger</a>.</p>
+                  <p>If we don&rsquo;t take this into account when it happens, we are screwed.</p>
+                  <p>Sailing in uncharted waters might sound like a bad idea but we must remember that Titanic was sailing in a familiar route when it was hit by an iceberg which sank it. This same thing might be happening to our application right now.</p>
+                  <p>We must have the courage to yell <strong>STOP</strong> when things are getting out of control.</p>
+                  <p>P.S. If you are ready to take the red pill, I recommend that you read <a href="http://www.olivergierke.de/2013/01/whoops-where-did-my-architecture-go/" target="_blank" rel="external nofollow" title="">Whoops! Where did my architecture go</a> by Olivier Gierke (or watch his <a href="http://www.youtube.com/watch?v=tEm0USdF-70" target="_blank" rel="external nofollow" title="">SpringOne2GX presentation about the same subject</a>). But beware, the rabbit hole goes much deeper than you think.</p>
+                  <p>&nbsp;</p>
+                  <div class="adsensf" id="vgad336x">
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- 页上左336 -->
+                    <ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7573657117119544"
+     data-ad-slot="6751585519"></ins>
+                    <script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+                  </script>
+                  </div>
+                  <!-- #EndEditable -->
+                 
+			  	
+          </td>
+		  <td width="340" valign="top"  bgcolor="#FFFFD7"> 
+          <div class="adsensf" id="vgad336x280">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 页上左336 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7573657117119544"
+     data-ad-slot="6751585519"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 页上左336 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:336px;height:280px"
+     data-ad-client="ca-pub-7573657117119544"
+     data-ad-slot="6751585519"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>         
+ </td>
+  </tr>
+</table>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" height="2" bgcolor="#000000"  align="center">
+              <tr>
+                <td></td>
+              </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td height="20" bgcolor="#CAC9BB" align="center">
+  
+  </td>
+</tr>
+</table>
+ </div>
+</div><!-- /.container -->
+
+<!-- InstanceBeginEditable name="EditRegion3" --><!-- InstanceEndEditable -->
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+<!-- AddThis Smart Layers BEGIN -->
+<!-- Go to http://www.addthis.com/get/smart-layers to customize -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52c4b79515624135"></script>
+<script type="text/javascript">
+  addthis.layers({
+    'theme' : 'transparent',
+    'share' : {
+      'position' : 'left',
+      'numPreferredServices' : 5
+    },  
+    'whatsnext' : {},  
+    'recommended' : {} 
+  });
+</script>
+<!-- AddThis Smart Layers END -->    
+</body>
+<!-- InstanceEnd --></html>

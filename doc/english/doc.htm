@@ -1,74 +1,81 @@
-<html><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
-<head>
+<!DOCTYPE html>
+<html lang="en"><!-- InstanceBegin template="/Templates/MainTemplate.dwt" codeOutsideHTMLIsLocked="false" -->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 <!-- #BeginEditable "doctitle" -->
 <title>Jdon Framework document</title>  
 <!-- #EndEditable -->
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
-<link rel="shortcut icon" href="http://www.jdon.com/favicon.ico">
 <!-- InstanceBeginEditable name="head" -->
-
--->
-</style>
 <!-- InstanceEndEditable -->
-<link href="views.css" rel="stylesheet" type="text/css">
-</head>
-<body bgcolor="#dddddd" text="#000000">
- <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+    <!-- Bootstrap core CSS -->
+     <link rel="stylesheet" href="css/bootstrap.min.css">   
 
-  <tr> 
-    <td height="11" colspan="7" bgcolor="#FFFFFF" class="bianxian"> 
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" height="1" bordercolor="#000000">
-        <tr> 
-          <td> 
-            <table width="100%" border="0" cellspacing="0" cellpadding="0" height="200" bgcolor="#000000" background="images/background.jpg">
-              <tr> 
-                <td></td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-  <tr> 
+    <!-- Custom styles for this template -->
+    <link href="css/starter-template.css" rel="stylesheet">
+
+   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->    
+  </head>
+<body>
+ <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">Jdon Framework</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+                <li class="active"><a href="index.html">Home</a></li>
+               <li><a href="https://sourceforge.net/projects/jdon/files/">Download</a></li>
+               <li><a href="doc.htm" >Document</a></li>
+               <li><a href="quickconf.html">Qucik Start</a> </li>
+               <li><a href="examples.html">Examples</a></li>
+               <li ><a href="https://github.com/banq/jdonframework">Github</a></li>
+               <li><a href="articles.html">Articles</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
     
-    <td bgcolor="#FFFFFF"  valign="top">
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr> 
-          <td valign="top" width="100"><table width="100%" border="0" cellspacing="0" cellpadding="3" height="200" align="center">
-      <tr>
-        <td align="right"><table width="100%" height="200" border="0" align="center" cellpadding="3" cellspacing="0" dwcopytype="CopyTableCell">
-            <tr>
-              <td align="left"  valign="top"><p align="center"><img src="images/jdone.gif" width="120" height="60" border="0"></p>
-                  <p ><B><a href="https://sourceforge.net/projects/jdon/files/" target="_blank">Download</a></B>                  </p>
-                  <p ><B><a href="doc.htm" target="_blank">Document</a></B></p>
-                  <p ><a href="quickconf.html"><strong>Qucik Start</strong></a> </p>
-                  <p ><a href="https://github.com/banq/jdonframework/tree/master/example" target="_blank"><strong>Examples</strong></a></p>
-                  <p ><a href="https://github.com/banq/jdonframework"><strong>Github</strong></a></p>
-<p ><B><a href="http://sourceforge.net/projects/jdon/files/jivejdon/4.x/" target="_blank">jivejdon</a></B></p>
-                  <p ><a href="http://code.google.com/p/jdonmvc/downloads/list"><strong>JdonMVC</strong></a></p>
-                  <p ><a href="http://www.jdon.com/jdonframework/"><strong>Jdon中文</strong></a></p>
-<p >&nbsp;</p>
 
-<p >Twitter:
-  <br >
-  <a href="https://twitter.com/jdonframework" target="_blank"><strong>@jdonframework</strong></a></p>
-                  <!-- InstanceBeginEditable name="Menu" --> <!-- InstanceEndEditable --> </td>
-            </tr>
-        </table></td>
-        </tr>
-      </table></td>
-         
-          <td valign="top" > 
-            <table width="100%" border="0" cellspacing="2" cellpadding="2">
-              <tr>
-                <td>
+    <div class="container">
+     <div class="starter-template">     
+    
+ <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">  
+  <tr>     
+    <td bgcolor="#FFFFFF"  valign="top" align="left">
+
                   
 				<!-- #BeginEditable "main" --> 
                   <h1 align="center">Jdon Framework Document </h1>
                  
-                    <p> Before  Domain-Driven Design(DDD) appears , business logic was directly implemented by  technical component , such as  a service or a action and so on. these model objects were all anaemia model (<a href="http://www.javacodegeeks.com/2013/06/the-biggest-flaw-of-spring-web-applications.html" title="Permalink to The Biggest Flaw of Spring Web Applications" target="_blank" rel="bookmark">The Biggest Flaw of Spring Web Applications</a>), anaemia model just is a data collection, and Service   components drive the anaemia models to complete some business logics. this model was called &quot;Transaction script&quot;.</p>
+                    <p><strong>Table of Contents</strong></p>
+                <ul>
+                      <li><a href="#intro"> Introduction</a></li>
+                      <li><a href="#inmemory">In Memory Domain model </a></li>
+                      <li><a href="#CommandEvent">Command and Event</a></li>
+                      <li><a href="#fourway">Producer/Consumer</a></li>
+                      <li><a href="#dci">DCI</a></li>
+                      <li><a href="#aop">AOP</a></li>
+                      <li><a href="#Ioc">IOC Container</a><br>
+                        <br>
+                      </li>
+                </ul>
+                    <p>&nbsp; </p>
+                    <p><a id="intro"></a></p>
+                    <p>Before  Domain-Driven Design(DDD) appears , business logic was directly implemented by  technical component , such as  a service or a action and so on. these model objects were all anaemia model (<a href="http://www.javacodegeeks.com/2013/06/the-biggest-flaw-of-spring-web-applications.html" title="Permalink to The Biggest Flaw of Spring Web Applications" target="_blank" rel="bookmark">The Biggest Flaw of Spring Web Applications</a>), anaemia model just is a data collection, and Service   components drive the anaemia models to complete some business logics. this model was called &quot;Transaction script&quot;.</p>
                     <p>                      Domain-driven design (DDD)  is different from traditional script. all domain logics are in Domain model, Domain model drives  technical components to do technical something that not about business, domain model is like DNA. </p>
                     <p>So DDD architecture can focus on  business domain model that is easy  to understand, in the mean time, domain model also makes  our software systems more scalable,and be better performance.</p>
 
@@ -90,7 +97,9 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 </div>          
-                    <h2> In Memory Domain model </h2>
+                    <h2><a name="inmemory" id="inmemory"></a> </h2>
+                    <p>&nbsp;</p>
+                    <h2>In Memory Domain model </h2>
                     <p>domain model  mainly includes the Entity,Value  Object and Service that all focus on the  business domain,it is nothing to do with the concrete technical  implementation. but we need let them living in the technical  system.</p>
                     <p>In Jdon Framework, these domain models are marked with the @Model  annotation, so they are in memory and     send asynchronous events or message to the consumers .</p>
                     <p><img src="images/domainevents.png" width="606" height="349" alt="de"></p>
@@ -132,6 +141,7 @@
                   <p>myModel object is actual proxy instance that created by our interceptor &quot;modelCache&quot;, when you first times got it, &quot;modelCache&quot; will locate it in Cache, if miss it will load it from your repository, if hit it directly return the myModel.</p>
                   <p>when you got a myModel, you can invoke its any methods, but if you call a method with(@Oncommand), it is different with direct method invoking.</p>
                   <p>&nbsp;</p>
+                  <p><a id="CommandEvent"></a></p>
                   <p>&nbsp;</p>
                   <h2>Command and Event</h2>
                   <p> Command or Event is a communication way between domain model and components, at first we need know how much components type there are in jdon.</p>
@@ -263,6 +273,7 @@ public class AggregateRootA {</p>
                     <p>wo can use domain events to model the requirement, see <a href="ces.html"><strong>CES:Context Event and State</strong></a></p>
                     <p>and <a href="http://www.slideshare.net/ziobrando/model-storming-a-different-approach-to-collaborative-model-discovery-vilnius-edition" target="_blank">Model Storming</a></p>
                     <p><a name="fourway"></a></p>
+                    <p>&nbsp;</p>
                     <h2>Producer/Consumer</h2>
                     <p>Jdon provide four kinds of asynchronous concurrency communication(Producer/Consumer) with these two models.</p>
                     <p>　　1. Component -----&gt; model (that is a Command)</p>
@@ -566,6 +577,8 @@ public class AggregateRootA {</p>
                     <p>　　3.the command will be sent to Aggrgate root B (component --&gt;model)</p>
                     <p>　　this mode's source code is in Github: <a href="https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/cqrs" target="_blank">https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/cqrs</a></p>
                     <p>&nbsp;</p>
+                    <p><a id="dci"></a></p>
+                    <p>&nbsp;</p>
 <h2>DCI</h2>
 <p>DCI: Data, Context, Interactions is a programming paradigm invented by Trygve Reenskaug. the domain model is a Data, the domain events producer is a Role of DCI, it includes the interactions of DCI. </p>
 <p>Jdon Framework's domain model injection function can inject the role into the domain model, such as above the class UserDomainEvents is a Role, it can be injected into the model UserModel.so it help UserModel implements business function ComputeCount. In runtime, The Role UserDomainEvents will be injected into the Data UserModel.<br>
@@ -573,15 +586,49 @@ public class AggregateRootA {</p>
   <a href="http://jivejdon.blogspot.com/2011/09/ddd-dci-and-domain-events-example.html"><strong>DDD DCI and Domain Events example</strong></a> </p>
 <p><br> 
   DCI Example:<a href="http://code.google.com/p/jivejdon/downloads/detail?name=SimpleJdonFrameworkTest.rar&amp;can=2&amp;q=">SimpleJdonFrameworkTest.rar</a> </p>
+<p>&nbsp;</p>
+<p><a id="aop"></a></p>
+<p>&nbsp;</p>
 <h2>AOP</h2>
                     <p>Using the  DDD,It is the domain models drive the  technical components to finish the business logics,and in this design style,the  components are just the assistants,which assist the domain models to complete  the business operations.So how the domain models gain the needed  components,Jdon framework use the @Inject and @Component to inject components  and the domain events into models.<br>
                   </p>
                     <p>As the followed diagram illustrates  ,when client invoke the getA(&quot;a&quot;),if Model A with a Introduce,the A  will be enhanced,and the technical component C will also be injected  into the A ,at the same time,when inject the  B,the B will also be enhanced for the @Introduce.</p>
                     <p><img src="images/6.2.model.png" width="704" height="396"></p>
                     <p>&nbsp;</p>
-                    <h3><a href="springIntegration.html">How to integrate Jdon Framework  with Spring</a></h3>
-                    <h3><a href="ces.html"><strong>CES:Context Event and State</strong></a></h3>
+                    <p>&nbsp;</p>
+                    <p><BR>
+                      <BR>
+                      <strong>Interceptor configuration</strong> <BR>
+                      <BR>
+                      when you develope a interceptor, 
+                      you need this step. <br>
+                      When Jon framework   is starting up, it will use container.xml and aspect.xml under META-INF in   jdonframework.jar by default. If you need to extend Jdon framework, for example,   you have developed some small components, such as formula functions, chart   components or some general functions and you need load these components as   starting up, or expect them configurable and replaceable as our wish, you can   integreated them into jdon. There are two ways to go. (It is not the   must)<BR>
+                      First Step :<BR>
+                      define you own component configuration file and   interceptor component configuration file, which name much be mycontainer.xml and   myaspect.xml, these two files must be put in the system class path or packed in   your jar file, this jar file could also be deployed together with jdon   framework’s jar file<BR>
+  <BR>
+                      Second Step:<BR>
+                      You can define it in web.xml in your   web application, here is an   example:</p>
+                    <table width="98%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+                      <tr>
+                        <td><p>&lt;context-param&gt;<br>
+                          &lt;param-name&gt;containerConfigure&lt;/param-name&gt;<br>
+                          &lt;param-value&gt;WEB-INF/mycontainer.xml&lt;/param-value&gt;<br>
+                          &lt;/context-param&gt;<br>
+                          ……<br>
+                          &lt;context-param&gt;<br>
+                          &lt;param-name&gt;aspectConfigure&lt;/param-name&gt;<br>
+                          &lt;param-value&gt;WEB-INF/myaspect.xml&lt;/param-value&gt;<br>
+                          &lt;/context-param&gt;</p>
+                          <p></p>
+                          <p></p></td>
+                      </tr>
+                    </table>
+                    <p> So   your mycontainer.xml file and myaspect.xml file must be put in WEB_INF directory   in your web application, yet file names could be arbitrary. In User-defined   configuration file, corresponding settings in container.xml and aspect.xml could   be overwritten; however the setting name should be the same. </p>
+                    <p>&nbsp;</p>
+                    <p><a href="springIntegration.html">How to integrate Jdon Framework  with Spring</a>                    </p>
                     <h2>&nbsp;</h2>
+                    <p><a id="ioc"></a></p>
+                    <p>&nbsp;</p>
                     <h2><strong>Ioc container</strong></h2>
                     <P><br>
                       The great thing about objects is they can be replaced.
@@ -660,11 +707,342 @@ public class AggregateRootA {</p>
                     <P>Use Jdon, you can develop a small system in several minutes,
                       here is the system demo:<a href="http://www.jdon.com:8080/testWeb/" target="_blank">http://www.jdon.com:8080/testWeb/</a> </P>
                     <P><a href="steps.html" target="_blank">Step by Step develop a Jdon application with jdon-struts1x</a> </P>
-                    <h2>&nbsp;</h2>
-                  <p>for jdon old version  :                  </p>
+                    <P>&nbsp;</P>
+                    <p align="left">&nbsp;</p>
+                    <h3 align="left">Components</h3>
+                    <p> need  two  annotations(@Service or @Component):difference between @Service and @Component is that the @Service  class must have a interface then can be called by outside client beyond jdon.</p>
+                    <p><br>
+                      @Service(&quot;helloService&quot;)<br>
+                      public class HelloServiceImpl implements HelloService <br>
+                      ..</p>
+                    <p>the client in servlet or action call the service's code:</p>
+                    <p>HelloService helloService = (HelloService) WebAppUtil.getService(&quot;helloService&quot;, req);<br>
+                      String result = helloService.hello(myname);<br>
+                    </p>
+                    <p><img src="images/anndi.png" alt="di" width="562" height="431"></p>
+                    <p>all source in JdonFramework/examples/testWeb</p>
+                    <P><strong>More Annotation</strong></P>
+                    <P> @Poolable: get a instance from the class's  object pooing, <a href="http://michael-bien.com/mbien/entry/object_pooling_determinism_vs_throughput" target="_blank">Object Pooling - Determinism vs. Throughput</a><br>
+                      <br>
+                      @Stateful:its instance lifecycle is user session scope <br>
+  <br>
+                      @Singleton: get a singleton instance form the class</P>
+                    <p align="left">&nbsp;</p>
+                    <p>&nbsp;</p>
+                    <h3> XML configuration </h3>
+                    <p>We called a class instance invoked by client   (Servlet/Jsp/Action) as below.</p>
+                    <table width="98%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+                      <tr>
+                        <td><p>TestService testService = (TestService) WebAppUtil.getService("testService",   request);</p></td>
+                      </tr>
+                    </table>
+                    <p>"testService" is the class name  of &quot;TestService&quot;. it should be configured in jdonframework.xml</p>
+                    <p>&nbsp;</p>
+                    <table width="98%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+                      <tr>
+                        <td><p>&lt;pojoService name=&quot;testService&quot; class=&quot;com.jdon.framework.test.service.TestServicePOJOImp&quot;/&gt;<br>
+                        </p></td>
+                      </tr>
+                    </table>
+                    <p><BR>
+                      There are two types of service class. One   is common java class or JavaBeans, all of which called POJO. The other is   EJB-regulation-complied classes which could be simply called EJB. Any of these   two type class could be used as service class, hence there will be two   corresponding service configurations for POJO and EJB done by pojoService and   ejbService respectively.<BR>
+  <BR>
+  <strong>POJOs configuration</strong><BR>
+  <BR>
+                      There   are two basic properties in pojoService, name and class. Property class is for   putting POJO’s full name. Property Name is used to put the actual service name   invoked in the program, conventionally written as similarly to the class name.   Please see the source code in JdonFrameworkEJB or Ioc under Traning directory of JdonSample. <BR>
+                      POJO Service configuration: </p>
+                    <table width="98%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+                      <tr>
+                        <td><p>&lt;pojoService name=&quot;testService&quot; class=&quot;com.jdon.framework.test.service.TestServicePOJOImp&quot;/&gt;<br>
+                          <br>
+                        </p></td>
+                      </tr>
+                    </table>
+                    <p> Not all of classes are servered for   the client directly (jsp/Servlet), that is to say some classes are not invoked   by jsp/servlet or presentation frame layer, but invoked by service classes,   these kinds of class we called component class annotated as component in   configuration file. Note: in EJB framework, component class is managed by EJB   container, so you do not need to any configuration in JdonFramework any   more.<BR>
+                      <BR>
+                      POJO Component configuration:
+  <!—jdbcDAO is invoked by TestServiceImp and serving for it, -->
+                    </p>
+                    <table width="98%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+                      <tr>
+                        <td><p>&lt;component class=&quot;com.jdon.framework.test.dao.JdbcDAO&quot; name=&quot;jdbcDAO&quot;/&gt;<br>
+                          <br>
+                        </p></td>
+                      </tr>
+                    </table>
+                    <p><BR>
+                      We   often need to define some constants and parameters in some classes, so we can do   like this:</p>
+                    <table width="98%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+                      <tr>
+                        <td><p>&lt;component class=&quot;com.jdon.framework.test.dao.JdbcDAO&quot; name=&quot;jdbcDAO&quot;&gt;<br>
+                          &lt;constructor value=&quot;java:/TestDS&quot;/&gt;<br>
+                          &lt;/ component &gt; <br>
+                          <br>
+                        </p></td>
+                      </tr>
+                    </table>
+                    <p><BR>
+                      As you can see, JdbcDao’s constructor has a string parameter.   When you initialize an instance of JdbcDao, String “java:/TestDs”(DataSource JNDI Name) will be passed   into constructor automatically.<BR>
+  <BR>
+                      By taking advantage of good point above,   we can conveniently utilize xml file to define business logic. For example, we   can defined the email format in jdonframework.xml so that email content could be   altered easily according the customers’ needs. It is much better and flexible   than get this information hard coded in the program.<BR>
+  <BR>
+                      Here is an   example:</p>
+                    <table width="98%" border="0" cellpadding="1" cellspacing="1" bgcolor="#CCCCCC">
+                      <tr>
+                        <td><p>&lt;component name=&quot;emailDefine&quot;<br>
+                          class=&quot;com.jdon.jivejdon.service.imp.account.EmailDefine&quot;&gt; <br>
+                          &lt;constructor value=&quot;Jdon username and password&quot;/&gt;<br>
+                          &lt;constructor value=&quot;Welcome on jdon.com. Your account  has been validated. Thank you!&quot;/&gt;<br>
+                          &lt;constructor value=&quot;Jdon.com &quot;/&gt; <br>
+                          &lt;constructor value=&quot;Thank you, Jdon team.&quot;/&gt; <br>
+                          &lt;constructor value=&quot;admin@jdon.com&quot;/&gt;<br>
+                          &lt;/component&gt;</p>
+                          <p><br>
+                            <br>
+                          </p></td>
+                      </tr>
+                    </table>
+                    <p></p>
+                    <p align="left">&nbsp;</p>
+                    <p align="left"><br>
+                      In JdonFramework, there is a configuration XML file that named jdonframework.xml. in it, we can configure our class, the format as below:</p>
+                    <p align="left">&lt;pojoService  name=&quot;your service name &quot;  class=&quot;full class  &quot;/&gt;</p>
+                    <p align="left">or</p>
+                    <p align="left">@Service(&quot;your service name&quot;)</p>
+                    <p>&quot;class&quot; is the class full name, include the package; &quot;name&quot; can be any text that will be used in our client code.</p>
+                    <p>if we have a class<strong> TestServicePOJOImp</strong> as below: </p>
+                    <table width="90%" border="0" bgcolor="#cccccc">
+                      <tbody>
+                        <tr bgcolor="#cccccc">
+                          <td><p>@Poolable<br>
+                            //@Service(&quot;<strong>testService</strong>&quot;)<br>
+                            public class TestServicePOJOImp implements TestService{<br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;private JdbcDAO jdbcDao;<br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;public TestServicePOJOImp(JdbcDAO jdbcDao) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.jdbcDao = jdbcDao;<br>
+                            &nbsp;&nbsp;&nbsp;}</p>
+                            <p> &nbsp;&nbsp;&nbsp;public void createUser(EventModel em) {<br>
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;....<br>
+                              &nbsp;&nbsp;&nbsp;}<br>
+                              &nbsp;}<br>
+                              <br>
+                              interface TestService code:<br>
+                              <br>
+                              public interface TestService {</p>
+                            <p> &nbsp;&nbsp;&nbsp;void createUser(EventModel em);<br>
+                              <br>
+                              }</p>
+                            <p><br />
+                              <br />
+                              <br />
+                            </p></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p>when we finished these codes, we need create a XML file that named jdonframework.xml under project source directotry: </p>
+                    <table width="90%" border="0" bgcolor="#cccccc">
+                      <tbody>
+                        <tr bgcolor="#cccccc">
+                          <td><p><br>
+                            &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br>
+                            &lt;!DOCTYPE app PUBLIC &quot;-//JDON//DTD Framework 2005 1.0 //EN&quot;	&quot;http://www.jdon.com/jdonframework.dtd&quot;&gt;<br>
+                            &lt;app&gt;<br>
+                            &nbsp;&nbsp;&nbsp;&lt;services&gt;<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;pojoService  name=&quot;<strong>testService</strong>&quot;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;class=&quot;<strong>com.jdon.framework.test.service.TestServicePOJOImp</strong>&quot;/&gt;<br>
+                            &nbsp;&nbsp;&nbsp;&lt;/services&gt;<br>
+                            &lt;/app&gt;<br />
+                            <br />
+                            <br />
+                          </p></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p>at last, if we invoke <strong>TestServicePOJOImp </strong>in client code such as Jsp/Servlet or struts action,the invoking code as below: </p>
+                    <table width="97%" border="0" bgcolor="#cccccc">
+                      <tbody>
+                        <tr bgcolor="#cccccc">
+                          <td><p><br />
+                            TestService testService = (TestService) WebAppUtil.getService(&quot;testService  &quot;, request);<br>
+                            testService.createUser(em);<br />
+                            <br />
+                          </p></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p>so the good point is that: if we replace <strong>TestServicePOJOImp</strong> with <strong>AnotherTestServicePOJOImp</strong> , only need modify  jdonframework.xml, not need change our client codes. </p>
+                    <p>thera is another big good point that Ioc or DI means Dependency Injection, maybe you have find a details about <strong>TestServicePOJOImp</strong> that it has a constructor method: </p>
+                    <p>&nbsp;&nbsp;&nbsp;public TestServicePOJOImp(JdbcDAO jdbcDao) {<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.jdbcDao = jdbcDao;<br>
+  &nbsp;&nbsp;&nbsp;}</p>
+                    <p>if we donot create the JdbcDAO instance, how can we create <strong>TestServicePOJOImp</strong> instance?don't worry, the framework help us and it do these, but we need add a new configuration item in jdonframework.xml, as below: <br>
+                    </p>
+                    <table width="96%" border="0" bgcolor="#cccccc">
+                      <tbody>
+                        <tr bgcolor="#cccccc">
+                          <td><p><br>
+                            &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br>
+                            &lt;!DOCTYPE app PUBLIC &quot;-//JDON//DTD Framework 2005 1.0 //EN&quot;	&quot;http://www.jdon.com/jdonframework.dtd&quot;&gt;<br>
+                            &lt;app&gt;<br>
+                            &nbsp;&nbsp;&nbsp;&lt;services&gt;<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;pojoService  name=&quot;testService&quot;  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;class=&quot;com.jdon.framework.test.service.TestServicePOJOImp&quot;/&gt;<br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- new configuration item or annotation @Component in <strong>JdbcDAO</strong> class --&gt;<BR>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;component   name="<strong>jdbcDAO</strong>" class="<strong>com.jdon.framework.test.dao.JdbcDAO</strong>"/&gt;<br>
+                            &nbsp;&nbsp;&nbsp;&lt;/services&gt;<br>
+                            &lt;/app&gt;<br />
+                            <br />
+                            <br />
+                          </p></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p>until now, you maybe have understand JdonFramework what to do.</p>
+                    <h4>&nbsp;</h4>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+                    <h4>How starting the framework? </h4>
+                    <p>If there is no xml, all are annotation, no need this step.</p>
+                    <p>there are two ways to starting the framework in our web project. </p>
+                    <p>first way: web.xml configuration:</p>
+                    <table width="90%" bgcolor="#cccccc" border="0">
+                      <tbody>
+                        <tr>
+                          <td><p><br />
+                            &lt;context-param&gt;<br />
+                            &nbsp;&nbsp;&nbsp;&lt;param-name&gt; modelmapping-config  &lt;/param-name&gt;<br />
+                            &nbsp;&nbsp;&nbsp;&lt;param-value&gt; jdonframework.xml  &lt;/param-value&gt;<br />
+                            &lt;/context-param&gt;<br />
+                            ……<br />
+                            &lt;listener&gt;<br />
+                            &nbsp;&nbsp;&nbsp;&lt;listener-class&gt;com.jdon.container.startup.ServletContainerListener&lt;/listener-class&gt;<br />
+                            &lt;/listener&gt;<br />
+                          </p></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p>second way: struts-config.xml(you must know struts 1.2)</p>
+                    <table width="90%" bgcolor="#cccccc" border="0">
+                      <tbody>
+                        <tr>
+                          <td><p><br />
+                            &lt;plug-in  className=&quot;com.jdon.strutsutil.InitPlugIn&quot;&gt;<br />
+                            &nbsp;&nbsp;&nbsp;&lt;set-property  property=&quot;modelmapping-config&quot; value=&quot;jdonframework.xml&quot;  /&gt;<br />
+                            &lt;/plug-in&gt;</p></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p>if not used in Web , can be used in java Application, see below:</p>
+                    <h3>&nbsp;</h3>
+                    <h3>Client</h3>
+                    <p>Client not only  Servlet or Jsp or other Web Framework,:</p>
+                    <table width="90%" bgcolor="#cccccc" border="0">
+                      <tbody>
+                        <tr>
+                          <td><p>//servletContext is a instance of javax/servlet/ServletContext<br>
+                            IServiceSample serviceSample = (IServiceSample)WebAppUtil.getService(&quot;serviceSample&quot;, servletContext);<br>
+                            String res = (String) serviceSample.eventPointEntry(&quot;hello&quot;);<br>
+                            Assert.assertEquals(res, &quot;eventMessage=hello&quot;);</p>
+                            <p>&nbsp;</p></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p>or</p>
+                    <table width="90%" bgcolor="#cccccc" border="0">
+                      <tbody>
+                        <tr>
+                          <td><p>//servletContext is a instance of javax/servlet/HttpServletRequest<br>
+                            //this will  cache 
+                            'serviceSample' instance in httpsession. improve performance.<br>
+                            IServiceSample serviceSample = (IServiceSample)WebAppUtil.getService(&quot;serviceSample&quot;, request);<br>
+                            String res = (String) serviceSample.eventPointEntry(&quot;hello&quot;);<br>
+                            Assert.assertEquals(res, &quot;eventMessage=hello&quot;);</p>
+                            <p>&nbsp;</p></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+                    <p>but also can be a Java Application.</p>
+                    <table width="90%" bgcolor="#cccccc" border="0">
+                      <tbody>
+                        <tr>
+                          <td><p><br>
+                            <br>
+                            AppUtil appUtill = new AppUtil(); </p>
+                            <p><br>
+                              //if you use jdon's CRUD function based struts1.x<br>
+                              //
+                              AppUtil appUtill = new AppUtil(&quot;com.jdon.jdonframework.xml&quot;);</p>
+                            <p>IServiceSample serviceSample = (IServiceSample) appUtil.getService(&quot;serviceSample&quot;);<br>
+                              String res = (String) serviceSample.eventPointEntry(&quot;hello&quot;);<br>
+                              Assert.assertEquals(res, &quot;eventMessage=hello&quot;);</p>
+                            <p>&nbsp;</p></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+                    <p>Source :com.jdon.SampleAppTest<br>
+                    </p>
+                    <p>&nbsp;</p>
+                    <h3>How to compile and deploy</h3>
+                    <p>Maven pom.xml:</p>
+                    <p>&lt;dependency&gt;<br />
+  &lt;groupId&gt;org.jdon&lt;/groupId&gt;<br />
+  &lt;artifactId&gt;jdonframework&lt;/artifactId&gt;<br />
+  &lt;version&gt;6.8&lt;/version&gt;<br />
+  &lt;/dependency&gt; </p>
+                    <p>　　if you would like to use jdon's CRUD function based struts1.x(such as jdonframework.xml), add ：</p>
+                    <table width="100%"  border="0" cellpadding="2" cellspacing="2" bgcolor="#E2E2E2">
+                      <tr>
+                        <td><p><br />
+                          <br />
+                          &lt;repository&gt;<br />
+                          &lt;id&gt;jdon-struts1x&lt;/id&gt;<br />
+                          &lt;url&gt;https://github.com/banq/jdon-mvn-repo/raw/master/releases&lt;/url&gt;<br />
+                          &lt;/repository&gt;<br />
+                        </p>
+                          <p> &lt;dependency&gt;<br />
+                            &lt;groupId&gt;com.jdon&lt;/groupId&gt;<br />
+                            &lt;artifactId&gt;jdon-struts1x&lt;/artifactId&gt;<br />
+                            &lt;version&gt;6.8&lt;/version&gt;<br />
+                            &lt;/dependency&gt; <br />
+                            &lt;dependency&gt;<br />
+                            &lt;groupId&gt;struts&lt;/groupId&gt;<br />
+                            &lt;artifactId&gt;struts&lt;/artifactId&gt;<br />
+                            &lt;version&gt;1.2.9&lt;/version&gt;<br />
+                            &lt;/dependency&gt;</p>
+                          <p><br />
+                          </p></td>
+                      </tr>
+                    </table>
+                    <p>　　if you would like to use Jdon's jdbcTemp, add：</p>
+                    <table width="100%"  border="0" cellpadding="2" cellspacing="2" bgcolor="#E2E2E2">
+                      <tr>
+                        <td><p><br />
+                          &lt;repository&gt;<br />
+                          &lt;id&gt;jdon-jdbc&lt;/id&gt;<br />
+                          &lt;url&gt;https://github.com/banq/jdon-mvn-repo/raw/master/releases&lt;/url&gt;<br />
+                          &lt;/repository&gt;</p>
+                          <p>&lt;dependency&gt;<br />
+                            &lt;groupId&gt;com.jdon&lt;/groupId&gt;<br />
+                            &lt;artifactId&gt;jdon-jdbc&lt;/artifactId&gt;<br />
+                            &lt;version&gt;6.8&lt;/version&gt;<br />
+                            &lt;/dependency&gt; </p></td>
+                      </tr>
+                    </table>
+                    <p>　　full <a href="pom.xml">pom.xml</a></p>
+                    <p></p>
+                    <P>&nbsp;</P>
+                    <P>&nbsp;</P>
+                    <P>&nbsp;</P>
+                    <h2> jdon old version  : </h2>
                   <p><a href="struts_jdon_jdbc.html"><strong>How to develop Struts-Jdon-JDBC Application</strong></a></p>
                   <p><a href="command.html"><strong>Command patern for calling services</strong></a></p>
-                  <h3><a href="jdonMovie.htm">Struts + Jdon + Hibernate video</a></h3>
+                  <p><a href="jdonMovie.htm">Struts + Jdon + Hibernate video</a></p>
+                  <p>&nbsp;</p>
 <H3>Blog</H3>
 <H3><strong><a href="DomainEvents.html">DDD</a></strong> <a href="DomainEvents.html"><strong>DCI</strong> and <strong>Domain</strong> <strong>Events</strong> <strong>example</strong></a></H3>
 <H3><a href="dci.html">how to enhance Jdon framework to DCI framework ? </a></H3>
@@ -672,11 +1050,9 @@ public class AggregateRootA {</p>
 <H3><a href="non-blocking.html">how to easily develop a non-blocking concurrent application ? </a></H3>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-                  <!-- #EndEditable -->
+                   <!-- #EndEditable -->
                  
-			    </td>
-              </tr>
-            </table>			
+			  	
           </td>
 		  <td width="340" valign="top"  bgcolor="#FFFFD7"> 
           <div class="adsensf" id="vgad336x280">
@@ -698,11 +1074,8 @@ public class AggregateRootA {</p>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
 </div>         
-   </td>
-      </tr>
-    </table></td>
+ </td>
   </tr>
 </table>
 
@@ -714,12 +1087,30 @@ public class AggregateRootA {</p>
 </table>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
 <tr><td height="20" bgcolor="#CAC9BB" align="center">
-  <p><span class="small"><font color="#555555"><br>
-  </font></span></p>
+  
   </td>
 </tr>
 </table>
-<br>
+ </div>
+</div><!-- /.container -->
+
 <!-- InstanceBeginEditable name="EditRegion3" --><!-- InstanceEndEditable -->
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+<!-- AddThis Smart Layers BEGIN -->
+<!-- Go to http://www.addthis.com/get/smart-layers to customize -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52c4b79515624135"></script>
+<script type="text/javascript">
+  addthis.layers({
+    'theme' : 'transparent',
+    'share' : {
+      'position' : 'left',
+      'numPreferredServices' : 5
+    },  
+    'whatsnext' : {},  
+    'recommended' : {} 
+  });
+</script>
+<!-- AddThis Smart Layers END -->    
 </body>
 <!-- InstanceEnd --></html>
