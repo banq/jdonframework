@@ -134,6 +134,8 @@ public class SampleAppTest extends TestCase {
 		System.out.print(res);
 		Assert.assertEquals(res, "Synchronous sayHello and Asynchronous eventMessage=100");
 
+		serviceSample.onEventTest();
+
 	}
 
 	protected void tearDown() throws Exception {
