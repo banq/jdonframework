@@ -34,6 +34,7 @@ public class ServiceSample implements IServiceSample {
 
 		DomainEvent domainEvent2 = repository.getModel(new Long(100));
 		DomainMessage em = domainEvent2.myMethod();
+		System.out.println("eventPointEntry Action");
 		String result = (String) em.getBlockEventResult();
 		return result;
 

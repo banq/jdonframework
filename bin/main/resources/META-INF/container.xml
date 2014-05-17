@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<components>
+
+	<!-- comment/delete this line in jdonframework.jar /META-INF/container.xml
+
+	<component name="cache" class="com.jdon.cache.LRUCache">
+		<constructor value="cache.xml" />
+	</component>
+	-->
+
+	<!-- active EnCache see prodject : components/encache: add these lines  in jdonframework.jar /META-INF/container.xml
+	
+		<component name="cache" class="com.jdon.components.encache.EncacheProvider" />
+		
+		<component name="ehcacheConf" class="com.jdon.components.encache.EhcacheConf" >
+		<constructor value="jdon_ehcache.xml"/>
+		<constructor value="jdonCache"/>
+		</component>
+	-->
+	
+	<!--  from 2013 default cache is google guava cache -->
+	<component name="cache" class="com.jdon.components.guavacache.GuavaCacheProvider" />
+		
+	<component name="guavaCacheConf" class="com.jdon.components.guavacache.GuavaCacheConf" >
+		 <constructor value="130000"/>
+	</component>
+	    
+
+	<component name="httpSessionVisitorFactorySetup"
+		class="com.jdon.container.visitor.http.HttpSessionVisitorFactorySetup">
+		<constructor value="40" />
+		<!-- it is  count of the cached instances that saved in a sessionContext instance,  -->
+		<constructor value="true" /> <!--  disable all session cached except SessionConext -->
+	</component>
+
+
+	<component name="sessionContextFactoryVisitable"
+		class="com.jdon.container.visitor.data.SessionContextFactoryVisitable">
+		<constructor value="10" />
+		<!--   max size of objects can be saved into one sessionContext instance  -->
+	</component>
+
+
+
+	<component name="cacheManager"
+		class="com.jdon.controller.cache.CacheManager" />
+
+	<!-- components about model configuration start 
+
+	<component name="modelHandlerClassFactory"
+		class="com.jdon.model.factory.ModelHandlerClassFactoryXmlImp" />
+
+	<component name="modelHandler"
+		class="com.jdon.model.handler.XmlModelHandler" />
+
+	<component name="modelHandlerClassBuilder"
+		class="com.jdon.model.factory.ModelHandlerClassXMLBuilder" />
+
+	<component name="handlerObjectFactory"
+		class="com.jdon.model.handler.HandlerObjectFactory" />
+-->
+	<component name="modelCacheManager"
+		class="com.jdon.domain.model.cache.ModelCacheManager" />
+
+	<component name="modelManager"
+		class="com.jdon.domain.model.cache.ModelManagerImp" />
+
+	<!-- components about model configuration end -->
+	
+	<component name="targetMetaDefLoader"
+		class="com.jdon.container.access.xml.TargetMetaDefXmlLoader" />
+	
+	<component name="targetMetaDefHolder"
+		class="com.jdon.container.access.TargetMetaDefHolder" />
+	
+
+	<!-- components about  AOP start  -->
+
+	<component name="instanceCache"
+		class="com.jdon.controller.cache.InstanceCache" />
+
+	<component name="interceptorsChain"
+		class="com.jdon.aop.interceptor.InterceptorsChain" />
+
+	<component name="advisorChainFactory"
+		class="com.jdon.aop.joinpoint.AdvisorChainFactory" />
+
+	<component name="aopClient" class="com.jdon.aop.AopClient" />
+
+
+
+	<component name="targetMetaRequestsHolder"
+		class="com.jdon.container.access.TargetMetaRequestsHolder" />
+		
+	<component name="userTargetMetaDefFactory"
+		class="com.jdon.container.access.UserTargetMetaDefFactory" />
+		
+
+	<!-- components about  AOP end  -->
+
+	<!-- components about  session cache  start  
+	<component name="proxyInstanceFactoryVisitable"
+		class="com.jdon.bussinessproxy.dyncproxy.ProxyInstanceFactoryVisitable" />-->
+		
+	<!-- CGLIB proxy: http://www.jdon.com/jivejdon/thread/37330#23125184-->
+	<component name="proxyInstanceFactoryVisitable"
+		class="com.jdon.bussinessproxy.dyncproxy.cglib.CGLIBProxyInstanceFactoryVisitable" />
+		
+
+	<component name="targetServiceFactoryVisitable"
+		class="com.jdon.bussinessproxy.target.TargetServiceFactoryVisitable" />
+
+	<component name="componentVisitor"
+		class="com.jdon.container.visitor.ComponentOriginalVisitor" />
+
+	<!-- if not use HttpSession as SessionContext Container, replace this  -->
+	<component name="visitorFactory"
+		class="com.jdon.container.visitor.http.HttpSessionVisitorFactoryImp" />
+
+	<!-- components about  session cache  end  -->
+
+	<!--  components about target service object factory start -->
+	<component name="targetServiceFactory"
+		class="com.jdon.bussinessproxy.target.DefaultTargetServiceFactory" />
+
+   <!-- 
+	<component name="pOJOObjectFactory"
+		class="com.jdon.bussinessproxy.target.POJOObjectFactory" />
+		 -->
+
+	<component name="poolConfigure"
+		class="com.jdon.controller.pool.PoolConfigure">
+		<constructor value="1000" />
+	</component>
+	<!--  components about target service object factory end -->
+
+
+	<!--  components about container entry start -->
+	<component name="sessionContextSetup"
+		class="com.jdon.container.visitor.http.HttpRequestUserSetup" />
+
+	<component name="serviceAccessor"
+		class="com.jdon.container.access.ServiceAccessorImp" />
+
+	<component name="webServiceAccessor"
+		class="com.jdon.controller.service.WebServiceAccessorImp" />
+
+	<component name="webService"
+		class="com.jdon.controller.service.WebServiceImp" />
+
+	<component name="webServiceFactory"
+		class="com.jdon.controller.service.WebServiceFactory" />
+	<!--  components about container entry end -->
+	
+	<component name="domainProxyFactory" class="com.jdon.container.interceptor.ProxyFactory"></component>
+	
+	<component name="domainCacheInterceptor" class="com.jdon.domain.model.cache.DomainCacheInterceptor"></component>
+	
+	<component name="modelProxyFactory" class="com.jdon.domain.proxy.ModelProxyFactory"></component>
+	
+	<component name="modelAdvisor" class="com.jdon.domain.advsior.ModelAdvisor"></component>
+	
+	<component name="modelProxyInjection" class="com.jdon.domain.model.injection.ModelProxyInjection"></component>
+	
+	<!-- disruptorParams concurrent event  -->
+	<component name="disruptorParams" class="com.jdon.async.disruptor.DisruptorParams">
+	    <constructor value="2048" />	    
+    </component>
+    
+    <component name="disruptorFactory" class="com.jdon.async.disruptor.DisruptorFactory"></component>
+    <component name="disruptorPoolFactory" class="com.jdon.async.disruptor.pool.DisruptorPoolFactory"></component>
+    
+	<component name="disruptorForCommandFactory" class="com.jdon.async.disruptor.DisruptorForCommandFactory"></component>
+	<component name="disruptorCommandPoolFactory" class="com.jdon.async.disruptor.pool.DisruptorCommandPoolFactory"></component>
+	
+    <component name="futureDirector" class="com.jdon.async.future.FutureDirector">
+			<constructor value="50" />
+    </component>
+    <component name="eventMessageFirer" class="com.jdon.async.EventMessageFirer"></component>
+	
+    
+    
+    <!-- asnc end -->
+ 
+    <!-- DCI -->
+    <component name="roleAssigner" class="com.jdon.domain.dci.RoleAssigner"/>
+ 
+
+</components>

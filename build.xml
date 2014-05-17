@@ -1,0 +1,155 @@
+﻿<?xml version="1.0"?>
+
+<project name="JdonFramework 6.8" default="all" basedir=".">
+
+	<!-- properies -->
+
+	<property name="src.dir" value="src/main/java" />
+	<property name="src.res.dir" value="src/main/resources" />
+	<property name="test.dir" value="src/test/java" />	
+	<property name="test.res.dir" value="src/test/resources" />
+	<property name="report.dir" value="report" />
+	<property name="classes.dir" value="classes" />
+	<property name="lib.dir" value="lib" />
+	<property name="dist.dir" value="dist" />
+	<property name="jar.name" value="jdonFramework.jar" />
+
+	<property name="doc.dir" value="doc/api" />
+	<property name="samples.dir" value="samples" />
+
+	<!-- 定义classpath -->
+	<path id="master-classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset file="weblib/*.jar" />
+		<pathelement path="${classes.dir}"/>
+	</path>
+
+	<target name="all" depends="finish">
+	
+	</target>
+	
+	<target name="finish" depends="pack">
+
+	</target>
+
+
+	<target name="clean">
+		<!-- Delete the ${build} and ${dist} directory trees -->			
+		<delete dir="${dist.dir}" />
+	</target>
+
+	<!-- 初始化任务 -->
+	<target name="init" depends="clean">
+		<mkdir dir="${dist.dir}"/>
+	</target>
+
+	<!-- 编译 -->
+	<target name="compile" depends="init" description="compile the source files">
+		<delete dir="${classes.dir}" />
+		<mkdir dir="${classes.dir}"/>
+
+		<javac srcdir="${src.dir}" destdir="${classes.dir}"  debug="true"   encoding="UTF-8"
+			fork="true" 
+			deprecation="no" 
+			memoryInitialSize="64m"
+			memoryMaximumSize="128m">			
+			<classpath refid="master-classpath" />			
+		</javac>
+
+		<copy todir="${classes.dir}" overwrite="true">
+			<fileset dir="${src.res.dir}">
+				<include name="**/*.xml" />
+				<include name="**/*.properties" />
+			</fileset>
+		</copy>
+		<copy todir="${classes.dir}/META-INF" overwrite="true">
+			<fileset dir="${src.res.dir}/META-INF">
+				<include name="**/*.*" />
+
+			</fileset>
+		</copy>
+		
+		<javac srcdir="${test.dir}" destdir="${classes.dir}" debug="true"   encoding="UTF-8"
+			fork="true" 
+			deprecation="no" 
+			memoryInitialSize="64m"
+			memoryMaximumSize="128m">			
+			<classpath refid="master-classpath" />			
+		</javac>
+			<copy todir="${classes.dir}" overwrite="true">
+			<fileset dir="${test.res.dir}">
+				<include name="**/*.xml" />
+				<include name="**/*.properties" />
+			</fileset>
+		</copy>
+		
+	</target>
+	
+	<!-- 测试 -->
+	<target name="test" depends="compile" description="run junit test">
+		<mkdir dir="${report.dir}" />
+		<junit printsummary="on" haltonfailure="on" fork="on"  failureproperty="tests.failed" showoutput="true" >
+			<classpath refid="master-classpath" />
+			<formatter type="plain" />
+			<batchtest todir="${report.dir}">
+				<fileset dir="${classes.dir}">
+					<include name="**/*Test.*" />
+				</fileset>
+			</batchtest>
+			
+		</junit>
+		<fail if="tests.failed"> 
+			
+			*********************************************************** 
+			**** One or more tests failed! Check the output ... **** 
+			*********************************************************** 
+			</fail>
+	</target>
+
+
+
+	<!-- 打包成核心jar -->
+	<target name="pack" depends="test" description="make .jar file">
+		
+		<jar destfile="${dist.dir}/${jar.name}" basedir="${classes.dir}" manifest="${classes.dir}/META-INF/MANIFEST.MF">
+
+			<exclude name="com/jdon/sample/**" />
+			<exclude name="**/*Test.*" />
+			<exclude name="**/Test*.*" />
+			<exclude name="**/log4j.properties" />			
+			<exclude name="com/jdon/strutsutil/**" />
+			<exclude name="com/jdon/persistence/**" />
+			<exclude name="com/jdon/bussinessproxy/remote/**/*"/>
+			
+		</jar>
+		<copy todir="${dist.dir}">
+			<fileset dir="${lib.dir}">
+				<include name="*.jar" />
+				<exclude name="castor-xml.jar" />
+				<exclude name="jakarta-regexp-1.1.jar" />
+				<exclude name="junit.jar" />
+			</fileset>
+
+		</copy>
+	</target>
+	
+	<!-- 打包jar -->
+	
+
+	
+
+	<!-- 输出api文档 -->
+	<target name="doc" depends="finish" description="create api doc">
+		<mkdir dir="${doc.dir}" />
+		<javadoc  charset="gbk"   classpath="${dist.dir}" destdir="${doc.dir}" author="false" use="true" windowtitle="JdonFramework API">
+			<packageset dir="${src.dir}" defaultexcludes="yes" />
+			<doctitle>
+				<![CDATA[<h1>Jdon Framework 6.0</h1>]]></doctitle>
+		<classpath refid="master-classpath" />
+		<tag name="todo" scope="all" description="To do:" />
+	</javadoc>
+</target>
+</project>
+

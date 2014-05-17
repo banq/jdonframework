@@ -31,5 +31,6 @@ import com.jdon.domain.message.MessageListener;
 public class DomainListener implements MessageListener {
 	public void action(DomainMessage domainMessage) {
 		System.out.println("MessageListener=" + domainMessage.getEventSource());
+		domainMessage.setEventResult("hello-2");
 	}
 }

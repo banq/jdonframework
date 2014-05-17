@@ -1,0 +1,106 @@
+Testsuite: com.jdon.SampleAppTest
+Tests run: 9, Failures: 0, Errors: 0, Time elapsed: 8.245 sec
+------------- Standard Output ---------------
+event.send.ma..event.@OnEvent.mb..100
+call A.myMethod1 
+
+
+ this is MyInterceptor  before 
+
+
+
+ this is MyInterceptor for a.myMethod  
+
+3this is C.testOne 2
+this is A.myMethod is active!!!! 
+
+
+ this is MyInterceptor after 
+
+
+
+ call A.myMethod1 result=4  
+
+call A.myMethod2 
+
+
+ this is MyInterceptor  before 
+
+this is A.myMethod2 is active!!!! 
+this is C.testWo 
+
+
+ this is MyInterceptor after 
+
+
+
+ call A.myMethod2 result=7
+
+
+
+ this is AroundAdvice  before 
+
+
+
+ this is AroundAdvice  myMethod3 
+
+this is D.myMethod3 is active!!!! 
+
+
+ this is AroundAdvice after 
+
+CDomainEventHandler Action100
+MyDomainEventHandler action 100
+eventPointEntry Action
+MessageListener=100
+Synchronous sayHelloAsynchronous eventMessage=100
+Synchronous sayHello and Asynchronous eventMessage=100 todo 
+event.send.ma..event.@OnEvent.mb..100
+ok   2
+send to BModel =oneok   0
+
+ No.1 @OnEvent:com.jdon.sample.test.dci.RepositoryListener
+
+ No.2 @OnEvent:com.jdon.sample.test.domain.simplecase.repository.RepositoryImp
+ No.3 @OnEvent:com.jdon.sample.test.domain.simplecase.repository.RepositoryImp2
+ send to AggregateRootA =11
+ AggregateRootA Action 200
+ a event happend in AggregateRootA 
+ event comsumer action
+ send command to AggregateRootB =22
+ AggregateRootB Action 400
+ test CQRS ok 
+400 11------------- ---------------- ---------------
+------------- Standard Error -----------------
+10:49:24.786 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
+10:49:24.897 [main] INFO  JdonFramework - Jdon Framework started successfully! 
+10:49:25.640 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
+10:49:25.652 [main] INFO  JdonFramework - Jdon Framework started successfully! 
+10:49:26.271 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
+10:49:26.281 [main] INFO  JdonFramework - Jdon Framework started successfully! 
+10:49:26.868 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
+10:49:26.877 [main] INFO  JdonFramework - Jdon Framework started successfully! 
+10:49:27.356 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
+10:49:27.364 [main] INFO  JdonFramework - Jdon Framework started successfully! 
+10:49:27.795 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
+10:49:28.260 [main] INFO  JdonFramework -  is ready.
+10:49:28.268 [main] INFO  JdonFramework - Jdon Framework started successfully! 
+10:49:28.691 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
+10:49:29.105 [main] INFO  JdonFramework -  is ready.
+10:49:29.113 [main] INFO  JdonFramework - Jdon Framework started successfully! 
+10:49:29.542 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
+10:49:29.550 [main] INFO  JdonFramework - Jdon Framework started successfully! 
+10:49:29.976 [main] INFO  JdonFramework - com.jdon.jdonframework.xml is ready.
+10:49:30.468 [main] INFO  JdonFramework -  is ready.
+10:49:30.473 [main] INFO  JdonFramework - Jdon Framework started successfully! 
+------------- ---------------- ---------------
+
+Testcase: testComponentsEvent took 2.81 sec
+Testcase: testGetService took 0.608 sec
+Testcase: testDomainEvent took 0.636 sec
+Testcase: testDomainEventSimple took 0.581 sec
+Testcase: testXml took 0.471 sec
+Testcase: testEvent took 0.904 sec
+Testcase: testCommand took 0.849 sec
+Testcase: testOnEvent took 0.43 sec
+Testcase: testCQRS took 0.949 sec

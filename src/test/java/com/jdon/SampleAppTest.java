@@ -79,7 +79,7 @@ public class SampleAppTest extends TestCase {
 	public void testDomainEvent() {
 
 		IServiceSample serviceSample = (IServiceSample) appUtil.getService("serviceSample");
-		Assert.assertEquals("hello", serviceSample.eventPointEntry("hello"));
+		Assert.assertEquals("hello-2", serviceSample.eventPointEntry("hello"));
 
 	}
 
@@ -128,13 +128,20 @@ public class SampleAppTest extends TestCase {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		AppUtil appUtil = new AppUtil();
-		IServiceSampleTwo serviceSample = (IServiceSampleTwo) appUtil.getService("serviceSampleTwo");
-		String res = (String) serviceSample.eventPointEntry();
-		System.out.print(res);
-		Assert.assertEquals(res, "Synchronous sayHello and Asynchronous eventMessage=100");
+		SampleAppTest sampleAppTest = new SampleAppTest();
+		try {
+			sampleAppTest.setUp();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		sampleAppTest.testCommand();
 
-		serviceSample.onEventTest();
+		sampleAppTest.testCQRS();
+		sampleAppTest.testDomainEvent();
+		sampleAppTest.testDomainEventSimple();
+		sampleAppTest.testEvent();
+		sampleAppTest.testOnEvent();
+		sampleAppTest.testGetService();
 
 	}
 
@@ -142,4 +149,5 @@ public class SampleAppTest extends TestCase {
 		super.tearDown();
 		appUtil.clear();
 	}
+
 }

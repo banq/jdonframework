@@ -23,6 +23,6 @@ import com.jdon.domain.message.DomainEventHandler;
 public class CDomainEventHandler implements DomainEventHandler {
 	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
 		System.out.println("CDomainEventHandler Action" + event.getDomainMessage().getEventSource());
-		event.getDomainMessage().setEventResult("hello");
+		event.getDomainMessage().setEventResult("hello-1");
 	}
 }

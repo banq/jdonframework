@@ -1,0 +1,74 @@
+. todo 
+.event.send.ma..ok   0
+event.@OnEvent.mb..100
+.send to BModel =oneok   7
+.event.send.ma...event.@OnEvent.mb..100
+Synchronous sayHelloAsynchronous eventMessage=100
+Synchronous sayHello and Asynchronous eventMessage=100.CDomainEventHandler Action100
+eventPointEntry Action
+MyDomainEventHandler action 100
+MessageListener=100
+.call A.myMethod1 
+
+
+ this is MyInterceptor  before 
+
+
+
+ this is MyInterceptor for a.myMethod  
+
+3this is C.testOne 2
+this is A.myMethod is active!!!! 
+
+
+ this is MyInterceptor after 
+
+
+
+ call A.myMethod1 result=4  
+
+call A.myMethod2 
+
+
+ this is MyInterceptor  before 
+
+this is A.myMethod2 is active!!!! 
+this is C.testWo 
+
+
+ this is MyInterceptor after 
+
+
+
+ call A.myMethod2 result=7
+
+
+
+ this is AroundAdvice  before 
+
+
+
+ this is AroundAdvice  myMethod3 
+
+this is D.myMethod3 is active!!!! 
+
+
+ this is AroundAdvice after 
+
+..
+ No.1 @OnEvent:com.jdon.sample.test.dci.RepositoryListener
+
+ No.2 @OnEvent:com.jdon.sample.test.domain.simplecase.repository.RepositoryImp
+ No.3 @OnEvent:com.jdon.sample.test.domain.simplecase.repository.RepositoryImp2
+ send to AggregateRootA =11
+ AggregateRootA Action 200
+ a event happend in AggregateRootA 
+ event comsumer action
+ send command to AggregateRootB =22
+ AggregateRootB Action 400
+ test CQRS ok 
+400 11
+Time: 4.812
+
+OK (9 tests)
+
