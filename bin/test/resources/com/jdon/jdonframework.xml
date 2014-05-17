@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE app PUBLIC "-//JDON//DTD Framework 2005 1.0 //EN"	"http://www.jdon.com/jdonframework.dtd">
-<app>
-   <services>
-         <pojoService name="bb" class="com.jdon.sample.test.xml.BB"/>
-         <pojoService name="aa" class="com.jdon.sample.test.xml.AA"/>
-
-    </services>
-</app>
