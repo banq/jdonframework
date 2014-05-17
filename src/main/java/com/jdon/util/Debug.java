@@ -119,43 +119,69 @@ public final class Debug {
 	}
 
 	private static void log(int level, Throwable t, String msg, String module, String callingClass) {
-		if (level >= conf_level) {
-			if (useLog4J) {
-				// logger = Logger.getLogger(module);
-				Logger logger = getLogger(module);
-				if (logger.isDebugEnabled())
-					logger.debug(msg, t);
-				else if (logger.isErrorEnabled())
-					logger.error(msg, t);
-				else if (logger.isInfoEnabled())
-					logger.info(msg, t);
-				else if (logger.isWarnEnabled())
-					logger.warn(msg, t);
-				else if (logger.isFatalEnabled())
-					logger.fatal(msg, t);
-				else if (logger.isTraceEnabled())
-					logger.trace(msg, t);
-			} else {
-				StringBuilder prefixBuf = new StringBuilder();
-				prefixBuf.append(dateFormat.format(new java.util.Date()));
-				prefixBuf.append(" [Debug");
-				if (module != null) {
-					prefixBuf.append(":");
-					prefixBuf.append(module);
-				}
-				prefixBuf.append(":");
-				prefixBuf.append(levels[level]);
-				prefixBuf.append("] ");
-				if (msg != null) {
-					getPrintStream().print(prefixBuf.toString());
-					getPrintStream().println(msg);
-				}
-				if (t != null) {
-					getPrintStream().print(prefixBuf.toString());
-					getPrintStream().println("Received throwable:");
-					t.printStackTrace(getPrintStream());
-				}
-			}
+		if (level < conf_level)
+			return;
+		if (useLog4J) {
+			uselog4j(level, t, msg, module, callingClass);
+		} else {
+			noLog4J(level, t, msg, module, callingClass);
+		}
+
+	}
+
+	private static void uselog4j(int level, Throwable t, String msg, String module, String callingClass) {
+		Logger logger = getLogger(module);
+		if (logger.isDebugEnabled())
+			logger.debug(msg, t);
+		else
+			uselog4j2(t, msg, module);
+	}
+
+	private static void uselog4j2(Throwable t, String msg, String module) {
+		Logger logger = getLogger(module);
+		if (logger.isErrorEnabled())
+			logger.error(msg, t);
+		else
+			uselog4j3(t, msg, module);
+	}
+
+	private static void uselog4j3(Throwable t, String msg, String module) {
+		Logger logger = getLogger(module);
+		if (logger.isInfoEnabled())
+			logger.info(msg, t);
+		else
+			uselog4j4(t, msg, module);
+	}
+
+	private static void uselog4j4(Throwable t, String msg, String module) {
+		Logger logger = getLogger(module);
+		if (logger.isWarnEnabled())
+			logger.warn(msg, t);
+		else if (logger.isFatalEnabled())
+			logger.fatal(msg, t);
+		else if (logger.isTraceEnabled())
+			logger.trace(msg, t);
+	}
+
+	private static void noLog4J(int level, Throwable t, String msg, String module, String callingClass) {
+		StringBuilder prefixBuf = new StringBuilder();
+		prefixBuf.append(dateFormat.format(new java.util.Date()));
+		prefixBuf.append(" [Debug");
+		if (module != null) {
+			prefixBuf.append(":");
+			prefixBuf.append(module);
+		}
+		prefixBuf.append(":");
+		prefixBuf.append(levels[level]);
+		prefixBuf.append("] ");
+		if (msg != null) {
+			getPrintStream().print(prefixBuf.toString());
+			getPrintStream().println(msg);
+		}
+		if (t != null) {
+			getPrintStream().print(prefixBuf.toString());
+			getPrintStream().println("Received throwable:");
+			t.printStackTrace(getPrintStream());
 		}
 	}
 

@@ -19,14 +19,12 @@ import com.jdon.container.ContainerWrapper;
 import com.jdon.container.builder.ContainerRegistryBuilder;
 import com.jdon.container.startup.ContainerSetupScript;
 import com.jdon.controller.context.AppContextWrapper;
-import com.jdon.util.Debug;
 
 /**
  * Container lookup from outside the container.
  * 
  */
 public class ContainerFinderImp implements ContainerFinder {
-	private final static String module = ContainerFinderImp.class.getName();
 
 	/**
 	 * lazy startup container when first time the method is called, it will
@@ -39,26 +37,32 @@ public class ContainerFinderImp implements ContainerFinder {
 	 */
 
 	public ContainerWrapper findContainer(AppContextWrapper sc) {
-		ContainerSetupScript containerSetupScript = null;
 		ContainerRegistryBuilder cb = (ContainerRegistryBuilder) sc.getAttribute(ContainerRegistryBuilder.APPLICATION_CONTEXT_ATTRIBUTE_NAME);
-		if (cb == null) {
-			containerSetupScript = new ContainerSetupScript();
-			containerSetupScript.prepare("", sc);// no jdonramework.xml, only
-													// have annotation
-			cb = (ContainerRegistryBuilder) sc.getAttribute(ContainerRegistryBuilder.APPLICATION_CONTEXT_ATTRIBUTE_NAME);
-		}
-		ContainerWrapper containerWrapper = null;
-		try {
-			if (!cb.isKernelStartup()) {
-				if (containerSetupScript == null)
-					containerSetupScript = new ContainerSetupScript();
-				containerSetupScript.startup(sc);
-			}
-			containerWrapper = cb.getContainerWrapper();
-		} catch (Exception ex) {
-			Debug.logError("[JdonFramework] not find jdonFramework configuration file", module);
-		}
-		return containerWrapper;
+		init(sc, cb);
+		launch(sc, cb);
+		return cb.getContainerWrapper();
+	}
+
+	private void init(AppContextWrapper sc, ContainerRegistryBuilder cb) {
+		if (cb == null)
+			prepare(sc, cb);
+	}
+
+	private void launch(AppContextWrapper sc, ContainerRegistryBuilder cb) {
+		if (!cb.isKernelStartup())
+			start(sc);
+	}
+
+	private void prepare(AppContextWrapper sc, ContainerRegistryBuilder cb) {
+		ContainerSetupScript containerSetupScript = new ContainerSetupScript();
+		// no jdonramework.xml, only have annotation
+		containerSetupScript.prepare("", sc);
+		cb = (ContainerRegistryBuilder) sc.getAttribute(ContainerRegistryBuilder.APPLICATION_CONTEXT_ATTRIBUTE_NAME);
+	}
+
+	private void start(AppContextWrapper sc) {
+		ContainerSetupScript containerSetupScript = new ContainerSetupScript();
+		containerSetupScript.startup(sc);
 	}
 
 }

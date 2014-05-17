@@ -69,11 +69,11 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 
 	public final static String module = JdonPicoContainer.class.getName();
 
-	private final Map componentKeyToAdapterCache = new ConcurrentHashMap();
+	private final Map compKeyAdapters = new ConcurrentHashMap();
 
-	private final Map componentKeyToInstanceCache = new ConcurrentHashMap();
+	private final Map compKeyInstances = new ConcurrentHashMap();
 
-	private final List<ComponentAdapter> componentAdapters = new CopyOnWriteArrayList();
+	private final List<ComponentAdapter> compAdapters = new CopyOnWriteArrayList();
 
 	private final HashSet children = new HashSet();
 
@@ -136,11 +136,11 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 	}
 
 	public Collection getComponentAdapters() {
-		return Collections.unmodifiableList(componentAdapters);
+		return Collections.unmodifiableList(compAdapters);
 	}
 
 	public final ComponentAdapter getComponentAdapter(Object componentKey) throws AmbiguousComponentResolutionException {
-		ComponentAdapter adapter = (ComponentAdapter) componentKeyToAdapterCache.get(componentKey);
+		ComponentAdapter adapter = (ComponentAdapter) compKeyAdapters.get(componentKey);
 		if (adapter == null && parent != null) {
 			adapter = parent.getComponentAdapter(componentKey);
 		}
@@ -197,17 +197,17 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 	 */
 	public ComponentAdapter registerComponent(ComponentAdapter componentAdapter) throws DuplicateComponentKeyRegistrationException {
 		Object componentKey = componentAdapter.getComponentKey();
-		if (componentKeyToAdapterCache.containsKey(componentKey)) {
+		if (compKeyAdapters.containsKey(componentKey)) {
 			throw new DuplicateComponentKeyRegistrationException(componentKey);
 		}
-		componentAdapters.add(componentAdapter);
-		componentKeyToAdapterCache.put(componentKey, componentAdapter);
+		compAdapters.add(componentAdapter);
+		compKeyAdapters.put(componentKey, componentAdapter);
 		return componentAdapter;
 	}
 
 	public ComponentAdapter unregisterComponent(Object componentKey) {
-		ComponentAdapter adapter = (ComponentAdapter) componentKeyToAdapterCache.remove(componentKey);
-		componentAdapters.remove(adapter);
+		ComponentAdapter adapter = (ComponentAdapter) compKeyAdapters.remove(componentKey);
+		compAdapters.remove(adapter);
 		return adapter;
 	}
 
@@ -292,7 +292,7 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 		}
 		List result = new ArrayList();
 		Map adapterToInstanceMap = new HashMap();
-		for (Iterator iterator = componentAdapters.iterator(); iterator.hasNext();) {
+		for (Iterator iterator = compAdapters.iterator(); iterator.hasNext();) {
 			ComponentAdapter componentAdapter = (ComponentAdapter) iterator.next();
 			if (componentType.isAssignableFrom(componentAdapter.getComponentImplementation())) {
 				Object componentInstance = getInstance(componentAdapter);
@@ -330,35 +330,37 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 	 */
 	public Object getInstance(ComponentAdapter componentAdapter) {
 		Object componentKey = componentAdapter.getComponentKey();
-		Object instance = componentKeyToInstanceCache.get(componentKey);
+		Object instance = compKeyInstances.get(componentKey);
 		if (instance == null) {
-			if (componentAdapter != null) {
-				instance = getTrueInstance(componentAdapter);
-				if (instance != null) {
-					componentKeyToInstanceCache.put(componentKey, instance);
-				}
+			instance = loadSaveInstance(componentAdapter, componentKey);
+		}
+		return instance;
+	}
+
+	private Object loadSaveInstance(ComponentAdapter componentAdapter, Object componentKey) {
+		Object instance = null;
+		if (componentAdapter != null) {
+			instance = getTrueInstance(componentAdapter);
+			if (instance != null) {
+				compKeyInstances.put(componentKey, instance);
 			}
 		}
 		return instance;
-
 	}
 
-	private Object getTrueInstance(ComponentAdapter componentAdapter) {
+	// check wether this is our adapter
+	// we need to check this to ensure up-down dependencies cannot be
+	// followed
+	private Object getTrueInstance(ComponentAdapter ad) {
+		if (compAdapters.contains(ad))
+			return ad.getComponentInstance(this);
+		return getP(ad);
+	}
 
-		// check wether this is our adapter
-		// we need to check this to ensure up-down dependencies cannot be
-		// followed
-		final boolean isLocal = componentAdapters.contains(componentAdapter);
-
-		if (isLocal) {
-			Object instance = componentAdapter.getComponentInstance(this);
-			return instance;
-		} else if (parent != null) {
-			return parent.getComponentInstance(componentAdapter.getComponentKey());
+	private Object getP(ComponentAdapter adapter) {
+		if (parent != null) {
+			return parent.getComponentInstance(adapter.getComponentKey());
 		}
-
-		// TODO: decide .. exception or null?
-		// exceptrion: mx: +1, joehni +1
 		return null;
 	}
 
@@ -439,9 +441,9 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 			}
 		}
 		started = false;
-		componentKeyToAdapterCache.clear();
-		componentKeyToInstanceCache.clear();
-		componentAdapters.clear();
+		compKeyAdapters.clear();
+		compKeyInstances.clear();
+		compAdapters.clear();
 
 		children.clear();
 		componentAdapterFactory = null;
@@ -529,7 +531,7 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 		if (componentAdapterFactory instanceof ComponentMonitorStrategy) {
 			((ComponentMonitorStrategy) componentAdapterFactory).changeMonitor(monitor);
 		}
-		for (Iterator i = componentAdapters.iterator(); i.hasNext();) {
+		for (Iterator i = compAdapters.iterator(); i.hasNext();) {
 			Object adapter = i.next();
 			if (adapter instanceof ComponentMonitorStrategy) {
 				((ComponentMonitorStrategy) adapter).changeMonitor(monitor);
@@ -555,7 +557,7 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 		if (componentAdapterFactory instanceof ComponentMonitorStrategy) {
 			return ((ComponentMonitorStrategy) componentAdapterFactory).currentMonitor();
 		}
-		for (Iterator i = componentAdapters.iterator(); i.hasNext();) {
+		for (Iterator i = compAdapters.iterator(); i.hasNext();) {
 			Object adapter = i.next();
 			if (adapter instanceof ComponentMonitorStrategy) {
 				return ((ComponentMonitorStrategy) adapter).currentMonitor();

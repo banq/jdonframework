@@ -186,10 +186,7 @@ public class PicoContainerWrapper implements ContainerWrapper, java.io.Serializa
 	}
 
 	public Object lookup(String name) {
-		Object object = container.getComponentInstance(name);
-		if (object == null)
-			Debug.logWarning("[JdonFramework]Not find the component in container :" + name, module);
-		return object;
+		return container.getComponentInstance(name);
 	}
 
 	public Object lookupOriginal(String name) {

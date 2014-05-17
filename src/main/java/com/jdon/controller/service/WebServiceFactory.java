@@ -27,6 +27,7 @@ import com.jdon.util.Debug;
 /**
  * the defualt concrete class of ServiceFactory by this class, we can get a
  * service instance; @ {@link com.jdon.controller.service.WebServiceDecorator}
+ * 
  * @author banq
  * @see {@link ServiceFactory}
  */
@@ -46,8 +47,6 @@ public class WebServiceFactory implements ServiceFactory {
 	}
 
 	public Object getService(String name, RequestWrapper request) {
-		Debug.logVerbose("<==============================>start: JdonFramework core entrance", module);
-		Debug.logVerbose("<===============>Looking up new service='" + name + "'", module);
 		ContainerWrapper cw = containerCallback.getContainerWrapper();
 		if (!cw.isStart()) {
 			Debug.logError("JdonFramework not yet started, please try later ", module);
@@ -56,10 +55,8 @@ public class WebServiceFactory implements ServiceFactory {
 		TargetMetaDef targetMetaDef = userTargetMetaDefFactory.getTargetMetaDef(name, cw);
 		if (targetMetaDef == null)
 			return null;
-		Debug.logVerbose("[JdonFramework] service=" + name + "  found, and now return the service instance", module);
 		Object result = getService(targetMetaDef, request);
 		Debug.logVerbose("<===============>found service='" + name + "'  instance and return  it successfully!", module);
-		Debug.logVerbose("<==============================>over", module);
 		return result;
 	}
 
