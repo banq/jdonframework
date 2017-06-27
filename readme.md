@@ -79,8 +79,6 @@ Jdon can make your Domain Model as Actor(erlang/akka) concurrent model, this is 
 public class BankAccount {
 	private String id;
 
-  //no need such as "AtomicInteger .." concurrent type
-  //this value is single thread operate it.
 	private int amount = 0;
 
 	@Inject
