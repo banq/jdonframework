@@ -75,12 +75,11 @@ Actor Model
 ===================================
 Jdon can make your Domain Model as Actor(erlang/akka) concurrent model, this is Bank Account transfer money sample:
 
+
 @Model
 public class BankAccount {
 	private String id;
-
 	private int amount = 0;
-
 	@Inject
 	private DomainEventProduceIF domainEventProducer;
 
