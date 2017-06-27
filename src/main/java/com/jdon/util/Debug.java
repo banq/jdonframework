@@ -132,7 +132,7 @@ public final class Debug {
 	private static void uselog4j(int level, Throwable t, String msg, String module, String callingClass) {
 		Logger logger = getLogger(module);
 		if (logger.isDebugEnabled())
-			logger.debug(msg, t);
+			logger.debug(msg.intern(), t);
 		else
 			uselog4j2(t, msg, module);
 	}
@@ -140,7 +140,7 @@ public final class Debug {
 	private static void uselog4j2(Throwable t, String msg, String module) {
 		Logger logger = getLogger(module);
 		if (logger.isErrorEnabled())
-			logger.error(msg, t);
+			logger.error(msg.intern(), t);
 		else
 			uselog4j3(t, msg, module);
 	}
@@ -148,7 +148,7 @@ public final class Debug {
 	private static void uselog4j3(Throwable t, String msg, String module) {
 		Logger logger = getLogger(module);
 		if (logger.isInfoEnabled())
-			logger.info(msg, t);
+			logger.info(msg.intern(), t);
 		else
 			uselog4j4(t, msg, module);
 	}
@@ -156,11 +156,11 @@ public final class Debug {
 	private static void uselog4j4(Throwable t, String msg, String module) {
 		Logger logger = getLogger(module);
 		if (logger.isWarnEnabled())
-			logger.warn(msg, t);
+			logger.warn(msg.intern(), t);
 		else if (logger.isFatalEnabled())
-			logger.fatal(msg, t);
+			logger.fatal(msg.intern(), t);
 		else if (logger.isTraceEnabled())
-			logger.trace(msg, t);
+			logger.trace(msg.intern(), t);
 	}
 
 	private static void noLog4J(int level, Throwable t, String msg, String module, String callingClass) {
@@ -175,11 +175,11 @@ public final class Debug {
 		prefixBuf.append(levels[level]);
 		prefixBuf.append("] ");
 		if (msg != null) {
-			getPrintStream().print(prefixBuf.toString());
-			getPrintStream().println(msg);
+			getPrintStream().print(prefixBuf.toString().intern());
+			getPrintStream().println(msg.intern());
 		}
 		if (t != null) {
-			getPrintStream().print(prefixBuf.toString());
+			getPrintStream().print(prefixBuf.toString().intern());
 			getPrintStream().println("Received throwable:");
 			t.printStackTrace(getPrintStream());
 		}

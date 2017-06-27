@@ -71,17 +71,20 @@ public class DomainMessage extends Command {
 	 * @return Event Result
 	 */
 	public Object getEventResult() {
-		final Object existingValue = eventResultCache.get();
-		if (existingValue != null) {
-			return existingValue;
+		Object result = eventResultCache.get();
+		if (result != null) {
+			return result;
 		}
 
 		if (eventResultHandler != null) {
-			final Object result = eventResultHandler.get();
-			if (result != null)
-				eventResultCache.compareAndSet(null, result);
+			result = eventResultHandler.get();
+			if (result != null){
+				if (!eventResultCache.compareAndSet(null, result)){
+					result = eventResultCache.get();
+				}
+			}
 		}
-		return eventResultCache.get();
+		return result;
 	}
 
 	/**
@@ -90,17 +93,20 @@ public class DomainMessage extends Command {
 	 * @return
 	 */
 	public Object getBlockEventResult() {
-		final Object existingValue = eventResultCache.get();
-		if (existingValue != null) {
-			return existingValue;
+		Object result = eventResultCache.get();
+		if (result != null) {
+			return result;
 		}
 
 		if (eventResultHandler != null) {
-			final Object result = eventResultHandler.getBlockedValue();
-			if (result != null)
-				eventResultCache.compareAndSet(null, result);
+			result = eventResultHandler.getBlockedValue();
+			if (result != null){
+				if (!eventResultCache.compareAndSet(null, result)){
+					result = eventResultCache.get();	
+				}
+			}
 		}
-		return eventResultCache.get();
+		return result;
 	}
 
 	public void setEventResult(Object eventResultValue) {

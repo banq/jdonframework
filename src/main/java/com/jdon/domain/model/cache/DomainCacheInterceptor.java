@@ -61,7 +61,6 @@ public class DomainCacheInterceptor implements MethodInterceptor, Startable {
 			return invocation.proceed();
 
 		ModelKey modelKey = null;
-		Object o = null;
 		try {
 			Object[] args = invocation.getArguments();
 			if (args == null || args.length == 0)
@@ -74,22 +73,23 @@ public class DomainCacheInterceptor implements MethodInterceptor, Startable {
 				modelKey = new ModelKey(args[0], modelClass);
 			}
 			Debug.logVerbose("try to get model from cache, cacheKey=" + modelKey.toString(), module);
-			o = modelManager.getCache(modelKey);
-			if (o != null) {
-				return o;
+			Object oexist = modelManager.getCache(modelKey);
+			if (oexist != null) {
+				return oexist;
 			}
 
-			o = invocation.proceed();
-			if (o == null)
-				return o;
+			Object onew = invocation.proceed();
+			if (onew == null)
+				return onew;
 			Debug.logVerbose(" get model from database, cacheKey=" + modelKey.toString(), module);
 
-			o = modelManager.addCache(modelKey, o);
+			oexist = modelManager.addCache(modelKey, onew);
 			Debug.logVerbose("[JdonFramework] save to cache2", module);
+			return oexist != null ? oexist : onew;
 		} catch (Exception e) {
 			Debug.logError("invoke:" + e, module);
+			return null;
 		}
-		return o;
 	}
 
 	public boolean isAdviceAround(Class targetClass, Method methodx) {

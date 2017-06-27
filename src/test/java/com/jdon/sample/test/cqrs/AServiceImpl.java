@@ -19,25 +19,31 @@ import com.jdon.annotation.Introduce;
 import com.jdon.annotation.Service;
 import com.jdon.domain.message.DomainMessage;
 import com.jdon.sample.test.cqrs.a.AggregateRootA;
+import com.jdon.sample.test.cqrs.b.AggregateRootB;
 
-@Service("aService")
+@Service("myaService")
 @Introduce("componentmessage")
 public class AServiceImpl implements AService {
 
-	private ABRepositoryIF aBRepository;
-
-	public AServiceImpl(ABRepositoryIF aBRepository) {
+	private RepositoryIF aBRepository;
+	
+	public AServiceImpl(RepositoryIF aBRepository) {
 		super();
 		this.aBRepository = aBRepository;
 	}
 
 	public AggregateRootA getAggregateRootA(String id) {
-		return aBRepository.loadA(id);
+		return aBRepository.getA(id);
+	}
+	
+	public AggregateRootB getAggregateRootB(String id) {
+		return aBRepository.getB(id);
 	}
 
-	public DomainMessage commandA(String rootId, AggregateRootA model, int state) {
+
+	public DomainMessage commandAandB(String rootId, AggregateRootA model, int state) {
 		System.out.print("\n send to AggregateRootA =" + model.getId());
-		return new DomainMessage(new ParameterVO(state), 60000);
+		return new DomainMessage(new ParameterVO(aBRepository.loadSequencId(), state, "22"), 60000);
 	}
 
 }

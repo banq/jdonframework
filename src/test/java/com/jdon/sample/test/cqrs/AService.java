@@ -20,11 +20,14 @@ import com.jdon.annotation.model.Receiver;
 import com.jdon.annotation.model.Send;
 import com.jdon.domain.message.DomainMessage;
 import com.jdon.sample.test.cqrs.a.AggregateRootA;
+import com.jdon.sample.test.cqrs.b.AggregateRootB;
 
 public interface AService {
 
 	@Send("CommandtoEventA")
-	public DomainMessage commandA(@Owner String rootId, @Receiver AggregateRootA model, int state);
+	public DomainMessage commandAandB(@Owner String rootId, @Receiver AggregateRootA model, int state);
 
 	AggregateRootA getAggregateRootA(String id);
+	
+	AggregateRootB getAggregateRootB(String id);
 }

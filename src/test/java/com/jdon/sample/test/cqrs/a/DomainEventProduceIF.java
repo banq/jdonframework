@@ -16,9 +16,10 @@
 package com.jdon.sample.test.cqrs.a;
 
 import com.jdon.domain.message.DomainMessage;
+import com.jdon.sample.test.cqrs.ParameterVO;
 
 public interface DomainEventProduceIF {
 
-	DomainMessage sendtoAnotherAggragate(String aggregateRootBId, int state);
+	DomainMessage sendtoAnotherAggragate(ParameterVO parameterVO);
 
 }

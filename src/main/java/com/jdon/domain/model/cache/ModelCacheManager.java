@@ -62,6 +62,14 @@ public class ModelCacheManager implements Startable {
 		CacheKey cachKey = cacheKeyFactory.createCacheKey(dataKey.toString(), modelClassName);
 		saveToCache(cachKey, model);
 	}
+	
+	public Object saveCacheIfAbsent(Object dataKey, String modelClassName, Object model) {
+		if (dataKey == null) return null;
+		CacheKey cachKey = cacheKeyFactory.createCacheKey(dataKey.toString(), modelClassName);
+		if (cachKey == null) return null;
+		return cacheManager.putIfAbsent(cachKey, model);		
+	}
+
 
 	protected void saveToCache(CacheKey cachKey, Object model) {
 		if (!cacheManager.containObject(cachKey))

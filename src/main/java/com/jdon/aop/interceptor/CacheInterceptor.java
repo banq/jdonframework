@@ -17,6 +17,7 @@ package com.jdon.aop.interceptor;
 import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -61,27 +62,37 @@ public class CacheInterceptor implements MethodInterceptor, Startable {
 			// module);
 			return invocation.proceed(); // 下一个interceptor
 		}
-		Debug.logVerbose("[JdonFramework] enter cacheInteceptor method:" + method.getName(), module);
+		Debug.logVerbose("[JdonFramework] enter cacheInteceptor method:"
+				+ method.getName(), module);
 		Class modelClass = method.getReturnType();
 		String dataKey = getArguments(invocation);
 		if (dataKey == null || modelClass == null)
 			return invocation.proceed();
 		try {
-			ModelKey modelKey = new ModelKey(dataKey, modelClass);
-			Object model = modelManager.getCache(modelKey);
-			if (model == null) {
-				model = invocation.proceed(); // 下一个interceptor
-				if (model != null && modelClass.isAssignableFrom(model.getClass())) {
-					Debug.logVerbose("[JdonFramework] save to cache", module);
-					model = modelManager.addCache(modelKey, model);
-				}
-			}
-			return model;
+			ModelKey modelKey = new ModelKey(dataKey, modelClass);			
+			return getModelofCache(modelKey, invocation);
 		} catch (Exception e) {
-			Debug.logError("[JdonFramework]CacheInterceptor Exception error:" + e + " method:" + method.getName() + " return class:" + modelClass
-					+ " dataKey:" + dataKey, module);
+			Debug.logError("[JdonFramework]CacheInterceptor Exception error:"
+					+ e + " method:" + method.getName() + " return class:"
+					+ modelClass + " dataKey:" + dataKey, module);
 		}
 		return invocation.proceed();
+	}
+
+	public Object getModelofCache(ModelKey modelKey, MethodInvocation invocation)
+			throws Throwable {
+		Object existmodel = modelManager.getCache(modelKey);
+		Object newmodel = null;
+		if (existmodel == null) {
+			newmodel = invocation.proceed(); // 下一个interceptor
+			if (newmodel != null
+					&& invocation.getMethod().getReturnType()
+							.isAssignableFrom(newmodel.getClass())) {
+				Debug.logVerbose("[JdonFramework] save to cache", module);
+				existmodel = modelManager.addCache(modelKey, newmodel);
+			}
+		}
+		return existmodel != null ? existmodel : newmodel;
 	}
 
 	/**
@@ -108,7 +119,9 @@ public class CacheInterceptor implements MethodInterceptor, Startable {
 			if (returnClass.getSuperclass() == null)
 				return condition; // 无返回值，不做缓存
 
-			Debug.logVerbose("[JdonFramework]methodMatchsModelGET: returnClassName = " + returnClass.getName(), module);
+			Debug.logVerbose(
+					"[JdonFramework]methodMatchsModelGET: returnClassName = "
+							+ returnClass.getName(), module);
 			if (ModelUtil.isModel(returnClass)) {
 				if (mehtodName.indexOf(match_MethodName) != -1) {
 					condition = true;
@@ -146,7 +159,8 @@ public class CacheInterceptor implements MethodInterceptor, Startable {
 				return null;
 			return args[0].toString();
 		} catch (Exception ex) {
-			Debug.logError("[JdonFramework] method:" + invocation.getMethod().getName() + "  " + ex, module);
+			Debug.logError("[JdonFramework] method:"
+					+ invocation.getMethod().getName() + "  " + ex, module);
 			return null;
 		}
 

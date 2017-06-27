@@ -15,6 +15,8 @@
  */
 package com.jdon.sample.test.cqrs.a;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import com.jdon.annotation.Model;
 import com.jdon.annotation.model.Inject;
 import com.jdon.annotation.model.OnCommand;
@@ -26,7 +28,7 @@ public class AggregateRootA {
 
 	private String aggregateRootBId;
 
-	private int state = 100;
+	private final AtomicInteger state = new AtomicInteger(100);
 
 	@Inject
 	private DomainEventProduceIF domainEventProducer;
@@ -38,10 +40,10 @@ public class AggregateRootA {
 
 	@OnCommand("CommandtoEventA")
 	public Object save(ParameterVO parameterVO) {
-		this.state = parameterVO.getValue() + state;
-		System.out.print("\n AggregateRootA Action " + state);
-
-		return domainEventProducer.sendtoAnotherAggragate(aggregateRootBId, this.state);
+		int newstate = state.addAndGet(parameterVO.getValue());		
+		System.out.print("\n AggregateRootA Action " + newstate);
+		ParameterVO parameterVONew = new ParameterVO(parameterVO.getId(), newstate, parameterVO.getNextId());  
+		return domainEventProducer.sendtoAnotherAggragate(parameterVONew);
 
 	}
 
@@ -60,5 +62,10 @@ public class AggregateRootA {
 	public void setAggregateRootBId(String aggregateRootBId) {
 		this.aggregateRootBId = aggregateRootBId;
 	}
+	
+	public int getState() {
+		return state.get();
+	}
+
 
 }

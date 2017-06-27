@@ -51,7 +51,7 @@ public class CacheKey implements StringKey {
 		buffer.append(dataTypeName);
 		if (dataKey != null)
 			buffer.append(dataKey.toString());
-		return buffer.toString();
+		return buffer.toString().intern();
 	}
 
 	public String toString() {

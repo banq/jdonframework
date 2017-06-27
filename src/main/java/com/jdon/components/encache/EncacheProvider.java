@@ -26,7 +26,8 @@ import net.sf.ehcache.Element;
 import com.jdon.container.pico.Startable;
 import com.jdon.util.FileLocator;
 
-public class EncacheProvider implements com.jdon.controller.cache.Cache, Startable {
+public class EncacheProvider implements com.jdon.controller.cache.Cache,
+		Startable {
 
 	private CacheManager manager;
 
@@ -45,7 +46,8 @@ public class EncacheProvider implements com.jdon.controller.cache.Cache, Startab
 		synchronized (CacheManager.class) {
 			if (this.manager == null) {
 				FileLocator fileLocator = new FileLocator();
-				InputStream pathCongfgName = fileLocator.getConfStream(ehcacheConf.getEhcacheConfFileName());
+				InputStream pathCongfgName = fileLocator
+						.getConfStream(ehcacheConf.getEhcacheConfFileName());
 				this.manager = new CacheManager(pathCongfgName);
 			}
 		}
@@ -88,7 +90,8 @@ public class EncacheProvider implements com.jdon.controller.cache.Cache, Startab
 
 	public void clear() {
 		if (manager != null) {
-			Cache cache = manager.getCache(ehcacheConf.getPredefinedCacheName());
+			Cache cache = manager
+					.getCache(ehcacheConf.getPredefinedCacheName());
 			cache.removeAll();
 		}
 	}
@@ -114,7 +117,8 @@ public class EncacheProvider implements com.jdon.controller.cache.Cache, Startab
 	}
 
 	public static void main(String[] args) throws Exception {
-		EhcacheConf ehcacheConf = new EhcacheConf("jdon_ehcache.xml", "jdonCache");
+		EhcacheConf ehcacheConf = new EhcacheConf("jdon_ehcache.xml",
+				"jdonCache");
 		EncacheProvider encacheProvider = new EncacheProvider(ehcacheConf);
 		encacheProvider.start();
 		encacheProvider.put("key1", "value122");
@@ -123,6 +127,21 @@ public class EncacheProvider implements com.jdon.controller.cache.Cache, Startab
 		encacheProvider.remove("key1");
 		value = (String) encacheProvider.get("key2");
 		System.out.println("value2=" + value);
+	}
+
+	/**
+	 * ehcache不支持putIfAbsent原子操作
+	 */
+	@Override
+	public synchronized Object putIfAbsent(Object key, Object value) {		
+		Cache cache = manager.getCache(ehcacheConf.getPredefinedCacheName());
+		if (!cache.isKeyInCache(key)){
+			Element element = new Element(key, value);
+			cache.put(element);
+		}
+		Element e = (Element)cache.get(key);
+		return e.getObjectValue();
+
 	}
 
 }

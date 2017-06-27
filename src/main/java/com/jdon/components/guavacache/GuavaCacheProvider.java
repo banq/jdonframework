@@ -50,9 +50,14 @@ public class GuavaCacheProvider implements com.jdon.controller.cache.Cache, Star
 
 	@Override
 	public void put(Object key, Object value) {
-		cache.put(key, value);
+		cache.put(key, value);			
 	}
 
+	@Override
+	public Object putIfAbsent(Object key, Object value) {
+		return cache.asMap().putIfAbsent(key, value);			
+	}
+	
 	@Override
 	public void remove(Object key) {
 		cache.invalidate(key);

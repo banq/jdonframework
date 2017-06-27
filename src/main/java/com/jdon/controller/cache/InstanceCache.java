@@ -15,9 +15,9 @@
  */
 package com.jdon.controller.cache;
 
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import com.jdon.container.pico.Startable;
 
@@ -30,7 +30,7 @@ import com.jdon.container.pico.Startable;
 public class InstanceCache implements Startable {
 	public final static String NAME = "InstanceCache";
 
-	private Map pool = new ConcurrentHashMap();
+	private ConcurrentMap pool = new ConcurrentHashMap();
 
 	public void start() {
 
@@ -58,6 +58,11 @@ public class InstanceCache implements Startable {
 	public void put(Object key, Object value) {
 		pool.put(key, value);
 	}
+	
+	public Object putIfAbsent(Object key, Object value) {
+		return pool.putIfAbsent(key, value);
+	}
+
 
 	/*
 	 * (non-Javadoc)

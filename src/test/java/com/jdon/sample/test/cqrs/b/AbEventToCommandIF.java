@@ -18,9 +18,10 @@ package com.jdon.sample.test.cqrs.b;
 import com.jdon.annotation.model.Receiver;
 import com.jdon.annotation.model.Send;
 import com.jdon.domain.message.DomainMessage;
+import com.jdon.sample.test.cqrs.ParameterVO;
 
 public interface AbEventToCommandIF {
 	@Send("CommandToB")
-	DomainMessage ma(@Receiver AggregateRootB bModel, int state);
+	DomainMessage ma(@Receiver AggregateRootB bModel, ParameterVO parameterVO);
 
 }

@@ -157,13 +157,14 @@ public class DisruptorFactory implements Startable {
 	}
 
 	private TreeSet getHandles(String topic) {
-		TreeSet handlers = handlesMap.get(topic);
-		if (handlers == null)// not inited
+		TreeSet handlersExist = handlesMap.get(topic);
+		TreeSet handlersNew = null;
+		if (handlersExist == null)// not inited
 		{
-			handlers = getTreeSet();
-			handlers.addAll(loadEvenHandler(topic));
-			handlers.addAll(loadOnEventConsumers(topic));
-			if (handlers.size() == 0) {
+			handlersNew = getTreeSet();
+			handlersNew.addAll(loadEvenHandler(topic));
+			handlersNew.addAll(loadOnEventConsumers(topic));
+			if (handlersNew.size() == 0) {
 				// maybe by mistake in @Component(topicName)
 				Object o = containerWrapper.lookup(topic);
 				if (o == null) {
@@ -171,9 +172,9 @@ public class DisruptorFactory implements Startable {
 				}
 				return null;
 			}
-			handlesMap.put(topic, handlers);
+			handlersExist = handlesMap.putIfAbsent(topic, handlersNew);
 		}
-		return handlers;
+		return handlersExist != null?handlersExist:handlersNew;
 	}
 
 	public boolean isContain(String topic) {

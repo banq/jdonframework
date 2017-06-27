@@ -20,12 +20,17 @@ import junit.framework.TestCase;
 
 import com.jdon.controller.AppUtil;
 import com.jdon.domain.message.DomainMessage;
+import com.jdon.sample.test.bankaccount.AccountParameterVO;
+import com.jdon.sample.test.bankaccount.AccountService;
+import com.jdon.sample.test.bankaccount.a.BankAccount;
 import com.jdon.sample.test.command.AComponentIF;
 import com.jdon.sample.test.command.BModel;
 import com.jdon.sample.test.command.TestCommand;
 import com.jdon.sample.test.component.BInterface;
 import com.jdon.sample.test.cqrs.AService;
+import com.jdon.sample.test.cqrs.ParameterVO;
 import com.jdon.sample.test.cqrs.a.AggregateRootA;
+import com.jdon.sample.test.cqrs.b.AggregateRootB;
 import com.jdon.sample.test.domain.onecase.service.IServiceSample;
 import com.jdon.sample.test.domain.simplecase.service.IServiceSampleTwo;
 import com.jdon.sample.test.event.AI;
@@ -36,7 +41,7 @@ public class SampleAppTest extends TestCase {
 
 	AppUtil appUtil;
 
-	protected void setUp() throws Exception {
+	public void setUp() throws Exception {
 		appUtil = new AppUtil("com.jdon.jdonframework.xml");
 	}
 
@@ -51,11 +56,18 @@ public class SampleAppTest extends TestCase {
 	}
 
 	public void testEvent() {
-		AppUtil appUtil = new AppUtil();
+		// AppUtil appUtil = new AppUtil();
 		AI a = (AI) appUtil.getService("producer");
 		TestEvent te = a.ma();
 		long start = System.currentTimeMillis();
 		while (te.getResult() != 100) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 		long stop = System.currentTimeMillis();
 
@@ -64,12 +76,20 @@ public class SampleAppTest extends TestCase {
 	}
 
 	public void testCommand() {
-		AppUtil appUtil = new AppUtil();
-		AComponentIF a = (AComponentIF) appUtil.getComponentInstance("producerforCommand");
+		// AppUtil appUtil = new AppUtil();
+		AComponentIF a = (AComponentIF) appUtil
+				.getComponentInstance("producerforCommand");
 		BModel bModel = new BModel("one");
 		TestCommand testCommand = a.ma(bModel);
 		long start = System.currentTimeMillis();
 		while (testCommand.getOutput() != 199) {
+
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		long stop = System.currentTimeMillis();
 		Assert.assertEquals(testCommand.getOutput(), 199);
@@ -78,23 +98,27 @@ public class SampleAppTest extends TestCase {
 
 	public void testDomainEvent() {
 
-		IServiceSample serviceSample = (IServiceSample) appUtil.getService("serviceSample");
+		IServiceSample serviceSample = (IServiceSample) appUtil
+				.getService("serviceSample");
 		Assert.assertEquals("hello-2", serviceSample.eventPointEntry("hello"));
 
 	}
 
 	public void testDomainEventSimple() {
 
-		IServiceSampleTwo serviceSample = (IServiceSampleTwo) appUtil.getService("serviceSampleTwo");
+		IServiceSampleTwo serviceSample = (IServiceSampleTwo) appUtil
+				.getService("serviceSampleTwo");
 		String res = (String) serviceSample.eventPointEntry();
 		System.out.print(res);
-		Assert.assertEquals(res, "Synchronous sayHello and Asynchronous eventMessage=100");
+		Assert.assertEquals(res,
+				"Synchronous sayHello and Asynchronous eventMessage=100");
 
 	}
 
 	public void testOnEvent() {
 
-		IServiceSampleTwo serviceSample = (IServiceSampleTwo) appUtil.getService("serviceSampleTwo");
+		IServiceSampleTwo serviceSample = (IServiceSampleTwo) appUtil
+				.getService("serviceSampleTwo");
 		serviceSample.onEventTest();
 		Assert.assertTrue(true);
 
@@ -108,20 +132,42 @@ public class SampleAppTest extends TestCase {
 	}
 
 	public void testCQRS() {
-		AppUtil appUtil = new AppUtil();
-		AService service = (AService) appUtil.getComponentInstance("aService");
+		// AppUtil appUtil = new AppUtil();
+		AService service = (AService) appUtil.getComponentInstance("myaService");
 		AggregateRootA aggregateRootA = service.getAggregateRootA("11");
-		DomainMessage res = service.commandA("11", aggregateRootA, 100);
+		DomainMessage res = service.commandAandB("11", aggregateRootA, 100);
 
 		long start = System.currentTimeMillis();
-		int result = 0;
 		DomainMessage res1 = (DomainMessage) res.getBlockEventResult();
-		if (res1.getBlockEventResult() != null)
-			result = (Integer) res1.getBlockEventResult();
+		ParameterVO result = (ParameterVO) res1.getBlockEventResult();
 
 		long stop = System.currentTimeMillis();
-		Assert.assertEquals(result, 400);
+
+		AggregateRootB aggregateRootB = service.getAggregateRootB("22");
+		Assert.assertEquals(result.getValue(),
+				aggregateRootB.getState(result.getId()));
 		System.out.print("\n test CQRS ok \n" + result + " " + (stop - start));
+	}
+
+	public void testBankAccount() {
+		// AppUtil appUtil = new AppUtil();
+		AccountService accountService = (AccountService) appUtil
+				.getComponentInstance("accountService");
+		BankAccount bankAccountA = accountService.getBankAccount("11");
+		BankAccount bankAccountB = accountService.getBankAccount("22");
+		DomainMessage res = accountService.commandAandB(bankAccountA,
+				bankAccountB, 100);
+
+		long start = System.currentTimeMillis();
+		DomainMessage res1 = (DomainMessage) res.getBlockEventResult();
+		AccountParameterVO result = (AccountParameterVO) res1.getBlockEventResult();
+
+		long stop = System.currentTimeMillis();
+
+		Assert.assertEquals(100, bankAccountA.getAmount());
+		Assert.assertEquals(-100, bankAccountB.getAmount());
+
+		System.out.print("\n test Account Transfer ok \n" + result + " " + (stop - start));
 	}
 
 	/**
@@ -143,10 +189,10 @@ public class SampleAppTest extends TestCase {
 		sampleAppTest.testOnEvent();
 		sampleAppTest.testGetService();
 
+		System.out.print("############################ok ");
 	}
 
-	protected void tearDown() throws Exception {
-		super.tearDown();
+	public void tearDown() {
 		appUtil.clear();
 	}
 

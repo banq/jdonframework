@@ -64,7 +64,7 @@ public class DynamicModel extends Model {
 			Object o = iter.next();
 			bf.append(o.toString());
 		}
-		return bf.toString();
+		return bf.toString().intern();
 	}
 
 }

@@ -18,15 +18,22 @@ package com.jdon.sample.test.cqrs.b;
 import com.jdon.annotation.Component;
 import com.jdon.annotation.Introduce;
 import com.jdon.domain.message.DomainMessage;
+import com.jdon.sample.test.cqrs.RepositoryIF;
 import com.jdon.sample.test.cqrs.ParameterVO;
 
 @Component()
 @Introduce("componentmessage")
 public class ABEventToCommand implements AbEventToCommandIF {
 
-	public DomainMessage ma(AggregateRootB bModel, int state) {
-		System.out.print("\n send command to AggregateRootB =" + bModel.getId());
-		return new DomainMessage(new ParameterVO(state));
+	private RepositoryIF aBRepository;
+	
+	public ABEventToCommand(RepositoryIF aBRepository) {
+		super();
+		this.aBRepository = aBRepository;
+	}
+
+	public DomainMessage ma(AggregateRootB bModel, ParameterVO parameterVO) {
+		return new DomainMessage(parameterVO);
 
 	}
 }

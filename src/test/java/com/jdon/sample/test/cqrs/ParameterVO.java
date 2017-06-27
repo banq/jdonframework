@@ -17,25 +17,29 @@ package com.jdon.sample.test.cqrs;
 
 public class ParameterVO {
 
-	private final int value;
+	private final int id;
+	private final int stateValue;
+	private final String nextId;
 
-	private int child;
-
-	public ParameterVO(int value) {
+	public ParameterVO(int id, int value, String nextId) {
 		super();
-		this.value = value;
+		this.id = id;
+		this.stateValue = value;
+		this.nextId = nextId;
 	}
 
 	public int getValue() {
-		return value;
+		return stateValue;
 	}
 
-	public int getChild() {
-		return child;
+	public String getNextId() {
+		return nextId;
 	}
 
-	public void setChild(int child) {
-		this.child = child;
+	public int getId() {
+		return id;
 	}
+	
+	
 
 }

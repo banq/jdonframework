@@ -48,19 +48,22 @@ public class ModelManagerImp implements ModelManager {
 	 */
 	public Object addCache(ModelKey modelKey, Object model) {
 		if ((modelKey == null) || (modelKey.getDataKey() == null) || modelKey.getModelClass() == null)
-			return null;
-		String modelClassName = null;
+			return null;		 
 		try {
-			modelClassName = modelKey.getModelClass().getName();
+			String modelClassName = modelKey.getModelClass().getName();
 			// inject the Model's field
 			modelProxyInjection.injectProperties(model);
 			// create the proxy for the Model
-			model = modelAdvisor.createProxy(model);
-			modelCacheManager.saveCache(modelKey.getDataKey(), modelClassName, model);
+			Object modelProxynew = modelAdvisor.createProxy(model);
+			Object modelProxyexsit = modelCacheManager.saveCacheIfAbsent(modelKey.getDataKey(), modelClassName, modelProxynew);
+			//多线程问题。
+			//modelCacheManager.saveCache(modelKey.getDataKey(), modelClassName, model);
+			return modelProxyexsit != null ? modelProxyexsit : modelProxynew;
 		} catch (Exception e) {
 			Debug.logError("addCache error:" + e, module);
+			return null;
 		}
-		return model;
+		
 	}
 
 	/**

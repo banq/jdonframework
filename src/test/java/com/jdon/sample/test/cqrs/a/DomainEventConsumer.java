@@ -19,7 +19,7 @@ import com.jdon.annotation.Consumer;
 import com.jdon.async.disruptor.EventDisruptor;
 import com.jdon.domain.message.DomainEventHandler;
 import com.jdon.domain.message.DomainMessage;
-import com.jdon.sample.test.cqrs.ABRepositoryIF;
+import com.jdon.sample.test.cqrs.RepositoryIF;
 import com.jdon.sample.test.cqrs.ParameterVO;
 import com.jdon.sample.test.cqrs.b.AbEventToCommandIF;
 import com.jdon.sample.test.cqrs.b.AggregateRootB;
@@ -35,21 +35,20 @@ import com.jdon.sample.test.cqrs.b.AggregateRootB;
 @Consumer("toEventB")
 public class DomainEventConsumer implements DomainEventHandler {
 
-	private ABRepositoryIF aBRepository;
+	private RepositoryIF aBRepository;
 	private AbEventToCommandIF aBEventToCommand;
 
-	public DomainEventConsumer(ABRepositoryIF aBRepository, AbEventToCommandIF aBEventToCommand) {
+	public DomainEventConsumer(RepositoryIF aBRepository, AbEventToCommandIF aBEventToCommand) {
 		super();
 		this.aBRepository = aBRepository;
 		this.aBEventToCommand = aBEventToCommand;
 	}
 
 	public void onEvent(EventDisruptor event, boolean endOfBatch) throws Exception {
-		System.out.print("\n event comsumer action");
 		ParameterVO parameterVO = (ParameterVO) event.getDomainMessage().getEventSource();
-		String aggregateRootBId = Integer.toString(parameterVO.getValue());
-		AggregateRootB modelB = aBRepository.loadB(aggregateRootBId);
-		DomainMessage nextCommandResult = aBEventToCommand.ma(modelB, parameterVO.getChild());
+		String aggregateRootBId = parameterVO.getNextId();
+		AggregateRootB modelB = aBRepository.getB(aggregateRootBId);
+		DomainMessage nextCommandResult = aBEventToCommand.ma(modelB, parameterVO);
 		event.getDomainMessage().setEventResult(nextCommandResult.getBlockEventResult());
 
 	}

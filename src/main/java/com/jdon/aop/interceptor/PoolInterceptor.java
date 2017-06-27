@@ -18,8 +18,9 @@ package com.jdon.aop.interceptor;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.aopalliance.intercept.MethodInterceptor;
@@ -55,7 +56,7 @@ public class PoolInterceptor implements MethodInterceptor, Startable {
 	/**
 	 * one target object, one pool
 	 */
-	private Map poolFactorys;
+	private ConcurrentMap poolFactorys;
 
 	private TargetServiceFactory targetServiceFactory;
 
@@ -79,7 +80,7 @@ public class PoolInterceptor implements MethodInterceptor, Startable {
 		this.targetMetaRequestsHolder = targetMetaRequestsHolder;
 		this.containerCallback = containerCallback;
 		this.poolConfigure = poolConfigure;
-		this.poolFactorys = new HashMap();
+		this.poolFactorys = new ConcurrentHashMap();
 	}
 
 	/*
@@ -101,11 +102,7 @@ public class PoolInterceptor implements MethodInterceptor, Startable {
 			return invocation.proceed(); // 下一个interceptor
 		}
 		Debug.logVerbose("[JdonFramework] enter PoolInterceptor", module);
-		CommonsPoolFactory commonsPoolFactory = (CommonsPoolFactory) poolFactorys.get(targetMetaDef.getCacheKey());
-		if (commonsPoolFactory == null) {
-			commonsPoolFactory = getCommonsPoolFactory(targetMetaDef);
-			poolFactorys.put(targetMetaDef.getCacheKey(), commonsPoolFactory);
-		}
+		CommonsPoolFactory commonsPoolFactory = getCommonsPoolFactoryCache(targetMetaDef);
 
 		Pool pool = commonsPoolFactory.getPool();
 		Object poa = null;
@@ -129,6 +126,17 @@ public class PoolInterceptor implements MethodInterceptor, Startable {
 		}
 		return result;
 	}
+	
+	private CommonsPoolFactory getCommonsPoolFactoryCache(TargetMetaDef targetMetaDef){
+		CommonsPoolFactory commonsPoolFactoryExist = (CommonsPoolFactory) poolFactorys.get(targetMetaDef.getCacheKey());
+		CommonsPoolFactory commonsPoolFactoryNew = null;
+		if (commonsPoolFactoryExist == null) {
+			commonsPoolFactoryNew = getCommonsPoolFactory(targetMetaDef);
+			commonsPoolFactoryExist= (CommonsPoolFactory)poolFactorys.putIfAbsent(targetMetaDef.getCacheKey(), commonsPoolFactoryNew);
+		}
+		return commonsPoolFactoryExist != null?commonsPoolFactoryExist:commonsPoolFactoryNew;
+
+	}
 
 	/**
 	 * every target service has its CommonsPoolFactory, we cache it in
@@ -139,24 +147,26 @@ public class PoolInterceptor implements MethodInterceptor, Startable {
 	 * @return
 	 */
 	private CommonsPoolFactory getCommonsPoolFactory(TargetMetaDef targetMetaDef) {
-		CommonsPoolFactory commonsPoolFactory = null;
 		try {
 			ContainerWrapper containerWrapper = containerCallback.getContainerWrapper();
 			InstanceCache instanceCache = (InstanceCache) containerWrapper.lookup(ComponentKeys.INSTANCE_CACHE);
 
 			String key = targetMetaDef.getCacheKey() + " CommonsPoolFactory";
 
-			commonsPoolFactory = (CommonsPoolFactory) instanceCache.get(key);
-			if (commonsPoolFactory == null) {
+			CommonsPoolFactory commonsPoolFactoryExist = (CommonsPoolFactory) instanceCache.get(key);
+			CommonsPoolFactory commonsPoolFactoryNew = null;
+			if (commonsPoolFactoryExist == null) {
 				Debug.logVerbose("[JdonFramework] first time call commonsPoolFactory， create it:" + key, module);
-				commonsPoolFactory = create(targetServiceFactory, poolConfigure.getMaxPoolSize());
-				instanceCache.put(key, commonsPoolFactory);
+				commonsPoolFactoryNew = create(targetServiceFactory, poolConfigure.getMaxPoolSize());
+				commonsPoolFactoryExist = (CommonsPoolFactory)instanceCache.putIfAbsent(key, commonsPoolFactoryNew);
 			}
+			return commonsPoolFactoryExist != null?commonsPoolFactoryExist:commonsPoolFactoryNew;
 
 		} catch (Exception ex) {
 			Debug.logError(ex, module);
+			return null;
 		}
-		return commonsPoolFactory;
+		
 	}
 
 	public CommonsPoolFactory create(TargetServiceFactory targetServiceFactory, String maxSize) {

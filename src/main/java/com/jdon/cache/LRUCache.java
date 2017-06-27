@@ -17,6 +17,8 @@ package com.jdon.cache;
 
 import java.util.Collection;
 
+import net.sf.ehcache.Element;
+
 import com.jdon.container.pico.Startable;
 import com.jdon.controller.cache.Cache;
 import com.jdon.util.PropsUtil;
@@ -53,6 +55,16 @@ public class LRUCache implements Cache, Startable {
 	public void put(Object key, Object value) {
 		cache.put(key, value);
 	}
+	
+	@Override
+	public synchronized Object putIfAbsent(Object key, Object value) {		
+		if (!cache.containsKey(key)){
+			cache.put(key, value);
+		}
+		return cache.get(key);
+
+	}
+
 
 	public void remove(Object key) {
 		cache.remove(key);

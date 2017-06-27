@@ -15,6 +15,10 @@
  */
 package com.jdon.sample.test.cqrs.b;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import com.jdon.annotation.Model;
 import com.jdon.annotation.model.OnCommand;
 import com.jdon.sample.test.cqrs.ParameterVO;
@@ -22,8 +26,9 @@ import com.jdon.sample.test.cqrs.ParameterVO;
 @Model
 public class AggregateRootB {
 	private String id;
-
-	private int state = 200;
+	
+	private final AtomicInteger state = new AtomicInteger(200);
+	private final Map<Integer, Integer> states = new ConcurrentHashMap(); 
 
 	public AggregateRootB(String id) {
 		super();
@@ -32,11 +37,16 @@ public class AggregateRootB {
 
 	@OnCommand("CommandToB")
 	public Object save(ParameterVO parameterVO) {
-		this.state = parameterVO.getValue() + state;
-		System.out.print("\n AggregateRootB Action " + state);
+		int newstate = state.addAndGet(parameterVO.getValue()); 
+		System.out.print("\n AggregateRootB Action " + newstate);
+		states.put(parameterVO.getId(), newstate);
+		ParameterVO parameterVOnew = new ParameterVO(parameterVO.getId(),newstate,parameterVO.getNextId());
+		return parameterVOnew;
 
-		return this.state;
-
+	}
+	
+	public int getState(int id){
+		return states.get(id);
 	}
 
 	public String getId() {
@@ -46,4 +56,10 @@ public class AggregateRootB {
 	public void setId(String id) {
 		this.id = id;
 	}
+
+	public int getState() {
+		return state.get();
+	}
+	
+	
 }

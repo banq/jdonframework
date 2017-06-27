@@ -89,6 +89,12 @@ public class CacheManager implements Startable {
 		cache.put(ckey.getKey(), new CacheableWrapper(ckey.getDataKey(), value));
 	}
 
+	public Object putIfAbsent(StringKey ckey, Object value) {
+		CacheableWrapper co = (CacheableWrapper) cache.putIfAbsent(
+				ckey.getKey(), new CacheableWrapper(ckey.getDataKey(), value));
+		return co != null ? co.getCachedValue() : null;
+	}
+
 	/**
 	 * 清除缓存
 	 * 

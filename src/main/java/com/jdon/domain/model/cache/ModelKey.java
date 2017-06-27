@@ -69,7 +69,7 @@ public class ModelKey {
 			buf.append(" modelClass =").append(modelClass);
 		else if (formName != null)
 			buf.append(" formName =").append(formName);
-		return buf.toString();
+		return buf.toString().intern();
 	}
 
 }
