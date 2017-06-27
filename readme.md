@@ -81,8 +81,6 @@ Jdon can make your Domain Model as Actor(erlang/akka) concurrent model, no any l
 
 		private String id;
 
-    //single thread operates this value, no need "AtomicInteger" concurrent type
-    //no need any lock
 		private int amount = 0;
 
 		@Inject
