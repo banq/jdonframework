@@ -73,40 +73,45 @@ full example: [click here](https://github.com/banq/jdonframework/blob/master/src
 
 Actor Model
 ===================================
-Jdon can make your Domain Model as Actor(erlang/akka) concurrent model, this is Bank Account transfer money sample:
+Jdon can make your Domain Model as Actor(erlang/akka) concurrent model, no any lock. this is Bank Account transfer money sample:
 
 
-@Model
-public class BankAccount {
-	private String id;
-	private int amount = 0;
-	@Inject
-	private DomainEventProduceIF domainEventProducer;
+	@Model
+	public class BankAccount {
 
-	public BankAccount(String id) {
-		super();
-		this.id = id;
-	}
+		private String id;
 
-	@OnCommand("depositCommand")
-	public Object deposit(AccountParameterVO parameterVO) {
-		amount = amount + parameterVO.getValue();
-		System.out.print("\n AggregateRootA Action " + amount);
-		AccountParameterVO parameterVONew = new AccountParameterVO(parameterVO.getId(),
+    //single thread operates this value, no need "AtomicInteger" concurrent type
+    //no need any lock
+		private int amount = 0;
+
+		@Inject
+		private DomainEventProduceIF domainEventProducer;
+
+		public BankAccount(String id) {
+			super();
+			this.id = id;
+		}
+
+		@OnCommand("depositCommand")
+		public Object deposit(AccountParameterVO parameterVO) {
+			amount = amount + parameterVO.getValue();
+			System.out.print("\n AggregateRootA Action " + amount);
+			AccountParameterVO parameterVONew = new AccountParameterVO(parameterVO.getId(),
 				amount, parameterVO.getNextId());
-		return domainEventProducer.sendtoAnotherAggragate(parameterVONew);
-	}
+			return domainEventProducer.sendtoAnotherAggragate(parameterVONew);
+		}
 
-	@OnCommand("withdrawCommand")
-	public Object withdraw(AccountParameterVO parameterVO) {
-		amount = amount - parameterVO.getValue();
-		AccountParameterVO parameterVOnew = new AccountParameterVO(parameterVO.getId(),
+		@OnCommand("withdrawCommand")
+		public Object withdraw(AccountParameterVO parameterVO) {
+			amount = amount - parameterVO.getValue();
+			AccountParameterVO parameterVOnew = new AccountParameterVO(parameterVO.getId(),
 				amount, parameterVO.getNextId());
-		return parameterVOnew;
+			return parameterVOnew;
+
+		}
 
 	}
-
-}
 
 transfer money client code:
 
