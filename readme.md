@@ -77,27 +77,27 @@ Jdon can make your Domain Model as Actor(erlang/akka) concurrent model, no any l
 
 
 	@Model
-  public class BankAccount {
-	private String id;
+	public class BankAccount {
+		private String id;
 
-	private int amount = 0;
+		private int amount = 0;
 
-	private Map<Integer, WithdrawEvent> eventsourcesW = new HashMap<Integer, WithdrawEvent>();
-	private Map<Integer, DepositEvent> eventsourcesD = new HashMap<Integer, DepositEvent>();
+		private Map<Integer, WithdrawEvent> eventsourcesW = new HashMap<Integer, WithdrawEvent>();
+		private Map<Integer, DepositEvent> eventsourcesD = new HashMap<Integer, DepositEvent>();
 
-	@Inject
-	private DomainEventProducer domainEventProducer;
+		@Inject
+		private DomainEventProducer domainEventProducer;
 
-	public BankAccount(String id) {
-		super();
-		this.id = id;
-	}
+		public BankAccount(String id) {
+			super();
+			this.id = id;
+		}
 
-	public BankAccount(String id, int amount) {
-		super();
-		this.id = id;
-		this.amount = amount;
-	}
+		public BankAccount(String id, int amount) {
+			super();
+			this.id = id;
+			this.amount = amount;
+		}
 
 	@OnCommand("depositCommand")
 	public Object deposit(TransferEvent transferEvent) {
