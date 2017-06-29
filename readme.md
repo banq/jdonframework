@@ -77,25 +77,33 @@ Jdon can make your Domain Model as Actor(erlang/akka) concurrent model, no any l
 
 
 	@Model
-	public class BankAccount {
+  public class BankAccount {
+	private String id;
 
-		private String id;
+	private int amount = 0;
 
-		private int amount = 0;
+	private Map<Integer, WithdrawEvent> eventsourcesW = new HashMap<Integer, WithdrawEvent>();
+	private Map<Integer, DepositEvent> eventsourcesD = new HashMap<Integer, DepositEvent>();
 
-		@Inject
-		private DomainEventProduceIF domainEventProducer;
+	@Inject
+	private DomainEventProducer domainEventProducer;
 
-		public BankAccount(String id) {
-			super();
-			this.id = id;
-		}
+	public BankAccount(String id) {
+		super();
+		this.id = id;
+	}
 
-		@OnCommand("depositCommand")
-		public Object deposit(TransferEvent transferEvent) {
-			int amount2 = amount + transferEvent.getValue();
-			if (amount2 > 1000) {
-				TransferEvent transferEventNew = new ResultEvent(
+	public BankAccount(String id, int amount) {
+		super();
+		this.id = id;
+		this.amount = amount;
+	}
+
+	@OnCommand("depositCommand")
+	public Object deposit(TransferEvent transferEvent) {
+		int amount2 = amount + transferEvent.getValue();
+		if (amount2 > 1000) {
+			TransferEvent transferEventNew = new ResultEvent(
 					transferEvent.getId(), transferEvent.getValue(),
 					this.getId());
 			return domainEventProducer.failure(transferEventNew);
@@ -115,10 +123,10 @@ Jdon can make your Domain Model as Actor(erlang/akka) concurrent model, no any l
 				transferEvent.getValue(), de.getPreId());
 		return domainEventProducer.finish(transferEventNew);
 
-		}
+	}
 
-  	@OnCommand("withdrawCommand")
-	 public Object withdraw(TransferEvent transferEvent) {
+	@OnCommand("withdrawCommand")
+	public Object withdraw(TransferEvent transferEvent) {
 		int amount2 = amount - transferEvent.getValue();
 		if (amount2 < 0) {
 			String rootId = (transferEvent instanceof DepositEvent) ? ((DepositEvent) transferEvent)
@@ -163,12 +171,11 @@ Jdon can make your Domain Model as Actor(erlang/akka) concurrent model, no any l
 		return transferEvent;
 	}
 
-
 	}
 
 transfer money client code:
 
-    AppUtil appUtil = new AppUtil();
+		AppUtil appUtil = new AppUtil();
 		AccountService accountService = (AccountService) appUtil
 				.getComponentInstance("accountService");
 		BankAccount bankAccountA = accountService.getBankAccount("11", 100);
