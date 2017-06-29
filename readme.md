@@ -73,7 +73,7 @@ full example: [click here](https://github.com/banq/jdonframework/blob/master/src
 
 Actor Model
 ===================================
-Jdon can make your Domain Model as Actor(erlang/akka) concurrent model, no any lock. this is Bank Account transfer money sample:
+Jdon can make your Domain Model as Actor(erlang/akka) concurrent model, no any lock. this is a sample about transferring money from one bank account to another:
 
 
 	@Model
@@ -92,22 +92,77 @@ Jdon can make your Domain Model as Actor(erlang/akka) concurrent model, no any l
 		}
 
 		@OnCommand("depositCommand")
-		public Object deposit(AccountParameterVO parameterVO) {
-			amount = amount + parameterVO.getValue();
-			System.out.print("\n AggregateRootA Action " + amount);
-			AccountParameterVO parameterVONew = new AccountParameterVO(parameterVO.getId(),
-				amount, parameterVO.getNextId());
-			return domainEventProducer.sendtoAnotherAggragate(parameterVONew);
+		public Object deposit(TransferEvent transferEvent) {
+			int amount2 = amount + transferEvent.getValue();
+			if (amount2 > 1000) {
+				TransferEvent transferEventNew = new ResultEvent(
+					transferEvent.getId(), transferEvent.getValue(),
+					this.getId());
+			return domainEventProducer.failure(transferEventNew);
 		}
 
-		@OnCommand("withdrawCommand")
-		public Object withdraw(AccountParameterVO parameterVO) {
-			amount = amount - parameterVO.getValue();
-			AccountParameterVO parameterVOnew = new AccountParameterVO(parameterVO.getId(),
-				amount, parameterVO.getNextId());
-			return parameterVOnew;
+		if (!(transferEvent instanceof WithdrawEvent)) {// first step
+			DepositEvent transferEventNew = new DepositEvent(
+					transferEvent.getId(), transferEvent.getValue(),
+					transferEvent.getNextId(), this.getId());
+			eventsourcesD.put(transferEventNew.getId(), transferEventNew);
+			return domainEventProducer.nextStep(transferEventNew);
+		}
+
+		WithdrawEvent de = (WithdrawEvent) transferEvent;
+		amount = amount + transferEvent.getValue();
+		TransferEvent transferEventNew = new ResultEvent(transferEvent.getId(),
+				transferEvent.getValue(), de.getPreId());
+		return domainEventProducer.finish(transferEventNew);
 
 		}
+
+  	@OnCommand("withdrawCommand")
+	 public Object withdraw(TransferEvent transferEvent) {
+		int amount2 = amount - transferEvent.getValue();
+		if (amount2 < 0) {
+			String rootId = (transferEvent instanceof DepositEvent) ? ((DepositEvent) transferEvent)
+					.getPreId() : this.getId();
+			TransferEvent transferEventNew = new ResultEvent(
+					transferEvent.getId(), transferEvent.getValue(), rootId);
+			return domainEventProducer.failure(transferEventNew);
+		}
+
+		if (!(transferEvent instanceof DepositEvent)) {// first step
+			WithdrawEvent transferEventNew = new WithdrawEvent(
+					transferEvent.getId(), transferEvent.getValue(),
+					transferEvent.getNextId(), this.getId());
+			eventsourcesW.put(transferEventNew.getId(), transferEventNew);
+			return domainEventProducer.nextStep(transferEventNew);
+
+		}
+
+		DepositEvent de = (DepositEvent) transferEvent;
+		amount = amount - transferEvent.getValue();
+		TransferEvent transferEventNew = new ResultEvent(transferEvent.getId(),
+				transferEvent.getValue(), de.getPreId());
+		return domainEventProducer.finish(transferEventNew);
+
+	}
+
+	@OnCommand("finishCommand")
+	public Object finish(TransferEvent transferEvent) {
+		if (eventsourcesW.containsKey(transferEvent.getId())){
+			eventsourcesW.remove(transferEvent.getId());
+			amount = amount - transferEvent.getValue();
+		}else if (eventsourcesD.containsKey(transferEvent.getId())){
+			eventsourcesD.remove(transferEvent.getId());
+			amount = amount + transferEvent.getValue();
+		}
+		return transferEvent;
+	}
+
+	@OnCommand("failureCommand")
+	public Object fail(TransferEvent transferEvent) {
+		eventsourcesD.remove(transferEvent.getId());
+		return transferEvent;
+	}
+
 
 	}
 
@@ -116,19 +171,17 @@ transfer money client code:
     AppUtil appUtil = new AppUtil();
 		AccountService accountService = (AccountService) appUtil
 				.getComponentInstance("accountService");
-		BankAccount bankAccountA = accountService.getBankAccount("11");
-		BankAccount bankAccountB = accountService.getBankAccount("22");
-		DomainMessage res = accountService.commandAandB(bankAccountA,
-				bankAccountB, 100);
+		BankAccount bankAccountA = accountService.getBankAccount("11", 100);
+		BankAccount bankAccountB = accountService.getBankAccount("22", 0);
+		DomainMessage res = accountService.transfer(bankAccountA, bankAccountB,
+				100);
 
-		long start = System.currentTimeMillis();
 		DomainMessage res1 = (DomainMessage) res.getBlockEventResult();
-		AccountParameterVO result = (AccountParameterVO) res1.getBlockEventResult();
+		DomainMessage result = (DomainMessage) res1.getBlockEventResult();
+		Object o = result.getBlockEventResult();// block until all transfer ok;
 
-		long stop = System.currentTimeMillis();
-
-		Assert.assertEquals(100, bankAccountA.getAmount());
-		Assert.assertEquals(-100, bankAccountB.getAmount());
+		Assert.assertEquals(0, bankAccountA.getAmount());
+		Assert.assertEquals(100, bankAccountB.getAmount());
 
 
 detail: [click here](https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/bankaccount)

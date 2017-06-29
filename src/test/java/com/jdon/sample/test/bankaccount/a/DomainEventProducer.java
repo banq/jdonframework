@@ -1,19 +1,27 @@
 package com.jdon.sample.test.bankaccount.a;
 
-import com.jdon.annotation.Component;
 import com.jdon.annotation.Introduce;
 import com.jdon.annotation.model.Send;
 import com.jdon.domain.message.DomainMessage;
-import com.jdon.sample.test.bankaccount.AccountParameterVO;
 
 
-@Component
+
 @Introduce("message")
-public class DomainEventProducer implements DomainEventProduceIF {
+public class DomainEventProducer {
 
-	@Send("transferMoneyEventToB")
-	public DomainMessage sendtoAnotherAggragate(AccountParameterVO parameterVO) {
-		return new DomainMessage(parameterVO);
+	@Send("transfernext")
+	public DomainMessage  nextStep(TransferEvent event) {
+		return new DomainMessage (event);
 	}
 
+	@Send("failureEvent")
+	public DomainMessage failure(TransferEvent transferEvent){
+		return new DomainMessage(transferEvent);
+	}
+
+	@Send("finishEvent")
+	public DomainMessage finish(TransferEvent transferEvent){
+		return new DomainMessage(transferEvent);
+	}
+	
 }

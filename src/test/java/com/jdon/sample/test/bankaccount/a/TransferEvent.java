@@ -1,12 +1,12 @@
-package com.jdon.sample.test.bankaccount;
+package com.jdon.sample.test.bankaccount.a;
 
-public class AccountParameterVO {
+public class TransferEvent {
 
 	private final int id;
 	private final int stateValue;
-	private final String nextId;
+	private String nextId;
 
-	public AccountParameterVO(int id, int value, String nextId) {
+	public TransferEvent(int id, int value, String nextId) {
 		super();
 		this.id = id;
 		this.stateValue = value;
@@ -24,7 +24,10 @@ public class AccountParameterVO {
 	public int getId() {
 		return id;
 	}
-	
+
+	public void setNextId(String nextId) {
+		this.nextId = nextId;
+	}
 	
 
 }

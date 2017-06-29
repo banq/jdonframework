@@ -15,10 +15,12 @@
  */
 package com.jdon.sample.test.bankaccount.a;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.jdon.annotation.Model;
 import com.jdon.annotation.model.Inject;
 import com.jdon.annotation.model.OnCommand;
-import com.jdon.sample.test.bankaccount.AccountParameterVO;
 
 @Model
 public class BankAccount {
@@ -26,30 +28,93 @@ public class BankAccount {
 
 	private int amount = 0;
 
+	private Map<Integer, WithdrawEvent> eventsourcesW = new HashMap<Integer, WithdrawEvent>();
+	private Map<Integer, DepositEvent> eventsourcesD = new HashMap<Integer, DepositEvent>();
+
 	@Inject
-	private DomainEventProduceIF domainEventProducer;
+	private DomainEventProducer domainEventProducer;
 
 	public BankAccount(String id) {
 		super();
 		this.id = id;
 	}
 
+	public BankAccount(String id, int amount) {
+		super();
+		this.id = id;
+		this.amount = amount;
+	}
+
 	@OnCommand("depositCommand")
-	public Object deposit(AccountParameterVO parameterVO) {
-		amount = amount + parameterVO.getValue();
-		System.out.print("\n AggregateRootA Action " + amount);
-		AccountParameterVO parameterVONew = new AccountParameterVO(parameterVO.getId(),
-				amount, parameterVO.getNextId());
-		return domainEventProducer.sendtoAnotherAggragate(parameterVONew);
+	public Object deposit(TransferEvent transferEvent) {
+		int amount2 = amount + transferEvent.getValue();
+		if (amount2 > 1000) {
+			TransferEvent transferEventNew = new ResultEvent(
+					transferEvent.getId(), transferEvent.getValue(),
+					this.getId());
+			return domainEventProducer.failure(transferEventNew);
+		}
+
+		if (!(transferEvent instanceof WithdrawEvent)) {// first step
+			DepositEvent transferEventNew = new DepositEvent(
+					transferEvent.getId(), transferEvent.getValue(),
+					transferEvent.getNextId(), this.getId());
+			eventsourcesD.put(transferEventNew.getId(), transferEventNew);
+			return domainEventProducer.nextStep(transferEventNew);
+		}
+
+		WithdrawEvent de = (WithdrawEvent) transferEvent;
+		amount = amount + transferEvent.getValue();
+		TransferEvent transferEventNew = new ResultEvent(transferEvent.getId(),
+				transferEvent.getValue(), de.getPreId());
+		return domainEventProducer.finish(transferEventNew);
+
 	}
 
 	@OnCommand("withdrawCommand")
-	public Object withdraw(AccountParameterVO parameterVO) {
-		amount = amount - parameterVO.getValue();
-		AccountParameterVO parameterVOnew = new AccountParameterVO(parameterVO.getId(),
-				amount, parameterVO.getNextId());
-		return parameterVOnew;
+	public Object withdraw(TransferEvent transferEvent) {
+		int amount2 = amount - transferEvent.getValue();
+		if (amount2 < 0) {
+			String rootId = (transferEvent instanceof DepositEvent) ? ((DepositEvent) transferEvent)
+					.getPreId() : this.getId();
+			TransferEvent transferEventNew = new ResultEvent(
+					transferEvent.getId(), transferEvent.getValue(), rootId);
+			return domainEventProducer.failure(transferEventNew);
+		}
 
+		if (!(transferEvent instanceof DepositEvent)) {// first step
+			WithdrawEvent transferEventNew = new WithdrawEvent(
+					transferEvent.getId(), transferEvent.getValue(),
+					transferEvent.getNextId(), this.getId());
+			eventsourcesW.put(transferEventNew.getId(), transferEventNew);
+			return domainEventProducer.nextStep(transferEventNew);
+
+		}
+
+		DepositEvent de = (DepositEvent) transferEvent;
+		amount = amount - transferEvent.getValue();
+		TransferEvent transferEventNew = new ResultEvent(transferEvent.getId(),
+				transferEvent.getValue(), de.getPreId());
+		return domainEventProducer.finish(transferEventNew);
+
+	}
+
+	@OnCommand("finishCommand")
+	public Object finish(TransferEvent transferEvent) {
+		if (eventsourcesW.containsKey(transferEvent.getId())){
+			eventsourcesW.remove(transferEvent.getId());
+			amount = amount - transferEvent.getValue();
+		}else if (eventsourcesD.containsKey(transferEvent.getId())){
+			eventsourcesD.remove(transferEvent.getId());
+			amount = amount + transferEvent.getValue();		
+		}
+		return transferEvent;
+	}
+
+	@OnCommand("failureCommand")
+	public Object fail(TransferEvent transferEvent) {		
+		eventsourcesD.remove(transferEvent.getId());
+		return transferEvent;
 	}
 
 	public String getId() {

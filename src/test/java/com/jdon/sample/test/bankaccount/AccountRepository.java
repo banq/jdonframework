@@ -25,6 +25,12 @@ public class AccountRepository implements AccountRepositoryIF {
 
 	}
 	
+	@Around
+	public  BankAccount getBankAccount(String id, int amount){
+		BankAccount model = new BankAccount(id, amount);		
+		return model;
+	}
+	
 	public int loadSequencId(){
 		return sequenceId.incrementAndGet();
 	}

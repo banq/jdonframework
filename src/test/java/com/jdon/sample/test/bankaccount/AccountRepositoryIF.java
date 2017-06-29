@@ -8,6 +8,11 @@ public interface AccountRepositoryIF {
 	@Around
 	public abstract BankAccount getBankAccount(String id);
 	
+
+	@Around
+	public abstract BankAccount getBankAccount(String id, int amount);
+
+	
 	public int loadSequencId();
 
 

@@ -20,9 +20,7 @@ import junit.framework.TestCase;
 
 import com.jdon.controller.AppUtil;
 import com.jdon.domain.message.DomainMessage;
-import com.jdon.sample.test.bankaccount.AccountParameterVO;
-import com.jdon.sample.test.bankaccount.AccountService;
-import com.jdon.sample.test.bankaccount.a.BankAccount;
+import com.jdon.sample.test.bankaccount.AccountTransferMain;
 import com.jdon.sample.test.command.AComponentIF;
 import com.jdon.sample.test.command.BModel;
 import com.jdon.sample.test.command.TestCommand;
@@ -150,24 +148,10 @@ public class SampleAppTest extends TestCase {
 	}
 
 	public void testBankAccount() {
-		// AppUtil appUtil = new AppUtil();
-		AccountService accountService = (AccountService) appUtil
-				.getComponentInstance("accountService");
-		BankAccount bankAccountA = accountService.getBankAccount("11");
-		BankAccount bankAccountB = accountService.getBankAccount("22");
-		DomainMessage res = accountService.commandAandB(bankAccountA,
-				bankAccountB, 100);
-
-		long start = System.currentTimeMillis();
-		DomainMessage res1 = (DomainMessage) res.getBlockEventResult();
-		AccountParameterVO result = (AccountParameterVO) res1.getBlockEventResult();
-
-		long stop = System.currentTimeMillis();
-
-		Assert.assertEquals(100, bankAccountA.getAmount());
-		Assert.assertEquals(-100, bankAccountB.getAmount());
-
-		System.out.print("\n test Account Transfer ok \n" + result + " " + (stop - start));
+		Assert.assertTrue(AccountTransferMain.testTransferFinish());
+		Assert.assertTrue(AccountTransferMain.testTransferFinish2());
+		Assert.assertTrue(AccountTransferMain.testTransferFail());
+		System.out.print("\n test Account Transfer ok \n" );
 	}
 
 	/**
