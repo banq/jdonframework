@@ -1,6 +1,6 @@
 JDON FRAMEWORK
 ===================================
-JdonFramework is a java reactive framework that you can use to build your Domain Driven Design + CQRS + EventSourcing  applications with asynchronous concurrency and higher throughput.
+JdonFramework is a java Reactive/Actor framework that you can use to build your Domain Driven Design + CQRS + EventSourcing  applications with asynchronous concurrency and higher throughput.
 
 JdonFramework = DDD + Event Sourcing + CQRS + asynchronous + concurrency + higher throughput.
 
@@ -73,7 +73,7 @@ full example: [click here](https://github.com/banq/jdonframework/blob/master/src
 
 Actor Model
 ===================================
-Jdon can make your Domain Model as Actor(erlang/akka) concurrent model, no any lock. this is a sample about transferring money from one bank account to another:
+Jdon can make your Domain Model as Actor(erlang/akka) concurrent model, no any lock. this is a transaction example about transferring money from one bank account to another:
 
 
 	@Model
