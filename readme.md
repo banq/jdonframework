@@ -177,6 +177,12 @@ transfer money client code:
 
 detail: [click here](https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/bankaccount)
 
+Apache Kafka + Eventsourcing
+===================================
+Apache Kafka supports Exactly-once delivery, Jdon Actor + Kafka can implement distributed transaction.
+
+detail: [click here](https://github.com/banq/jdon-kafka)
+
 
 GETTING STARTED
 ===================================
