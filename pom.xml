@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.jdon</groupId>
   <artifactId>jdonframework</artifactId>
-  <version>6.9-SNAPSHOT</version>
+  <version>6.9</version>
   <packaging>jar</packaging>
   <name>jdonframework</name>
   <description>JdonFramework is a java framework that you can use to build your Domain Driven Design + CQRS + EventSource  applications with asynchronous concurrency and higher throughput.</description>
@@ -20,6 +20,7 @@
     <connection>scm:git:git@github.com:banq/jdonframework.git</connection>
     <developerConnection>scm:git:git@github.com:banq/jdonframework.git</developerConnection>
     <url>git@github.com:banq/jdonframework.git</url>      
+    <tag>jdonframework-6.9</tag>
   </scm>
   
  <developers>
@@ -128,9 +129,9 @@
 
       <!-- https://mvnrepository.com/artifact/org.ehcache/ehcache -->
       <dependency>
-          <groupId>org.ehcache</groupId>
+          <groupId>net.sf.ehcache</groupId>
           <artifactId>ehcache</artifactId>
-          <version>3.4.0</version>
+          <version>1.6.2</version>
       </dependency>
 
       <dependency>
@@ -153,7 +154,26 @@
                         <pushChanges>false</pushChanges>
                         <localCheckout>false</localCheckout>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <checkModificationExcludes>
+                            <checkModificationExclude>.idea/</checkModificationExclude>
+                            <checkModificationExclude>.idea/*</checkModificationExclude>
+                            <checkModificationExclude>.idea/libraries/*</checkModificationExclude>
+                            <checkModificationExclude>pom.xml</checkModificationExclude>
+                            <checkModificationExclude>jdonframework.iml</checkModificationExclude>
+                            <checkModificationExclude>JdonAccessory/jdon-hibernate3x/jdon-hibernate3x.iml</checkModificationExclude>
+                            <checkModificationExclude>JdonAccessory/jdon-jdbc/jdon-jdbc.iml</checkModificationExclude>
+                            <checkModificationExclude>JdonAccessory/jdon-remote/jdon-remote.iml</checkModificationExclude>
+                            <checkModificationExclude>JdonAccessory/jdon-struts1x/jdon-struts1x.iml</checkModificationExclude>
+
+                        </checkModificationExcludes>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-scm-plugin</artifactId>
+                        <version>1.8.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <plugin>
@@ -233,6 +253,19 @@
 							</execution>
 						</executions>
 					</plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
 
 				</plugins>
 			</build>
