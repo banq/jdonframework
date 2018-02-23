@@ -38,15 +38,10 @@
      <dependency>
         <groupId>org.jdon</groupId>
         <artifactId>jdonframework</artifactId>
-        <version>6.6.4</version>
+        <version>6.9-SNAPSHOT</version>
      </dependency>    
   
      <!-- jdon lib end -->
-     <dependency>
-        <groupId>com.jdon</groupId>
-        <artifactId>jdon-jdbc</artifactId>
-        <version>6.6.4</version>
-     </dependency>      
      <dependency>
 	     <groupId>commons-pool</groupId>
 	     <artifactId>commons-pool</artifactId>

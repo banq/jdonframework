@@ -31,7 +31,7 @@ public class PublisherRoleImp implements PublisherRole {
 	 * @see
 	 * sample.repository.RepositoryPublisherRole#remember(sample.domain.Robot)
 	 */
-	@Override
+
 	@Send("saveme")
 	public DomainMessage remember(Robot robot) {
 		return new DomainMessage(robot);

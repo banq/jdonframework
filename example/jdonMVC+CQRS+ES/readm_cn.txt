@@ -99,3 +99,14 @@ http://www.jdon.com/jive/forum.jsp?forum=61&thRange=30
    建议oracle数据库主键使用Number,模型主键使用Long
    http://www.jdon.com/jive/thread.jsp?forum=61&thread=22736
 
+2.Maven配置中用了私服本地库，需要在你的Maven全局settings.xml中.
+
+将 <mirrorOf>*</mirrorOf>改为
+ <mirrorOf>central</mirrorOf>
+如：
+<mirror>
+            <id>aliyun</id>
+            <name>aliyun Maven</name>
+            <mirrorOf>central</mirrorOf>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+  </mirror>

@@ -26,7 +26,7 @@
     <developer>
       <id>banq</id>
       <name>Peng Chen Yang</name>
-      <email>banq@jdon.com</email>
+      <email>banq@163.com</email>
     </developer>
   </developers>
 
@@ -193,19 +193,7 @@
                 </executions>
             </plugin>
 
-           <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.7</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+
             
         </plugins>
     </build>
@@ -241,20 +229,7 @@
 							</execution>
 						</executions>
 					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.1</version>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
+
 				</plugins>
 			</build>
 		</profile>
