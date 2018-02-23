@@ -72,17 +72,19 @@
             <groupId>org.picocontainer</groupId>
             <artifactId>picocontainer</artifactId>
             <version>1.2</version>
-     </dependency>    
-    <dependency>
-            <groupId>javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>3.4.GA</version>
-     </dependency>    
-    <dependency>
+    </dependency>
+      <!-- https://mvnrepository.com/artifact/org.javassist/javassist -->
+      <dependency>
+          <groupId>org.javassist</groupId>
+          <artifactId>javassist</artifactId>
+          <version>3.22.0-GA</version>
+      </dependency>
+
+      <dependency>
           <groupId>com.google.guava</groupId>
           <artifactId>guava</artifactId>
-         <version>14.0.1</version>
-     </dependency>    
+          <version>14.0.1</version>
+      </dependency>
      <dependency>
 	     <groupId>regexp</groupId>
 	     <artifactId>regexp</artifactId>
@@ -91,23 +93,23 @@
      <dependency>
 	     <groupId>com.lmax</groupId>
 	     <artifactId>disruptor</artifactId>
-	     <version>3.2.0</version>
-     </dependency>                 
+         <version>3.3.8</version>
+     </dependency>
      <dependency>
-	     <groupId>cglib</groupId>
-	     <artifactId>cglib</artifactId>
-	     <version>2.2.2</version>
+         <groupId>cglib</groupId>
+         <artifactId>cglib</artifactId>
+         <version>2.2.2</version>
      </dependency>
      <dependency>
 	     <groupId>aopalliance</groupId>
       	<artifactId>aopalliance</artifactId>
 	     <version>1.0</version>
      </dependency>
-     <dependency>
-	     <groupId>commons-pool</groupId>
-	     <artifactId>commons-pool</artifactId>
-	     <version>1.6</version>
-     </dependency>
+      <dependency>
+          <groupId>commons-pool</groupId>
+          <artifactId>commons-pool</artifactId>
+          <version>1.6</version>
+      </dependency>
      <dependency>
 	     <groupId>jdom</groupId>
 	     <artifactId>jdom</artifactId>
@@ -123,13 +125,15 @@
 	     <artifactId>log4j-api</artifactId>
 	     <version>2.0-beta8</version>
      </dependency>
-                                  
-    <dependency>
-	        <groupId>net.sf.ehcache</groupId>
-	        <artifactId>ehcache</artifactId>
-	        <version>1.6.2</version>
-    </dependency>     
-    <dependency>
+
+      <!-- https://mvnrepository.com/artifact/org.ehcache/ehcache -->
+      <dependency>
+          <groupId>org.ehcache</groupId>
+          <artifactId>ehcache</artifactId>
+          <version>3.4.0</version>
+      </dependency>
+
+      <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
