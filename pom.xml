@@ -159,6 +159,8 @@
                             <checkModificationExclude>.idea/*</checkModificationExclude>
                             <checkModificationExclude>.idea/libraries/*</checkModificationExclude>
                             <checkModificationExclude>pom.xml</checkModificationExclude>
+                            <checkModificationExclude>release-pom.xml</checkModificationExclude>
+
                             <checkModificationExclude>jdonframework.iml</checkModificationExclude>
                             <checkModificationExclude>JdonAccessory/jdon-hibernate3x/jdon-hibernate3x.iml</checkModificationExclude>
                             <checkModificationExclude>JdonAccessory/jdon-jdbc/jdon-jdbc.iml</checkModificationExclude>
@@ -240,19 +242,7 @@
 							</execution>
 						</executions>
 					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>2.7</version>
-						<executions>
-							<execution>
-								<id>attach-javadocs</id>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
+
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>

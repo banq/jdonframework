@@ -25,6 +25,7 @@
   <scm>
     <connection>scm:git:git@github.com:banq/jdonframework.git</connection>
     <developerConnection>scm:git:git@github.com:banq/jdonframework.git</developerConnection>
+    <tag>jdonframework-6.9</tag>
     <url>git@github.com:banq/jdonframework.git</url>
   </scm>
   <distributionManagement>
@@ -217,6 +218,7 @@
             <checkModificationExclude>.idea/*</checkModificationExclude>
             <checkModificationExclude>.idea/libraries/*</checkModificationExclude>
             <checkModificationExclude>pom.xml</checkModificationExclude>
+            <checkModificationExclude>release-pom.xml</checkModificationExclude>
             <checkModificationExclude>jdonframework.iml</checkModificationExclude>
             <checkModificationExclude>JdonAccessory/jdon-hibernate3x/jdon-hibernate3x.iml</checkModificationExclude>
             <checkModificationExclude>JdonAccessory/jdon-jdbc/jdon-jdbc.iml</checkModificationExclude>
