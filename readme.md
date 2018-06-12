@@ -1,11 +1,11 @@
 JDON FRAMEWORK
 ===================================
+
 JdonFramework is a java Reactive/Actor framework that you can use to build your Domain Driven Design + CQRS + EventSourcing  applications with asynchronous concurrency and higher throughput.
 
 JdonFramework = DDD + Event Sourcing + CQRS + asynchronous + concurrency + higher throughput.
 
 JdonFramework = Ioc/DI/AOP + reactive Actors model
-
 
 Why Reactive?
 ===================================
@@ -20,38 +20,42 @@ Domain-driven design (DDD) is an approach to developing software for complex nee
 
 DDD's servral concepts are the Heart and Soul of OOD:
 
-		Entities and Identity, Value Objects
-		Aggregate Root
-		Bounded context
+```python
+Entities and Identity, Value Objects
+Aggregate Root
+Bounded context
+```
 
 Why CQRS?
 ===================================
+
 CQRS: Command-query Responsibility Segregation, at its heart is a simple notion that you can use a different model to update information than the model you use to read information.
 
 Why Jdon?
 ===================================
+
 Jdon introduces reactive and event-driven into domain, using jdon, a aggregate root can act as a mailbox(like scala's Actors) that is a asynchronous and non-blocking event-sending and event-recipient metaphor.
 Event is a better interactive way for aggregate root with each other, instead of directly exposing behavior and hold references to others.
 and it can better protect root entity's internal state not expose. and can safely update root's state in non-blocking way [Single Writer Principle](http://www.javacodegeeks.com/2012/08/single-writer-principle.html).
 
 Jdon moves mutable state from database to memory, and uses Aggregate Root to guard it, traditional database's data operations (by SQL or JPA/ORM) not need any more, only need send a Command or Event to drive Aggregate Root to change its mutable state by its behaviours
 
+```java
+@Model
+public class AggregateRootA {
 
-	@Model
-	public class AggregateRootA {
+	private int state = 100;
 
-		private int state = 100;
+	@OnCommand("CommandtoEventA")
+	public Object save(ParameterVO parameterVO) {
 
-		@OnCommand("CommandtoEventA")
-		public Object save(ParameterVO parameterVO) {
-
-			//update root's state in non-blocking single thread way (Single Writer)
-			this.state = parameterVO.getValue() + state;
-
-
-		}
+		//update root's state in non-blocking single thread way (Single Writer)
+		this.state = parameterVO.getValue() + state;
 
 	}
+
+}
+```
 
 Jdonframework work mode is Producer/Consumer, A producer emits to its Consumer by a asynchronous and non-blocking queue made by LMAX Disruptor's RingBuffer.
 such as:
@@ -60,8 +64,10 @@ such as:
 
 There are two kinds of Consumer in jdon:
 
-	@Send --> @OnCommand  (1:1 Queue)
-	@Send --> @OnEvent    (1:N topic)
+```java
+@Send --> @OnCommand  (1:1 Queue)
+@Send --> @OnEvent    (1:N topic)
+```
 
 Difference between 'OnCommand' and 'OnEvent' is:
 
@@ -73,11 +79,12 @@ full example: [click here](https://github.com/banq/jdonframework/blob/master/src
 
 Actor Model
 ===================================
+
 Jdon can make your Domain Model as Actor(erlang/akka) concurrent model, no any lock. this is a transaction example about transferring money from one bank account to another:
 
-
-	@Model
-	public class BankAccount {
+```java
+@Model
+public class BankAccount {
 
 	....
 
@@ -155,30 +162,33 @@ Jdon can make your Domain Model as Actor(erlang/akka) concurrent model, no any l
 
 	....
 
-	}
+}
+```
 
 transfer money client code:
 
-		AppUtil appUtil = new AppUtil();
-		AccountService accountService = (AccountService) appUtil
-				.getComponentInstance("accountService");
-		BankAccount bankAccountA = accountService.getBankAccount("11", 100);
-		BankAccount bankAccountB = accountService.getBankAccount("22", 0);
-		DomainMessage res = accountService.transfer(bankAccountA, bankAccountB,
-				100);
+```java
+AppUtil appUtil = new AppUtil();
+AccountService accountService = (AccountService) appUtil
+		.getComponentInstance("accountService");
+BankAccount bankAccountA = accountService.getBankAccount("11", 100);
+BankAccount bankAccountB = accountService.getBankAccount("22", 0);
+DomainMessage res = accountService.transfer(bankAccountA, bankAccountB,
+		100);
 
-		DomainMessage res1 = (DomainMessage) res.getBlockEventResult();
-		DomainMessage result = (DomainMessage) res1.getBlockEventResult();
-		Object o = result.getBlockEventResult();// block until all transfer ok;
+DomainMessage res1 = (DomainMessage) res.getBlockEventResult();
+DomainMessage result = (DomainMessage) res1.getBlockEventResult();
+Object o = result.getBlockEventResult();// block until all transfer ok;
 
-		Assert.assertEquals(0, bankAccountA.getAmount());
-		Assert.assertEquals(100, bankAccountB.getAmount());
-
+Assert.assertEquals(0, bankAccountA.getAmount());
+Assert.assertEquals(100, bankAccountB.getAmount());
+```
 
 detail: [click here](https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/bankaccount)
 
 Apache Kafka + Eventsourcing
 ===================================
+
 Apache Kafka supports Exactly-once delivery, Jdon Actor + Kafka can implement distributed transaction.
 
 detail: [click here](https://github.com/banq/jdon-kafka)
@@ -186,10 +196,11 @@ detail: [click here](https://github.com/banq/jdon-kafka)
 
 GETTING STARTED
 ===================================
-online documents :
-	English: http://en.jdon.com/
-	Chinese: http://www.jdon.com/jdonframework/
 
+online documents :
+
+- English: http://en.jdon.com/
+- Chinese: http://www.jdon.com/jdonframework/
 
 In the "doc\english" directory there are all documents about how to use.
 
@@ -221,25 +232,30 @@ DISTRIBUTION JAR FILES
 ===================================
 
 apply jdonframework.jar to your project:
-  MAVEN:
 
-		<dependency>
-			<groupId>org.jdon</groupId>
-			<artifactId>jdonframework</artifactId>
-			<version>6.8</version>
-		</dependency>
+MAVEN:
 
+```xml
+<dependency>
+	<groupId>org.jdon</groupId>
+	<artifactId>jdonframework</artifactId>
+	<version>6.8</version>
+</dependency>
+```
 
 Communication
 ------------------
+
 twiiter: [@jdonframework](http://twitter.com/jdonframework)
 
 Bugs and Feedback
 ------------------
+
 For bugs, questions and discussions please use the [Github Issues](https://github.com/banq/jdonframework/issues).
 
 LICENSE
 ------------------
+
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
 http://www.apache.org/licenses/LICENSE-2.0
