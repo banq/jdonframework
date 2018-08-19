@@ -199,9 +199,11 @@ In the "example" directory there are serveral examples that show how to use jdon
 
 In the "JdonAccessory" directory there are struts1.x MVC and jdbc templates.
 
-DEMO
+Example
 ------------------
-online: http://www.jdon.com/testWeb/
+[jivejdon](https://github.com/banq/jivejdon) is a discussion forum/blog/CMS platform powered by 
+jdonframework
+
 
 RELEASE NOTES
 ===================================
