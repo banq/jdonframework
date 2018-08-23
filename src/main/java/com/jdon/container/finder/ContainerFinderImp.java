@@ -38,26 +38,24 @@ public class ContainerFinderImp implements ContainerFinder {
 
 	public ContainerWrapper findContainer(AppContextWrapper sc) {
 		ContainerRegistryBuilder cb = (ContainerRegistryBuilder) sc.getAttribute(ContainerRegistryBuilder.APPLICATION_CONTEXT_ATTRIBUTE_NAME);
-		init(sc, cb);
+		if (cb == null)
+			cb = prepare(sc);
 		launch(sc, cb);
 		return cb.getContainerWrapper();
 	}
 
-	private void init(AppContextWrapper sc, ContainerRegistryBuilder cb) {
-		if (cb == null)
-			prepare(sc, cb);
-	}
 
 	private void launch(AppContextWrapper sc, ContainerRegistryBuilder cb) {
 		if (!cb.isKernelStartup())
 			start(sc);
 	}
 
-	private void prepare(AppContextWrapper sc, ContainerRegistryBuilder cb) {
+	private ContainerRegistryBuilder prepare(AppContextWrapper sc) {
 		ContainerSetupScript containerSetupScript = new ContainerSetupScript();
 		// no jdonramework.xml, only have annotation
 		containerSetupScript.prepare("", sc);
-		cb = (ContainerRegistryBuilder) sc.getAttribute(ContainerRegistryBuilder.APPLICATION_CONTEXT_ATTRIBUTE_NAME);
+		return (ContainerRegistryBuilder) sc.getAttribute(ContainerRegistryBuilder
+				.APPLICATION_CONTEXT_ATTRIBUTE_NAME);
 	}
 
 	private void start(AppContextWrapper sc) {
