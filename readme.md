@@ -6,7 +6,6 @@ JdonFramework = DDD + Event Sourcing + CQRS + asynchronous + concurrency + highe
 
 JdonFramework = Ioc/DI/AOP + reactive Actors model
 
-
 Why Reactive?
 ===================================
 
