@@ -180,7 +180,11 @@ Apache Kafka + Eventsourcing
 ===================================
 Apache Kafka supports Exactly-once delivery, Jdon Actor + Kafka can implement distributed transaction.
 
-detail: [click here](https://github.com/banq/jdon-kafka)
+[jdon-kafka](https://github.com/banq/jdon-kafka)
+
+[LMAX mircoservice distributed transaction](https://weareadaptive
+.com/wp-content/uploads/2017/04/Application-Level-Consensus
+.pdf)
 
 About workflow?
 ===================================
