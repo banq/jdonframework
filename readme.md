@@ -195,6 +195,7 @@ join with them:
 
 `command/startEvent  ---> task/aggregates ---> domain events/endEvent
 `
+
 Next version will join with them.....
 
 GETTING STARTED
