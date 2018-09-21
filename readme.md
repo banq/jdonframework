@@ -185,9 +185,9 @@ detail: [click here](https://github.com/banq/jdon-kafka)
 About workflow?
 ===================================
 DDD/ES:  command ---> aggregates ---> domain events
-BPMN:     startEvent ---> Task ----> endEvent
+BPMN:     startEvent ---> Task ---> endEvent
 join with them:
-command/startEvent   ---> task/aggregates --->domain events/endEvent
+command/startEvent  ---> task/aggregates ---> domain events/endEvent
 
 next version will join with them.....
 
