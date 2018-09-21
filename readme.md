@@ -182,9 +182,8 @@ Apache Kafka supports Exactly-once delivery, Jdon Actor + Kafka can implement di
 
 [jdon-kafka](https://github.com/banq/jdon-kafka)
 
-[LMAX mircoservice distributed transaction](https://weareadaptive
-.com/wp-content/uploads/2017/04/Application-Level-Consensus
-.pdf)
+[LMAX mircoservice distributed transaction](https://weareadaptive.com/wp-content/uploads/2017/04/Application-Level-Consensus.pdf)
+
 
 About workflow?
 ===================================
