@@ -196,6 +196,24 @@ join with them:
 `command/startEvent  ---> task/aggregates ---> domain events/endEvent
 `
 
+Collaboration diagram:
+
+process manager : `execute this command!`
+
+aggregates: yes,  `Yes, task completed events!`
+
+process manager lookup next step in BPMN.xml, when he found it: `execute this command!`
+
+aggregates: `Yes,  task completed events!`
+....
+
+process manager must hold every domain events from all aggregates, when he can't find next step 
+in BPMN ,but this process is not at the endEvent, so he think this process happen error, by the 
+order of domain events that he hold, he
+send every 'cancel task' command to all  aggregates, this is distributed transaction, it is AP of
+ CAP 
+theory.
+
 Next version will join with them.....
 
 GETTING STARTED
