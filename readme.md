@@ -240,16 +240,7 @@ jdonframework
 RELEASE NOTES
 ===================================
 
-6.8 version.
-
-add command of CQRS:
-UI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Component
-
-A aggregate root in Jdon acts like Actors of AKKA or Erlang.
-
-stable version download:
-http://sourceforge.net/projects/jdon/files/JdonFramework/6.X_DDD/
-
+6.9 version.
 
 DISTRIBUTION JAR FILES
 ===================================
@@ -260,7 +251,7 @@ apply jdonframework.jar to your project:
 		<dependency>
 			<groupId>org.jdon</groupId>
 			<artifactId>jdonframework</artifactId>
-			<version>6.8</version>
+			<version>6.9</version>
 		</dependency>
 
 
