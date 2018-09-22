@@ -14,10 +14,10 @@
     </File>
   </appenders>
   <loggers>
-    <logger name="com.jdon" level="error">
+      <logger name="com.jdon" level="error" additivity="false">
       <appender-ref ref="File"/>
     </logger>
-    <logger name="JdonFramework" level="debug">
+      <logger name="JdonFramework" level="debug" additivity="false">
      <appender-ref ref="Console"/>
       <appender-ref ref="File"/>
     </logger> 

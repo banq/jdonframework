@@ -15,11 +15,10 @@
 
 package com.jdon.container.builder;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.jdon.container.ContainerWrapper;
 import com.jdon.util.Debug;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * container director register order: 1. register all components in

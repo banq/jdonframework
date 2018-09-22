@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.jdon</groupId>
   <artifactId>jdonframework</artifactId>
@@ -31,9 +33,12 @@
     </developer>
   </developers>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
   
   <distributionManagement>
         <snapshotRepository>
@@ -55,8 +60,9 @@
         </repository>
         
     </repositories>
-    
-  <dependencies>
+
+
+    <dependencies>
   	
     <dependency>
       <groupId>junit</groupId>
@@ -68,25 +74,35 @@
             <groupId>net.sf.scannotation</groupId>
             <artifactId>scannotation</artifactId>
             <version>1.0.2</version>
+        <exclusions>
+            <exclusion>
+                <groupId>javassist</groupId>
+                <artifactId>javassist</artifactId>
+            </exclusion>
+        </exclusions>
      </dependency>    
     <dependency>
             <groupId>org.picocontainer</groupId>
             <artifactId>picocontainer</artifactId>
             <version>1.2</version>
     </dependency>
-      <!-- https://mvnrepository.com/artifact/org.javassist/javassist -->
-      <dependency>
-          <groupId>org.javassist</groupId>
-          <artifactId>javassist</artifactId>
-          <version>3.22.0-GA</version>
-      </dependency>
+        <!-- https://mvnrepository.com/artifact/org.javassist/javassist -->
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.23.1-GA</version>
+        </dependency>
 
+
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
       <dependency>
           <groupId>com.google.guava</groupId>
           <artifactId>guava</artifactId>
-          <version>14.0.1</version>
+          <version>23.0</version>
+
       </dependency>
-     <dependency>
+
+        <dependency>
 	     <groupId>regexp</groupId>
 	     <artifactId>regexp</artifactId>
 	     <version>1.2</version>
@@ -96,12 +112,14 @@
 	     <artifactId>disruptor</artifactId>
          <version>3.3.8</version>
      </dependency>
-     <dependency>
-         <groupId>cglib</groupId>
-         <artifactId>cglib</artifactId>
-         <version>2.2.2</version>
-     </dependency>
-     <dependency>
+        <!-- https://mvnrepository.com/artifact/cglib/cglib -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+
+        <dependency>
 	     <groupId>aopalliance</groupId>
       	<artifactId>aopalliance</artifactId>
 	     <version>1.0</version>
@@ -110,24 +128,29 @@
           <groupId>commons-pool</groupId>
           <artifactId>commons-pool</artifactId>
           <version>1.6</version>
+
       </dependency>
      <dependency>
 	     <groupId>jdom</groupId>
 	     <artifactId>jdom</artifactId>
 	     <version>1.0</version>
-     </dependency>             
-     <dependency>
-	     <groupId>org.apache.logging.log4j</groupId>
-	     <artifactId>log4j-core</artifactId>
-	     <version>2.0-beta8</version>
      </dependency>
-     <dependency>
-	     <groupId>org.apache.logging.log4j</groupId>
-	     <artifactId>log4j-api</artifactId>
-	     <version>2.0-beta8</version>
-     </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.11.0</version>
+        </dependency>
 
-      <!-- https://mvnrepository.com/artifact/org.ehcache/ehcache -->
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.ehcache/ehcache -->
       <dependency>
           <groupId>net.sf.ehcache</groupId>
           <artifactId>ehcache</artifactId>
