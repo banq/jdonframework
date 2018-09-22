@@ -15,36 +15,36 @@
  */
 package com.jdon.annotation;
 
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.RetentionPolicy.*;
+
 /**
  * Consumer of the producer annotated with @send(topic) of the method;
- * 
+ *
  * * Topic/queue(1:N or 1:1):
- * 
+ *
  * if a class annotated with @Consumer(XX); it must implements
  * com.jdon.domain.message.DomainEventHandler
- * 
- * @Send(topicName) ==> @Consumer(topicName);
- * 
+ *
+ * the @Send(topicName) ==> @Consumer(topicName);
+ *
  * if there are many consumers, execution order will be
  *                  alphabetical list by Name of @Consumer class.
- *                  
+ *
  * Domain Model producer /Consumer:
- * 
+ *
  * 1. annotate the producer class with @Model and @Introduce("message")
- *@Model
- *@Introduce("message")
+ * the @Model
+ * the @Introduce("message")
  *public class DomainEvent {}
  * 
  * 
  * 2. annotate the method with @Send("mytopic") of the producer class;
- * * @Send("mytopic")
+ *  the @Send("mytopic")
  *	public DomainMessage myMethod() {
  *		DomainMessage em = new DomainMessage(this.name);
  *		return em;
@@ -57,8 +57,8 @@ import java.lang.annotation.Target;
  * 
  * 5. the consumer class must implements
  * com.jdon.domain.message.DomainEventHandler
- * 
- * @Consumer("mychannel")
+ *
+ * '@Consumer("mychannel")'
  *public class MyDomainEventHandler implements DomainEventHandler {}
  * 
  * 

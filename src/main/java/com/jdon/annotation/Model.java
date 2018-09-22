@@ -1,11 +1,11 @@
 package com.jdon.annotation;
 
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.RetentionPolicy.*;
 
 /**
  * Domain Model should normal live in memory not in database. so cache in memory
@@ -13,7 +13,6 @@ import java.lang.annotation.Target;
  * 
  * 
  * @see com.jdon.controller.model.ModelIF
- * @author banQ
  * 
  */
 @Target(TYPE)

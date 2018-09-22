@@ -3,9 +3,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,40 +14,35 @@
  */
 package com.jdon.aop.interceptor;
 
-import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import org.aopalliance.intercept.MethodInterceptor;
-import org.aopalliance.intercept.MethodInvocation;
-
 import com.jdon.container.pico.Startable;
 import com.jdon.controller.model.ModelUtil;
 import com.jdon.domain.model.cache.ModelKey;
 import com.jdon.domain.model.cache.ModelManager;
 import com.jdon.util.Debug;
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
+
+import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * 
+ *
  * Cache Interceptor all Interceptors are added in picoContainer
- * 
+ *
  * method match can be done by this class, CacheInterceptor only interceptor the
  * method getXXXXX.
- * 
- * @see AopInterceptorRegistry.java
- * 
+ *
+ *
+ *
  *      <p>
  *      </p>
  * @author banq
  */
 public class CacheInterceptor implements MethodInterceptor, Startable {
 	private final static String module = CacheInterceptor.class.getName();
-
-	private ModelManager modelManager;
-
 	public String match_MethodName = "get";
-
+	private ModelManager modelManager;
 	private Set isModelCache = new HashSet();
 
 	public CacheInterceptor(ModelManager modelManager) {
@@ -58,7 +53,8 @@ public class CacheInterceptor implements MethodInterceptor, Startable {
 		Method method = invocation.getMethod();
 
 		if (!methodMatchsModelGET(method)) {
-			// Debug.logVerbose("[JdonFramework] cacheInteceptor don't action, enter next invocation.proceed()",
+			// Debug.logVerbose("[JdonFramework] cacheInteceptor don't action, enter next
+			// invocation.proceed()",
 			// module);
 			return invocation.proceed(); // 下一个interceptor
 		}
@@ -69,7 +65,7 @@ public class CacheInterceptor implements MethodInterceptor, Startable {
 		if (dataKey == null || modelClass == null)
 			return invocation.proceed();
 		try {
-			ModelKey modelKey = new ModelKey(dataKey, modelClass);			
+			ModelKey modelKey = new ModelKey(dataKey, modelClass);
 			return getModelofCache(modelKey, invocation);
 		} catch (Exception e) {
 			Debug.logError("[JdonFramework]CacheInterceptor Exception error:"
@@ -87,7 +83,7 @@ public class CacheInterceptor implements MethodInterceptor, Startable {
 			newmodel = invocation.proceed(); // 下一个interceptor
 			if (newmodel != null
 					&& invocation.getMethod().getReturnType()
-							.isAssignableFrom(newmodel.getClass())) {
+					.isAssignableFrom(newmodel.getClass())) {
 				Debug.logVerbose("[JdonFramework] save to cache", module);
 				existmodel = modelManager.addCache(modelKey, newmodel);
 			}
@@ -98,8 +94,8 @@ public class CacheInterceptor implements MethodInterceptor, Startable {
 	/**
 	 * 1.check return type if is Model 2.check method name if include "get" 3.
 	 * if found them, cache this method
-	 * 
-	 * 
+	 *
+	 *
 	 * @param method
 	 *            Method
 	 * @return boolean
@@ -141,7 +137,7 @@ public class CacheInterceptor implements MethodInterceptor, Startable {
 
 	/**
 	 * 组合参数数值为一个字符串 这些参数必须实现toString();
-	 * 
+	 *
 	 * @param invocation
 	 *            MethodInvocation
 	 * @return String
@@ -170,13 +166,12 @@ public class CacheInterceptor implements MethodInterceptor, Startable {
 		return match_MethodName;
 	}
 
-	@Override
+
 	public void start() {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void stop() {
 		this.isModelCache.clear();
 		this.isModelCache = null;
