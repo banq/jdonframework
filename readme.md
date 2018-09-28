@@ -29,9 +29,12 @@ CQRS: Command-query Responsibility Segregation, at its heart is a simple notion 
 
 Why Jdon?
 ===================================
+![avatar](https://en.jdon.com/images/domainevents.png)
+
 Jdon introduces reactive and event-driven into domain, using jdon, a aggregate root can act as a mailbox(like scala's Actors) that is a asynchronous and non-blocking event-sending and event-recipient metaphor.
 Event is a better interactive way for aggregate root with each other, instead of directly exposing behavior and hold references to others.
 and it can better protect root entity's internal state not expose. and can safely update root's state in non-blocking way [Single Writer Principle](http://www.javacodegeeks.com/2012/08/single-writer-principle.html).
+
 
 Jdon moves mutable state from database to memory, and uses Aggregate Root to guard it, traditional database's data operations (by SQL or JPA/ORM) not need any more, only need send a Command or Event to drive Aggregate Root to change its mutable state by its behaviours
 
