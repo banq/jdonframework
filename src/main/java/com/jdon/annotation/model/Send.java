@@ -1,11 +1,11 @@
 package com.jdon.annotation.model;
 
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.RetentionPolicy.*;
 
 /**
  * 
@@ -18,9 +18,9 @@ import java.lang.annotation.Target;
  * Domain Model producer /Consumer:
  * 
  * 1. annotate the producer class with @Model and @Introduce("message")
- * 
- * @Model
- * @Introduce("message") public class DomainEvent {}
+ *
+ * <br> @Model
+ * <br> @Introduce("message") public class DomainEvent {}
  * 
  *                       the value "message" of @@Introduce("message") is the
  *                       om.jdon.domain.message.MessageInterceptor configured in
@@ -35,14 +35,14 @@ import java.lang.annotation.Target;
  *                       the "mytopic" value in @Consumer("mytopic");
  * 
  *                       4. annotate the consumer class with
- *                       @Consumer("mytopic");
+ *                       <br>@Consumer("mytopic");
  * 
  *                       5.there are two kind of consumer
  * 
  *                       (1)the consumer class must implements
  *                       com.jdon.domain.message.DomainEventHandler
- * 
- * @Consumer("mytopic") public class MyDomainEventHandler implements
+ *
+ * <br>@Consumer("mytopic") public class MyDomainEventHandler implements
  *                      DomainEventHandler {
  * 
  *                      public void onEvent(EventDisruptor event, boolean
@@ -52,23 +52,23 @@ import java.lang.annotation.Target;
  * 
  * 
  *                      (2)or the consumer class's method annotated with
- *                      @onEvent("mytopic")
+ *                      <br>@onEvent("mytopic")
  * 
  * 
  * 
  * 
  *                      Topic/queue(1:N or 1:1):
- * 
- * @Send(topicName) ==> @Consumer(topicName);
+ *
+ * <br>@Send(topicName) ==> @Consumer(topicName);
  * 
  * 
  * 
  *                  under version 6.3 there is a Older queue(1:1):
- * 
- * @Send(topicName) ==> @Component(topicName);
+ *
+ * <br>@Send(topicName) ==> @Component(topicName);
  * 
  *                  The message accepter class annotated with
- * @Component(topicName) must implements com.jdon.domain.message.MessageListener
+ * <br>@Component(topicName) must implements com.jdon.domain.message.MessageListener
  * 
  * 
  * @see com.jdon.controller.model.ModelIF
@@ -81,8 +81,8 @@ import java.lang.annotation.Target;
 public @interface Send {
 	/**
 	 * topic/queue name
-	 * 
-	 * @Send(topicName) ==> @Consumer(topicName);
+	 *
+	 * <br> @Send(topicName) ==> @Consumer(topicName);
 	 * 
 	 * @return topic/queue name
 	 */

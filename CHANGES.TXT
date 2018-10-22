@@ -1,4 +1,7 @@
-﻿JDON FRAMEWORK 6.9-SNAPSHOT  (2/2018)
+﻿JDON FRAMEWORK 6.9  (9/2019)
+upgrade to support java 1.8 such as stream API
+
+JDON FRAMEWORK 6.9-SNAPSHOT  (2/2018)
 
 ==================================================================
 JDON FRAMEWORK 6.8  (10/2013)

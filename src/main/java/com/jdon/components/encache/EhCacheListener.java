@@ -15,14 +15,13 @@
  */
 package com.jdon.components.encache;
 
-import java.util.Iterator;
-
+import com.jdon.domain.model.cache.LifeCycle;
 import net.sf.ehcache.CacheException;
 import net.sf.ehcache.Ehcache;
 import net.sf.ehcache.Element;
 import net.sf.ehcache.event.CacheEventListener;
 
-import com.jdon.domain.model.cache.LifeCycle;
+import java.util.Iterator;
 
 /**
  * <cacheEventListenerFactory
@@ -35,13 +34,11 @@ import com.jdon.domain.model.cache.LifeCycle;
  */
 public class EhCacheListener implements CacheEventListener {
 
-	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void notifyElementEvicted(Ehcache arg0, Element e) {
 		Object model = e.getObjectValue();
 		if (model instanceof LifeCycle) {
@@ -51,7 +48,6 @@ public class EhCacheListener implements CacheEventListener {
 
 	}
 
-	@Override
 	public void notifyElementExpired(Ehcache arg0, Element e) {
 		Object model = e.getObjectValue();
 		if (model instanceof LifeCycle) {
@@ -60,7 +56,6 @@ public class EhCacheListener implements CacheEventListener {
 		}
 	}
 
-	@Override
 	public void notifyElementPut(Ehcache arg0, Element e) throws CacheException {
 		Object model = e.getObjectValue();
 		if (model instanceof LifeCycle) {
@@ -70,7 +65,6 @@ public class EhCacheListener implements CacheEventListener {
 
 	}
 
-	@Override
 	public void notifyElementRemoved(Ehcache arg0, Element e) throws CacheException {
 		Object model = e.getObjectValue();
 		if (model instanceof LifeCycle) {
@@ -80,7 +74,6 @@ public class EhCacheListener implements CacheEventListener {
 
 	}
 
-	@Override
 	public void notifyElementUpdated(Ehcache arg0, Element e) throws CacheException {
 		Object model = e.getObjectValue();
 		if (model instanceof LifeCycle) {
@@ -90,7 +83,6 @@ public class EhCacheListener implements CacheEventListener {
 
 	}
 
-	@Override
 	public void notifyRemoveAll(Ehcache ehcache) {
 		// TODO Auto-generated method stub
 		Iterator ite = ehcache.getKeys().iterator();

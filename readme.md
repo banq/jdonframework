@@ -29,9 +29,12 @@ CQRS: Command-query Responsibility Segregation, at its heart is a simple notion 
 
 Why Jdon?
 ===================================
+![avatar](https://en.jdon.com/images/domainevents.png)
+
 Jdon introduces reactive and event-driven into domain, using jdon, a aggregate root can act as a mailbox(like scala's Actors) that is a asynchronous and non-blocking event-sending and event-recipient metaphor.
 Event is a better interactive way for aggregate root with each other, instead of directly exposing behavior and hold references to others.
 and it can better protect root entity's internal state not expose. and can safely update root's state in non-blocking way [Single Writer Principle](http://www.javacodegeeks.com/2012/08/single-writer-principle.html).
+
 
 Jdon moves mutable state from database to memory, and uses Aggregate Root to guard it, traditional database's data operations (by SQL or JPA/ORM) not need any more, only need send a Command or Event to drive Aggregate Root to change its mutable state by its behaviours
 
@@ -180,7 +183,23 @@ Apache Kafka + Eventsourcing
 ===================================
 Apache Kafka supports Exactly-once delivery, Jdon Actor + Kafka can implement distributed transaction.
 
-detail: [click here](https://github.com/banq/jdon-kafka)
+[jdon-kafka](https://github.com/banq/jdon-kafka)
+
+[LMAX microservices distributed transaction](https://weareadaptive.com/wp-content/uploads/2017/04/Application-Level-Consensus.pdf)
+
+
+About workflow?
+===================================
+![avatar](https://github.com/banq/banq.github.io/blob/master/images/bpm-saga.png?raw=true)
+
+
+BPMN : `execute this command!`
+
+aggregates: yes,  `Yes, task completed events!`
+
+Saga: `I have accept domain events!`. 
+
+Saga/process manager must hold every domain events from all aggregates, if there is any exception, it will rollback every step in this workflow，and send 'cancel' command to all  aggregates to rollback.
 
 
 GETTING STARTED
@@ -207,16 +226,7 @@ jdonframework
 RELEASE NOTES
 ===================================
 
-6.8 version.
-
-add command of CQRS:
-UI ---Command---> a aggregate root ---DomainEvents---> another aggregate root/Component
-
-A aggregate root in Jdon acts like Actors of AKKA or Erlang.
-
-stable version download:
-http://sourceforge.net/projects/jdon/files/JdonFramework/6.X_DDD/
-
+6.9 version.
 
 DISTRIBUTION JAR FILES
 ===================================
@@ -227,7 +237,7 @@ apply jdonframework.jar to your project:
 		<dependency>
 			<groupId>org.jdon</groupId>
 			<artifactId>jdonframework</artifactId>
-			<version>6.8</version>
+			<version>6.9</version>
 		</dependency>
 
 
