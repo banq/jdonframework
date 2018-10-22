@@ -190,7 +190,7 @@ Apache Kafka supports Exactly-once delivery, Jdon Actor + Kafka can implement di
 
 About workflow?
 ===================================
-![avatar](https://en.jdon.com/images/bpm-saga.png)
+![avatar](https://github.com/banq/banq.github.io/blob/master/images/bpm-saga.png?raw=true)
 
 
 
