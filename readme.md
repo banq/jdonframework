@@ -190,14 +190,9 @@ Apache Kafka supports Exactly-once delivery, Jdon Actor + Kafka can implement di
 
 About workflow?
 ===================================
-DDD/ES:  `command ---> aggregates ---> domain events`
+![avatar](https://en.jdon.com/images/bpm-saga.png)
 
-BPMN: ` startEvent ---> Task ---> endEvent`
 
-join with them:
-
-`command/startEvent  ---> task/aggregates ---> domain events/endEvent
-`
 
 Collaboration diagram:
 

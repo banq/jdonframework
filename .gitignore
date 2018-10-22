@@ -1,2 +1,5 @@
 .idea
 *.iml
+.gradle
+.target
+jdon.log
