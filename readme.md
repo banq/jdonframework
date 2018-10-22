@@ -197,9 +197,9 @@ BPMN : `execute this command!`
 
 aggregates: yes,  `Yes, task completed events!`
 
-Saga: 'I have accept domain events!'. 
+Saga: `I have accept domain events!`. 
 
-Saga/process manager must hold every domain events from all aggregates, if there is any exception, I will rollback every step in this workflow，he send 'cancel' command to all  aggregates to rollback.
+Saga/process manager must hold every domain events from all aggregates, if there is any exception, it will rollback every step in this workflow，and send 'cancel' command to all  aggregates to rollback.
 
 
 GETTING STARTED
