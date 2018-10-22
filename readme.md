@@ -193,26 +193,14 @@ About workflow?
 ![avatar](https://github.com/banq/banq.github.io/blob/master/images/bpm-saga.png?raw=true)
 
 
-
-Collaboration diagram:
-
-process manager : `execute this command!`
+BPMN : `execute this command!`
 
 aggregates: yes,  `Yes, task completed events!`
 
-process manager lookup next step in BPMN.xml, when he found it: `execute this command!`
+Saga: 'I have accept domain events!'. 
 
-aggregates: `Yes,  task completed events!`
-....
+Saga/process manager must hold every domain events from all aggregates, if there is any exception, I will rollback every step in this workflow，he send 'cancel' command to all  aggregates to rollback.
 
-process manager must hold every domain events from all aggregates, when he can't find next step 
-in BPMN ,but this process is not at the endEvent, so he think this process happen error, by the 
-order of domain events that he hold, he
-send every 'cancel task' command to all  aggregates, this is distributed transaction, it is AP of
- CAP 
-theory.
-
-Next version will join with them.....
 
 GETTING STARTED
 ===================================
