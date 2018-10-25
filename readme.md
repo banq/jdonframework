@@ -192,7 +192,7 @@ Distributed transaction
 =========================================
 The Saga pattern is a preferable way of solving distributed transaction problems for a microservice-based architecture. However, it also introduces a new set of problems, such as how to atomically update the database and emit an event?
 
-Jdonframework can do it by single-Writer pattern. 
+Jdonframework can atomically database and emit an event by single-Writer pattern. 
 
 
 About workflow?
