@@ -188,7 +188,7 @@ Apache Kafka supports Exactly-once delivery, Jdon Actor + Kafka can implement di
 [LMAX microservices distributed transaction](https://weareadaptive.com/wp-content/uploads/2017/04/Application-Level-Consensus.pdf)
 
 
-distributed transaction
+Distributed transaction
 =========================================
 The Saga pattern is a preferable way of solving distributed transaction problems for a microservice-based architecture. However, it also introduces a new set of problems, such as how to atomically update the database and emit an event?
 
