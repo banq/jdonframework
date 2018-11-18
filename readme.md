@@ -208,6 +208,7 @@ Saga: `I have accept domain events!`.
 
 Saga/process manager must hold every domain events from all aggregates, if there is any exception, it will rollback every step in this workflow，and send 'cancel' command to all  aggregates to rollback.
 
+[Microservices to Workflows: The Evolution of Jet’s Order Management System](https://medium.com/jettech/microservices-to-workflows-the-evolution-of-jets-order-management-system-9e5669bd53ab)
 
 GETTING STARTED
 ===================================
