@@ -1,17 +1,9 @@
 JDON FRAMEWORK
 ===================================
-JdonFramework is a java Reactive/Actor framework that you can use to build your Domain Driven Design + CQRS + EventSourcing  applications with asynchronous concurrency and higher throughput.
+JdonFramework is a java domain events framework that you can use to build your Domain Driven Design + CQRS + EventSourcing  applications with asynchronous concurrency and higher throughput.
 
-JdonFramework = DDD + Event Sourcing + CQRS + asynchronous + concurrency + higher throughput.
+using JdonFramework, you can do : DDD + Event Sourcing + CQRS + asynchronous + concurrency + higher throughput.
 
-JdonFramework = Ioc/DI/AOP + reactive Actors model
-
-Why Reactive?
-===================================
-
-Reactive Programming is a hot topic , especially with such things as the [Reactive Manifesto](http://www.reactivemanifesto.org/).
-Reactive architecture allows developers to build systems that are event-driven(EDA), scalable, resilient and responsive: delivering highly responsive user experiences with a real-time feel, backed by a scalable and resilient application stack, ready to be deployed on multicore and cloud computing architectures.
-a reactive application is non-blocking that is under heavy load can thus have lower latency and higher throughput than a traditional application based on blocking synchronization and communication primitives.
 
 Why DDD?
 ===================================
@@ -23,9 +15,12 @@ DDD's servral concepts are the Heart and Soul of OOD:
 		Aggregate Root
 		Bounded context
 
-Why CQRS?
+Why Domain Events?
 ===================================
 CQRS: Command-query Responsibility Segregation, at its heart is a simple notion that you can use a different model to update information than the model you use to read information.
+domain events is the basice about CQRS and EventSourcing, it is all about what happened in aggregates, and means some changes happened in domain.
+in CQRS, using domain events update query model; in Eventsourcing, append domain events into storage repository. 
+
 
 Why Jdon?
 ===================================
