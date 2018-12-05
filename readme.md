@@ -1,8 +1,11 @@
 JDON FRAMEWORK
 ===================================
-JdonFramework is a java domain events framework that you can use to build your Domain Driven Design + CQRS + EventSourcing  applications with asynchronous concurrency and higher throughput.
+JdonFramework is a DDD's Domain Events framework that supports pub-sub asynchronous programming model.
 
-using JdonFramework, you can do : DDD + Event Sourcing + CQRS + asynchronous + concurrency + higher throughput.
+No any message middleware like Apache Kafka or RabbitMQ, you can directly command domain model doing something,
+and listen any domain events from domain model.
+
+using JdonFramework, you can build your Domain Driven Design + CQRS + EventSourcing  applications with asynchronous concurrency and higher throughput.
 
 
 Why DDD?
