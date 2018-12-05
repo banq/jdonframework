@@ -7,7 +7,7 @@ and listen any domain events from domain model.
 
 using JdonFramework, you can build your Domain Driven Design + CQRS + EventSourcing  applications with asynchronous concurrency and higher throughput.
 
-jdonframework help you implement a clean and hexagonal architecture!
+Jdonframework help you implement a clean and hexagonal architecture!
 
 Why DDD?
 ===================================
