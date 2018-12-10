@@ -27,9 +27,10 @@ domain events is the basice about CQRS and EventSourcing, it is all about what h
 In CQRS, using domain events update query model; 
 In Eventsourcing, append domain events into storage repository. 
 
-
 Why Jdon?
 ===================================
+Give you a clean architecture!
+
 ![avatar](https://en.jdon.com/images/domainevents.png)
 
 Jdon introduces reactive and event-driven into domain, using jdon, a aggregate root can act as a mailbox(like scala's Actors) that is a asynchronous and non-blocking event-sending and event-recipient metaphor.
