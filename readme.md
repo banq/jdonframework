@@ -23,7 +23,9 @@ Why Domain Events?
 ===================================
 CQRS: Command-query Responsibility Segregation, at its heart is a simple notion that you can use a different model to update information than the model you use to read information.
 domain events is the basice about CQRS and EventSourcing, it is all about what happened in aggregates, and means some changes happened in domain.
-in CQRS, using domain events update query model; in Eventsourcing, append domain events into storage repository. 
+
+In CQRS, using domain events update query model; 
+In Eventsourcing, append domain events into storage repository. 
 
 
 Why Jdon?
