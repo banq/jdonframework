@@ -3,3 +3,6 @@
 .gradle
 .target
 jdon.log
+.settings/org.eclipse.buildship.core.prefs
+.project
+.gitignore
