@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE app PUBLIC "-//JDON//DTD Framework 2005 1.0 //EN"	"http://www.jdon.com/jdonframework.dtd">
+<app>
+   <services>
+         <pojoService name="handlingEventService" class="ship.service.HandlingEventServiceImpl"/>
+         <pojoService name="cargoRepository" class="ship.repository.CargoRepositoryInMem"/>
+         <pojoService name="carrierMovementRepository" class="ship.repository.CarrierMovementRepositoryInMem"/>
+         <pojoService name="HandlingEventRepository" class="ship.repository.HandlingEventRepositoryInMem"/>
+         <pojoService name="LocationRepository" class="ship.repository.LocationRepositoryInMem"/>
+
+    </services>
+</app>

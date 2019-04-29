@@ -15,15 +15,14 @@
 
 package com.jdon.bussinessproxy.dyncproxy.cglib;
 
-import java.lang.reflect.Method;
-
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
-
 import com.jdon.aop.AopClient;
 import com.jdon.container.access.TargetMetaRequest;
 import com.jdon.container.pico.Startable;
 import com.jdon.util.Debug;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
+
+import java.lang.reflect.Method;
 
 /**
  * CGLIB Dynamic Proxy Weaving mode Weaving implemention is dynamic proxy Every
@@ -110,13 +109,11 @@ public class CGLIBDynamicProxyWeaving implements MethodInterceptor, java.io.Seri
 
 	}
 
-	@Override
 	public void start() {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void stop() {
 		this.targetMetaRequest = null;
 		this.aopClient = null;

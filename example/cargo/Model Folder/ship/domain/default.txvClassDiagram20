@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<nodeSet  version="1.1">
+	<view uin="V1hexuhgiqzlb1kuw1kpp">
+		<property name="$defaultDiagram" value="true"/>
+		<property name="$metaclass" value="ClassDiagram20"/>
+		<property name="__options" value="option.nlayout.recursive=true"/>
+		<reference referencedUin="jdt:e_class:src:ship.domain.DeliveryHistory">
+			<property name="bounds" value="112,566,200,215"/>
+			<property name="location_set_by_user" value="true"/>
+			<reference referencedUin="jdt:l_ast:src:ship.domain.DeliveryHistory:EMPTY_DELIVERY_HISTORY">
+				<property name="sourceAnchor" value="317,782"/>
+				<property name="targetAnchor" value="313,786"/>
+				<property name="bendpoints" value="346,782,346,815,313,815"/>
+				<property name="smooth_bendpoints" value="346,782,346,815,313,815"/>
+			</reference>
+			<reference referencedUin="jdt:l_ast:src:ship.domain.DeliveryHistory:events">
+				<property name="sourceAnchor" value="302,571"/>
+				<property name="targetAnchor" value="302,483"/>
+				<reference referencedUin="label:clientCardinality:jdt:l_ast:src:ship.domain.DeliveryHistory:events">
+					<property name="bounds" value="305,542,12,19"/>
+				</reference>
+				<reference referencedUin="label:supplierCardinality:jdt:l_ast:src:ship.domain.DeliveryHistory:events">
+					<property name="bounds" value="305,484,36,19"/>
+				</reference>
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:ship.domain.CarrierMovement">
+			<property name="bounds" value="565,269,200,155"/>
+			<property name="location_set_by_user" value="true"/>
+			<reference referencedUin="jdt:l_ast:src:ship.domain.CarrierMovement:to">
+				<property name="sourceAnchor" value="617,274"/>
+				<property name="targetAnchor" value="617,150"/>
+			</reference>
+			<reference referencedUin="jdt:l_ast:src:ship.domain.CarrierMovement:from">
+				<property name="sourceAnchor" value="593,274"/>
+				<property name="targetAnchor" value="593,150"/>
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:ship.domain.HandlingEvent">
+			<property name="bounds" value="285,215,200,263"/>
+			<property name="location_set_by_user" value="true"/>
+			<reference referencedUin="jdt:l_ast:src:ship.domain.HandlingEvent:location">
+				<property name="sourceAnchor" value="390,220"/>
+				<property name="targetAnchor" value="552,150"/>
+			</reference>
+			<reference referencedUin="jdt:l_ast:src:ship.domain.HandlingEvent:lnkCargo">
+				<property name="sourceAnchor" value="290,351"/>
+				<property name="targetAnchor" value="210,351"/>
+			</reference>
+			<reference referencedUin="jdt:l_ast:src:ship.domain.HandlingEvent:lnkCarriermovent">
+				<property name="sourceAnchor" value="490,351"/>
+				<property name="targetAnchor" value="570,351"/>
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:ship.domain.Cargo">
+			<property name="bounds" value="5,239,200,215"/>
+			<property name="location_set_by_user" value="true"/>
+			<reference referencedUin="jdt:l_ast:src:ship.domain.Cargo:lnkDeliverySpec">
+				<property name="sourceAnchor" value="110,244"/>
+				<property name="targetAnchor" value="110,127"/>
+			</reference>
+			<reference referencedUin="jdt:l_ast:src:ship.domain.Cargo:lnkDeliveryHistory">
+				<property name="sourceAnchor" value="160,459"/>
+				<property name="targetAnchor" value="160,571"/>
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:ship.domain.DeliverySpec">
+			<property name="bounds" value="9,28,193,94"/>
+			<property name="location_set_by_user" value="true"/>
+			<reference referencedUin="jdt:l_ast:src:ship.domain.DeliverySpec:destination">
+				<property name="sourceAnchor" value="207,64"/>
+				<property name="targetAnchor" value="512,64"/>
+			</reference>
+			<reference referencedUin="jdt:l_ast:src:ship.domain.DeliverySpec:origin">
+				<property name="sourceAnchor" value="207,95"/>
+				<property name="targetAnchor" value="512,95"/>
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:ship.domain.Location">
+			<property name="bounds" value="507,5,129,140"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:ship.domain.HandlingEventInputer">
+			<property name="bounds" value="353,633,200,80"/>
+			<property name="location_set_by_user" value="true"/>
+			<reference referencedUin="jdt:l_ast:src:ship.domain.HandlingEventInputer:lnkHandleEvent">
+				<property name="sourceAnchor" value="431,638"/>
+				<property name="targetAnchor" value="431,483"/>
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:ship.domain.Customer">
+			<property name="bounds" value="656,5,100,80"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:ship.domain.StatusCode">
+			<property name="bounds" value="573,465,148,144"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+	</view>
+</nodeSet>

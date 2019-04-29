@@ -1,0 +1,36 @@
+<project name="first web" default="all" basedir="./">
+
+	<target name="all" depends="war">
+				<copy file="myweb.war" todir="E:\training\jboss-4.2.2.GA\server\default\deploy" overwrite="true"/>
+				
+			</target>
+	
+	<path id="master-classpath"> 
+			<fileset file="lib/*.jar" />
+		</path>
+
+	
+	<target name="compile">
+	   <javac srcdir="src" destdir="bin" encoding="utf-8" debug="true">
+		<classpath refid="master-classpath" />
+	   </javac>
+	</target>
+	
+	<target name="war" depends="compile">
+		
+		<copy todir="myweb/WEB-INF/classes">
+		   <fileset dir="bin"></fileset>
+		</copy>
+		
+		 <mkdir dir="myweb/WEB-INF/lib"/>
+		<copy todir="myweb/WEB-INF/lib" overwrite="true">
+			  <fileset dir="lib/*.jar"/>			  
+		</copy>
+	   <jar destfile="myweb.war" >
+	       <fileset dir="myweb">
+	          <include name="**/*"/>	       	  
+	       </fileset>
+		   
+	   </jar>
+	</target>
+</project>

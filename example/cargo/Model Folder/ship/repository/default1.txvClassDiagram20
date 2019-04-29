@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<nodeSet  version="1.1">
+	<view uin="V1hexuhfwx95w95-vcw8od">
+		<property name="$defaultDiagram" value="true"/>
+		<property name="$metaclass" value="ClassDiagram20"/>
+		<property name="__options" value="option.nlayout.recursive=true"/>
+		<reference referencedUin="jdt:e_class:src:ship.repository.CarrierMovementRepositoryInMem">
+			<property name="bounds" value="42,456,200,137"/>
+			<property name="location_set_by_user" value="true"/>
+			<reference referencedUin="jdt:l_impl:src:ship.repository.CarrierMovementRepositoryInMem:CarrierMovementRepository">
+				<property name="sourceAnchor" value="128,461"/>
+				<property name="targetAnchor" value="128,325"/>
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:ship.repository.LocationRepositoryInMem">
+			<property name="bounds" value="1005,12,200,80"/>
+			<property name="location_set_by_user" value="true"/>
+			<reference referencedUin="jdt:l_impl:src:ship.repository.LocationRepositoryInMem:LocationRepository">
+				<property name="sourceAnchor" value="1010,57"/>
+				<property name="targetAnchor" value="930,57"/>
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:ship.repository.CargoRepository">
+			<property name="bounds" value="517,5,177,109"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:ship.repository.HandlingEventRepositoryInMem">
+			<property name="bounds" value="285,174,200,212"/>
+			<property name="location_set_by_user" value="true"/>
+			<reference referencedUin="jdt:l_ast:src:ship.repository.HandlingEventRepositoryInMem:carrierMovementRepository">
+				<property name="sourceAnchor" value="290,285"/>
+				<property name="targetAnchor" value="210,285"/>
+			</reference>
+			<reference referencedUin="jdt:l_impl:src:ship.repository.HandlingEventRepositoryInMem:HandlingEventRepository">
+				<property name="sourceAnchor" value="435,391"/>
+				<property name="targetAnchor" value="435,482"/>
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:ship.repository.LocationRepository">
+			<property name="bounds" value="725,5,200,94"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:ship.repository.CargoTestHelper">
+			<property name="bounds" value="975,125,200,80"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:ship.repository.CargoRepositoryInMem">
+			<property name="bounds" value="505,181,200,198"/>
+			<property name="location_set_by_user" value="true"/>
+			<reference referencedUin="jdt:l_ast:src:ship.repository.CargoRepositoryInMem:handlingEventRepository">
+				<property name="sourceAnchor" value="545,384"/>
+				<property name="targetAnchor" value="545,482"/>
+			</reference>
+			<reference referencedUin="jdt:l_impl:src:ship.repository.CargoRepositoryInMem:CargoRepository">
+				<property name="sourceAnchor" value="610,186"/>
+				<property name="targetAnchor" value="610,119"/>
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:ship.repository.SampleLocations">
+			<property name="bounds" value="725,245,200,287"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:ship.repository.HandlingEventRepository">
+			<property name="bounds" value="376,477,200,94"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:ship.repository.CarrierMovementRepository">
+			<property name="bounds" value="5,240,200,80"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+	</view>
+</nodeSet>

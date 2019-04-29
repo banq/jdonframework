@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<nodeSet  version="1.1">
+	<view uin="V1hexuhfwx95w9k-39kypp">
+		<property name="$defaultDiagram" value="true"/>
+		<property name="$metaclass" value="ClassDiagram20"/>
+		<property name="__options" value="option.nlayout.recursive=true"/>
+		<reference referencedUin="jdt:e_class:src:ship.service.HandlingEventServiceImpl">
+			<property name="bounds" value="285,5,200,197"/>
+			<property name="location_set_by_user" value="true"/>
+			<reference referencedUin="jdt:l_impl:src:ship.service.HandlingEventServiceImpl:HandlingEventService">
+				<property name="sourceAnchor" value="290,108"/>
+				<property name="targetAnchor" value="210,108"/>
+			</reference>
+		</reference>
+		<reference referencedUin="jdt:e_class:src:ship.service.HandlingEventService">
+			<property name="bounds" value="5,63,200,80"/>
+			<property name="location_set_by_user" value="true"/>
+		</reference>
+	</view>
+</nodeSet>
