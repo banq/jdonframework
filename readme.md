@@ -144,7 +144,7 @@ if all logic passed, a TransferEvent will append to eventlog, and command the pr
 
 The process manager will send cancel command to last steps that has executed in a process, when these aggregate accept the cancel command, they will append a Canceled Event to event logs.
 ~~~~~
-@OnCommand("cancel")
+	@OnCommand("cancel")
 	public void cancel(Cancel cancel) {
 		int balance2 = getBalance()  - cancel.getTransferCommand().getValue();
 		if (balance2 > 1000 || balance2 < 0) {
@@ -202,8 +202,8 @@ In the "example" directory there are serveral examples that show how to use jdon
 
 In the "JdonAccessory" directory there are struts1.x MVC and jdbc templates.
 
-Example
-------------------
+Example Application
+===================================
 [jivejdon](https://github.com/banq/jivejdon) is a discussion forum/blog/CMS platform powered by 
 jdonframework
 
