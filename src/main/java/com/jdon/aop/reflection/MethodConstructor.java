@@ -1,7 +1,7 @@
 /**
  * Copyright 2003-2006 the original author or authors. Licensed under the Apache
  * License, Version 2.0 (the "License"); you may not use this file except in
- * compliance with the License. You may obtain a copy of the License at
+ * compliance with the License. You may obtain event copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
@@ -78,7 +78,7 @@ public class MethodConstructor {
     
     
     /**
-     * create a method object by its meta definition
+     * create event method object by its meta definition
      * @param targetMetaDef
      * @param cw
      * @param methodMetaArgs
@@ -110,7 +110,7 @@ public class MethodConstructor {
     }
     
     /**
-     * create a method object by target Object
+     * create event method object by target Object
      * @param ownerClass
      * @param methodMetaArgs
      * @return
@@ -131,7 +131,7 @@ public class MethodConstructor {
     }
     
     /**
-     * create a method object 
+     * create event method object
      * @param ownerClass
      * @param methodName
      * @param paramTypes

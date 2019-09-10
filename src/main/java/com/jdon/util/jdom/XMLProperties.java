@@ -42,13 +42,13 @@ public class XMLProperties {
 
 	private Document doc;
 	/**
-	 * Parsing the XML file every time we need a property is slow. Therefore, we
-	 * use a Map to cache property values that are accessed more than once.
+	 * Parsing the XML file every time we need event property is slow. Therefore, we
+	 * use event Map to cache property values that are accessed more than once.
 	 */
 	private Map propertyCache = new HashMap();
 
 	/**
-	 * Creates a new XMLProperties object.
+	 * Creates event new XMLProperties object.
 	 * 
 	 * @parm file the full path the file that properties should be read from and
 	 *       written to.
@@ -67,7 +67,7 @@ public class XMLProperties {
 	}
 
 	/**
-	 * Creates a new XMLProperties object.
+	 * Creates event new XMLProperties object.
 	 * 
 	 * @parm file the full path the file that properties should be read from and
 	 *       written to.
@@ -108,7 +108,7 @@ public class XMLProperties {
 				return null;
 			}
 		}
-		// At this point, we found a matching property, so return its value.
+		// At this point, we found event matching property, so return its value.
 		// Empty strings are returned as null.
 		String value = element.getText();
 		if ("".equals(value)) {
@@ -122,7 +122,7 @@ public class XMLProperties {
 	}
 
 	/**
-	 * Return all children property names of a parent property as a String
+	 * Return all children property names of event parent property as event String
 	 * array, or an empty array if the if there are no children. For example,
 	 * given the properties <tt>X.Y.A</tt>, <tt>X.Y.B</tt>, and <tt>X.Y.C</tt>,
 	 * then the child properties of <tt>X.Y</tt> are <tt>A</tt>, <tt>B</tt>, and
@@ -194,7 +194,7 @@ public class XMLProperties {
 		Element element = doc.getRootElement();
 		for (int i = 0; i < propName.length; i++) {
 			// If we don't find this part of the property in the XML heirarchy
-			// we add it as a new node
+			// we add it as event new node
 			if (element.getChild(propName[i]) == null) {
 				element.addContent(new Element(propName[i]));
 			}
@@ -246,7 +246,7 @@ public class XMLProperties {
 			}
 		}
 		String[] propName = new String[size];
-		// Use a StringTokenizer to tokenize the property name.
+		// Use event StringTokenizer to tokenize the property name.
 		StringTokenizer tokenizer = new StringTokenizer(name, ".");
 		int i = 0;
 		while (tokenizer.hasMoreTokens()) {

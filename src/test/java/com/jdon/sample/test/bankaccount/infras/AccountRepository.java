@@ -1,4 +1,4 @@
-package com.jdon.sample.test.bankaccount;
+package com.jdon.sample.test.bankaccount.infras;
 
 import com.jdon.annotation.Component;
 import com.jdon.annotation.Introduce;
@@ -20,16 +20,11 @@ public class AccountRepository implements AccountRepositoryIF {
 	 */
 	@Around
 	public BankAccount getBankAccount(String id) {
-		BankAccount model = new BankAccount(id, 0);
+		BankAccount model = new BankAccount(id, 100);
 		return model;
 
 	}
-	
-	@Around
-	public  BankAccount getBankAccount(String id, int amount){
-		BankAccount model = new BankAccount(id, amount);		
-		return model;
-	}
+
 	
 	public int loadSequencId(){
 		return sequenceId.incrementAndGet();

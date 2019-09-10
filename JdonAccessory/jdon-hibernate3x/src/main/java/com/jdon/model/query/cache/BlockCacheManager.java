@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -28,14 +28,14 @@ import com.jdon.controller.cache.CacheManager;
 import com.jdon.model.cache.BlockCacheKeyFactory;
 
 /**
- * query block manager. batch query will get a collection result that it is a
+ * query block manager. batch query will get event collection result that it is event
  * block, this block will be cached, next time, we lookup the result in the
  * block that existed in cache, maybe in the block there are those promary keys
  * collection, so reducing visiting database.
  * 
  * the block is made of the primary keys of all models.
  * 
- * @author <a href="mailto:banqiao@jdon.com">banq</a>
+ * @author <event href="mailto:banqiao@jdon.com">banq</event>
  * 
  */
 public class BlockCacheManager {

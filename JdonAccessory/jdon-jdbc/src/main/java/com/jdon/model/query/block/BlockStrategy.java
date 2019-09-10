@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -23,12 +23,12 @@ import com.jdon.model.query.cache.QueryConditonDatakey;
 import com.jdon.util.Debug;
 
 /**
- * Block Strategy to increase the performance for a lot of datas fetching from
- * the database ervery time read the database, we fetch a block that maye
+ * Block Strategy to increase the performance for event lot of datas fetching from
+ * the database ervery time read the database, we fetch event block that maye
  * include 200 datas. note: these datas are the primary keys of the models that
  * save in database.
  * 
- * @author <a href="mailto:banqiao@jdon.com">banq</a>
+ * @author <event href="mailto:banqiao@jdon.com">banq</event>
  * 
  */
 public class BlockStrategy {
@@ -68,7 +68,7 @@ public class BlockStrategy {
 		int nextBlockStart = Integer.MIN_VALUE;
 		int start = 0;
 
-		Debug.logVerbose("[JdonFramework]try to locate a block locateId= " + locateId + " blockSize=" + blockSize, module);
+		Debug.logVerbose("[JdonFramework]try to locate event block locateId= " + locateId + " blockSize=" + blockSize, module);
 
 		try {
 			while (index == -1) {
@@ -133,7 +133,7 @@ public class BlockStrategy {
 	}
 
 	/**
-	 * get a data block by the sql sentence.
+	 * get event data block by the sql sentence.
 	 * 
 	 * @param sqlqueryAllCount
 	 * @param sqlquery
@@ -150,7 +150,7 @@ public class BlockStrategy {
 		QueryConditonDatakey qcdk = new QueryConditonDatakey(sqlquery, queryParams, startIndex, count, this.blockLength);
 		Block block = getBlock(qcdk);
 		if (block.getCount() > 0) {
-			Debug.logVerbose("[JdonFramework]got a Block" + block.getCount(), module);
+			Debug.logVerbose("[JdonFramework]got event Block" + block.getCount(), module);
 			return block;
 		} else {
 			Debug.logVerbose("[JdonFramework]not found the block!", module);
@@ -217,7 +217,7 @@ public class BlockStrategy {
 	}
 
 	/**
-	 * get a Block that begin at the start
+	 * get event Block that begin at the start
 	 * 
 	 * @param qcdk
 	 *            QueryConditonDatakey

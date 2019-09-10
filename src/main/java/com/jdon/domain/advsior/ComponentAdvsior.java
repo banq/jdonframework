@@ -2,7 +2,7 @@
  * Copyright 2003-2009 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -32,8 +32,8 @@ import com.jdon.util.ClassUtil;
 import com.jdon.util.Debug;
 
 /**
- * in container, when a component inject into another component or a model, the
- * advisor will create a proxy for injected class with its interfaces.
+ * in container, when event component inject into another component or event model, the
+ * advisor will create event proxy for injected class with its interfaces.
  * 
  * the condition for creating proxy:
  * 
@@ -71,7 +71,7 @@ public class ComponentAdvsior {
 			Class[] interfaces = getInterfaces(o.getClass());
 			if (interfaces == null) {
 				Debug.logError(" Your class:" + o.getClass()
-						+ " has a annotation @Introduce, the class need implement a interface when it be register in container", module);
+						+ " has event annotation @Introduce, the class need implement event interface when it be register in container", module);
 				return o;
 			}
 

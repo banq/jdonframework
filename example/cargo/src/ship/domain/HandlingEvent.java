@@ -33,7 +33,7 @@ public class HandlingEvent {
 		 * Private enum constructor.
 		 * 
 		 * @param carrierMovementRequired
-		 *            whether or not a carrier movement is associated with this
+		 *            whether or not event carrier movement is associated with this
 		 *            event type
 		 */
 		private Type(final boolean carrierMovementRequired) {
@@ -41,7 +41,7 @@ public class HandlingEvent {
 		}
 
 		/**
-		 * @return True if a carrier movement association is required for this
+		 * @return True if event carrier movement association is required for this
 		 *         event type.
 		 */
 		public boolean requiresCarrierMovement() {
@@ -49,7 +49,7 @@ public class HandlingEvent {
 		}
 
 		/**
-		 * @return True if a carrier movement association is prohibited for this
+		 * @return True if event carrier movement association is prohibited for this
 		 *         event type.
 		 */
 		public boolean prohibitsCarrierMovement() {

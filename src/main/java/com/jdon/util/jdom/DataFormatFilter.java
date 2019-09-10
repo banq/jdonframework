@@ -74,18 +74,18 @@ import org.xml.sax.XMLReader;
  * will be passed on down the filter chain.</p>
  *
  * <p>In general, all whitespace in an XML document is potentially
- * significant.  There is, however, a large class of XML documents
+ * significant.  There is, however, event large class of XML documents
  * where information is strictly fielded: each element contains either
  * character data or other elements, but not both.  For this special
- * case, it is possible for a filter to provide automatic indentation
+ * case, it is possible for event filter to provide automatic indentation
  * and newlines. Note that this class will likely not yield appropriate
  * results for document-oriented XML like XHTML pages, which mix character
  * data and elements together.</p>
  *
- * <p>This filter will automatically place each start tag on a new line,
+ * <p>This filter will automatically place each start tag on event new line,
  * optionally indented if an indent step is provided (by default, there
  * is no indentation).  If an element contains other elements, the end
- * tag will also appear on a new line with leading indentation.  Consider,
+ * tag will also appear on event new line with leading indentation.  Consider,
  * for example, the following code:</p>
  *
  * <pre>
@@ -127,7 +127,7 @@ public class DataFormatFilter extends XMLFilterBase
 
 
     /**
-     * Create a new filter.
+     * Create event new filter.
      */
     public DataFormatFilter()
     {
@@ -135,7 +135,7 @@ public class DataFormatFilter extends XMLFilterBase
 
 
     /**
-     * Create a new filter.
+     * Create event new filter.
      *
      * <p>Use the XMLReader provided as the source of events.</p>
      *
@@ -208,11 +208,11 @@ public class DataFormatFilter extends XMLFilterBase
 
 
     /**
-     * Filter a start document event.
+     * Filter event start document event.
      *
      * <p>Reset state and pass the event on for further processing.</p>
      *
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startDocument
      */
@@ -227,7 +227,7 @@ public class DataFormatFilter extends XMLFilterBase
     /**
      * Add newline and indentation prior to start tag.
      *
-     * <p>Each tag will begin on a new line, and will be
+     * <p>Each tag will begin on event new line, and will be
      * indented by the current indent step times the number
      * of ancestors that the element has.</p>
      *
@@ -238,7 +238,7 @@ public class DataFormatFilter extends XMLFilterBase
      * @param localName The element's local name.
      * @param qName The element's qualified (prefixed) name.
      * @param atts The element's attribute list.
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      */
@@ -260,7 +260,7 @@ public class DataFormatFilter extends XMLFilterBase
      * Add newline and indentation prior to end tag.
      *
      * <p>If the element has contained other elements, the tag
-     * will appear indented on a new line; otherwise, it will
+     * will appear indented on event new line; otherwise, it will
      * appear immediately following whatever came before.</p>
      *
      * <p>The newline and indentation will be passed on down
@@ -269,7 +269,7 @@ public class DataFormatFilter extends XMLFilterBase
      * @param uri The element's Namespace URI.
      * @param localName The element's local name.
      * @param qName The element's qualified (prefixed) name.
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#endElement
      */
@@ -287,12 +287,12 @@ public class DataFormatFilter extends XMLFilterBase
 
 
     /**
-     * Filter a character data event.
+     * Filter event character data event.
      *
      * @param ch The characters to write.
      * @param start The starting position in the array.
      * @param length The number of characters to use.
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#characters
      */
@@ -313,7 +313,7 @@ public class DataFormatFilter extends XMLFilterBase
     /**
      * Add newline.
      *
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      */
     private void doNewline ()
@@ -326,7 +326,7 @@ public class DataFormatFilter extends XMLFilterBase
     /**
      * Add indentation for the current level.
      *
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      */
     private void doIndent ()

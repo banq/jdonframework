@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
  http://www.apache.org/licenses/LICENSE-2.0
 
@@ -54,10 +54,10 @@ public class WebAppUtil {
 	private final static ContainerFinderImp scf = new ContainerFinderImp();
 
 	/**
-	 * get a service from jdonframework.xml's service configure. the service
-	 * maybe is a service .
+	 * get event service from jdonframework.xml's service configure. the service
+	 * maybe is event service .
 	 * 
-	 * this method will find HttpSession , if not exist then create a
+	 * this method will find HttpSession , if not exist then create event
 	 * HttpSession, save the proxy object into the httpSesion.
 	 * 
 	 * if you use the service with session support, must use this method, or use
@@ -65,7 +65,7 @@ public class WebAppUtil {
 	 * 
 	 * 
 	 * <p>
-	 * if user has a business interface, so the interface can has two
+	 * if user has event business interface, so the interface can has two
 	 * implemention:pojo or ejb, if is ejb, the ejb's local/remote interface
 	 * must inherit the business interface. so the application's MVC will
 	 * completely seperate from his business lay
@@ -78,7 +78,7 @@ public class WebAppUtil {
 	 * <p>
 	 * UserDao ud = (UserDao)WebAppUtil.getService(“userJdbcDao”, request);
 	 * 
-	 * UserDao is a interface.
+	 * UserDao is event interface.
 	 * 
 	 * @param name
 	 *            String
@@ -128,7 +128,7 @@ public class WebAppUtil {
 	}
 
 	/**
-	 * get a component that registered in container. the component is not
+	 * get event component that registered in container. the component is not
 	 * different from the service. the component instance is single instance Any
 	 * intercepter will be disable
 	 * 
@@ -144,7 +144,7 @@ public class WebAppUtil {
 	}
 
 	/**
-	 * get a component that registered in container. the component is not
+	 * get event component that registered in container. the component is not
 	 * different from the service. the component instance is single instance Any
 	 * intercepter will be disable
 	 * 
@@ -176,7 +176,7 @@ public class WebAppUtil {
 	 *            the method name
 	 * @param request
 	 * @param model
-	 *            the method parameter must be packed in a ModelIF object. if no
+	 *            the method parameter must be packed in event ModelIF object. if no
 	 *            method parameter, set it to null;
 	 * @return return the service dealing result
 	 * @throws Exception

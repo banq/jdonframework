@@ -7,7 +7,7 @@ import ship.domain.Location;
 public interface LocationRepository {
 	
 	/**
-	   * Finds a location using given unlocode.
+	   * Finds event location using given unlocode.
 	   *
 	   * @param unLocode UNLocode.
 	   * @return Location.

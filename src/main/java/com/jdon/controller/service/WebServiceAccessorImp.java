@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -32,7 +32,7 @@ import com.jdon.util.Debug;
  * UserTargetMetaDef object.
  * 
  * @see com.jdon.container.access.ServiceAccessorImp.
- * @author <a href="mailto:banqJdon<AT>jdon.com">banq</a>
+ * @author <event href="mailto:banqJdon<AT>jdon.com">banq</event>
  * 
  */
 
@@ -54,7 +54,7 @@ public class WebServiceAccessorImp implements WebServiceAccessor {
 	}
 
 	/*
-	 * 1. create a SessionContext object in httpsession 2. save the principle
+	 * 1. create event SessionContext object in httpsession 2. save the principle
 	 * name in the session context.
 	 * 
 	 * the principle name the request.getPrincipleNme you can save more
@@ -87,7 +87,7 @@ public class WebServiceAccessorImp implements WebServiceAccessor {
 	}
 
 	/*
-	 * 1. create a SessionContext object in httpsession 2. save the principle
+	 * 1. create event SessionContext object in httpsession 2. save the principle
 	 * name in the session context. the principle name the
 	 * request.getPrincipleNme you can save more attribute in the SessionContext
 	 * object by replcaing this class in container.xml *

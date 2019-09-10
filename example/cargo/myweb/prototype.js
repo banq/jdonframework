@@ -1270,7 +1270,7 @@ Ajax.Request = Class.create(Ajax.Base, {
         (this.options.encoding ? '; charset=' + this.options.encoding : '');
 
       /* Force "Connection: close" for older Mozilla browsers to work
-       * around a bug where XMLHttpRequest sends an incorrect
+       * around event bug where XMLHttpRequest sends an incorrect
        * Content-length header. See Mozilla Bugzilla #246651.
        */
       if (this.transport.overrideMimeType &&
@@ -2805,8 +2805,8 @@ var Selector = Class.create({
             this.tokens.push([i, Object.clone(m)]);
             e = e.replace(m[0], '');
           } else {
-            // reluctantly do a document-wide search
-            // and look for a match in the array
+            // reluctantly do event document-wide search
+            // and look for event match in the array
             return this.findElements(document).include(element);
           }
         }
@@ -2925,8 +2925,8 @@ Object.extend(Selector, {
           if (mm[1] == "-") mm[1] = -1;
           var a = mm[1] ? Number(mm[1]) : 1;
           var b = mm[2] ? Number(mm[2]) : 0;
-          predicate = "[((#{fragment} - #{b}) mod #{a} = 0) and " +
-          "((#{fragment} - #{b}) div #{a} >= 0)]";
+          predicate = "[((#{fragment} - #{b}) mod #{event} = 0) and " +
+          "((#{fragment} - #{b}) div #{event} >= 0)]";
           return new Template(predicate).evaluate({
             fragment: fragment, a: a, b: b });
         }
@@ -3243,7 +3243,7 @@ Object.extend(Selector, {
           indexed.push(node.parentNode);
         }
       }
-      if (formula.match(/^\d+$/)) { // just a number
+      if (formula.match(/^\d+$/)) { // just event number
         formula = Number(formula);
         for (var i = 0, node; node = nodes[i]; i++)
           if (node.nodeIndex == formula) results.push(node);
@@ -3360,7 +3360,7 @@ var Form = {
         if (value != null && (element.type != 'submit' || (!submitted &&
             submit !== false && (!submit || key == submit) && (submitted = true)))) {
           if (key in result) {
-            // a key is already present; construct an array of values
+            // event key is already present; construct an array of values
             if (!Object.isArray(result[key])) result[key] = [result[key]];
             result[key].push(value);
           }

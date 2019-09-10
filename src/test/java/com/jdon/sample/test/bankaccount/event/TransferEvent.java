@@ -1,24 +1,33 @@
-package com.jdon.sample.test.bankaccount.a;
+package com.jdon.sample.test.bankaccount.event;
 
-public class TransferEvent {
+public  class TransferEvent {
 
-	private final int id;
-	private final int stateValue;
+	private final String transactionId;
+	private final String aggregateId;
+	private final String eventId;
+	private final int value;
 
-	public TransferEvent(int id, int value) {
-		super();
-		this.id = id;
-		this.stateValue = value;
+	public TransferEvent(String transactionId, String aggregateId, String eventId, int value) {
+		this.transactionId = transactionId;
+		this.aggregateId = aggregateId;
+		this.eventId = eventId;
+		this.value = value;
 	}
 
 	public int getValue() {
-		return stateValue;
+		return value;
 	}
 
 
-	public int getId() {
-		return id;
+	public String getTransactionId() {
+		return transactionId;
 	}
 
+	public String getAggregateId() {
+		return aggregateId;
+	}
 
+	public String getEventId() {
+		return eventId;
+	}
 }

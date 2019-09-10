@@ -37,7 +37,7 @@ public class AnnotationContainerBuilder extends DefaultContainerBuilder {
 		// existedInterceptorsChain.getAdvisors(pointcut)
 		IntroduceInfoHolder ih = annotationContainerRegistry.getContainerLoaderAnnotation().getConfigInfo().getIntroduceInfoHolder();
 		for (String adviceName : ih.getIntroduceNames()) {
-			// there is a class(target) use annotation @Introduce("advicename")
+			// there is event class(target) use annotation @Introduce("advicename")
 			List<String> targetNames = ih.getIntroducerNameByIntroducedName(adviceName);
 			for (String targetName : targetNames) {
 				// if the advicename has been register by its pointcut is all

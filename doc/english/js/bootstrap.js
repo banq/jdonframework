@@ -14,7 +14,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -71,7 +71,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -170,7 +170,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -286,7 +286,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -504,7 +504,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -684,7 +684,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -719,7 +719,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
 
     if (!isActive) {
       if ('ontouchstart' in document.documentElement && !$parent.closest('.navbar-nav').length) {
-        // if mobile we use a backdrop because click events don't delegate
+        // if mobile we use event backdrop because click events don't delegate
         $('<div class="dropdown-backdrop"/>').insertAfter($(this)).on('click', clearMenus)
       }
 
@@ -755,7 +755,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
       return $this.click()
     }
 
-    var $items = $('[role=menu] li:not(.divider):visible a', $parent)
+    var $items = $('[role=menu] li:not(.divider):visible event', $parent)
 
     if (!$items.length) return
 
@@ -839,7 +839,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -1087,7 +1087,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -1473,7 +1473,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -1591,7 +1591,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -1618,7 +1618,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
     this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
     this.selector       = (this.options.target
       || ((href = $(element).attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
-      || '') + ' .nav li > a'
+      || '') + ' .nav li > event'
     this.offsets        = $([])
     this.targets        = $([])
     this.activeTarget   = null
@@ -1750,7 +1750,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -1783,7 +1783,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
 
     if ($this.parent('li').hasClass('active')) return
 
-    var previous = $ul.find('.active:last a')[0]
+    var previous = $ul.find('.active:last event')[0]
     var e        = $.Event('show.bs.tab', {
       relatedTarget: previous
     })
@@ -1886,7 +1886,7 @@ if (typeof jQuery === "undefined") { throw new Error("Bootstrap requires jQuery"
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *

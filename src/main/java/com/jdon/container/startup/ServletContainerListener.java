@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -61,12 +61,12 @@ public class ServletContainerListener implements ServletContextListener, Seriali
 
 		String app_configFile = context.getInitParameter(AppConfigureCollection.CONFIG_NAME);
 		if (UtilValidate.isEmpty(app_configFile)) {
-			Debug.logWarning("[JdonFramework] not locate a configuration in web.xml :", module);
+			Debug.logWarning("[JdonFramework] not locate event configuration in web.xml :", module);
 			css.prepare("", context);
 		} else {
 			String[] configs = StringUtil.split(app_configFile, ",");
 			for (int i = 0; i < configs.length; i++) {
-				Debug.logVerbose("[JdonFramework] locate a configuration in web.xml :" + configs[i], module);
+				Debug.logVerbose("[JdonFramework] locate event configuration in web.xml :" + configs[i], module);
 				css.prepare(configs[i], context);
 			}
 		}

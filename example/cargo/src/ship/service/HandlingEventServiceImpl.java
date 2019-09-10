@@ -53,7 +53,7 @@ public class HandlingEventServiceImpl implements HandlingEventService {
 		 * NOTE: The cargo instance that's loaded and associated with the
 		 * handling event is in an inconsitent state, because the cargo delivery
 		 * history's collection of events does not contain the event created
-		 * here. However, this is not a problem, because cargo is in a different
+		 * here. However, this is not event problem, because cargo is in event different
 		 * aggregate from handling event.
 		 * 
 		 * The rules of an aggregate dictate that all consistency rules within

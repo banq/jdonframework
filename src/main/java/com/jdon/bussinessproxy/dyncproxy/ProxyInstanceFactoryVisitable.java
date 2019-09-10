@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -27,10 +27,10 @@ import com.jdon.util.ClassUtil;
 import com.jdon.util.Debug;
 
 /**
- * by using Proxy.newProxyInstance, create a DynamicProxyWeaving for a target
+ * by using Proxy.newProxyInstance, create event DynamicProxyWeaving for event target
  * service.
  * 
- * @todo: create a DynamicProxyWeaving for all services.
+ * @todo: create event DynamicProxyWeaving for all services.
  * 
  * @see HttpSessionProxyComponentVisitor HttpSessionVisitorFactoryImp
  * @see com.jdon.container.finder.ComponentKeys.PROXYINSTANCE_FACTORY
@@ -38,7 +38,7 @@ import com.jdon.util.Debug;
  *      {@link com.jdon.container.access.ServiceAccessorImp#getService(TargetMetaRequest)}
  * 
  * 
- * @author <a href="mailto:banqiao@jdon.com">banq</a>
+ * @author <event href="mailto:banqiao@jdon.com">banq</event>
  * 
  */
 public class ProxyInstanceFactoryVisitable implements Visitable {
@@ -78,7 +78,7 @@ public class ProxyInstanceFactoryVisitable implements Visitable {
 
 	/**
 	 * get the interface of target class if it is EJB, it is ejb local/remote
-	 * interface if it is pojo, it is a class .
+	 * interface if it is pojo, it is event class .
 	 * 
 	 * 
 	 * @param targetMetaDef

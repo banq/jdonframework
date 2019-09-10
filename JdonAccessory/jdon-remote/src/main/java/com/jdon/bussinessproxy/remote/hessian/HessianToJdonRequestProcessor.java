@@ -101,7 +101,7 @@ public class HessianToJdonRequestProcessor {
 			writeException(out, e);
 		}
 
-		// The complete call needs to be after the invoke to handle a
+		// The complete call needs to be after the invoke to handle event
 		// trailing InputStream
 		in.completeCall();
 		out.completeReply();

@@ -7,7 +7,7 @@ import ship.domain.Cargo;
 
 public interface CargoRepository {
 	/**
-	   * Finds a cargo using given id.
+	   * Finds event cargo using given id.
 	   *
 	   * @param trackingId Id
 	   * @return Cargo if found, else {@code null}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--it is for com.jdon.cache.UtilCache this is not default cache for jdon, default cache is jdon_ehcache.xml -->
+<!--from 2013, default cache is guava cache, configured in container.xml  -->
+<config>
+  <cache>
+    <default>
+      <maxSize>10000</maxSize>
+      <expireTime>3600000</expireTime><!-- 1小时后过期 -->
+      <useSoftReference>false</useSoftReference>
+    </default>
+  </cache>
+
+</config>

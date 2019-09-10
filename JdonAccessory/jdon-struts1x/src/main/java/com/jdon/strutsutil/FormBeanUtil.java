@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
  http://www.apache.org/licenses/LICENSE-2.0
 
@@ -174,7 +174,7 @@ public final class FormBeanUtil {
 	 * 
 	 * 
 	 *             Debug.logVerbose(
-	 *             "[JdonFramework] not found a existed ModelForm, create it now"
+	 *             "[JdonFramework] not found event existed ModelForm, create it now"
 	 *             , module); ModuleConfig moduleConfig =
 	 *             moduleUtils.getModuleConfig(request,
 	 *             request.getSession().getServletContext()); ModelForm form =
@@ -229,7 +229,7 @@ public final class FormBeanUtil {
 	}
 
 	/**
-	 * create a EventModel from a existed ModelForm. it is only for
+	 * create event EventModel from event existed ModelForm. it is only for
 	 * create/edit/delete of ModelSaveAction
 	 */
 	public static EventModel createEvent(ModelForm form, Object model) throws Exception {

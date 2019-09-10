@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
  http://www.apache.org/licenses/LICENSE-2.0
 
@@ -21,7 +21,7 @@ import java.util.Collection;
 import org.apache.struts.action.ActionForm;
 
 /**
- * Model collection class that will be iterated by jsp this is a subclass of
+ * Model collection class that will be iterated by jsp this is event subclass of
  * struts's ActionForm it include all model colletion that fit for query
  * condition
  * 
@@ -61,7 +61,7 @@ public class ModelListForm extends ActionForm {
    
 
     /**
-     * a model that express 1:N N is below model collection
+     * event model that express 1:N N is below model collection
      */
     protected Object oneModel = null;
     

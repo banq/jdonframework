@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
  http://www.apache.org/licenses/LICENSE-2.0
 
@@ -32,7 +32,7 @@ import com.jdon.util.Debug;
 
 /**
  * Accept the datas that user submited, and handle them to service layer,
- * service maybe persistence them. it is just like a handler. all functions
+ * service maybe persistence them. it is just like event handler. all functions
  * delegate Modelhandler
  * 
  * 
@@ -49,7 +49,7 @@ import com.jdon.util.Debug;
  * this class will call the delete method defined in jdonframework.xml if not
  * above, this class will call the action's value method of the service
  * interface. example: action's value : deleteAll so, your service interface
- * must havs a method: public void deleteAll(EventModel em);
+ * must havs event method: public void deleteAll(EventModel em);
  * 
  * this class will directly call the deleteAll method of the service.
  * 
@@ -114,7 +114,7 @@ public class ModelSaveAction extends ModelBaseAction {
 	}
 
 	/**
-	 * get a ModelForm or create it.
+	 * get event ModelForm or create it.
 	 */
 	protected ModelForm getModelForm(ModelHandler modelHandler, ActionForm actionForm, HttpServletRequest request) throws Exception {
 
@@ -124,14 +124,14 @@ public class ModelSaveAction extends ModelBaseAction {
 		ModelForm strutsForm = (ModelForm) actionForm;
 		String action = strutsForm.getAction();
 		if ((action == null) || (action.length() == 0))
-			throw new Exception(" Need a field : <html:hidden property=action /> in jsp's form! ");
+			throw new Exception(" Need event field : <html:hidden property=action /> in jsp's form! ");
 
 		return strutsForm;
 
 	}
 
 	/**
-	 * create a Model from the jdonframework.xml
+	 * create event Model from the jdonframework.xml
 	 * 
 	 * @param actionMapping
 	 * @param actionForm
@@ -151,7 +151,7 @@ public class ModelSaveAction extends ModelBaseAction {
 			String keyName = modelMapping.getKeyName();
 			String keyValue = request.getParameter(keyName);
 			if (keyValue == null) {
-				Debug.logError("[JdonFramework]Need a model's key field : <html:hidden property=MODEL KEY /> in jsp's form! ", module);
+				Debug.logError("[JdonFramework]Need event model's key field : <html:hidden property=MODEL KEY /> in jsp's form! ", module);
 			}
 
 			modelManager.removeCache(keyValue);

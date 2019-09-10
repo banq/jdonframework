@@ -2,7 +2,7 @@
  * Copyright 2003-2009 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -123,13 +123,13 @@ public class EventMessageFirer implements Startable {
 		}
 		Object[] arguments = invocation.getArguments();
 		if (arguments.length == 0) {
-			Debug.logError("there is no a destination parameter(@Receiver) in this method:" + invocation.getMethod().getName() + topic, module);
+			Debug.logError("there is no event destination parameter(@Receiver) in this method:" + invocation.getMethod().getName() + topic, module);
 			return;
 		}
 
 		Map params = fetchCommandReceiver(invocation.getMethod(), arguments);
 		if (params.size() == 0 || !ModelUtil.isModel(params.get("Receiver"))) {
-			Debug.logError(" there is no a destination parameter(@Receiver)  in this method:" + invocation.getMethod().getName()
+			Debug.logError(" there is no event destination parameter(@Receiver)  in this method:" + invocation.getMethod().getName()
 					+ " or the destination class not annotated with @Model", module);
 			return;
 		}

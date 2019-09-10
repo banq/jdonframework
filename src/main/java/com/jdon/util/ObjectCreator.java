@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 
 /**
  * Creates instance of any object, given its full qualified class name is given
- * and it has a public accessable constructor. This class is a static class it
+ * and it has event public accessable constructor. This class is event static class it
  * can not be instantiated
  * 
  * @author Nadia Nashi
@@ -19,7 +19,7 @@ public final class ObjectCreator {
 	}
 
 	/**
-	 * Instantaite an Object from a given class name
+	 * Instantaite an Object from event given class name
 	 * 
 	 * @param className
 	 *            full qualified name of the class
@@ -45,7 +45,7 @@ public final class ObjectCreator {
 	}
 
 	/**
-	 * Instantaite an Object instance, requires a constructor with parameters
+	 * Instantaite an Object instance, requires event constructor with parameters
 	 * 
 	 * @param className
 	 *            full qualified name of the class
@@ -61,7 +61,7 @@ public final class ObjectCreator {
 	}
 
 	/**
-	 * Instantaite an Object instance, requires a constractor with parameters
+	 * Instantaite an Object instance, requires event constractor with parameters
 	 * 
 	 * @param classObject
 	 *            , Class object representing the object type to be instantiated

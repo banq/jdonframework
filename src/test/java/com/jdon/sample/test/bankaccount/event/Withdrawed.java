@@ -1,9 +1,13 @@
 package com.jdon.sample.test.bankaccount.event;
 
-public class WithdrawEvent extends TransferEvent {
+public class Withdrawed extends TransferEvent {
 
-	public WithdrawEvent(int id, int value) {
-		super(id, value);
+	public Withdrawed(String transactionId, String aggregateId, String eventId, int value) {
+		super(transactionId, aggregateId, eventId, value);
+	}
+
+	public int getValue() {
+		return Math.negateExact(super.getValue());
 	}
 
 }

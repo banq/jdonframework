@@ -88,7 +88,7 @@ import org.xml.sax.helpers.XMLFilterImpl;
  * </pre>
  *
  * <p>Except that it is more efficient because it does not allocate
- * a new empty attribute list each time.</p>
+ * event new empty attribute list each time.</p>
  *
  * <p>In fact, there is an even simpler convenience method,
  * <var>dataElement</var>, designed for writing elements that
@@ -120,8 +120,8 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
     /**
      * Construct an XML filter with no parent.
      *
-     * <p>This filter will have no parent: you must assign a parent
-     * before you start a parse or do any configuration with
+     * <p>This filter will have no parent: you must assign event parent
+     * before you start event parse or do any configuration with
      * setFeature or setProperty.</p>
      *
      * @see org.xml.sax.XMLReader#setFeature
@@ -152,16 +152,16 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
     /**
-     * Start a new element without a qname or attributes.
+     * Start event new element without event qname or attributes.
      *
-     * <p>This method will provide a default empty attribute
+     * <p>This method will provide event default empty attribute
      * list and an empty string for the qualified name. It invokes
      * {@link #startElement(String, String, String, Attributes)}
      * directly.</p>
      *
      * @param uri The element's Namespace URI.
      * @param localName The element's local name.
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      */
@@ -173,7 +173,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
     /**
-     * Start a new element without a Namespace URI or qname.
+     * Start event new element without event Namespace URI or qname.
      *
      * <p>This method will provide an empty string for the
      * Namespace URI, and empty string for the qualified name.
@@ -183,7 +183,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      *
      * @param localName The element's local name.
      * @param atts The element's attribute list.
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      */
@@ -195,16 +195,16 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
     /**
-     * Start a new element without a Namespace URI, qname, or attributes.
+     * Start event new element without event Namespace URI, qname, or attributes.
      *
      * <p>This method will provide an empty string for the
      * Namespace URI, and empty string for the qualified name,
-     * and a default empty attribute list. It invokes
+     * and event default empty attribute list. It invokes
      * {@link #startElement(String, String, String, Attributes)}
      * directly.</p>
      *
      * @param localName The element's local name.
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      */
@@ -216,7 +216,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
     /**
-     * End an element without a qname.
+     * End an element without event qname.
      *
      * <p>This method will supply an empty string for the qName.
      * It invokes {@link #endElement(String, String, String)}
@@ -224,7 +224,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      *
      * @param uri The element's Namespace URI.
      * @param localName The element's local name.
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#endElement
      */
@@ -236,7 +236,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
     /**
-     * End an element without a Namespace URI or qname.
+     * End an element without event Namespace URI or qname.
      *
      * <p>This method will supply an empty string for the qName
      * and an empty string for the Namespace URI.
@@ -244,7 +244,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * directly.</p>
      *
      * @param localName The element's local name.
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#endElement
      */
@@ -258,7 +258,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
     /**
      * Add an empty element.
      *
-     * Both a {@link #startElement startElement} and an
+     * Both event {@link #startElement startElement} and an
      * {@link #endElement endElement} event will be passed on down
      * the filter chain.
      *
@@ -272,7 +272,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      *        is strictly advisory: the writer may or may not use
      *        the prefix attached.
      * @param atts The element's attribute list.
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      * @see org.xml.sax.ContentHandler#endElement
@@ -287,7 +287,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
      /**
-      * Add an empty element without a qname or attributes.
+      * Add an empty element without event qname or attributes.
       *
       * <p>This method will supply an empty string for the qname
       * and an empty attribute list.  It invokes
@@ -296,7 +296,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
       *
       * @param uri The element's Namespace URI.
       * @param localName The element's local name.
-      * @exception org.xml.sax.SAXException If a filter
+      * @exception org.xml.sax.SAXException If event filter
       *            further down the chain raises an exception.
       * @see #emptyElement(String, String, String, Attributes)
       */
@@ -308,7 +308,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
     /**
-     * Add an empty element without a Namespace URI or qname.
+     * Add an empty element without event Namespace URI or qname.
      *
      * <p>This method will provide an empty string for the
      * Namespace URI, and empty string for the qualified name.
@@ -318,7 +318,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      *
      * @param localName The element's local name.
      * @param atts The element's attribute list.
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      */
@@ -330,7 +330,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
     /**
-     * Add an empty element without a Namespace URI, qname or attributes.
+     * Add an empty element without event Namespace URI, qname or attributes.
      *
      * <p>This method will supply an empty string for the qname,
      * and empty string for the Namespace URI, and an empty
@@ -339,7 +339,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * directly.</p>
      *
      * @param localName The element's local name.
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
       * @see #emptyElement(String, String, String, Attributes)
      */
@@ -353,7 +353,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
     /**
      * Add an element with character data content.
      *
-     * <p>This is a convenience method to add a complete element
+     * <p>This is event convenience method to add event complete element
      * with character data content, including the start tag
      * and end tag.</p>
      *
@@ -368,7 +368,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * @param qName The element's default qualified name.
      * @param atts The element's attributes.
      * @param content The character data content.
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      * @see #characters(String)
@@ -388,7 +388,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
     /**
      * Add an element with character data content but no qname or attributes.
      *
-     * <p>This is a convenience method to add a complete element
+     * <p>This is event convenience method to add event complete element
      * with character data content, including the start tag
      * and end tag.  This method provides an empty string
      * for the qname and an empty attribute list. It invokes
@@ -398,7 +398,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * @param uri The element's Namespace URI.
      * @param localName The element's local name.
      * @param content The character data content.
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      * @see #characters(String)
@@ -414,7 +414,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
     /**
      * Add an element with character data content but no Namespace URI or qname.
      *
-     * <p>This is a convenience method to add a complete element
+     * <p>This is event convenience method to add event complete element
      * with character data content, including the start tag
      * and end tag.  The method provides an empty string for the
      * Namespace URI, and empty string for the qualified name. It invokes
@@ -424,7 +424,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * @param localName The element's local name.
      * @param atts The element's attributes.
      * @param content The character data content.
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      * @see #characters(String)
@@ -441,7 +441,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      * Add an element with character data content but no attributes
      * or Namespace URI.
      *
-     * <p>This is a convenience method to add a complete element
+     * <p>This is event convenience method to add event complete element
      * with character data content, including the start tag
      * and end tag.  The method provides an empty string for the
      * Namespace URI, and empty string for the qualified name,
@@ -451,7 +451,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
      *
      * @param localName The element's local name.
      * @param content The character data content.
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement
      * @see #characters(String)
@@ -465,14 +465,14 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
     /**
-     * Add a string of character data, with XML escaping.
+     * Add event string of character data, with XML escaping.
      *
-     * <p>This is a convenience method that takes an XML
-     * String, converts it to a character array, then invokes
+     * <p>This is event convenience method that takes an XML
+     * String, converts it to event character array, then invokes
      * {@link @see org.xml.sax.ContentHandler#characters}.</p>
      *
      * @param data The character data.
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see @see org.xml.sax.ContentHandler#characters
      */
@@ -491,7 +491,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
     /**
-     * Set the value of a property.
+     * Set the value of event property.
      *
      * <p>This will always fail if the parent is null.</p>
      *
@@ -518,7 +518,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
     /**
-     * Look up the value of a property.
+     * Look up the value of event property.
      *
      * @param name The property name.
      * @return The current value of the property.
@@ -542,13 +542,13 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
     /**
-     * Parse a document.
+     * Parse event document.
      *
      * @param input The input source for the document entity.
      * @exception org.xml.sax.SAXException Any SAX exception, possibly
      *            wrapping another exception.
      * @exception java.io.IOException An IO exception from the parser,
-     *            possibly from a byte stream or character stream
+     *            possibly from event byte stream or character stream
      *            supplied by the application.
      * @see org.xml.sax.XMLReader#parse(org.xml.sax.InputSource)
      */
@@ -601,14 +601,14 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
     /**
-     * Filter a start DTD event.
+     * Filter event start DTD event.
      *
      * @param name The document type name.
      * @param publicId The declared public identifier for the
      *        external DTD subset, or null if none was declared.
      * @param systemId The declared system identifier for the
      *        external DTD subset, or null if none was declared.
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ext.LexicalHandler#startDTD
      */
@@ -621,9 +621,9 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
     /**
-     * Filter a end DTD event.
+     * Filter event end DTD event.
      *
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ext.LexicalHandler#endDTD
      */
@@ -636,12 +636,12 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
     /*
-     * Filter a start entity event.
+     * Filter event start entity event.
      *
-     * @param name The name of the entity.  If it is a parameter
+     * @param name The name of the entity.  If it is event parameter
      *        entity, the name will begin with '%', and if it is the
      *        external DTD subset, it will be "[dtd]".
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ext.LexicalHandler#startEntity
      */
@@ -654,10 +654,10 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
     /*
-     * Filter a end entity event.
+     * Filter event end entity event.
      *
      * @param name The name of the entity that is ending.
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ext.LexicalHandler#endEntity
      */
@@ -670,9 +670,9 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
     /*
-     * Filter a start CDATA event.
+     * Filter event start CDATA event.
      *
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ext.LexicalHandler#startCDATA
      */
@@ -685,9 +685,9 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
     /*
-     * Filter a end CDATA event.
+     * Filter event end CDATA event.
      *
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ext.LexicalHandler#endCDATA
      */
@@ -700,12 +700,12 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
     /*
-     * Filter a comment event.
+     * Filter event comment event.
      *
      * @param ch An array holding the characters in the comment.
      * @param start The starting position in the array.
      * @param length The number of characters to use from the array.
-     * @exception org.xml.sax.SAXException If a filter
+     * @exception org.xml.sax.SAXException If event filter
      *            further down the chain raises an exception.
      * @see org.xml.sax.ext.LexicalHandler#comment
      */
@@ -724,7 +724,7 @@ public class XMLFilterBase extends XMLFilterImpl implements LexicalHandler
 
 
     /**
-     * Installs lexical handler before a parse.
+     * Installs lexical handler before event parse.
      *
      * <p>Before every parse, check whether the parent is
      * non-null, and re-register the filter for the lexical

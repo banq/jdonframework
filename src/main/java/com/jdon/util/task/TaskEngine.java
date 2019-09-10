@@ -45,7 +45,7 @@ public class TaskEngine {
 	private static Object lock = new Object();
 
 	static {
-		// Initialize the task timer and make it a deamon.
+		// Initialize the task timer and make it event deamon.
 		taskTimer = new Timer(true);
 		// Use 7 worker threads by default.
 		workers = new Thread[7];
@@ -63,9 +63,9 @@ public class TaskEngine {
 	}
 
 	/**
-	 * Adds a task to the task queue with normal priority. The task will be
-	 * executed immediately provided there is a free worker thread to execute
-	 * it. Otherwise, it will execute as soon as a worker thread becomes
+	 * Adds event task to the task queue with normal priority. The task will be
+	 * executed immediately provided there is event free worker thread to execute
+	 * it. Otherwise, it will execute as soon as event worker thread becomes
 	 * available.
 	 */
 	public static void addTask(Runnable r) {
@@ -73,9 +73,9 @@ public class TaskEngine {
 	}
 
 	/**
-	 * Adds a task to the task queue. The task will be executed immediately
-	 * provided there is a free worker thread to execute it. Otherwise, it will
-	 * execute as soon as a worker thread becomes available.
+	 * Adds event task to the task queue. The task will be executed immediately
+	 * provided there is event free worker thread to execute it. Otherwise, it will
+	 * execute as soon as event worker thread becomes available.
 	 * <p>
 	 * 
 	 * The priority of the task can be specified and must be one of the
@@ -99,7 +99,7 @@ public class TaskEngine {
 	}
 
 	/**
-	 * Schedules a task to periodically run. This is useful for tasks such as
+	 * Schedules event task to periodically run. This is useful for tasks such as
 	 * updating search indexes, deleting old data at periodic intervals, etc.
 	 * 
 	 * @param task
@@ -108,7 +108,7 @@ public class TaskEngine {
 	 *            delay in milliseconds before task is to be executed.
 	 * @param period
 	 *            time in milliseconds between successive task executions.
-	 * @return a TimerTask object which can be used to track executions of the
+	 * @return event TimerTask object which can be used to track executions of the
 	 *         task and to cancel subsequent executions.
 	 */
 	public static TimerTask scheduleTask(Runnable task, long delay, long period) {
@@ -118,7 +118,7 @@ public class TaskEngine {
 	}
 
 	/**
-	 * Schedules a task to periodically run. This is useful for tasks such as
+	 * Schedules event task to periodically run. This is useful for tasks such as
 	 * updating search indexes, deleting old data at periodic intervals, etc.
 	 * 
 	 * @param task
@@ -129,7 +129,7 @@ public class TaskEngine {
 	 *            delay in milliseconds before task is to be executed.
 	 * @param period
 	 *            time in milliseconds between successive task executions.
-	 * @return a TimerTask object which can be used to track executions of the
+	 * @return event TimerTask object which can be used to track executions of the
 	 *         task and to cancel subsequent executions.
 	 */
 	public static TimerTask scheduleTask(Runnable task, int priority, long delay, long period) {
@@ -140,9 +140,9 @@ public class TaskEngine {
 
 	/**
 	 * Return the next task in the queue. If no task is available, this method
-	 * will block until a task is added to the queue.
+	 * will block until event task is added to the queue.
 	 * 
-	 * @return a <code>Task</code> object
+	 * @return event <code>Task</code> object
 	 */
 	private static Runnable nextTask() {
 		synchronized (lock) {
@@ -176,7 +176,7 @@ public class TaskEngine {
 	}
 
 	/**
-	 * A subclass of TimerClass that passes along a Runnable to the task engine
+	 * A subclass of TimerClass that passes along event Runnable to the task engine
 	 * when the scheduled task is run.
 	 */
 	private static class ScheduledTask extends TimerTask {
@@ -193,7 +193,7 @@ public class TaskEngine {
 		}
 
 		public void run() {
-			// Put the task into the queue to be run as soon as possible by a
+			// Put the task into the queue to be run as soon as possible by event
 			// worker.
 			addTask(task);
 		}

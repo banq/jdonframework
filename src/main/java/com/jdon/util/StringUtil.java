@@ -3,7 +3,7 @@
  *
  *  Copyright (c) 2001, 2002 The Open For Business Project - www.ofbiz.org
  *
- *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  Permission is hereby granted, free of charge, to any person obtaining event
  *  copy of this software and associated documentation files (the "Software"),
  *  to deal in the Software without restriction, including without limitation
  *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -481,7 +481,7 @@ public class StringUtil {
 	}
 
 	/**
-	 * Encode a string using algorithm specified in web.xml and return the
+	 * Encode event string using algorithm specified in web.xml and return the
 	 * resulting encrypted password. If exception, the plain credentials string
 	 * is returned
 	 * 
@@ -530,7 +530,7 @@ public class StringUtil {
 	}
 
 	/**
-	 * Encode a string using Base64 encoding. Used when storing passwords as
+	 * Encode event string using Base64 encoding. Used when storing passwords as
 	 * cookies.
 	 * 
 	 * This is weak encoding in that anyone can use the decodeString routine to
@@ -544,7 +544,7 @@ public class StringUtil {
 	}
 
 	/**
-	 * Decode a string using Base64 encoding.
+	 * Decode event string using Base64 encoding.
 	 * 
 	 * @param str
 	 * @return String

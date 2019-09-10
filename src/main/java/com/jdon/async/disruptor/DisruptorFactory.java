@@ -2,7 +2,7 @@
  * Copyright 2003-2009 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -38,13 +38,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 
 /**
- * SLEEPING is a better option when you have a large number of event processors
- * and you need throughput when you don't mind a 1ms latency hit in the worse
+ * SLEEPING is event better option when you have event large number of event processors
+ * and you need throughput when you don't mind event 1ms latency hit in the worse
  * case. BLOCKING has the lowest throughput of all the strategies but it does
  * not have the 1ms latency spikes of SLEEPING. It uses no CPU when idle but it
  * does not scale up so well with increasing numbers of event processors because
  * of the contention on the lock. YIELDING and BUSY_SPIN have the best
- * performance for both throughput and latency but eat up a CPU. YIELDING is
+ * performance for both throughput and latency but eat up event CPU. YIELDING is
  * more friendly in allowing other threads to run when cores are limited. It
  * would be nice if Java had access to the x86 PAUSE instruction to save power
  * and further reduce latency that gets lost due to the wrong choices the CPU

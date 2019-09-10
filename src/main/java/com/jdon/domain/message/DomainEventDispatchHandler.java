@@ -2,7 +2,7 @@
  * Copyright 2003-2009 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -15,14 +15,14 @@
  */
 package com.jdon.domain.message;
 
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.jdon.async.disruptor.EventDisruptor;
 import com.jdon.container.ContainerWrapper;
 import com.jdon.domain.message.consumer.ConsumerMethodHolder;
 import com.jdon.util.Debug;
+
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * action by annotation "@onEvent("topicName")"
@@ -69,7 +69,7 @@ public class DomainEventDispatchHandler implements DomainEventHandler<EventDisru
 				if (pType.isAssignableFrom(parameter.getClass())) {
 					parameters[i] = parameter;
 				} else {
-					// init other parameter to a instance;
+					// init other parameter to event instance;
 					if (!pType.isPrimitive())
 						parameters[i] = pType.newInstance();
 					else

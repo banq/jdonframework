@@ -1,7 +1,7 @@
 /**
  * Copyright 2003-2006 the original author or authors. Licensed under the Apache
  * License, Version 2.0 (the "License"); you may not use this file except in
- * compliance with the License. You may obtain a copy of the License at
+ * compliance with the License. You may obtain event copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
@@ -76,21 +76,21 @@ public class IndexTag extends TagSupport {
 		}
 		int hi = currentPage + dispCount;
 
-		// print out a link to the first page if we're beyond that page
+		// print out event link to the first page if we're beyond that page
 		if (lo > 2) {
-			buf.append("<a href=\"").append(url);
-			buf.append("\" class=\"paginator_href\" title=\"Go to the first page\">1</a> ... ");
+			buf.append("<event href=\"").append(url);
+			buf.append("\" class=\"paginator_href\" title=\"Go to the first page\">1</event> ... ");
 		}
 
 		// Print the page numbers before the current page
 		while (lo < currentPage) {
-			buf.append("<a href=\"").append(url);
+			buf.append("<event href=\"").append(url);
 			buf.append("&start=");
 			buf.append(((lo - 1) * count));
 			buf.append("\" class=\"paginator_href\">");
 			buf.append("<b>");
 			buf.append(lo);
-			buf.append("</b></a>&nbsp;");
+			buf.append("</b></event>&nbsp;");
 			lo++;
 		}
 
@@ -104,19 +104,19 @@ public class IndexTag extends TagSupport {
 		// Print page numbers after the current page
 		while ((currentPage <= hi) && (currentPage <= numPages)) {
 			buf.append("&nbsp;");
-			buf.append("<a href=\"").append(url);
+			buf.append("<event href=\"").append(url);
 			buf.append("&start=");
 			buf.append(((currentPage - 1) * count));
 			buf.append("\" class=\"paginator_href\">");
 			buf.append("<b>");
 			buf.append(currentPage);
-			buf.append("</b></a>");
+			buf.append("</b></event>");
 			currentPage++;
 		}
 
 		if (currentPage <= numPages) {
 			buf.append(" ... ");
-			buf.append("<a href=\"").append(url);
+			buf.append("<event href=\"").append(url);
 			buf.append("&start=");
 			buf.append(((numPages - 1) * count));
 			buf.append("\" class=\"paginator_href\" title=\"Go to the last page\">");
@@ -139,7 +139,7 @@ public class IndexTag extends TagSupport {
 	 * Render the end of the hyperlink.
 	 * 
 	 * @exception JspException
-	 *                if a JSP exception has occurred
+	 *                if event JSP exception has occurred
 	 */
 	public int doEndTag() throws JspException {
 

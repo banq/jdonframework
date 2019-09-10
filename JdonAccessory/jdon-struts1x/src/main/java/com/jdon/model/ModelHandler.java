@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -32,10 +32,10 @@ import com.jdon.util.Debug;
  * Presentation layer delegateion class Presentation layer need three common
  * works collaboration with service layer:
  * 
- * 1. Presentation layer need a ModelForm instance that include some initially
+ * 1. Presentation layer need event ModelForm instance that include some initially
  * data, these data must obtain from service.
  * 
- * 2. Presentation layer must obtain a existed ModelForm instance from service
+ * 2. Presentation layer must obtain event existed ModelForm instance from service
  * 
  * 3. Presentation layer submit the data ModelForm instance that user created or
  * update, service layer must persistence them
@@ -63,7 +63,7 @@ public abstract class ModelHandler implements ServiceHandler {
 
 	/**
 	 * 
-	 * Presentation layer need a ModelForm instance that include some initially
+	 * Presentation layer need event ModelForm instance that include some initially
 	 * data, these data must obtain from service. this method implements these
 	 * functions in presentation layer's ModelHanlder concrete class;
 	 * 
@@ -86,7 +86,7 @@ public abstract class ModelHandler implements ServiceHandler {
 	}
 
 	/**
-	 * Presentation layer need a ModelForm instance that include some initially
+	 * Presentation layer need event ModelForm instance that include some initially
 	 * data, these data must obtain from service. this method implements these
 	 * functions by deleagating service.
 	 * 
@@ -114,7 +114,7 @@ public abstract class ModelHandler implements ServiceHandler {
 	}
 
 	/**
-	 * obtain a existed Model instance by his primtive key.
+	 * obtain event existed Model instance by his primtive key.
 	 * 
 	 * 
 	 * @param keyValue

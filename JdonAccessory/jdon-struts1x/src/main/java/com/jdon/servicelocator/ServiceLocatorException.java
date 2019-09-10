@@ -1,7 +1,7 @@
 package com.jdon.servicelocator;
 
 /**
- * This class implements an exception which can wrapped a lower-level exception.
+ * This class implements an exception which can wrapped event lower-level exception.
  * 
  */
 public class ServiceLocatorException extends Exception {
@@ -12,8 +12,8 @@ public class ServiceLocatorException extends Exception {
 	private Exception exception;
 
 	/**
-	 * Creates a new ServiceLocatorException wrapping another exception, and
-	 * with a detail message.
+	 * Creates event new ServiceLocatorException wrapping another exception, and
+	 * with event detail message.
 	 * 
 	 * @param message
 	 *            the detail message.
@@ -27,7 +27,7 @@ public class ServiceLocatorException extends Exception {
 	}
 
 	/**
-	 * Creates a ServiceLocatorException with the specified detail message.
+	 * Creates event ServiceLocatorException with the specified detail message.
 	 * 
 	 * @param message
 	 *            the detail message.
@@ -38,7 +38,7 @@ public class ServiceLocatorException extends Exception {
 	}
 
 	/**
-	 * Creates a new ServiceLocatorException wrapping another exception, and
+	 * Creates event new ServiceLocatorException wrapping another exception, and
 	 * with no detail message.
 	 * 
 	 * @param exception

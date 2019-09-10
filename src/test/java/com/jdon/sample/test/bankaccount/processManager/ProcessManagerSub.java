@@ -27,20 +27,20 @@ import com.jdon.sample.test.bankaccount.infras.BrokerProducerIF;
 
 
 @Component
-public class ProcessManager {
+public class ProcessManagerSub {
 
 	private final AccountRepositoryIF accountRepository;
 	private final BrokerProducerIF brokerProducer;
 	private final ProcessDef processDef;
 
-	public ProcessManager(ProcessDef processDef,AccountRepositoryIF accountRepository, BrokerProducerIF brokerProducer) {
+	public ProcessManagerSub(ProcessDef processDef, AccountRepositoryIF accountRepository, BrokerProducerIF brokerProducer) {
 		super();
 		this.processDef = processDef;
 		this.accountRepository = accountRepository;
 		this.brokerProducer = brokerProducer;
 	}
 
-	@OnEvent("stepCompleted")
+	@OnEvent("next")
 	public void handle(TransferEvent transferEvent) {
 		if (transferEvent instanceof Canceled) {
 			TransferCommand preTransferCommand = processDef.getPreTransferCommand();
@@ -52,6 +52,8 @@ public class ProcessManager {
 			TransferCommand nextTransferCommand = processDef.getNextTransferCommand();
 			if (nextTransferCommand != null)
 				processDef.sendCommand(nextTransferCommand);
+			else
+				processDef.clear();
 		}
 		System.out.println(" processDef finish");
 

@@ -2,7 +2,7 @@
  * Copyright 2003-2005 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -21,7 +21,7 @@ import com.jdon.container.visitor.data.SessionContext;
 
 /**
  * Visitor pattern
- * ComponentVisitor is a actor of Visitor, it do not need
+ * ComponentVisitor is event actor of Visitor, it do not need
  * many access method, such as:
  *   visitAcomponent();
  *   visitBcomponent();
@@ -32,7 +32,7 @@ import com.jdon.container.visitor.data.SessionContext;
  * there are two concrete classes:
  * @see com.jdon.container.visitor.ComponentOriginalVisitor
  * @see com.jdon.container.visitor.http.HttpSessionProxyComponentVisitor
- *  @author <a href="mailto:banqiao@jdon.com">banq</a>
+ *  @author <event href="mailto:banqiao@jdon.com">banq</event>
  */
 public interface ComponentVisitor extends Serializable{
   

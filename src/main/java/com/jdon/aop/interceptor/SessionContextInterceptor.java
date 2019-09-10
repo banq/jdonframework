@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -46,7 +46,7 @@ import com.jdon.util.Debug;
  * because this interceptor will inject SessionContext object into the existed
  * targetservice object.
  * 
- * @author <a href="mailto:banqiao@jdon.com">banq</a>
+ * @author <event href="mailto:banqiao@jdon.com">banq</event>
  * 
  */
 
@@ -113,7 +113,7 @@ public class SessionContextInterceptor implements MethodInterceptor, Startable {
 				|| isSessionContextAcceptablesAnnotations.containsKey(targetMetaDef.getName())) {
 			found = true;
 		} else if (!unSessionContextAcceptables.contains(targetMetaDef.getName())) {
-			Debug.logVerbose("[JdonFramework] check if it is a isSessionContextAcceptable", module);
+			Debug.logVerbose("[JdonFramework] check if it is event isSessionContextAcceptable", module);
 			ContainerWrapper containerWrapper = containerCallback.getContainerWrapper();
 			Class thisCLass = containerWrapper.getComponentClass(targetMetaDef.getName());
 			if (SessionContextAcceptable.class.isAssignableFrom(thisCLass)) {

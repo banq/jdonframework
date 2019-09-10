@@ -2,7 +2,7 @@
  * Copyright 2003-2009 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -55,7 +55,7 @@ public class DomainMessage extends Command {
 	}
 
 	/**
-	 * setup time out(MILLISECONDS) value for get a Event Result
+	 * setup time out(MILLISECONDS) value for get event Event Result
 	 * 
 	 * @param timeoutforeturnResult
 	 *            MILLISECONDS
@@ -66,7 +66,7 @@ public class DomainMessage extends Command {
 	}
 
 	/**
-	 * get a Event Result until time out value
+	 * get event Event Result until time out value
 	 * 
 	 * @return Event Result
 	 */
@@ -88,7 +88,7 @@ public class DomainMessage extends Command {
 	}
 
 	/**
-	 * * Blocking until get a Event Result
+	 * * Blocking until get event Event Result
 	 * 
 	 * @return
 	 */

@@ -7,7 +7,7 @@ import com.jdon.annotation.pointcut.Before;
 import com.jdon.annotation.pointcut.method.Input;
 import com.jdon.annotation.pointcut.method.Returning;
 
-@Component("a")
+@Component("event")
 @Introduce("c")
 public class A implements AInterface {
 

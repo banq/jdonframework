@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -25,7 +25,7 @@ import com.jdon.model.factory.ModelHandlerClassXMLBuilder;
 import com.jdon.util.Debug;
 
 /**
- * @author <a href="mailto:banqiao@jdon.com">banq </a>
+ * @author <event href="mailto:banqiao@jdon.com">banq </event>
  * 
  */
 @Component

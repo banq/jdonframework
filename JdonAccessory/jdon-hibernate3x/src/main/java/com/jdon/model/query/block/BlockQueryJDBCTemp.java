@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -34,7 +34,7 @@ import com.jdon.util.Debug;
  * 
  * this class can be directly by application system.
  * 
- * @author <a href="mailto:banqiao@jdon.com">banq </a>
+ * @author <event href="mailto:banqiao@jdon.com">banq </event>
  * 
  */
 public class BlockQueryJDBCTemp implements BlockQueryJDBC {
@@ -135,11 +135,11 @@ public class BlockQueryJDBCTemp implements BlockQueryJDBC {
 			blockSize++;
 			while (rs.next() && (--blockSize > 0)) {
 				Object result = rs.getObject(1);
-				Debug.logVerbose("[JdonFramework]--> found a primary key = " + result + ",  type:" + result.getClass().getName(), module);
+				Debug.logVerbose("[JdonFramework]--> found event primary key = " + result + ",  type:" + result.getClass().getName(), module);
 				items.add(result);
 			}
 
-			Debug.logVerbose("[JdonFramework]--> get a result succefully ..", module);
+			Debug.logVerbose("[JdonFramework]--> get event result succefully ..", module);
 		} catch (SQLException se) {
 			Debug.logError(se, module);
 

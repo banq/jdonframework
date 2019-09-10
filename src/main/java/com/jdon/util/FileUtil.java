@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -29,7 +29,7 @@ public class FileUtil {
 	private static String ENCODING = "UTF-8";
 
 	/**
-	 * write the content to a file;
+	 * write the content to event file;
 	 * 
 	 * @param output
 	 * @param content
@@ -57,7 +57,7 @@ public class FileUtil {
 	}
 
 	/**
-	 * read the content from a file;
+	 * read the content from event file;
 	 * 
 	 * @param output
 	 * @param content
@@ -138,7 +138,7 @@ public class FileUtil {
 	}
 
 	/**
-	 * create a directory
+	 * create event directory
 	 * 
 	 * @param home
 	 * @throws Exception
@@ -155,7 +155,7 @@ public class FileUtil {
 	}
 
 	/**
-	 * This class copies an input files of a directory to another directory not
+	 * This class copies an input files of event directory to another directory not
 	 * include subdir
 	 * 
 	 * @param String
@@ -189,7 +189,7 @@ public class FileUtil {
 	}
 
 	/**
-	 * This class del a directory recursively,that means delete all files and
+	 * This class del event directory recursively,that means delete all files and
 	 * directorys.
 	 * 
 	 * @param File

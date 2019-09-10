@@ -82,13 +82,13 @@ public class DataUnformatFilter extends XMLFilterBase {
 	// //////////////////////////////////////////////////////////////////
 
 	/**
-	 * Create a new filter.
+	 * Create event new filter.
 	 */
 	public DataUnformatFilter() {
 	}
 
 	/**
-	 * Create a new filter.
+	 * Create event new filter.
 	 * 
 	 * <p>
 	 * Use the XMLReader provided as the source of events.
@@ -124,14 +124,14 @@ public class DataUnformatFilter extends XMLFilterBase {
 	// //////////////////////////////////////////////////////////////////
 
 	/**
-	 * Filter a start document event.
+	 * Filter event start document event.
 	 * 
 	 * <p>
 	 * Reset state and pass the event on for further processing.
 	 * </p>
 	 * 
 	 * @exception org.xml.sax.SAXException
-	 *                If a filter further down the chain raises an exception.
+	 *                If event filter further down the chain raises an exception.
 	 * @see org.xml.sax.ContentHandler#startDocument
 	 */
 	public void startDocument() throws SAXException {
@@ -140,7 +140,7 @@ public class DataUnformatFilter extends XMLFilterBase {
 	}
 
 	/**
-	 * Filter a start element event.
+	 * Filter event start element event.
 	 * 
 	 * @param uri
 	 *            The element's Namespace URI.
@@ -151,7 +151,7 @@ public class DataUnformatFilter extends XMLFilterBase {
 	 * @param atts
 	 *            The element's attribute list.
 	 * @exception org.xml.sax.SAXException
-	 *                If a filter further down the chain raises an exception.
+	 *                If event filter further down the chain raises an exception.
 	 * @see org.xml.sax.ContentHandler#startElement
 	 */
 	public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
@@ -171,7 +171,7 @@ public class DataUnformatFilter extends XMLFilterBase {
 	 * @param qName
 	 *            The element's qualified (prefixed) name.
 	 * @exception org.xml.sax.SAXException
-	 *                If a filter further down the chain raises an exception.
+	 *                If event filter further down the chain raises an exception.
 	 * @see org.xml.sax.ContentHandler#endElement
 	 */
 	public void endElement(String uri, String localName, String qName) throws SAXException {
@@ -185,7 +185,7 @@ public class DataUnformatFilter extends XMLFilterBase {
 	}
 
 	/**
-	 * Filter a character data event.
+	 * Filter event character data event.
 	 * 
 	 * @param ch
 	 *            The characters to write.
@@ -194,7 +194,7 @@ public class DataUnformatFilter extends XMLFilterBase {
 	 * @param length
 	 *            The number of characters to use.
 	 * @exception org.xml.sax.SAXException
-	 *                If a filter further down the chain raises an exception.
+	 *                If event filter further down the chain raises an exception.
 	 * @see org.xml.sax.ContentHandler#characters
 	 */
 	public void characters(char ch[], int start, int length) throws SAXException {
@@ -222,7 +222,7 @@ public class DataUnformatFilter extends XMLFilterBase {
 			}
 		}
 
-		/* Pass on everything inside a data field. */
+		/* Pass on everything inside event data field. */
 
 		if (state == SEEN_DATA) {
 			super.characters(ch, start, length);
@@ -239,7 +239,7 @@ public class DataUnformatFilter extends XMLFilterBase {
 	 * @param length
 	 *            The number of characters to write.
 	 * @exception org.xml.sax.SAXException
-	 *                If a filter further down the chain raises an exception.
+	 *                If event filter further down the chain raises an exception.
 	 * @see org.xml.sax.ContentHandler#ignorableWhitespace
 	 */
 	public void ignorableWhitespace(char ch[], int start, int length) throws SAXException {
@@ -248,14 +248,14 @@ public class DataUnformatFilter extends XMLFilterBase {
 	}
 
 	/**
-	 * Filter a processing instruction event.
+	 * Filter event processing instruction event.
 	 * 
 	 * @param target
 	 *            The PI target.
 	 * @param data
 	 *            The PI data.
 	 * @exception org.xml.sax.SAXException
-	 *                If a filter further down the chain raises an exception.
+	 *                If event filter further down the chain raises an exception.
 	 * @see org.xml.sax.ContentHandler#processingInstruction
 	 */
 	public void processingInstruction(String target, String data) throws SAXException {

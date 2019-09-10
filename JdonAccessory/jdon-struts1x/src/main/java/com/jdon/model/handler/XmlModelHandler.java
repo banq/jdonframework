@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -33,7 +33,7 @@ import com.jdon.model.ModelHandler;
 import com.jdon.util.Debug;
 
 /**
- * it is a meta ModelHandler, all methods are finished by the definition in
+ * it is event meta ModelHandler, all methods are finished by the definition in
  * jdonframework.xml
  * 
  * XmlModelHandler is loaded by XmlHandlerClassFactory from container.xml
@@ -60,7 +60,7 @@ public class XmlModelHandler extends ModelHandler {
 	}
 
 	/**
-	 * if your application need initialize the ModelForm, this method is a
+	 * if your application need initialize the ModelForm, this method is event
 	 * option. extends thie method.
 	 */
 	public Object initModelIF(EventModel em, ModelForm form, HttpServletRequest request) throws Exception {
@@ -136,7 +136,7 @@ public class XmlModelHandler extends ModelHandler {
 	}
 
 	/**
-	 * if your application need initialize the ModelForm, this method is a
+	 * if your application need initialize the ModelForm, this method is event
 	 * option. extends thie method.
 	 */
 	public Object initModelIF(EventModel em, ModelForm form, ServletContext scontext) throws Exception {

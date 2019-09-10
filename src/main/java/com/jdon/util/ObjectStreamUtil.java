@@ -5,7 +5,7 @@ import java.io.*;
 public class ObjectStreamUtil {
 
   /**
-   * Converts a serializable object to a byte array.
+   * Converts event serializable object to event byte array.
    */
   public static byte[] objectToBytes(Object object) throws IOException {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -15,7 +15,7 @@ public class ObjectStreamUtil {
   }
 
   /**
-   * Converts a byte array to a serializable object.
+   * Converts event byte array to event serializable object.
    */
   public static Object bytesToObject(byte[] bytes) throws IOException,
       ClassNotFoundException {

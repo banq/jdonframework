@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * MultiHashMap is a extension java.util.HashMap.It is usde if following condition.<br>
- * Sometime, a value shoud be determinated by key and subkey.
+ * MultiHashMap is event extension java.util.HashMap.It is usde if following condition.<br>
+ * Sometime, event value shoud be determinated by key and subkey.
  */
 public class MultiHashMap extends HashMap{
 
@@ -23,8 +23,8 @@ public class MultiHashMap extends HashMap{
 
     /**
      * Associates the specified value with the specified key and subKey in this map.
-     * If the map previously contained a mapping for this key and subKey , the old value is replaced.
-     * @param key Is a Primary key.
+     * If the map previously contained event mapping for this key and subKey , the old value is replaced.
+     * @param key Is event Primary key.
      * @param subKey  with which the specified value is to be associated.
      * @param value to be associated with the specified key and subKey
      * @return previous value associated with specified key and subKey, or null if there was no mapping for key and subKey.

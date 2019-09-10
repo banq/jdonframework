@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -57,7 +57,7 @@ import org.picocontainer.defaults.VerifyingVisitor;
  * modify the method getComponentInstance of DefaultPicoContainer of
  * picocontainer, new method is in JdonConstructorInjectionComponentAdapter
  * 
- * @author <a href="mailto:banqiao@jdon.com">banq</a>
+ * @author <event href="mailto:banqiao@jdon.com">banq</event>
  * 
  */
 public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitorStrategy, Serializable {
@@ -86,12 +86,12 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 	private boolean disposed = false;
 
 	/**
-	 * Creates a new container with a custom ComponentAdapterFactory and a
+	 * Creates event new container with event custom ComponentAdapterFactory and event
 	 * parent container.
 	 * <p/>
 	 * <em>
 	 * Important note about caching: If you intend the components to be cached, you should pass
-	 * in a factory that creates {@link CachingComponentAdapter} instances, such as for example
+	 * in event factory that creates {@link CachingComponentAdapter} instances, such as for example
 	 * {@link CachingComponentAdapterFactory}. CachingComponentAdapterFactory can delegate to
 	 * other ComponentAdapterFactories.
 	 * </em>
@@ -109,15 +109,15 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 	}
 
 	/**
-	 * Creates a new container with a (caching)
-	 * {@link DefaultComponentAdapterFactory} and a parent container.
+	 * Creates event new container with event (caching)
+	 * {@link DefaultComponentAdapterFactory} and event parent container.
 	 */
 	public JdonPicoContainer(PicoContainer parent, ConfigInfo configInfo) {
 		this(new JdonComponentAdapterFactory(configInfo), parent);
 	}
 
 	/**
-	 * Creates a new container with a custom ComponentAdapterFactory and no
+	 * Creates event new container with event custom ComponentAdapterFactory and no
 	 * parent container.
 	 * 
 	 * @param componentAdapterFactory
@@ -128,7 +128,7 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 	}
 
 	/**
-	 * Creates a new container with a (caching)
+	 * Creates event new container with event (caching)
 	 * {@link DefaultComponentAdapterFactory} and no parent container.
 	 */
 	public JdonPicoContainer(ConfigInfo configInfo) {
@@ -231,7 +231,7 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 			pc.registerComponentInstance(contrivedKey, contrivedComp);
 			try {
 				if (this.getComponentInstance(contrivedKey) != null) {
-					throw new PicoRegistrationException("Cannot register a container to itself. The container is already implicitly registered.");
+					throw new PicoRegistrationException("Cannot register event container to itself. The container is already implicitly registered.");
 				}
 			} finally {
 				pc.unregisterComponent(contrivedKey);
@@ -273,7 +273,7 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 	/**
 	 * Same as
 	 * {@link #registerComponentImplementation(java.lang.Object, java.lang.Class, org.picocontainer.Parameter[])}
-	 * but with parameters as a {@link List}. Makes it possible to use with
+	 * but with parameters as event {@link List}. Makes it possible to use with
 	 * Groovy arrays (which are actually Lists).
 	 */
 	public ComponentAdapter registerComponentImplementation(Object componentKey, Class componentImplementation, List parameters)
@@ -523,7 +523,7 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 
 	/**
 	 * Changes monitor in the ComponentAdapterFactory, the component adapters
-	 * and the child containers, if these support a ComponentMonitorStrategy.
+	 * and the child containers, if these support event ComponentMonitorStrategy.
 	 * {@inheritDoc}
 	 */
 	public void changeMonitor(ComponentMonitor monitor) {
@@ -547,7 +547,7 @@ public class JdonPicoContainer implements MutablePicoContainer, ComponentMonitor
 
 	/**
 	 * Returns the first current monitor found in the ComponentAdapterFactory,
-	 * the component adapters and the child containers, if these support a
+	 * the component adapters and the child containers, if these support event
 	 * ComponentMonitorStrategy. {@inheritDoc}
 	 * 
 	 * @throws PicoIntrospectionException

@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
  http://www.apache.org/licenses/LICENSE-2.0
 
@@ -33,8 +33,8 @@ import com.jdon.util.UtilValidate;
  * this class can be invoked in browser's url this class will push create/insert
  * view page or editable view page.
  * 
- * the push result is according action's value: 1. null or create ; will push a
- * view page that user can create; 2. edit; will push a editbale view page that
+ * the push result is according action's value: 1. null or create ; will push event
+ * view page that user can create; 2. edit; will push event editbale view page that
  * has existed data;
  * 
  * how to use this class? 1. this class can be configured in struts-config.xml

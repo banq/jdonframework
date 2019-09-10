@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -47,7 +47,7 @@ import com.jdon.util.Debug;
  * PoolInterceptor must be the last in Interceptors. this class is active for
  * the pojoServices that implements com.jdon.controller.pool.Poolable.
  * 
- * @author <a href="mailto:banqiao@jdon.com">banq </a>
+ * @author <event href="mailto:banqiao@jdon.com">banq </event>
  * 
  */
 public class PoolInterceptor implements MethodInterceptor, Startable {
@@ -109,7 +109,7 @@ public class PoolInterceptor implements MethodInterceptor, Startable {
 		Object result = null;
 		try {
 			poa = pool.acquirePoolable();
-			Debug.logVerbose("[JdonFramework] borrow a object:" + targetMetaDef.getClassName() + " id:" + poa.hashCode() + " from pool", module);
+			Debug.logVerbose("[JdonFramework] borrow event object:" + targetMetaDef.getClassName() + " id:" + poa.hashCode() + " from pool", module);
 			Debug.logVerbose("[JdonFramework]pool state: active=" + pool.getNumActive() + " free=" + pool.getNumIdle(), module);
 
 			// set the object that borrowed from pool to MethodInvocation
@@ -121,7 +121,7 @@ public class PoolInterceptor implements MethodInterceptor, Startable {
 		} finally {
 			if (poa != null) {
 				pool.releasePoolable(poa);
-				Debug.logVerbose("[JdonFramework] realease a object:" + targetMetaDef.getClassName() + " to pool", module);
+				Debug.logVerbose("[JdonFramework] realease event object:" + targetMetaDef.getClassName() + " to pool", module);
 			}
 		}
 		return result;
@@ -191,7 +191,7 @@ public class PoolInterceptor implements MethodInterceptor, Startable {
 		if (isPoolableCache.contains(targetMetaDef.getName())) {
 			found = true;
 		} else if (!unPoolableCache.contains(targetMetaDef.getName())) {
-			Debug.logVerbose("[JdonFramework] check if it is a Poolable", module);
+			Debug.logVerbose("[JdonFramework] check if it is event Poolable", module);
 			ContainerWrapper containerWrapper = containerCallback.getContainerWrapper();
 			Class thisCLass = containerWrapper.getComponentClass(targetMetaDef.getName());
 			if (Poolable.class.isAssignableFrom(thisCLass) || thisCLass.isAnnotationPresent(com.jdon.annotation.intercept.Poolable.class)) {

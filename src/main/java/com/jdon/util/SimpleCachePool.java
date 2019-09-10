@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * <a href="SimpleCachePool.java.html"><b><i>View Source</i></b></a>
+ * <event href="SimpleCachePool.java.html"><b><i>View Source</i></b></event>
  *
  * @author  Brian Chan
  * @version $Revision: 1.1.1.1 $

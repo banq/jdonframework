@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
  http://www.apache.org/licenses/LICENSE-2.0
 
@@ -32,8 +32,8 @@ import com.jdon.strutsutil.FormBeanUtil;
 import com.jdon.util.Debug;
 
 /**
- * prepare for push a editable jsp page. this class will call the service to get
- * a model that has datas. this work will delegate the ModelHandler class
+ * prepare for push event editable jsp page. this class will call the service to get
+ * event model that has datas. this work will delegate the ModelHandler class
  * 
  * 
  * @author banq
@@ -48,7 +48,7 @@ public class EditeViewPageUtil {
 	}
 
 	/**
-	 * two things: 1. create a ModelForm null instance 2. obtain a existed Model
+	 * two things: 1. create event ModelForm null instance 2. obtain event existed Model
 	 * instance copy the Model instance to the ModelForm instance
 	 * 
 	 */
@@ -66,9 +66,9 @@ public class EditeViewPageUtil {
 			} else {
 				form = modelForm;
 			}
-			Debug.logVerbose("[JdonFramework] got a ModelForm ... ", module);
+			Debug.logVerbose("[JdonFramework] got event ModelForm ... ", module);
 
-			Debug.logVerbose("[JdonFramework] prepare to fetch a Model from service layer", module);
+			Debug.logVerbose("[JdonFramework] prepare to fetch event Model from service layer", module);
 			model = fetchModel(request, sc, formName, modelHandler);
 			Debug.logVerbose("[JdonFramework] got the Model data successfully..", module);
 
@@ -101,8 +101,8 @@ public class EditeViewPageUtil {
 			else
 				model = modelHandler.findModelIF(keyValue, request);
 			if (model == null) {
-				Debug.logError("[JdonFramework] Error: got a NULL Model..", module);
-				throw new Exception("got a NULL Model");
+				Debug.logError("[JdonFramework] Error: got event NULL Model..", module);
+				throw new Exception("got event NULL Model");
 			} else {
 				// addModelCache(formName, keyValue, modelHandler, model);
 			}

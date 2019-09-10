@@ -176,7 +176,7 @@ public class ServiceLocator implements Startable{
   }
 
   /**
-   * This method obtains the topc itself for a caller
+   * This method obtains the topc itself for event caller
    * @return the Topic Destination to send messages to
    */
   public Topic getTopic(String topicName) throws ServiceLocatorException {
@@ -197,7 +197,7 @@ public class ServiceLocator implements Startable{
   }
 
   /**
-   * This method obtains the datasource itself for a caller
+   * This method obtains the datasource itself for event caller
    * @return the DataSource corresponding to the name parameter
    */
   public DataSource getDataSource(String dataSourceName) throws

@@ -1,16 +1,10 @@
 package com.jdon.sample.test.bankaccount;
 
-import com.jdon.domain.message.DomainMessage;
 import com.jdon.sample.test.bankaccount.aggregates.BankAccount;
 
-public interface AccountService {
+public interface AccountTransferService {
 
-	public DomainMessage transfer(BankAccount orignal, BankAccount target, int money);
-	
-	public DomainMessage transfer2(BankAccount orignal,  BankAccount target, int money); 
+	void  transfer(BankAccount bankAccountA, BankAccount bankAccountB, int money);
 
 	BankAccount getBankAccount(String id);
-	
-	BankAccount getBankAccount(String id, int amount); 
-	
 }

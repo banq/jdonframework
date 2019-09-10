@@ -149,7 +149,7 @@ public class JdonJavaSerializer extends AbstractSerializer {
         int ref = out.writeObjectBegin(cl.getName());
 
         if (ref < -1) {
-	    // Hessian 1.1 uses a map
+	    // Hessian 1.1 uses event map
 	      
             for (int i = 0; i < localMethods.length; i++) {
                 Object value = null;

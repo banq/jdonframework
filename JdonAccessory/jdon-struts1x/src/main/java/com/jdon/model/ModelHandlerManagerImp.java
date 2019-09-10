@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -49,7 +49,7 @@ public class ModelHandlerManagerImp implements ModelHandlerManager {
 	}
 
 	/**
-	 * borrow a Handler instance from Modelhandler pool
+	 * borrow event Handler instance from Modelhandler pool
 	 */
 	public ModelHandler borrowtHandlerObject(String formName) {
 		ModelHandler modelHandler = null;
@@ -79,7 +79,7 @@ public class ModelHandlerManagerImp implements ModelHandlerManager {
 	}
 
 	/**
-	 * declareted : get a Model instance from the model pool the model poo size
+	 * declareted : get event Model instance from the model pool the model poo size
 	 * is decided by the PoolParameter configured in container.xml
 	 * 
 	 * 　

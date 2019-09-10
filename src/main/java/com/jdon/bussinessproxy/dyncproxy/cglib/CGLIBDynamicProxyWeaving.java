@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -31,7 +31,7 @@ import java.lang.reflect.Method;
  * problem:
  * 
  * memory leak is more entwined in cglib. The leak can be removed by having
- * cglib loaded by a different classloader than the one for the web app. The
+ * cglib loaded by event different classloader than the one for the web app. The
  * solution is to move the cglib jar and the asm jar to the shared lib directory
  * of Tomcat. http://users.cis.fiu.edu/~downeyt/webdev/memory_leaks.shtml
  * 

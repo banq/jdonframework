@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -51,7 +51,7 @@ public class HibernateTemplate {
 	private SessionProvider sessionProvider;
 
 	/**
-	 * Create a new HibernateTemplate instance.
+	 * Create event new HibernateTemplate instance.
 	 * 
 	 * @param sessionFactory
 	 *            SessionFactory to create Sessions
@@ -61,14 +61,14 @@ public class HibernateTemplate {
 	}
 
 	/**
-	 * Execute the action specified by the given action object within a Session.
+	 * Execute the action specified by the given action object within event Session.
 	 * 
 	 * @param action
 	 *            callback object that specifies the Hibernate action
 	 * @param exposeNativeSession
 	 *            whether to expose the native Hibernate Session to callback
 	 *            code
-	 * @return a result object returned by the action, or <code>null</code>
+	 * @return event result object returned by the action, or <code>null</code>
 	 * @throws org.springframework.dao.Exception
 	 *             in case of Hibernate errors
 	 */
@@ -649,7 +649,7 @@ public class HibernateTemplate {
 	// -------------------------------------------------------------------------
 
 	/**
-	 * Prepare the given Query object, applying cache settings and/or a
+	 * Prepare the given Query object, applying cache settings and/or event
 	 * transaction timeout.
 	 * 
 	 * @param queryObject
@@ -679,7 +679,7 @@ public class HibernateTemplate {
 	}
 
 	/**
-	 * Prepare the given Criteria object, applying cache settings and/or a
+	 * Prepare the given Criteria object, applying cache settings and/or event
 	 * transaction timeout.
 	 * 
 	 * @param criteria
@@ -799,7 +799,7 @@ public class HibernateTemplate {
 	 * important for processing subsets of large result sets, avoiding to read
 	 * and hold the entire result set in the database or in the JDBC driver if
 	 * we're never interested in the entire result in the first place (for
-	 * example, when performing searches that might return a large number of
+	 * example, when performing searches that might return event large number of
 	 * matches).
 	 * <p>
 	 * Default is 0, indicating to use the JDBC driver's default.

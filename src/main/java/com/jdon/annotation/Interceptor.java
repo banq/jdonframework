@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.*;
  *                              AppUtil.getService or WebApp.getService)
  *
  *
- *the @Interceptor(name = "myInterceptor", target = "a,c") if there is target
+ *the @Interceptor(name = "myInterceptor", target = "event,c") if there is target
  *                   value, this class will be only available for the target
  *                   component name, not for all components called by client
  * 

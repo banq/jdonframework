@@ -2,7 +2,7 @@
  * Copyright 2003-2009 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -13,115 +13,66 @@
  * limitations under the License.
  * 
  */
-package com.jdon.sample.test.bankaccount.a;
+package com.jdon.sample.test.bankaccount.aggregates;
 
 import com.jdon.annotation.Model;
 import com.jdon.annotation.model.Inject;
 import com.jdon.annotation.model.OnCommand;
+import com.jdon.sample.test.bankaccount.command.Cancel;
+import com.jdon.sample.test.bankaccount.command.TransferCommand;
+import com.jdon.sample.test.bankaccount.event.TransferEvent;
+import com.jdon.sample.test.bankaccount.infras.AggregatePub;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 @Model
 public class BankAccount {
-	private String id;
+	private final String id;
 
-	private int amount = 0;
+	private final int balance ;
 
 	private Collection<TransferEvent> eventsources  = new ArrayList<>();
 
 	@Inject
-	private DomainEventProducer domainEventProducer;
+	private AggregatePub aggregatePub;
 
-	public BankAccount(String id) {
-		super();
+	public BankAccount(String id, int balance) {
 		this.id = id;
+		this.balance = balance;
 	}
 
-	public BankAccount(String id, int amount) {
-		super();
-		this.id = id;
-		this.amount = amount;
-	}
-
-	@OnCommand("depositCommand")
-	public Object deposit(TransferEvent transferEvent) {
-		int amount2 = amount + transferEvent.getValue();
-		if (amount2 > 1000) {
-			WithdrawEvent withdrawEvent = new WithdrawEvent(transferEvent.getId(), transferEvent.getValue());
-			return domainEventProducer.sendToProcessManager(withdrawEvent);
+	@OnCommand("transfer")
+	public void transfer(TransferCommand transferCommand) {
+		int balance2 = balance + transferCommand.getValue();
+		if (balance2 > 1000 || balance2 < 0) {
+			aggregatePub.next(transferCommand.createCanceled());
 		}
-
-		eventsources.add()
-
-
-			eventsourcesD.put(transferEventNew.getId(), transferEventNew);
-			return domainEventProducer.nextStep(transferEventNew);
-
-		WithdrawEvent de = (WithdrawEvent) transferEvent;
-		amount = amount + transferEvent.getValue();
-		TransferEvent transferEventNew = new ResultEvent(transferEvent.getId(),
-				transferEvent.getValue(), de.getPreId());
-		return domainEventProducer.finish(transferEventNew);
-
+		TransferEvent transferEvent = transferCommand.creatTransferEvent();
+		eventsources.add(transferEvent);
+		aggregatePub.next(transferEvent);
 	}
 
-	@OnCommand("withdrawCommand")
-	public Object withdraw(TransferEvent transferEvent) {
-		int amount2 = amount - transferEvent.getValue();
-		if (amount2 < 0) {
-			String rootId = (transferEvent instanceof DepositEvent) ? ((DepositEvent) transferEvent)
-					.getPreId() : this.getId();
-			TransferEvent transferEventNew = new ResultEvent(
-					transferEvent.getId(), transferEvent.getValue(), rootId);
-			return domainEventProducer.failure(transferEventNew);
+	@OnCommand("cancel")
+	public void cancel(Cancel cancel) {
+		int balance2 = balance - cancel.getTransferCommand().getValue();
+		if (balance2 > 1000 || balance2 < 0) {
+			System.err.println("can not be canceled " + cancel.getTransferCommand().getTransactionId() + " "+cancel.getTransferCommand().getAggregateId());
 		}
-
-		if (!(transferEvent instanceof DepositEvent)) {// first step
-			WithdrawEvent transferEventNew = new WithdrawEvent(
-					transferEvent.getId(), transferEvent.getValue(),
-					transferEvent.getNextId(), this.getId());
-			eventsourcesW.put(transferEventNew.getId(), transferEventNew);
-			return domainEventProducer.nextStep(transferEventNew);
-
-		}
-
-		DepositEvent de = (DepositEvent) transferEvent;
-		amount = amount - transferEvent.getValue();
-		TransferEvent transferEventNew = new ResultEvent(transferEvent.getId(),
-				transferEvent.getValue(), de.getPreId());
-		return domainEventProducer.finish(transferEventNew);
-
+		eventsources.add(cancel.getTransferCommand().createCanceled());
 	}
 
-	@OnCommand("finishCommand")
-	public Object finish(TransferEvent transferEvent) {
-		if (eventsourcesW.containsKey(transferEvent.getId())){
-			eventsourcesW.remove(transferEvent.getId());
-			amount = amount - transferEvent.getValue();
-		}else if (eventsourcesD.containsKey(transferEvent.getId())){
-			eventsourcesD.remove(transferEvent.getId());
-			amount = amount + transferEvent.getValue();		
-		}
-		return transferEvent;
+
+	private int project(){
+		return eventsources.stream().map(e->e.getValue()).reduce(this.balance,(a,b)->a+b);
 	}
 
-	@OnCommand("failureCommand")
-	public Object fail(TransferEvent transferEvent) {		
-		eventsourcesD.remove(transferEvent.getId());
-		return transferEvent;
-	}
 
 	public String getId() {
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public int getBalance() {
+		return project();
 	}
-
-	public int getAmount() {
-		return amount;
-	}
-
 }

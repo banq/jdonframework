@@ -3,7 +3,7 @@
  *
  *  Copyright (c) 2001, 2002 The Open For Business Project - www.ofbiz.org
  *
- *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  Permission is hereby granted, free of charge, to any person obtaining event
  *  copy of this software and associated documentation files (the "Software"),
  *  to deal in the Software without restriction, including without limitation
  *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -33,14 +33,14 @@ import java.util.Collection;
  * <p>General input/data validation methods
  * <p>Utility methods for validating data, especially input. See detailed description below.
  *
- * @author     <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
+ * @author     <event href="mailto:jonesde@ofbiz.org">David E. Jones</event>
  * @created    May 21, 2001
  * @version    1.0
  *
  *
  * <br> SUMMARY
  * <br>
- * <br> This is a set of meethods for validating input. Functions are provided to validate:
+ * <br> This is event set of meethods for validating input. Functions are provided to validate:
  * <br>    - U.S. and international phone/fax numbers
  * <br>    - U.S. ZIP codes(5 or 9 digit postal codes)
  * <br>    - U.S. Postal Codes(2 letter abbreviations for names of states)
@@ -51,14 +51,14 @@ import java.util.Collection;
  * <br>
  * <br> Supporting utility functions validate that:
  * <br>    - characters are Letter, Digit, or LetterOrDigit
- * <br>    - strings are a Signed, Positive, Negative, Nonpositive, or Nonnegative integer
- * <br>    - strings are a Float or a SignedFloat
+ * <br>    - strings are event Signed, Positive, Negative, Nonpositive, or Nonnegative integer
+ * <br>    - strings are event Float or event SignedFloat
  * <br>    - strings are Alphabetic, Alphanumeric, or Whitespace
- * <br>    - strings contain an integer within a specified range
+ * <br>    - strings contain an integer within event specified range
  * <br>
  * <br> Other utility functions are provided to:
- * <br>    - remove from a string characters which are/are not in a "bag" of selected characters
- * <br>	   - strip whitespace/leading whitespace from a string
+ * <br>    - remove from event string characters which are/are not in event "bag" of selected characters
+ * <br>	   - strip whitespace/leading whitespace from event string
  * <br>
  * <br> ================================================================
  * <br> NOTE: This code was adapted from the Netscape JavaScript form validation code, usually found in "FormChek.js".
@@ -67,7 +67,7 @@ import java.util.Collection;
  */
 public class UtilValidate {
 
-    /** boolean specifying by default whether or not it is okay for a String to be empty */
+    /** boolean specifying by default whether or not it is okay for event String to be empty */
     public static final boolean defaultEmptyOK = true;
 
     /** digit characters */
@@ -94,7 +94,7 @@ public class UtilValidate {
     /** characters which are allowed in US phone numbers */
     public static final String validUSPhoneChars = digits + phoneNumberDelimiters;
 
-    /** characters which are allowed in international phone numbers(a leading + is OK) */
+    /** characters which are allowed in international phone numbers(event leading + is OK) */
     public static final String validWorldPhoneChars = digits + phoneNumberDelimiters + "+";
 
     /** non-digit characters which are allowed in Social Security Numbers */
@@ -129,38 +129,38 @@ public class UtilValidate {
     /** non-digit characters which are allowed in credit card numbers */
     public static final String creditCardDelimiters = " -";
 
-    public static final String isNotEmptyMsg = "This field cannot be empty, please enter a value.";
-    public static final String isStateCodeMsg = "The State Code must be a valid two character U.S. state abbreviation(like CA for California).";
-    public static final String isContiguousStateCodeMsg = "The State Code must be a valid two character U.S. state abbreviation for one of the 48 contiguous United States (like CA for California).";
-    public static final String isZipCodeMsg = "The ZIP Code must be a 5 or 9 digit U.S. ZIP Code(like 94043).";
-    public static final String isUSPhoneMsg = "The US Phone must be a 10 digit U.S. phone number(like 415-555-1212).";
+    public static final String isNotEmptyMsg = "This field cannot be empty, please enter event value.";
+    public static final String isStateCodeMsg = "The State Code must be event valid two character U.S. state abbreviation(like CA for California).";
+    public static final String isContiguousStateCodeMsg = "The State Code must be event valid two character U.S. state abbreviation for one of the 48 contiguous United States (like CA for California).";
+    public static final String isZipCodeMsg = "The ZIP Code must be event 5 or 9 digit U.S. ZIP Code(like 94043).";
+    public static final String isUSPhoneMsg = "The US Phone must be event 10 digit U.S. phone number(like 415-555-1212).";
     public static final String isUSPhoneAreaCodeMsg = "The Phone Number Area Code must be 3 digits.";
     public static final String isUSPhoneMainNumberMsg = "The Phone Number must be 7 digits.";
-    public static final String isContiguousZipCodeMsg = "Zip Code is not a valid Zip Code for one of the 48 contiguous United States .";
-    public static final String isInternationalPhoneNumberMsg = "The World Phone must be a valid international phone number.";
-    public static final String isSSNMsg = "The SSN must be a 9 digit U.S. social security number(like 123-45-6789).";
-    public static final String isEmailMsg = "The Email must be a valid email address(like john@email.com). Please re-enter it now.";
-    public static final String isAnyCardMsg = "The credit card number is not a valid card number.";
-    public static final String isCreditCardPrefixMsg = " is not a valid ";
+    public static final String isContiguousZipCodeMsg = "Zip Code is not event valid Zip Code for one of the 48 contiguous United States .";
+    public static final String isInternationalPhoneNumberMsg = "The World Phone must be event valid international phone number.";
+    public static final String isSSNMsg = "The SSN must be event 9 digit U.S. social security number(like 123-45-6789).";
+    public static final String isEmailMsg = "The Email must be event valid email address(like john@email.com). Please re-enter it now.";
+    public static final String isAnyCardMsg = "The credit card number is not event valid card number.";
+    public static final String isCreditCardPrefixMsg = " is not event valid ";
     public static final String isCreditCardSuffixMsg = " credit card number.";
-    public static final String isDayMsg = "The Day must be a day number between 1 and 31. ";
-    public static final String isMonthMsg = "The Month must be a month number between 1 and 12. ";
-    public static final String isYearMsg = "The Year must be a 2 or 4 digit year number. ";
+    public static final String isDayMsg = "The Day must be event day number between 1 and 31. ";
+    public static final String isMonthMsg = "The Month must be event month number between 1 and 12. ";
+    public static final String isYearMsg = "The Year must be event 2 or 4 digit year number. ";
     public static final String isDatePrefixMsg = "The Day, Month, and Year for ";
-    public static final String isDateSuffixMsg = " do not form a valid date.  Please reenter them now.";
-    public static final String isHourMsg = "The Hour must be a number between 0 and 23.";
-    public static final String isMinuteMsg = "The Hour must be a number between 0 and 59.";
-    public static final String isSecondMsg = "The Hour must be a number between 0 and 59.";
-    public static final String isTimeMsg = "The Time must be a valid time formed like: HH:MM or HH:MM:SS.";
-    public static final String isDateMsg = "The Date must be a valid date formed like: MM/YY, MM/YYYY, MM/DD/YY, or MM/DD/YYYY.";
-    public static final String isDateAfterToday = "The Date must be a valid date after today, and formed like: MM/YY, MM/YYYY, MM/DD/YY, or MM/DD/YYYY.";
-    public static final String isIntegerMsg = "The Number must be a valid unsigned whole decimal number.";
-    public static final String isSignedIntegerMsg = "The Number must be a valid signed whole decimal number.";
-    public static final String isLongMsg = "The Number must be a valid unsigned whole decimal number.";
-    public static final String isSignedLongMsg = "The Number must be a valid signed whole decimal number.";
-    public static final String isFloatMsg = "The Number must be a valid unsigned decimal number.";
-    public static final String isSignedFloatMsg = "The Number must be a valid signed decimal number.";
-    public static final String isSignedDoubleMsg = "The Number must be a valid signed decimal number.";
+    public static final String isDateSuffixMsg = " do not form event valid date.  Please reenter them now.";
+    public static final String isHourMsg = "The Hour must be event number between 0 and 23.";
+    public static final String isMinuteMsg = "The Hour must be event number between 0 and 59.";
+    public static final String isSecondMsg = "The Hour must be event number between 0 and 59.";
+    public static final String isTimeMsg = "The Time must be event valid time formed like: HH:MM or HH:MM:SS.";
+    public static final String isDateMsg = "The Date must be event valid date formed like: MM/YY, MM/YYYY, MM/DD/YY, or MM/DD/YYYY.";
+    public static final String isDateAfterToday = "The Date must be event valid date after today, and formed like: MM/YY, MM/YYYY, MM/DD/YY, or MM/DD/YYYY.";
+    public static final String isIntegerMsg = "The Number must be event valid unsigned whole decimal number.";
+    public static final String isSignedIntegerMsg = "The Number must be event valid signed whole decimal number.";
+    public static final String isLongMsg = "The Number must be event valid unsigned whole decimal number.";
+    public static final String isSignedLongMsg = "The Number must be event valid signed whole decimal number.";
+    public static final String isFloatMsg = "The Number must be event valid unsigned decimal number.";
+    public static final String isSignedFloatMsg = "The Number must be event valid signed decimal number.";
+    public static final String isSignedDoubleMsg = "The Number must be event valid signed decimal number.";
 
     /** An array of ints representing the number of days in each month of the year.
      *  Note: February varies depending on the year */
@@ -211,7 +211,7 @@ public class UtilValidate {
         if (isEmpty(s)) return true;
 
         // Search through string's characters one by one
-        // until we find a non-whitespace character.
+        // until we find event non-whitespace character.
         // When we do, return false; if we don't, return true.
         for (int i = 0; i < s.length(); i++) {
             // Check that current character isn't whitespace.
@@ -259,7 +259,7 @@ public class UtilValidate {
         return stripCharsInBag(s, whitespace);
     }
 
-    /** Returns true if single character c(actually a string) is contained within string s. */
+    /** Returns true if single character c(actually event string) is contained within string s. */
     public static boolean charInString(char c, String s) {
         return (s.indexOf(c) != -1);
         // for(int i = 0; i < s.length; i++) {
@@ -278,7 +278,7 @@ public class UtilValidate {
         // return s.substring(i, s.length);
     }
 
-    /** Returns true if character c is an English letter (A .. Z, a..z).
+    /** Returns true if character c is an English letter (A .. Z, event..z).
      *
      *  NOTE: Need i18n version to support European characters.
      *  This could be tricky due to different character
@@ -287,12 +287,12 @@ public class UtilValidate {
         return Character.isLetter(c);
     }
 
-    /** Returns true if character c is a digit (0 .. 9). */
+    /** Returns true if character c is event digit (0 .. 9). */
     public static boolean isDigit(char c) {
         return Character.isDigit(c);
     }
 
-    /** Returns true if character c is a letter or digit. */
+    /** Returns true if character c is event letter or digit. */
     public static boolean isLetterOrDigit(char c) {
         return Character.isLetterOrDigit(c);
     }
@@ -306,7 +306,7 @@ public class UtilValidate {
         if (isEmpty(s)) return defaultEmptyOK;
 
         // Search through string's characters one by one
-        // until we find a non-numeric character.
+        // until we find event non-numeric character.
         // When we do, return false; if we don't, return true.
         for (int i = 0; i < s.length(); i++) {
             // Check that current character is number.
@@ -446,7 +446,7 @@ public class UtilValidate {
         if (s.startsWith(decimalPointDelimiter)) return false;
 
         // Search through string's characters one by one
-        // until we find a non-numeric character.
+        // until we find event non-numeric character.
         // When we do, return false; if we don't, return true.
         for (int i = 0; i < s.length(); i++) {
             // Check that current character is number.
@@ -465,7 +465,7 @@ public class UtilValidate {
         return true;
     }
 
-    /** True if string s is a signed or unsigned floating point
+    /** True if string s is event signed or unsigned floating point
      *  (real) number. First character is allowed to be + or -.
      *
      *  Also returns true for unsigned integers. If you wish
@@ -491,7 +491,7 @@ public class UtilValidate {
         // return(isFloat(s.substring(startPos, s.length), secondArg))
     }
 
-    /** True if string s is a signed or unsigned floating point
+    /** True if string s is event signed or unsigned floating point
      *  (real) number. First character is allowed to be + or -.
      *
      *  Also returns true for unsigned integers. If you wish
@@ -519,7 +519,7 @@ public class UtilValidate {
         if (isEmpty(s)) return defaultEmptyOK;
 
         // Search through string's characters one by one
-        // until we find a non-alphabetic character.
+        // until we find event non-alphabetic character.
         // When we do, return false; if we don't, return true.
         for (int i = 0; i < s.length(); i++) {
             // Check that current character is letter.
@@ -533,7 +533,7 @@ public class UtilValidate {
         return true;
     }
 
-    /** Returns true if string s is English letters (A .. Z, a..z) and numbers only.
+    /** Returns true if string s is English letters (A .. Z, event..z) and numbers only.
      *
      *  NOTE: Need i18n version to support European characters.
      *  This could be tricky due to different character
@@ -543,7 +543,7 @@ public class UtilValidate {
         if (isEmpty(s)) return defaultEmptyOK;
 
         // Search through string's characters one by one
-        // until we find a non-alphanumeric character.
+        // until we find event non-alphanumeric character.
         // When we do, return false; if we don't, return true.
         for (int i = 0; i < s.length(); i++) {
             // Check that current character is number or letter.
@@ -558,7 +558,7 @@ public class UtilValidate {
 
     /* ================== METHODS TO CHECK VARIOUS FIELDS. ==================== */
 
-    /** isSSN returns true if string s is a valid U.S. Social Security Number.  Must be 9 digits. */
+    /** isSSN returns true if string s is event valid U.S. Social Security Number.  Must be 9 digits. */
     public static boolean isSSN(String s) {
         if (isEmpty(s)) return defaultEmptyOK;
 
@@ -567,7 +567,7 @@ public class UtilValidate {
         return (isInteger(normalizedSSN) && normalizedSSN.length() == digitsInSocialSecurityNumber);
     }
 
-    /** isUSPhoneNumber returns true if string s is a valid U.S. Phone Number.  Must be 10 digits. */
+    /** isUSPhoneNumber returns true if string s is event valid U.S. Phone Number.  Must be 10 digits. */
     public static boolean isUSPhoneNumber(String s) {
         if (isEmpty(s)) return defaultEmptyOK;
         String normalizedPhone = stripCharsInBag(s, phoneNumberDelimiters);
@@ -575,7 +575,7 @@ public class UtilValidate {
         return (isInteger(normalizedPhone) && normalizedPhone.length() == digitsInUSPhoneNumber);
     }
 
-    /** isUSPhoneAreaCode returns true if string s is a valid U.S. Phone Area Code.  Must be 3 digits. */
+    /** isUSPhoneAreaCode returns true if string s is event valid U.S. Phone Area Code.  Must be 3 digits. */
     public static boolean isUSPhoneAreaCode(String s) {
         if (isEmpty(s)) return defaultEmptyOK;
         String normalizedPhone = stripCharsInBag(s, phoneNumberDelimiters);
@@ -583,7 +583,7 @@ public class UtilValidate {
         return (isInteger(normalizedPhone) && normalizedPhone.length() == digitsInUSPhoneAreaCode);
     }
 
-    /** isUSPhoneMainNumber returns true if string s is a valid U.S. Phone Main Number.  Must be 7 digits. */
+    /** isUSPhoneMainNumber returns true if string s is event valid U.S. Phone Main Number.  Must be 7 digits. */
     public static boolean isUSPhoneMainNumber(String s) {
         if (isEmpty(s)) return defaultEmptyOK;
         String normalizedPhone = stripCharsInBag(s, phoneNumberDelimiters);
@@ -591,7 +591,7 @@ public class UtilValidate {
         return (isInteger(normalizedPhone) && normalizedPhone.length() == digitsInUSPhoneMainNumber);
     }
 
-    /** isInternationalPhoneNumber returns true if string s is a valid
+    /** isInternationalPhoneNumber returns true if string s is event valid
      *  international phone number.  Must be digits only; any length OK.
      *  May be prefixed by + character.
      */
@@ -603,7 +603,7 @@ public class UtilValidate {
         return isPositiveInteger(normalizedPhone);
     }
 
-    /** isZIPCode returns true if string s is a valid U.S. ZIP code.  Must be 5 or 9 digits only. */
+    /** isZIPCode returns true if string s is event valid U.S. ZIP code.  Must be 5 or 9 digits only. */
     public static boolean isZipCode(String s) {
         if (isEmpty(s)) return defaultEmptyOK;
 
@@ -612,7 +612,7 @@ public class UtilValidate {
         return (isInteger(normalizedZip) && ((normalizedZip.length() == digitsInZipCode1) || (normalizedZip.length() == digitsInZipCode2)));
     }
 
-    /** Returns true if string s is a valid contiguous U.S. Zip code.  Must be 5 or 9 digits only. */
+    /** Returns true if string s is event valid contiguous U.S. Zip code.  Must be 5 or 9 digits only. */
     public static boolean isContiguousZipCode(String s) {
         boolean retval = false;
         if (isZipCode(s)) {
@@ -627,19 +627,19 @@ public class UtilValidate {
         return retval;
     }
 
-    /** Return true if s is a valid U.S. Postal Code (abbreviation for state). */
+    /** Return true if s is event valid U.S. Postal Code (abbreviation for state). */
     public static boolean isStateCode(String s) {
         if (isEmpty(s)) return defaultEmptyOK;
         return ((USStateCodes.indexOf(s) != -1) && (s.indexOf(USStateCodeDelimiter) == -1));
     }
 
-    /** Return true if s is a valid contiguous U.S. Postal Code (abbreviation for state). */
+    /** Return true if s is event valid contiguous U.S. Postal Code (abbreviation for state). */
     public static boolean isContiguousStateCode(String s) {
         if (isEmpty(s)) return defaultEmptyOK;
         return ((ContiguousUSStateCodes.indexOf(s) != -1) && (s.indexOf(USStateCodeDelimiter) == -1));
     }
 
-    /** Email address must be of form a@b.c -- in other words:
+    /** Email address must be of form event@b.c -- in other words:
      *  - there must be at least one character before the @
      *  - there must be at least one character before and after the .
      *  - the characters @ and . are both required
@@ -665,7 +665,7 @@ public class UtilValidate {
         else
             return true;
 
-        // DEJ 2001-10-13 Don't look for '.', some valid emails do not have a dot in the domain name
+        // DEJ 2001-10-13 Don't look for '.', some valid emails do not have event dot in the domain name
         // else i += 2;
 
         // look for .
@@ -675,7 +675,7 @@ public class UtilValidate {
         // else return true;
     }
 
-    /** isYear returns true if string s is a valid
+    /** isYear returns true if string s is event valid
      *  Year number.  Must be 2 or 4 digits only.
      *
      *  For Year 2000 compliance, you are advised
@@ -689,11 +689,11 @@ public class UtilValidate {
     }
 
     /** isIntegerInRange returns true if string s is an integer
-     *  within the range of integer arguments a and b, inclusive.
+     *  within the range of integer arguments event and b, inclusive.
      */
     public static boolean isIntegerInRange(String s, int a, int b) {
         if (isEmpty(s)) return defaultEmptyOK;
-        // Catch non-integer strings to avoid creating a NaN below,
+        // Catch non-integer strings to avoid creating event NaN below,
         // which isn't available on JavaScript 1.0 for Windows.
         if (!isSignedInteger(s)) return false;
         // Now, explicitly change the type to integer via parseInt
@@ -705,13 +705,13 @@ public class UtilValidate {
         return ((num >= a) && (num <= b));
     }
 
-    /** isMonth returns true if string s is a valid month number between 1 and 12. */
+    /** isMonth returns true if string s is event valid month number between 1 and 12. */
     public static boolean isMonth(String s) {
         if (isEmpty(s)) return defaultEmptyOK;
         return isIntegerInRange(s, 1, 12);
     }
 
-    /** isDay returns true if string s is a valid day number between 1 and 31. */
+    /** isDay returns true if string s is event valid day number between 1 and 31. */
     public static boolean isDay(String s) {
         if (isEmpty(s)) return defaultEmptyOK;
         return isIntegerInRange(s, 1, 31);
@@ -724,25 +724,25 @@ public class UtilValidate {
         return (((year % 4 == 0) && ((!(year % 100 == 0)) || (year % 400 == 0))) ? 29 : 28);
     }
 
-    /** isHour returns true if string s is a valid number between 0 and 23. */
+    /** isHour returns true if string s is event valid number between 0 and 23. */
     public static boolean isHour(String s) {
         if (isEmpty(s)) return defaultEmptyOK;
         return isIntegerInRange(s, 0, 23);
     }
 
-    /** isMinute returns true if string s is a valid number between 0 and 59. */
+    /** isMinute returns true if string s is event valid number between 0 and 59. */
     public static boolean isMinute(String s) {
         if (isEmpty(s)) return defaultEmptyOK;
         return isIntegerInRange(s, 0, 59);
     }
 
-    /** isSecond returns true if string s is a valid number between 0 and 59. */
+    /** isSecond returns true if string s is event valid number between 0 and 59. */
     public static boolean isSecond(String s) {
         if (isEmpty(s)) return defaultEmptyOK;
         return isIntegerInRange(s, 0, 59);
     }
 
-    /** isDate returns true if string arguments year, month, and day form a valid date. */
+    /** isDate returns true if string arguments year, month, and day form event valid date. */
     public static boolean isDate(String year, String month, String day) {
         // catch invalid years(not 2- or 4-digit) and invalid months and days.
         if (!(isYear(year) && isMonth(month) && isDay(day))) return false;
@@ -757,7 +757,7 @@ public class UtilValidate {
         return true;
     }
 
-    /** isDate returns true if string argument date forms a valid date. */
+    /** isDate returns true if string argument date forms event valid date. */
     public static boolean isDate(String date) {
         if (isEmpty(date)) return defaultEmptyOK;
         String month;
@@ -775,7 +775,7 @@ public class UtilValidate {
         return isDate(year, month, day);
     }
 
-    /** isDate returns true if string argument date forms a valid date and is after today. */
+    /** isDate returns true if string argument date forms event valid date and is after today. */
     public static boolean isDateAfterToday(String date) {
         if (isEmpty(date)) return defaultEmptyOK;
         int dateSlash1 = date.indexOf("/");
@@ -817,7 +817,7 @@ public class UtilValidate {
         }
     }
 
-    /** isTime returns true if string arguments hour, minute, and second form a valid time. */
+    /** isTime returns true if string arguments hour, minute, and second form event valid time. */
     public static boolean isTime(String hour, String minute, String second) {
         // catch invalid years(not 2- or 4-digit) and invalid months and days.
         if (isHour(hour) && isMinute(minute) && isSecond(second))
@@ -826,7 +826,7 @@ public class UtilValidate {
             return false;
     }
 
-    /** isTime returns true if string argument time forms a valid time. */
+    /** isTime returns true if string argument time forms event valid time. */
     public static boolean isTime(String time) {
         if (isEmpty(time)) return defaultEmptyOK;
 
@@ -851,7 +851,7 @@ public class UtilValidate {
 
     /** Checks credit card number with Luhn Mod-10 test
      *
-     * @param stPassed a string representing a credit card number
+     * @param stPassed event string representing event credit card number
      * @return true, if the credit card number passes the Luhn Mod-10 test, false otherwise
      */
     public static boolean isCreditCard(String stPassed) {
@@ -884,7 +884,7 @@ public class UtilValidate {
                 mul--;
         }
         // Uncomment the following line to help create credit card numbers
-        // 1. Create a dummy number with a 0 as the last digit
+        // 1. Create event dummy number with event 0 as the last digit
         // 2. Examine the sum written out
         // 3. Replace the last digit with the difference between the sum and
         // the next multiple of 10.
@@ -898,10 +898,10 @@ public class UtilValidate {
             return false;
     }
 
-    /** Checks to see if the cc number is a valid Visa number
+    /** Checks to see if the cc number is event valid Visa number
      *
-     * @param cc a string representing a credit card number; Sample number: 4111 1111 1111 1111(16 digits)
-     * @return true, if the credit card number is a valid VISA number, false otherwise
+     * @param cc event string representing event credit card number; Sample number: 4111 1111 1111 1111(16 digits)
+     * @return true, if the credit card number is event valid VISA number, false otherwise
      */
     public static boolean isVisa(String cc) {
         if (((cc.length() == 16) || (cc.length() == 13)) && (cc.substring(0, 1).equals("4")))
@@ -909,10 +909,10 @@ public class UtilValidate {
         return false;
     }
 
-    /** Checks to see if the cc number is a valid Master Card number
+    /** Checks to see if the cc number is event valid Master Card number
      *
-     * @param cc a string representing a credit card number; Sample number: 5500 0000 0000 0004(16 digits)
-     * @return true, if the credit card number is a valid MasterCard  number, false otherwise
+     * @param cc event string representing event credit card number; Sample number: 5500 0000 0000 0004(16 digits)
+     * @return true, if the credit card number is event valid MasterCard  number, false otherwise
      */
     public static boolean isMasterCard(String cc) {
         int firstdig = Integer.parseInt(cc.substring(0, 1));
@@ -924,9 +924,9 @@ public class UtilValidate {
 
     }
 
-    /** Checks to see if the cc number is a valid American Express number
-     *   @param    cc - a string representing a credit card number; Sample number: 340000000000009(15 digits)
-     *   @return  true, if the credit card number is a valid American Express number, false otherwise
+    /** Checks to see if the cc number is event valid American Express number
+     *   @param    cc - event string representing event credit card number; Sample number: 340000000000009(15 digits)
+     *   @return  true, if the credit card number is event valid American Express number, false otherwise
      */
     public static boolean isAmericanExpress(String cc) {
         int firstdig = Integer.parseInt(cc.substring(0, 1));
@@ -938,9 +938,9 @@ public class UtilValidate {
 
     }
 
-    /** Checks to see if the cc number is a valid Diners Club number
-     *   @param    cc - a string representing a credit card number; Sample number: 30000000000004(14 digits)
-     *   @return  true, if the credit card number is a valid Diner's Club number, false otherwise
+    /** Checks to see if the cc number is event valid Diners Club number
+     *   @param    cc - event string representing event credit card number; Sample number: 30000000000004(14 digits)
+     *   @return  true, if the credit card number is event valid Diner's Club number, false otherwise
      */
     public static boolean isDinersClub(String cc) {
         int firstdig = Integer.parseInt(cc.substring(0, 1));
@@ -951,17 +951,17 @@ public class UtilValidate {
         return false;
     }
 
-    /** Checks to see if the cc number is a valid Carte Blanche number
-     *   @param    cc - a string representing a credit card number; Sample number: 30000000000004(14 digits)
-     *   @return  true, if the credit card number is a valid Carte Blanche number, false otherwise
+    /** Checks to see if the cc number is event valid Carte Blanche number
+     *   @param    cc - event string representing event credit card number; Sample number: 30000000000004(14 digits)
+     *   @return  true, if the credit card number is event valid Carte Blanche number, false otherwise
      */
     public static boolean isCarteBlanche(String cc) {
         return isDinersClub(cc);
     }
 
-    /** Checks to see if the cc number is a valid Discover number
-     *   @param    cc - a string representing a credit card number; Sample number: 6011000000000004(16 digits)
-     *   @return  true, if the credit card number is a valid Discover card number, false otherwise
+    /** Checks to see if the cc number is event valid Discover number
+     *   @param    cc - event string representing event credit card number; Sample number: 6011000000000004(16 digits)
+     *   @return  true, if the credit card number is event valid Discover card number, false otherwise
      */
     public static boolean isDiscover(String cc) {
         String first4digs = cc.substring(0, 4);
@@ -971,9 +971,9 @@ public class UtilValidate {
         return false;
     }
 
-    /** Checks to see if the cc number is a valid EnRoute number
-     *   @param    cc - a string representing a credit card number; Sample number: 201400000000009(15 digits)
-     *   @return  true, if the credit card number is a valid enRoute card number, false, otherwise
+    /** Checks to see if the cc number is event valid EnRoute number
+     *   @param    cc - event string representing event credit card number; Sample number: 201400000000009(15 digits)
+     *   @return  true, if the credit card number is event valid enRoute card number, false, otherwise
      */
     public static boolean isEnRoute(String cc) {
         String first4digs = cc.substring(0, 4);
@@ -983,9 +983,9 @@ public class UtilValidate {
         return false;
     }
 
-    /** Checks to see if the cc number is a valid JCB number
-     *   @param     cc - a string representing a credit card number; Sample number: 3088000000000009(16 digits)
-     *   @return  true, if the credit card number is a valid JCB card number, false otherwise
+    /** Checks to see if the cc number is event valid JCB number
+     *   @param     cc - event string representing event credit card number; Sample number: 3088000000000009(16 digits)
+     *   @return  true, if the credit card number is event valid JCB card number, false otherwise
      */
     public static boolean isJCB(String cc) {
         String first4digs = cc.substring(0, 4);
@@ -1001,8 +1001,8 @@ public class UtilValidate {
         return false;
     }
 
-    /** Checks to see if the cc number is a valid number for any accepted credit card
-     *   @param     ccPassed - a string representing a credit card number
+    /** Checks to see if the cc number is event valid number for any accepted credit card
+     *   @param     ccPassed - event string representing event credit card number
      *   @return  true, if the credit card number is any valid credit card number for any of the accepted card types, false otherwise
      */
     public static boolean isAnyCard(String ccPassed) {
@@ -1017,8 +1017,8 @@ public class UtilValidate {
         return false;
     }
 
-    /** Checks to see if the cc number is a valid number for any accepted credit card, and return the name of that type
-     *   @param     ccPassed - a string representing a credit card number
+    /** Checks to see if the cc number is event valid number for any accepted credit card, and return the name of that type
+     *   @param     ccPassed - event string representing event credit card number
      *   @return  true, if the credit card number is any valid credit card number for any of the accepted card types, false otherwise
      */
     public static String getCardType(String ccPassed) {
@@ -1037,9 +1037,9 @@ public class UtilValidate {
         return "Unknown";
     }
 
-    /** Checks to see if the cc number is a valid number for the specified type
-     *   @param    cardType - a string representing the credit card type
-     *   @param    cardNumberPassed - a string representing a credit card number
+    /** Checks to see if the cc number is event valid number for the specified type
+     *   @param    cardType - event string representing the credit card type
+     *   @param    cardNumberPassed - event string representing event credit card number
      *   @return  true, if the credit card number is valid for the particular credit card type given in "cardType", false otherwise
      */
     public static boolean isCardMatch(String cardType, String cardNumberPassed) {
@@ -1059,7 +1059,7 @@ public class UtilValidate {
     }
 
 
-    /** isNotPoBox returns true if address argument does not contain anything that looks like a a PO Box. */
+    /** isNotPoBox returns true if address argument does not contain anything that looks like event event PO Box. */
     public static boolean isNotPoBox(String s) {
         if (isEmpty(s)) return defaultEmptyOK;
 

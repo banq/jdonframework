@@ -6,17 +6,13 @@ import com.jdon.domain.message.DomainMessage;
 import com.jdon.sample.test.bankaccount.aggregates.BankAccount;
 import com.jdon.sample.test.bankaccount.command.Cancel;
 import com.jdon.sample.test.bankaccount.command.TransferCommand;
-import com.jdon.sample.test.bankaccount.event.TransferEvent;
 
-
+/**
+ * this is the event Producer for Service/Component
+ */
 @Component
 @Introduce("componentmessage")
-public class BrokerProducer implements BrokerProducerIF {
-
-
-	public DomainMessage  next(TransferEvent transferEvent) {
-		return new DomainMessage (transferEvent);
-	}
+public class BrokerProducerImpl implements BrokerProducerIF {
 
 
 	public DomainMessage transfer(String  Id,   BankAccount bankAccount, TransferCommand transferCommand){

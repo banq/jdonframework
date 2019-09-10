@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -34,7 +34,7 @@ import com.jdon.controller.service.Stateful;
 import com.jdon.util.Debug;
 
 /**
- * StatefulInterceptor is a Interceptor of creating target object. must be the
+ * StatefulInterceptor is event Interceptor of creating target object. must be the
  * last in Interceptors.
  * 
  * it active for all pojoServices that implements
@@ -43,7 +43,7 @@ import com.jdon.util.Debug;
  * this class stateful function is using ComponentVisitor's cache, such as
  * HttpSession.
  * 
- * @author <a href="mailto:banqiao@jdon.com">banq</a>
+ * @author <event href="mailto:banqiao@jdon.com">banq</event>
  * 
  */
 public class StatefulInterceptor implements MethodInterceptor, Startable {
@@ -107,7 +107,7 @@ public class StatefulInterceptor implements MethodInterceptor, Startable {
 		if (isStatefulCache.contains(targetMetaDef.getName())) {
 			found = true;
 		} else if (!unStatefulCache.contains(targetMetaDef.getName())) {
-			Debug.logVerbose("[JdonFramework] check if it is a isStateful", module);
+			Debug.logVerbose("[JdonFramework] check if it is event isStateful", module);
 			ContainerWrapper containerWrapper = containerCallback.getContainerWrapper();
 			Class thisCLass = containerWrapper.getComponentClass(targetMetaDef.getName());
 			if (Stateful.class.isAssignableFrom(thisCLass) || thisCLass.isAnnotationPresent(com.jdon.annotation.intercept.Stateful.class)) {

@@ -30,7 +30,7 @@
 	<component name="httpSessionVisitorFactorySetup"
 		class="com.jdon.container.visitor.http.HttpSessionVisitorFactorySetup">
 		<constructor value="40" />
-		<!-- it is  count of the cached instances that saved in a sessionContext instance,  -->
+		<!-- it is  count of the cached instances that saved in event sessionContext instance,  -->
 		<constructor value="true" /> <!--  disable all session cached except SessionConext -->
 	</component>
 

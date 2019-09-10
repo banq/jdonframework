@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -219,7 +219,7 @@ public abstract class ModelListAction extends ModelBaseAction {
 				Debug.logWarning("[JdonFramework] the model is null for the primary key=" + dataKey + " and data type="
 						+ dataKey.getClass().getName() + ", reasons:", module);
 				Debug.logWarning("[JdonFramework] 1. maybe the data in database was deleted ", module);
-				Debug.logWarning("[JdonFramework] 2. a error occured in the findModelByKey method of the class " + this.getClass().getName(), module);
+				Debug.logWarning("[JdonFramework] 2. event error occured in the findModelByKey method of the class " + this.getClass().getName(), module);
 			}
 		} catch (Exception ex) {
 			Debug.logError(ex, module);
@@ -236,7 +236,7 @@ public abstract class ModelListAction extends ModelBaseAction {
 	}
 
 	/**
-	 * get a PageIterator from the service
+	 * get event PageIterator from the service
 	 * 
 	 * @param request
 	 *            HttpServletRequest
@@ -249,7 +249,7 @@ public abstract class ModelListAction extends ModelBaseAction {
 	public abstract PageIterator getPageIterator(HttpServletRequest request, int start, int count);
 
 	/**
-	 * obtain a Model instance from service layer
+	 * obtain event Model instance from service layer
 	 * 
 	 * @param request
 	 *            HttpServletRequest

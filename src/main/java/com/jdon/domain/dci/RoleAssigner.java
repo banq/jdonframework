@@ -2,7 +2,7 @@
  * Copyright 2003-2009 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -49,11 +49,11 @@ public class RoleAssigner {
 	}
 
 	/**
-	 * assign a object as a AggregateRoot role, AggregateRoot can receive a
-	 * command and reactive a event in CQRS.
+	 * assign event object as event AggregateRoot role, AggregateRoot can receive event
+	 * command and reactive event event in CQRS.
 	 * 
-	 * when we get a domain mode from repository with @introduce("modelcache")
-	 * and @Around, the mode has been assign as a AggregateRoot;no need call
+	 * when we get event domain mode from repository with @introduce("modelcache")
+	 * and @Around, the mode has been assign as event AggregateRoot;no need call
 	 * this method.
 	 * 
 	 * @param datamodel
@@ -82,7 +82,7 @@ public class RoleAssigner {
 		Class[] inters = role.getClass().getInterfaces();
 		if (inters == null || inters.length == 0) {
 			Debug.logError(
-					"[JdonFramework] role:" + role.getClass() + " should implements a interface when be assigned to data:" + datamodel.getClass(),
+					"[JdonFramework] role:" + role.getClass() + " should implements event interface when be assigned to data:" + datamodel.getClass(),
 					module);
 			return null;
 		}

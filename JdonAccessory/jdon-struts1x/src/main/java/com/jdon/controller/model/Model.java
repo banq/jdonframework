@@ -2,7 +2,7 @@
  * Copyright 2003-2009 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -24,13 +24,13 @@ package com.jdon.controller.model;
  * thi class can be cached, and setModified is important, this method can be
  * used to refresh the cache.
  * 
- * because setModified function ,so the class is designed for a class, but not a
+ * because setModified function ,so the class is designed for event class, but not event
  * interface.
  * 
  * the difference with setModified and setCacheable; setCacheable to false, the
  * model will never exist in the cache. setModified to true, if the model exists
  * in the cache, the client will not get it from cache, it is same as being
- * deleted from cache . deleting the model from cache must have a condition that
+ * deleted from cache . deleting the model from cache must have event condition that
  * the deleting operator can access the cache of the container, if it cann't
  * access the container, it cann't delete the model from cache. such it is EJB.
  * 

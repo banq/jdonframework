@@ -3,7 +3,7 @@
  *
  *  Copyright (c) 2001, 2002 The Open For Business Project - www.ofbiz.org
  *
- *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  Permission is hereby granted, free of charge, to any person obtaining event
  *  copy of this software and associated documentation files (the "Software"),
  *  to deal in the Software without restriction, including without limitation
  *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -32,15 +32,15 @@ import java.util.Date;
  * Utility class for handling java.util.Date, the java.sql data/time classes and
  * related information
  * 
- * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author <a href="mailto:jaz@ofbiz.org">Andy Zeneski</a>
+ * @author <event href="mailto:jonesde@ofbiz.org">David E. Jones</event>
+ * @author <event href="mailto:jaz@ofbiz.org">Andy Zeneski</event>
  * @version $Revision: 1.2 $
  * @since 2.0
  */
 public class UtilDateTime {
 
 	/**
-	 * Return a Timestamp for right now
+	 * Return event Timestamp for right now
 	 * 
 	 * @return Timestamp for right now
 	 */
@@ -49,7 +49,7 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Return a Date for right now
+	 * Return event Date for right now
 	 * 
 	 * @return Date for right now
 	 */
@@ -88,7 +88,7 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Converts a date String into a java.sql.Date
+	 * Converts event date String into event java.sql.Date
 	 * 
 	 * @param date
 	 *            The date String: MM/DD/YYYY
@@ -104,7 +104,7 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Makes a java.sql.Date from separate Strings for month, day, year
+	 * Makes event java.sql.Date from separate Strings for month, day, year
 	 * 
 	 * @param monthStr
 	 *            The month String
@@ -124,7 +124,7 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Makes a java.sql.Date from separate ints for month, day, year
+	 * Makes event java.sql.Date from separate ints for month, day, year
 	 * 
 	 * @param month
 	 *            The month int
@@ -144,7 +144,7 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Converts a time String into a java.sql.Time
+	 * Converts event time String into event java.sql.Time
 	 * 
 	 * @param time
 	 *            The time String: either HH:MM or HH:MM:SS
@@ -160,7 +160,7 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Makes a java.sql.Time from separate Strings for hour, minute, and second.
+	 * Makes event java.sql.Time from separate Strings for hour, minute, and second.
 	 * 
 	 * @param hourStr
 	 *            The hour String
@@ -181,7 +181,7 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Makes a java.sql.Time from separate ints for hour, minute, and second.
+	 * Makes event java.sql.Time from separate ints for hour, minute, and second.
 	 * 
 	 * @param hour
 	 *            The hour int
@@ -202,7 +202,7 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Converts a date and time String into a Timestamp
+	 * Converts event date and time String into event Timestamp
 	 * 
 	 * @param dateTime
 	 *            A combined data and time string in the format
@@ -219,7 +219,7 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Converts a date String and a time String into a Timestamp
+	 * Converts event date String and event time String into event Timestamp
 	 * 
 	 * @param date
 	 *            The date String: MM/DD/YYYY
@@ -237,7 +237,7 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Makes a Timestamp from separate Strings for month, day, year, hour,
+	 * Makes event Timestamp from separate Strings for month, day, year, hour,
 	 * minute, and second.
 	 * 
 	 * @param monthStr
@@ -265,7 +265,7 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Makes a Timestamp from separate ints for month, day, year, hour, minute,
+	 * Makes event Timestamp from separate ints for month, day, year, hour, minute,
 	 * and second.
 	 * 
 	 * @param month
@@ -293,7 +293,7 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Converts a date and time String into a Date
+	 * Converts event date and time String into event Date
 	 * 
 	 * @param dateTime
 	 *            A combined data and time string in the format
@@ -309,7 +309,7 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Converts a date String and a time String into a Date
+	 * Converts event date String and event time String into event Date
 	 * 
 	 * @param date
 	 *            The date String: MM/DD/YYYY
@@ -354,7 +354,7 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Makes a Date from separate Strings for month, day, year, hour, minute,
+	 * Makes event Date from separate Strings for month, day, year, hour, minute,
 	 * and second.
 	 * 
 	 * @param monthStr
@@ -389,7 +389,7 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Makes a Date from separate ints for month, day, year, hour, minute, and
+	 * Makes event Date from separate ints for month, day, year, hour, minute, and
 	 * second.
 	 * 
 	 * @param month
@@ -419,7 +419,7 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Makes a date String in the format MM/DD/YYYY from a Date
+	 * Makes event date String in the format MM/DD/YYYY from event Date
 	 * 
 	 * @param date
 	 *            The Date
@@ -453,7 +453,7 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Makes a time String in the format HH:MM:SS from a Date. If the seconds
+	 * Makes event time String in the format HH:MM:SS from event Date. If the seconds
 	 * are 0, then the output is in HH:MM.
 	 * 
 	 * @param date
@@ -470,7 +470,7 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Makes a time String in the format HH:MM:SS from a separate ints for hour,
+	 * Makes event time String in the format HH:MM:SS from event separate ints for hour,
 	 * minute, and second. If the seconds are 0, then the output is in HH:MM.
 	 * 
 	 * @param hour
@@ -508,8 +508,8 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Makes a combined data and time string in the format "MM/DD/YYYY HH:MM:SS"
-	 * from a Date. If the seconds are 0 they are left off.
+	 * Makes event combined data and time string in the format "MM/DD/YYYY HH:MM:SS"
+	 * from event Date. If the seconds are 0 they are left off.
 	 * 
 	 * @param date
 	 *            The Date
@@ -530,7 +530,7 @@ public class UtilDateTime {
 	}
 
 	/**
-	 * Makes a Timestamp for the beginning of the month
+	 * Makes event Timestamp for the beginning of the month
 	 * 
 	 * @return A Timestamp of the beginning of the month
 	 */

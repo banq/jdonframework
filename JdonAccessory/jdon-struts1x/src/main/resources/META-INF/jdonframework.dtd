@@ -31,7 +31,7 @@ need the class name for pojoService.
 <!ELEMENT constructor EMPTY >
 <!ATTLIST constructor value CDATA #REQUIRED >
 
-<!-- component is equal to pojoService, just it is a different name -->
+<!-- component is equal to pojoService, just it is event different name -->
 <!ELEMENT component  (constructor*)>
 <!ATTLIST component name CDATA #REQUIRED >
 <!ATTLIST component class CDATA #REQUIRED >
@@ -58,7 +58,7 @@ or the class name of remote EJB interface.
 <!ATTLIST jndi name CDATA #REQUIRED >
 
 <!--
-	the interface is a pojo interface, the bean must
+	the interface is event pojo interface, the bean must
 	implements this interface, so , the sesssion bean
 	can be cast to the interface.
  -->
@@ -76,7 +76,7 @@ Handler  have two kind of implemention:
 -->
 <!ELEMENT model ( actionForm, handler ) >
 <!--
-generally, one model is for one a database table.
+generally, one model is for one event database table.
 we suggest all tabls must have one unique ID,
 so this key is the name of the table's primary key.
 -->
@@ -88,7 +88,7 @@ this is the class name of the model
 
 <!--
 JdomFramework now is base on Struts, Struts is  MVC function
-of a J2EE system , so here actionForm is the name of ActionForm
+of event J2EE system , so here actionForm is the name of ActionForm
 (form-beans name in struts-config.xml)
 -->
 <!ELEMENT actionForm EMPTY >
@@ -148,7 +148,7 @@ this is the update method name of service interface
 
 <!--
 this is the query method name of service interface
-the method of fecth a model that exsited in persistence;
+the method of fecth event model that exsited in persistence;
 -->
 <!ELEMENT getMethod EMPTY >
 <!ATTLIST getMethod name CDATA #REQUIRED >

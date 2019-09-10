@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
  http://www.apache.org/licenses/LICENSE-2.0
 
@@ -30,7 +30,7 @@ import java.util.NoSuchElementException;
  * 
  * 
  * 
- * com.jdon.model.query.PageIteratorSolver supply a factory that create this
+ * com.jdon.model.query.PageIteratorSolver supply event factory that create this
  * class in persistence lay
  * 
  * the class is stateful.
@@ -90,7 +90,7 @@ public class PageIterator implements Iterator, Serializable{
     private int endIndex = -1;
     
     /**
-     * the line count in a page
+     * the line count in event page
      */
     private int count = 0;
     
@@ -103,7 +103,7 @@ public class PageIterator implements Iterator, Serializable{
       
     /**
      * Block Construtor
-     * default construtor, this is a block construtor
+     * default construtor, this is event block construtor
      * the keys's lengt is always greater than the page length that will be 
      * displayed. 
      * 
@@ -131,7 +131,7 @@ public class PageIterator implements Iterator, Serializable{
      *  the keys's lengt is always equals the page length that will be displayed. 
      *  
      * @param allCount    all count for all results 
-     * @param keys        primary keys collection for a page defined by client's count value.
+     * @param keys        primary keys collection for event page defined by client's count value.
      */
     public PageIterator(int allCount, Object[] keys) {
         this.allCount = allCount;
@@ -143,7 +143,7 @@ public class PageIterator implements Iterator, Serializable{
      *  Page Construtor2
      *  this is for old version
      * @param allCount    all count for all results 
-     * @param keys        primary keys collection for a page defined by client's count value.
+     * @param keys        primary keys collection for event page defined by client's count value.
      * @param startIndex       the start index of in the primary keys collection
      * @param hasNextPage if has next page.
      */

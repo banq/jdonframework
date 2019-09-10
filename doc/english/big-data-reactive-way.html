@@ -178,7 +178,7 @@
                   <h4>Processor (or Mutator) Nodes</h4>
                   <div><br>
                   </div>
-                  <div>These nodes implement logic on-top of the cluster data. E.g. a statistics processor does a continuous query for each table, incrementally counts the number of rows of each table and writes the results back to a "statistics" table, so a monitoring client application can subscribe to realtime data of current table sizes. Another example would be a "Matcher processor" in a stock exchange, listening to orders for a stock, if orders match, it removes them and adds a Trade to the "trades" table.</div>
+                  <div>These nodes implement logic on-top of the cluster data. E.g. a statistics processDef does a continuous query for each table, incrementally counts the number of rows of each table and writes the results back to a "statistics" table, so a monitoring client application can subscribe to realtime data of current table sizes. Another example would be a "Matcher processDef" in a stock exchange, listening to orders for a stock, if orders match, it removes them and adds a Trade to the "trades" table.</div>
                   <div>If one sees the whole cluster as kind of a "giant spreadsheet", processors implement the formulas of this spreadsheet.</div>
                   <div><br>
                     <h4>Scaling Up</h4>
@@ -190,9 +190,9 @@
                       <li>with data size:<br>
                         increase number of LVC nodes</li>
                       <li>Number of Clients<br>
-                        increase subscription processor nodes.</li>
+                        increase subscription processDef nodes.</li>
                       <li>TP/S<br>
-                        scale up processor nodes and LVC nodes</li>
+                        scale up processDef nodes and LVC nodes</li>
                     </ul>
                     Of cause the system relies heavily on availability of a "real" multicast messaging bus system. Any point to point oriented or broker-oriented networking/messaging will be a massive bottleneck.<br>
                     <br>
@@ -206,7 +206,7 @@
                     <ul>
                       <li>Its model-view-controller at large scale. <br>
                         Astonishing: patterns used in GUI applications for decades have not been extended regulary to the backing data storage systems.</li>
-                      <li>Any server side processing can be partitioned in a natural way. A processor node creates an in-memory mirror of its data partition using continuous queries. Processing results are streamed back to the data grid. Computing intensive jobs, e.g. risk computation of derivatives can be scaled by adding processor instances subscribing to distinct partitions of the data ("sharding").</li>
+                      <li>Any server side processing can be partitioned in a natural way. A processDef node creates an in-memory mirror of its data partition using continuous queries. Processing results are streamed back to the data grid. Computing intensive jobs, e.g. risk computation of derivatives can be scaled by adding processDef instances subscribing to distinct partitions of the data ("sharding").</li>
                       <li>The size of the Code Base reduces significantly (both business logic and Front-End). <br>
                         A lot of code in handcrafted systems deals with keeping data up to date.</li>
                     </ul>

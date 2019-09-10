@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -221,7 +221,7 @@ public class TreeControlTag extends TagSupport {
 
 		out.print("    <td>");
 		if ((nodeAction != null) && !node.isLeaf()) {
-			out.print("<a href=\"");
+			out.print("<event href=\"");
 			out.print(response.encodeURL(url.toString()));
 			out.print("\">");
 		}
@@ -249,7 +249,7 @@ public class TreeControlTag extends TagSupport {
 		}
 		out.print("\" border=\"0\">");
 		if ((nodeAction != null) && !node.isLeaf())
-			out.print("</a>");
+			out.print("</event>");
 		out.println("</td>");
 	}
 
@@ -297,7 +297,7 @@ public class TreeControlTag extends TagSupport {
 			if (treeNodeAction != null) {
 				// Note the leading space so that the text has some space
 				// between it and any preceding images
-				out.print(" <a href=\"");
+				out.print(" <event href=\"");
 				out.print(treeNodeAction);
 				out.print("\"");
 				if (target != null) {
@@ -322,7 +322,7 @@ public class TreeControlTag extends TagSupport {
 			}
 			out.print(node.getLabel());
 			if (treeNodeAction != null)
-				out.print("</a>");
+				out.print("</event>");
 			else if (labelStyle != null)
 				out.print("</span>");
 		}

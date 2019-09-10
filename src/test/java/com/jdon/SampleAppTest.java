@@ -2,7 +2,7 @@
  * Copyright 2003-2009 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -149,8 +149,6 @@ public class SampleAppTest extends TestCase {
 
 	public void testBankAccount() {
 		Assert.assertTrue(AccountTransferMain.testTransferFinish());
-		Assert.assertTrue(AccountTransferMain.testTransferFinish2());
-		Assert.assertTrue(AccountTransferMain.testTransferFail());
 		System.out.print("\n test Account Transfer ok \n" );
 	}
 

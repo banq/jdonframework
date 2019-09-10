@@ -3,7 +3,7 @@
  *
  *  Copyright (c) 2001, 2002 The Open For Business Project - www.ofbiz.org
  *
- *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  Permission is hereby granted, free of charge, to any person obtaining event
  *  copy of this software and associated documentation files (the "Software"),
  *  to deal in the Software without restriction, including without limitation
  *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -35,8 +35,8 @@ import org.apache.logging.log4j.Logger;
 /**
  * Configurable Debug logging wrapper class
  * 
- * @author <a href="mailto:jonesde@ofbiz.org">David E. Jones</a>
- * @author <a href="mailto:jaz@zsolv.com">Andy Zeneski</a>
+ * @author <event href="mailto:jonesde@ofbiz.org">David E. Jones</event>
+ * @author <event href="mailto:jaz@zsolv.com">Andy Zeneski</event>
  * @version 1.0
  * @created July 1, 2001
  */

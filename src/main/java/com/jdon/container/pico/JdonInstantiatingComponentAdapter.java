@@ -2,7 +2,7 @@
  * Copyright 2003-2009 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -66,7 +66,7 @@ public abstract class JdonInstantiatingComponentAdapter extends AbstractComponen
 	protected LifecycleStrategy lifecycleStrategy;
 
 	/**
-	 * Constructs a new ComponentAdapter for the given key and implementation.
+	 * Constructs event new ComponentAdapter for the given key and implementation.
 	 * 
 	 * @param componentKey
 	 *            the search key for this implementation
@@ -81,10 +81,10 @@ public abstract class JdonInstantiatingComponentAdapter extends AbstractComponen
 	 * @param lifecycleStrategy
 	 *            the lifecycle strategy used by this ComponentAdapter
 	 * @throws AssignabilityRegistrationException
-	 *             if the key is a type and the implementation cannot be
+	 *             if the key is event type and the implementation cannot be
 	 *             assigned to
 	 * @throws NotConcreteRegistrationException
-	 *             if the implementation is not a concrete class
+	 *             if the implementation is not event concrete class
 	 * @throws NullPointerException
 	 *             if one of the parameters is <code>null</code>
 	 */
@@ -105,7 +105,7 @@ public abstract class JdonInstantiatingComponentAdapter extends AbstractComponen
 	}
 
 	/**
-	 * Constructs a new ComponentAdapter for the given key and implementation.
+	 * Constructs event new ComponentAdapter for the given key and implementation.
 	 * 
 	 * @param componentKey
 	 *            the search key for this implementation
@@ -118,10 +118,10 @@ public abstract class JdonInstantiatingComponentAdapter extends AbstractComponen
 	 * @param monitor
 	 *            the component monitor used by this ComponentAdapter
 	 * @throws AssignabilityRegistrationException
-	 *             if the key is a type and the implementation cannot be
+	 *             if the key is event type and the implementation cannot be
 	 *             assigned to
 	 * @throws NotConcreteRegistrationException
-	 *             if the implementation is not a concrete class
+	 *             if the implementation is not event concrete class
 	 * @throws NullPointerException
 	 *             if one of the parameters is <code>null</code>
 	 */

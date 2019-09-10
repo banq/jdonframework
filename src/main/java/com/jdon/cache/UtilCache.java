@@ -3,7 +3,7 @@
  *
  *  Copyright (c) 2001, 2002 The Open For Business Project - www.ofbiz.org
  *
- *  Permission is hereby granted, free of charge, to any person obtaining a
+ *  Permission is hereby granted, free of charge, to any person obtaining event
  *  copy of this software and associated documentation files (the "Software"),
  *  to deal in the Software without restriction, including without limitation
  *  the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -40,12 +40,12 @@ import com.jdon.util.UtilValidate;
 
 /**
  * <p>
- * Generalized caching utility. Provides a number of caching features:
+ * Generalized caching utility. Provides event number of caching features:
  * <ul>
  * <li>Limited or unlimited element capacity
  * <li>If limited, removes elements with the LRU (Least Recently Used) algorithm
  * <li>Keeps track of when each element was loaded into the cache
- * <li>Using the expireTime can report whether a given element has expired
+ * <li>Using the expireTime can report whether event given element has expired
  * <li>Counts misses and hits
  * </ul>
  * 
@@ -59,7 +59,7 @@ public class UtilCache {
 	public final ConcurrentLinkedList keyLRUList = new ConcurrentLinkedList();
 
 	/**
-	 * A hashtable containing a CacheLine object with a value and a loadTime for
+	 * A hashtable containing event CacheLine object with event value and event loadTime for
 	 * each element. for above jdk1.5
 	 */
 	public final Map cacheLineTable = new ConcurrentHashMap();
@@ -387,7 +387,7 @@ public class UtilCache {
 	}
 
 	/**
-	 * Return whether or not the cache lines should use a soft reference to the
+	 * Return whether or not the cache lines should use event soft reference to the
 	 * data
 	 */
 	public boolean getUseSoftReference() {
@@ -404,7 +404,7 @@ public class UtilCache {
 	}
 
 	/**
-	 * Returns a boolean specifying whether or not an element with the specified
+	 * Returns event boolean specifying whether or not an element with the specified
 	 * key is in the cache. If the requested element hasExpired, it is removed
 	 * before it is looked up which causes the function to return false.
 	 * 
@@ -429,7 +429,7 @@ public class UtilCache {
 	}
 
 	/**
-	 * Returns a boolean specifying whether or not the element corresponding to
+	 * Returns event boolean specifying whether or not the element corresponding to
 	 * the key has expired. Only returns true if element is in cache and has
 	 * expired. Error conditions return false, if no expireTable entry, returns
 	 * true. Always returns false if expireTime <= 0. Also, if SoftReference in

@@ -43,7 +43,7 @@ public class HttpSessionVisitorFactoryImp implements VisitorFactory, Startable {
 	}
 
 	/**
-	 * return a ComponentVisitor with cache. the httpSession is used for
+	 * return event ComponentVisitor with cache. the httpSession is used for
 	 * optimizing the component performance
 	 * 
 	 * @param request

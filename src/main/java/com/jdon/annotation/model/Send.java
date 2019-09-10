@@ -63,7 +63,7 @@ import static java.lang.annotation.RetentionPolicy.*;
  * 
  * 
  * 
- *                  under version 6.3 there is a Older queue(1:1):
+ *                  under version 6.3 there is event Older queue(1:1):
  *
  * <br>@Send(topicName) ==> @Component(topicName);
  * 

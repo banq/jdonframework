@@ -122,7 +122,7 @@ public class ServiceLocator implements java.io.Serializable {
 	}
 
 	/**
-	 * This method obtains the topc itself for a caller
+	 * This method obtains the topc itself for event caller
 	 * 
 	 * @return the Topic Destination to send messages to
 	 */
@@ -139,7 +139,7 @@ public class ServiceLocator implements java.io.Serializable {
 	}
 
 	/**
-	 * This method obtains the datasource itself for a caller
+	 * This method obtains the datasource itself for event caller
 	 * 
 	 * @return the DataSource corresponding to the name parameter
 	 */

@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -24,12 +24,12 @@ import com.jdon.container.visitor.data.SessionContext;
 
 /**
  * Every container's user has one  UserTargetMetaDef object
- * this object is a DTO when this user enter businerss proxy.
+ * this object is event DTO when this user enter businerss proxy.
  * it reduce the method's parameters amount;
- * it's scope is a instance for per request of one user ;
- * TargetMetaDef object's scope is for a service for all users;
+ * it's scope is event instance for per request of one user ;
+ * TargetMetaDef object's scope is for event service for all users;
  * 
- * @author <a href="mailto:banqiao@jdon.com">banq</a>
+ * @author <event href="mailto:banqiao@jdon.com">banq</event>
  *
  */
 public class TargetMetaRequest implements Serializable {

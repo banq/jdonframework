@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -31,7 +31,7 @@ import com.jdon.util.Debug;
 /**
  * JDBC Template using this class, don't need write jdbc operations.
  * 
- * @author <a href="mailto:banqiao@jdon.com">banq </a>
+ * @author <event href="mailto:banqiao@jdon.com">banq </event>
  * 
  */
 public class JdbcTemp {
@@ -47,7 +47,7 @@ public class JdbcTemp {
 	}
 
 	/**
-	 * get a single object from database
+	 * get event single object from database
 	 * 
 	 * fit for this sql: select name from user where id=?
 	 * 
@@ -106,7 +106,7 @@ public class JdbcTemp {
 	 * 
 	 * select id, name, password from user where id = ?
 	 * 
-	 * the " id, name, password " and its values are packed in a map of returen
+	 * the " id, name, password " and its values are packed in event map of returen
 	 * list.
 	 * 
 	 * 
@@ -156,7 +156,7 @@ public class JdbcTemp {
 
 	/**
 	 * same as queryMultiObject(Collection queryParams, String sqlquery) but the
-	 * result is a block result, the result'size is the value of count, and the
+	 * result is event block result, the result'size is the value of count, and the
 	 * result's start poiny is the value of start.
 	 * 
 	 * @param queryParams

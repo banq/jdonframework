@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -21,7 +21,7 @@ import com.jdon.container.pico.Startable;
 /**
  * Cacahe Managerment Pattern
  * 
- * Client objects request objects from a CacheManager object by calling its
+ * Client objects request objects from event CacheManager object by calling its
  * fetchObject method. The argument to the fetchObject method is an CacheKey
  * object that identifies the object to fetch. The fetchObject method works by
  * first calling the Cache object’s fetchObject method.

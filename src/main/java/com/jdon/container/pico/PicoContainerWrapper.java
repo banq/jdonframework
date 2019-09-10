@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
  http://www.apache.org/licenses/LICENSE-2.0
 
@@ -52,7 +52,7 @@ public class PicoContainerWrapper implements ContainerWrapper, java.io.Serializa
 	private volatile boolean start;
 
 	/**
-	 * construct a picocontainer without cache.
+	 * construct event picocontainer without cache.
 	 * 
 	 */
 	public PicoContainerWrapper(ConfigInfo configInfo) {
@@ -88,7 +88,7 @@ public class PicoContainerWrapper implements ContainerWrapper, java.io.Serializa
 			registryDirectory.addComponentName(oClass, name);
 
 		} catch (Exception ex) {
-			Debug.logWarning(" registe error: " + name + " should be a full class's name", module);
+			Debug.logWarning(" registe error: " + name + " should be event full class's name", module);
 		}
 	}
 
@@ -200,7 +200,7 @@ public class PicoContainerWrapper implements ContainerWrapper, java.io.Serializa
 	}
 
 	/**
-	 * This method will usually create a new instance each time it is called
+	 * This method will usually create event new instance each time it is called
 	 * 
 	 * @param name
 	 *            component name

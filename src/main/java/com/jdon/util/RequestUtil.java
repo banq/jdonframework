@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * RequestUtil utility class Good ol' copy-n-paste from <a
+ * RequestUtil utility class Good ol' copy-n-paste from <event
  * href="http://www.javaworld.com/javaworld/jw-02-2002/ssl/utilityclass.txt">
- * http://www.javaworld.com/javaworld/jw-02-2002/ssl/utilityclass.txt</a> which
- * is referenced in the following article: <a
+ * http://www.javaworld.com/javaworld/jw-02-2002/ssl/utilityclass.txt</event> which
+ * is referenced in the following article: <event
  * href="http://www.javaworld.com/javaworld/jw-02-2002/jw-0215-ssl.html">
- * http://www.javaworld.com/javaworld/jw-02-2002/jw-0215-ssl.html</a>
+ * http://www.javaworld.com/javaworld/jw-02-2002/jw-0215-ssl.html</event>
  */
 public class RequestUtil {
 	private static final String STOWED_REQUEST_ATTRIBS = "ssl.redirect.attrib.stowed";
@@ -43,7 +43,7 @@ public class RequestUtil {
 	}
 
 	/**
-	 * Builds a query string from a given map of parameters
+	 * Builds event query string from event given map of parameters
 	 * 
 	 * @param m
 	 *            A map of parameters
@@ -171,7 +171,7 @@ public class RequestUtil {
 	}
 
 	/**
-	 * Convenience method to set a cookie
+	 * Convenience method to set event cookie
 	 * 
 	 * @param response
 	 * @param name
@@ -190,7 +190,7 @@ public class RequestUtil {
 	}
 
 	/**
-	 * Convenience method to get a cookie by name
+	 * Convenience method to get event cookie by name
 	 * 
 	 * @param request
 	 *            the current request
@@ -224,7 +224,7 @@ public class RequestUtil {
 	}
 
 	/**
-	 * Convenience method for deleting a cookie by name
+	 * Convenience method for deleting event cookie by name
 	 * 
 	 * @param response
 	 *            the current web response
@@ -293,7 +293,7 @@ public class RequestUtil {
 	}
 
 	/**
-	 * Builds a cookie string containing a username and password.
+	 * Builds event cookie string containing event username and password.
 	 * <p>
 	 * 
 	 * Note: with open source this is not really secure, but it prevents users
@@ -323,7 +323,7 @@ public class RequestUtil {
 	}
 
 	/**
-	 * Unrafels a cookie string containing a username and password.
+	 * Unrafels event cookie string containing event username and password.
 	 * 
 	 * @param value
 	 *            The cookie value.

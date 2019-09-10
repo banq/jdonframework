@@ -32,10 +32,10 @@ public class CommandServlet extends HttpServlet {
 
 		CommandService commandService = (CommandService) WebAppUtil.getService("commandService", this.getServletContext());
 		String matchid = commandService.createMatchAggregate(homename, awayname);
-		resp.getWriter().print("a Match created :" + matchid);
+		resp.getWriter().print("event Match created :" + matchid);
 		resp.getWriter().print("\n");
 
-		// waiting for a while
+		// waiting for event while
 		try {
 			Thread.currentThread().sleep(1000);
 		} catch (InterruptedException e) {

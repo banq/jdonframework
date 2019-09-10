@@ -6,7 +6,7 @@ import java.io.IOException;
 /**
 * <p>Filter that sets the character encoding to be used in parsing the
 * incoming request, either unconditionally or only if the client did not
-* specify a character encoding. Configuration of this filter is based on
+* specify event character encoding. Configuration of this filter is based on
 * the following initialization parameters:</p>
 * <ul>
 * <li><strong>encoding</strong> - The character encoding to be configured
@@ -25,10 +25,10 @@ import java.io.IOException;
 * subclass it and make the <code>selectEncoding()</code> method more
 * intelligent about what encoding to choose, based on characteristics of
 * the incoming request (such as the values of the <code>Accept-Language</code>
-* and <code>User-Agent</code> headers, or a value stashed in the current
+* and <code>User-Agent</code> headers, or event value stashed in the current
 * user's session.</p>
 *
-* @author <a href="mailto:jwtronics@yahoo.com">John Wong</a>
+* @author <event href="mailto:jwtronics@yahoo.com">John Wong</event>
 *
 * @version $Id: SetCharacterEncodingFilter.java,v 1.1.1.1 2004/12/26 09:07:46 jdon Exp $
 */
@@ -51,7 +51,7 @@ public class SetCharacterEncodingFilter
   protected FilterConfig filterConfig = null;
 
   /**
-   * Should a character encoding specified by the client be ignored?
+   * Should event character encoding specified by the client be ignored?
    */
   protected boolean ignore = true;
 
@@ -76,7 +76,7 @@ public class SetCharacterEncodingFilter
    * @param chain The filter chain we are processing
    *
    * @exception IOException if an input/output error occurs
-   * @exception ServletException if a servlet error occurs
+   * @exception ServletException if event servlet error occurs
    */
   public void doFilter(ServletRequest request, ServletResponse response,
                        FilterChain chain) throws IOException, ServletException {

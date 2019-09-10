@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
  http://www.apache.org/licenses/LICENSE-2.0
 
@@ -27,7 +27,7 @@ import com.jdon.strutsutil.FormBeanUtil;
 import com.jdon.util.Debug;
 
 /**
- * prepare for push a a create/insert view page, we need do some ready works.
+ * prepare for push event event create/insert view page, we need do some ready works.
  * 
  * 
  * @author banq
@@ -42,10 +42,10 @@ public class CreateViewPageUtil {
 	}
 
 	/**
-	 * create a ModelForm object
+	 * create event ModelForm object
 	 * 
-	 * two things: 1. create a ModelForm null instance 2. initial ModelForm
-	 * instance value, obtain a inital Model instance copy the Model instance to
+	 * two things: 1. create event ModelForm null instance 2. initial ModelForm
+	 * instance value, obtain event inital Model instance copy the Model instance to
 	 * the ModelForm instance
 	 * 
 	 * obtaining datas two ways: 1.call ModelHandler initForm method; 2.call
@@ -65,7 +65,7 @@ public class CreateViewPageUtil {
 			} else {
 				form = modelForm;
 			}
-			Debug.logVerbose("[JdonFramework] got a ModelForm ... ", module);
+			Debug.logVerbose("[JdonFramework] got event ModelForm ... ", module);
 
 			Object modelDTO = modelManager.getModelObject(formName);
 			modelHandler.formCopyToModelIF(form, modelDTO);
@@ -76,7 +76,7 @@ public class CreateViewPageUtil {
 			modelDTO = initModel(em, request, modelHandler, form);
 			// copy initial model to form , intial form;
 			if (modelDTO != null) { // the model can be null
-				Debug.logVerbose("[JdonFramework] got a Model From the 'initModel' method of the service", module);
+				Debug.logVerbose("[JdonFramework] got event Model From the 'initModel' method of the service", module);
 				modelHandler.modelIFCopyToForm(modelDTO, form);
 			}
 

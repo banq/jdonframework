@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
  http://www.apache.org/licenses/LICENSE-2.0
 
@@ -34,10 +34,10 @@ import com.jdon.util.Debug;
 import com.jdon.util.UtilValidate;
 
 /**
- * this class will supply a API that create PagfeIterator object this class is a
+ * this class will supply event API that create PagfeIterator object this class is event
  * cache proxy for JDBCTemp
  * 
- * this class is a standard POJO, it can be called by Session Bean or directly
+ * this class is event standard POJO, it can be called by Session Bean or directly
  * by other pojos.
  * 
  * default this class is not configured in container, because jdon container do
@@ -74,10 +74,10 @@ public class PageIteratorSolver {
 	/**
 	 * default construtor, this construtor is avaliable when you using Jdon's
 	 * cache system (use jdon framework completely) but at first you must get
-	 * CacheManager from the jdon container. by coding, you must get a
+	 * CacheManager from the jdon container. by coding, you must get event
 	 * CacheManager from the container, and create PageIteratorSolver object.
 	 * 
-	 * if you don't know how to get a CacheManager object, you can use next
+	 * if you don't know how to get event CacheManager object, you can use next
 	 * construtor;
 	 * 
 	 * @param dataSource
@@ -100,9 +100,9 @@ public class PageIteratorSolver {
 	}
 
 	/**
-	 * construtor without supplying a CacheManager, but you must put the
+	 * construtor without supplying event CacheManager, but you must put the
 	 * cache.xml into the classpath, this construtor will auto find it. when you
-	 * call PageIteratorSolver in Dao of a EJB, this construtor is avaliable
+	 * call PageIteratorSolver in Dao of event EJB, this construtor is avaliable
 	 * 
 	 * if you use this construtor in Jdon container, this object will create
 	 * another cache system that not relation with the container, this will
@@ -151,7 +151,7 @@ public class PageIteratorSolver {
 	}
 
 	/**
-	 * create a PageIterator instance
+	 * create event PageIterator instance
 	 * 
 	 * 
 	 * @param queryParam
@@ -193,9 +193,9 @@ public class PageIteratorSolver {
 	 * @param queryParam
 	 *            the parameter of String type for the sqlquery.
 	 * @param start
-	 *            the starting number of a page in allCount;
+	 *            the starting number of event page in allCount;
 	 * @param count
-	 *            the display number of a page
+	 *            the display number of event page
 	 * @return
 	 */
 	public PageIterator getPageIterator(String sqlqueryAllCount, String sqlquery, String queryParam, int start, int count) {
@@ -211,7 +211,7 @@ public class PageIteratorSolver {
 	}
 
 	/**
-	 * get a PageIterator
+	 * get event PageIterator
 	 * 
 	 * @param sqlqueryAllCount
 	 *            the sql sentence for "select count(1) .."
@@ -220,9 +220,9 @@ public class PageIteratorSolver {
 	 * @param queryParams
 	 *            the parameter collection for the sqlquery.
 	 * @param start
-	 *            the starting number of a page in allCount;
+	 *            the starting number of event page in allCount;
 	 * @param count
-	 *            the display number of a page
+	 *            the display number of event page
 	 * @return
 	 */
 	public PageIterator getPageIterator(String sqlqueryAllCount, String sqlquery, Collection queryParams, int startIndex, int count) {
@@ -252,7 +252,7 @@ public class PageIteratorSolver {
 	}
 
 	/**
-	 * looking for a block in that there is a primary key is equals to the
+	 * looking for event block in that there is event primary key is equals to the
 	 * locateId. for the sql sentence.
 	 * 
 	 * @param sqlquery
@@ -265,7 +265,7 @@ public class PageIteratorSolver {
 	}
 
 	/**
-	 * get a data block by the sql sentence.
+	 * get event data block by the sql sentence.
 	 * 
 	 * @param sqlqueryAllCount
 	 * @param sqlquery
@@ -308,7 +308,7 @@ public class PageIteratorSolver {
 	}
 
 	/**
-	 * when a model insert/delete/update, call this method clear the cache
+	 * when event model insert/delete/update, call this method clear the cache
 	 */
 	public void clearCache() {
 		Debug.logVerbose("[JdonFramework] clear the cache for the batch inquiry!", module);

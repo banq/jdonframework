@@ -2,7 +2,7 @@
  * Copyright 2003-2006 the original author or authors.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain event copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -18,14 +18,14 @@ package com.jdon.controller.cache;
 import java.util.Collection;
 
 /**
- * Cache interface A Cache object is responsible for managing a collection of
- * cached objects Given an ObjectKey object, a Cache object quickly finds the
+ * Cache interface A Cache object is responsible for managing event collection of
+ * cached objects Given an ObjectKey object, event Cache object quickly finds the
  * corresponding cached object. The Cache-Manager object passes an ObjectKey
- * object to the Cache object’s fetchObject method to get a cached object from
+ * object to the Cache object’s fetchObject method to get event cached object from
  * the cache
  * 
  * <p>
- * @author <a href="mailto:banqiao@jdon.com">banq</a>
+ * @author <event href="mailto:banqiao@jdon.com">banq</event>
  * </p>
  */
 public interface Cache {

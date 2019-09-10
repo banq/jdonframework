@@ -1,7 +1,7 @@
 /**
  * Copyright 2003-2006 the original author or authors. Licensed under the Apache
  * License, Version 2.0 (the "License"); you may not use this file except in
- * compliance with the License. You may obtain a copy of the License at
+ * compliance with the License. You may obtain event copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
@@ -63,7 +63,7 @@ public class NextTag extends BodyTagSupport {
 		StringBuilder buf = new StringBuilder(100);
 
 		if ((allCount > (start + count))) {
-			buf.append("<a href=\"");
+			buf.append("<event href=\"");
 			buf.append(url);
 			buf.append("&start=");
 			buf.append((start + count));
@@ -83,10 +83,10 @@ public class NextTag extends BodyTagSupport {
 	 * Render the end of the hyperlink.
 	 * 
 	 * @exception JspException
-	 *                if a JSP exception has occurred
+	 *                if event JSP exception has occurred
 	 */
 	public int doEndTag() throws JspException {
-		output("</a>");
+		output("</event>");
 		return (EVAL_PAGE);
 
 	}
