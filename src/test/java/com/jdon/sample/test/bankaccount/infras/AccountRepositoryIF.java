@@ -1,7 +1,7 @@
 package com.jdon.sample.test.bankaccount;
 
 import com.jdon.annotation.pointcut.Around;
-import com.jdon.sample.test.bankaccount.a.BankAccount;
+import com.jdon.sample.test.bankaccount.aggregates.BankAccount;
 
 public interface AccountRepositoryIF {
 

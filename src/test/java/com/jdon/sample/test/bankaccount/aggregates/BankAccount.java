@@ -15,12 +15,12 @@
  */
 package com.jdon.sample.test.bankaccount.a;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.jdon.annotation.Model;
 import com.jdon.annotation.model.Inject;
 import com.jdon.annotation.model.OnCommand;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Model
 public class BankAccount {
@@ -28,8 +28,7 @@ public class BankAccount {
 
 	private int amount = 0;
 
-	private Map<Integer, WithdrawEvent> eventsourcesW = new HashMap<Integer, WithdrawEvent>();
-	private Map<Integer, DepositEvent> eventsourcesD = new HashMap<Integer, DepositEvent>();
+	private Collection<TransferEvent> eventsources  = new ArrayList<>();
 
 	@Inject
 	private DomainEventProducer domainEventProducer;
@@ -49,19 +48,15 @@ public class BankAccount {
 	public Object deposit(TransferEvent transferEvent) {
 		int amount2 = amount + transferEvent.getValue();
 		if (amount2 > 1000) {
-			TransferEvent transferEventNew = new ResultEvent(
-					transferEvent.getId(), transferEvent.getValue(),
-					this.getId());
-			return domainEventProducer.failure(transferEventNew);
+			WithdrawEvent withdrawEvent = new WithdrawEvent(transferEvent.getId(), transferEvent.getValue());
+			return domainEventProducer.sendToProcessManager(withdrawEvent);
 		}
 
-		if (!(transferEvent instanceof WithdrawEvent)) {// first step
-			DepositEvent transferEventNew = new DepositEvent(
-					transferEvent.getId(), transferEvent.getValue(),
-					transferEvent.getNextId(), this.getId());
+		eventsources.add()
+
+
 			eventsourcesD.put(transferEventNew.getId(), transferEventNew);
 			return domainEventProducer.nextStep(transferEventNew);
-		}
 
 		WithdrawEvent de = (WithdrawEvent) transferEvent;
 		amount = amount + transferEvent.getValue();

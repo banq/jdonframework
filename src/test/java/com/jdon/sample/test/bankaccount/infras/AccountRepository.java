@@ -1,11 +1,11 @@
 package com.jdon.sample.test.bankaccount;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import com.jdon.annotation.Component;
 import com.jdon.annotation.Introduce;
 import com.jdon.annotation.pointcut.Around;
-import com.jdon.sample.test.bankaccount.a.BankAccount;
+import com.jdon.sample.test.bankaccount.aggregates.BankAccount;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 @Component()
@@ -20,7 +20,7 @@ public class AccountRepository implements AccountRepositoryIF {
 	 */
 	@Around
 	public BankAccount getBankAccount(String id) {
-		BankAccount model = new BankAccount(id);		
+		BankAccount model = new BankAccount(id, 0);
 		return model;
 
 	}
