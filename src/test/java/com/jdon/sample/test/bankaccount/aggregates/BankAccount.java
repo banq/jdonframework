@@ -44,7 +44,7 @@ public class BankAccount {
 
 	@OnCommand("transfer")
 	public void transfer(TransferCommand transferCommand) {
-		int balance2 = balance + transferCommand.getValue();
+		int balance2 = getBalance() + transferCommand.getValue();
 		if (balance2 > 1000 || balance2 < 0) {
 			aggregatePub.next(transferCommand.createCanceled());
 		}
@@ -55,7 +55,7 @@ public class BankAccount {
 
 	@OnCommand("cancel")
 	public void cancel(Cancel cancel) {
-		int balance2 = balance - cancel.getTransferCommand().getValue();
+		int balance2 = getBalance()  - cancel.getTransferCommand().getValue();
 		if (balance2 > 1000 || balance2 < 0) {
 			System.err.println("can not be canceled " + cancel.getTransferCommand().getTransactionId() + " "+cancel.getTransferCommand().getAggregateId());
 		}

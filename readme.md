@@ -2,7 +2,7 @@ JDON FRAMEWORK
 ===================================
 JdonFramework is a Domain Events framework that supports pub-sub asynchronous programming model.
 
-No any message middlewares like Apache Kafka or RabbitMQ, you can directly command domain model doing something,
+No any message middlewares similar as Apache Kafka or RabbitMQ, you can directly command domain model doing something,
 and listen any domain events from domain model.
 
 using JdonFramework, you can build your Domain Driven Design + CQRS + EventSourcing  applications with asynchronous concurrency and higher throughput.
@@ -27,18 +27,18 @@ domain events is the basice about CQRS and EventSourcing, it is all about what h
 In CQRS, using domain events update query model; 
 In Eventsourcing, append domain events into storage repository. 
 
-Why Jdon?
+Why Jdonframework?
 ===================================
 Give you a clean architecture!
 
 ![avatar](https://en.jdon.com/images/domainevents.png)
 
-Jdon introduces reactive and event-driven into domain, using jdon, a aggregate root can act as a mailbox(like scala's Actors) that is a asynchronous and non-blocking event-sending and event-recipient metaphor.
+Jdonframework introduces reactive and event-driven into domain, using jdon, a aggregate root can act as a mailbox(similar as scala's Actors) that is a asynchronous and non-blocking event-sending and event-recipient metaphor.
 Event is a better interactive way for aggregate root with each other, instead of directly exposing behavior and hold references to others.
 and it can better protect root entity's internal state not expose. and can safely update root's state in non-blocking way [Single Writer Principle](http://www.javacodegeeks.com/2012/08/single-writer-principle.html).
 
 
-Jdon moves mutable state from database to memory, and uses Aggregate Root to guard it, traditional database's data operations (by SQL or JPA/ORM) not need any more, only need send a Command or Event to drive Aggregate Root to change its mutable state by its behaviours
+Jdonframework moves mutable state from database to memory, and uses Aggregate Root to guard it, traditional database's data operations (by SQL or JPA/ORM) not need any more, only need send a Command or Event to drive Aggregate Root to change its mutable state by its behaviours
 
 
 	@Model
@@ -75,142 +75,117 @@ and in this method some events will happen. and they will action those methods a
 
 full example: [click here](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/cqrs/a/AggregateRootA.java)
 
-Actor Model
+Saga and Distributed transaction
 ===================================
-Jdon can make your Domain Model as Actor(erlang/akka) concurrent model, no any lock. this is a transaction example about transferring money from one bank account to another:
+The Saga pattern is a preferable way of solving distributed transaction problems for a microservice-based architecture. However, it also introduces a new set of problems, such as how to atomically update the database and emit an event?
 
+Jdonframework can atomically update database and emit an event by single-Writer pattern. 
 
-	@Model
-	public class BankAccount {
+![avatar](./doc/saga.png)
+Every aggregate is in a transaction scope, message support transaction delivery by exactly once(Apache Kafka)，Saga can rollback all steps in one process/transcation session.
 
-	....
+A process manager acts as a conductor of orchestration, push a forward or backward process.
+if any one of all aggregates happend exception or error, the aggregate should send Canceled event to the process manager, and process manager send Cancel command to others, other aggregates will add a Canceled events to their event logs. 
 
-	@OnCommand("depositCommand")
-	public Object deposit(TransferEvent transferEvent) {
-		int amount2 = amount + transferEvent.getValue();
-		if (amount2 > 1000) {
-			TransferEvent transferEventNew = new ResultEvent(
-					transferEvent.getId(), transferEvent.getValue(),
-					this.getId());
-			return domainEventProducer.failure(transferEventNew);
+![avatar](./doc/saga2.png)
+
+Example:
+[transfer account](https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/bankaccount)
+
+This a aggregate root entity: [BankAccount](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/bankaccount/aggregates/BankAccount.java)
+~~~~
+@Model  //jdonframework domain model annotation
+public class BankAccount {
+	private final String id; //identifier
+	private final int balance = 0;//last balance
+        //event logs
+	private Collection<TransferEvent> eventsources  = new ArrayList<>();
+~~~~
+
+[TransferCommand](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/bankaccount/command/TransferCommand.java) is a command from process mananger to all aggregates:
+~~~~
+public class TransferCommand {
+
+    private final String transactionId;
+    private final String aggregateId;
+    private final String commandId;
+    private final int value;
+
+~~~~
+TransactionId is the identifier of a process or transaction session.
+
+TransferCommand has three subclass: [Withdraw](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/bankaccount/command/Withdraw.java) [Deposite](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/bankaccount/command/Deposit.java) and [Cancel](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/bankaccount/command/Cancel.java).
+
+[TransferEvent](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/bankaccount/event/TransferEvent.java) is a domain event and value object,its properties are sames as TransferCommand.
+command is similar as the input parameter of a function/method,domain event is similar as the output result.
+command or event can be packed into payload of a message from message bus/broker.
+
+TransferEvent has too three subclass: [Withdrawed](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/bankaccount/event/Withdrawed.java) [Deposited](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/bankaccount/event/Deposited.java) and Canceled(https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/bankaccount/event/Canceled.java).
+
+When a TransferCommand will be passed to BankAccount::transfer, a BankAccount instance will begin business logic:
+
+~~~~~
+	@OnCommand("transfer")
+	public void transfer(TransferCommand transferCommand) {
+		int balance2 = getBalance()  + transferCommand.getValue();
+		if (balance2 > 1000 || balance2 < 0) {
+			aggregatePub.next(transferCommand.createCanceled());
 		}
-
-		if (!(transferEvent instanceof WithdrawEvent)) {// first step
-			DepositEvent transferEventNew = new DepositEvent(
-					transferEvent.getId(), transferEvent.getValue(),
-					transferEvent.getNextId(), this.getId());
-			eventsourcesD.put(transferEventNew.getId(), transferEventNew);
-			return domainEventProducer.nextStep(transferEventNew);
-		}
-
-		WithdrawEvent de = (WithdrawEvent) transferEvent;
-		amount = amount + transferEvent.getValue();
-		TransferEvent transferEventNew = new ResultEvent(transferEvent.getId(),
-				transferEvent.getValue(), de.getPreId());
-		return domainEventProducer.finish(transferEventNew);
-
+		TransferEvent transferEvent = transferCommand.creatTransferEvent();
+		eventsources.add(transferEvent);
+		aggregatePub.next(transferEvent);
 	}
 
-	@OnCommand("withdrawCommand")
-	public Object withdraw(TransferEvent transferEvent) {
-		int amount2 = amount - transferEvent.getValue();
-		if (amount2 < 0) {
-			String rootId = (transferEvent instanceof DepositEvent) ? ((DepositEvent) transferEvent)
-					.getPreId() : this.getId();
-			TransferEvent transferEventNew = new ResultEvent(
-					transferEvent.getId(), transferEvent.getValue(), rootId);
-			return domainEventProducer.failure(transferEventNew);
+~~~~~
+
+At first it will check Business rule, if balance > 10000 or <0, it can cancel this transfering.
+
+if all logic passed, a TransferEvent will append to eventlog, and command the process manager to push into next step of a process.
+
+The process manager will send cancel command to last steps that has executed in a process, when these aggregate accept the cancel command, they will append a Canceled Event to event logs.
+~~~~~
+@OnCommand("cancel")
+	public void cancel(Cancel cancel) {
+		int balance2 = getBalance()  - cancel.getTransferCommand().getValue();
+		if (balance2 > 1000 || balance2 < 0) {
+			System.err.println("can not be canceled " + cancel.getTransferCommand().getTransactionId() + " "+cancel.getTransferCommand().getAggregateId());
 		}
+		eventsources.add(cancel.getTransferCommand().createCanceled());
+	}
+~~~~~
 
-		if (!(transferEvent instanceof DepositEvent)) {// first step
-			WithdrawEvent transferEventNew = new WithdrawEvent(
-					transferEvent.getId(), transferEvent.getValue(),
-					transferEvent.getNextId(), this.getId());
-			eventsourcesW.put(transferEventNew.getId(), transferEventNew);
-			return domainEventProducer.nextStep(transferEventNew);
+Append to a event logs no need transaction lock, these called [OLEP](https://queue.acm.org/detail.cfm?id=3321612)
 
-		}
+the balance state is computed by read method:
 
-		DepositEvent de = (DepositEvent) transferEvent;
-		amount = amount - transferEvent.getValue();
-		TransferEvent transferEventNew = new ResultEvent(transferEvent.getId(),
-				transferEvent.getValue(), de.getPreId());
-		return domainEventProducer.finish(transferEventNew);
+~~~~~
 
+	private int project(){
+		return eventsources.stream().map(e->e.getValue()).reduce(this.balance,(a,b)->a+b);
 	}
 
-	@OnCommand("finishCommand")
-	public Object finish(TransferEvent transferEvent) {
-		if (eventsourcesW.containsKey(transferEvent.getId())){
-			eventsourcesW.remove(transferEvent.getId());
-			amount = amount - transferEvent.getValue();
-		}else if (eventsourcesD.containsKey(transferEvent.getId())){
-			eventsourcesD.remove(transferEvent.getId());
-			amount = amount + transferEvent.getValue();
-		}
-		return transferEvent;
+	public int getBalance() {
+		return project();
 	}
 
-	@OnCommand("failureCommand")
-	public Object fail(TransferEvent transferEvent) {
-		eventsourcesD.remove(transferEvent.getId());
-		return transferEvent;
-	}
+~~~~~
 
-	....
-
-	}
-
-transfer money client code:
-
-		AppUtil appUtil = new AppUtil();
-		AccountService accountService = (AccountService) appUtil
-				.getComponentInstance("accountService");
-		BankAccount bankAccountA = accountService.getBankAccount("11", 100);
-		BankAccount bankAccountB = accountService.getBankAccount("22", 0);
-		DomainMessage res = accountService.transfer(bankAccountA, bankAccountB,
-				100);
-
-		DomainMessage res1 = (DomainMessage) res.getBlockEventResult();
-		DomainMessage result = (DomainMessage) res1.getBlockEventResult();
-		Object o = result.getBlockEventResult();// block until all transfer ok;
-
-		Assert.assertEquals(0, bankAccountA.getAmount());
-		Assert.assertEquals(100, bankAccountB.getAmount());
+Projection to state from eventlogs is with java8 stream reduce, similar as Redux from frontend.
 
 
-detail: [click here](https://github.com/banq/jdonframework/tree/master/src/test/java/com/jdon/sample/test/bankaccount)
 
-Apache Kafka + Eventsourcing
+
+Apache Kafka + Eventsourcing + Saga
 ===================================
-Apache Kafka supports Exactly-once delivery, Jdon Actor + Kafka can implement distributed transaction.
+Apache Kafka supports Exactly-once delivery, Jdonframework + Saga + Kafka can implement distributed transaction.
 
 [jdon-kafka](https://github.com/banq/jdon-kafka)
 
 [LMAX microservices distributed transaction](https://weareadaptive.com/wp-content/uploads/2017/04/Application-Level-Consensus.pdf)
 
 
-Distributed transaction
-=========================================
-The Saga pattern is a preferable way of solving distributed transaction problems for a microservice-based architecture. However, it also introduces a new set of problems, such as how to atomically update the database and emit an event?
-
-Jdonframework can atomically update database and emit an event by single-Writer pattern. 
 
 
-About workflow?
-===================================
-![avatar](https://github.com/banq/banq.github.io/blob/master/images/bpm-saga.png?raw=true)
-
-
-BPMN : `execute this command!`
-
-aggregates: yes,  `Yes, task completed events!`
-
-Saga: `I have accept domain events!`. 
-
-Saga/process manager must hold every domain events from all aggregates, if there is any exception, it will rollback every step in this workflow，and send 'cancel' command to all  aggregates to rollback.
-
-[Microservices to Workflows: The Evolution of Jet’s Order Management System](https://medium.com/jettech/microservices-to-workflows-the-evolution-of-jets-order-management-system-9e5669bd53ab)
 
 GETTING STARTED
 ===================================
