@@ -120,7 +120,7 @@ TransferCommand has three subclass: [Withdraw](https://github.com/banq/jdonframe
 command is similar as the input parameter of a function/method,domain event is similar as the output result.
 command or event can be packed into payload of a message from message bus/broker.
 
-TransferEvent has too three subclass: [Withdrawed](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/bankaccount/event/Withdrawed.java) [Deposited](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/bankaccount/event/Deposited.java) and Canceled(https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/bankaccount/event/Canceled.java).
+TransferEvent has too three subclass: [Withdrawed](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/bankaccount/event/Withdrawed.java) [Deposited](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/bankaccount/event/Deposited.java) and [Canceled](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/bankaccount/event/Canceled.java).
 
 When a TransferCommand will be passed to BankAccount::transfer, a BankAccount instance will begin business logic:
 
@@ -156,7 +156,7 @@ The process manager will send cancel command to last steps that has executed in 
 
 Append to a event logs no need transaction lock, these called [OLEP](https://queue.acm.org/detail.cfm?id=3321612)
 
-the balance state is computed by read method:
+Account balance state is projected in a read/query method:
 
 ~~~~~
 
