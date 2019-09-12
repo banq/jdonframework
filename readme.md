@@ -177,7 +177,10 @@ Projection to state from eventlogs is with java8 stream reduce, similar as Redux
 
 Apache Kafka + Eventsourcing + Saga
 ===================================
-Apache Kafka supports Exactly-once delivery, Jdonframework + Saga + Kafka can implement distributed transaction.
+Apache Kafka supports Exactly-once delivery, Jdonframework + Saga + Kafka can implement distributed transaction in MircoServices.
+
+![avatar](./doc/es.png)
+
 
 [jdon-kafka](https://github.com/banq/jdon-kafka)
 
@@ -213,10 +216,10 @@ RELEASE NOTES
 
 6.9 version.
 
-DISTRIBUTION JAR FILES
+How to use
 ===================================
 
-apply jdonframework.jar to your project:
+Add jdonframework.jar to your project:
   MAVEN:
 
 		<dependency>
@@ -225,10 +228,6 @@ apply jdonframework.jar to your project:
 			<version>6.9</version>
 		</dependency>
 
-
-Communication
-------------------
-twiiter: [@jdonframework](http://twitter.com/jdonframework)
 
 Bugs and Feedback
 ------------------
