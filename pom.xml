@@ -50,10 +50,10 @@
   </distributionManagement>
   
   <repositories>
-        <repository>
-            <id>ehcache</id>
-            <url>https://github.com/banq/jdon-mvn-repo/raw/master/releases</url>
-        </repository>
+        <!--<repository>-->
+            <!--<id>ehcache</id>-->
+            <!--<url>https://github.com/banq/jdon-mvn-repo/raw/master/releases</url>-->
+        <!--</repository>-->
         
     </repositories>
 
@@ -146,14 +146,9 @@
         </dependency>
 
 
-        <!-- https://mvnrepository.com/artifact/org.ehcache/ehcache -->
-      <dependency>
-          <groupId>net.sf.ehcache</groupId>
-          <artifactId>ehcache</artifactId>
-          <version>1.6.2</version>
-      </dependency>
 
-      <dependency>
+
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>

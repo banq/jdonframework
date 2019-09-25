@@ -23,8 +23,8 @@ import com.jdon.sample.test.bankaccount.command.TransferCommand;
 import com.jdon.sample.test.bankaccount.event.TransferEvent;
 import com.jdon.sample.test.bankaccount.infras.AggregatePub;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Model
 public class BankAccount {
@@ -32,7 +32,7 @@ public class BankAccount {
 
 	private final int balance ;
 
-	private Collection<TransferEvent> eventsources  = new ArrayList<>();
+	private Collection<TransferEvent> eventsources  = new CopyOnWriteArrayList<>();
 
 	@Inject
 	private AggregatePub aggregatePub;

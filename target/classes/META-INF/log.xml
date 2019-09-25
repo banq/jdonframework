@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<config>
-  <log>
-     <level>6</level><!-- set 6 will get high performance  set 1 to debug -->
-     <log4j>true</log4j>
-  </log>
-</config>

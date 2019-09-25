@@ -37,15 +37,10 @@ public interface Cache {
 
 	public void remove(Object key);
 
-	public long size();
-
 	public void clear();
 
 	public boolean contain(Object key);
 
 	public Collection keySet();
 
-	public long getCacheHits();
-
-	public long getCacheMisses();
 }

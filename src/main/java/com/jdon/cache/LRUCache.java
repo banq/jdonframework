@@ -17,7 +17,6 @@ package com.jdon.cache;
 
 import java.util.Collection;
 
-import net.sf.ehcache.Element;
 
 import com.jdon.container.pico.Startable;
 import com.jdon.controller.cache.Cache;

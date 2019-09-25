@@ -15,11 +15,11 @@
  */
 package com.jdon.components.guavacache;
 
-import java.util.Collection;
-
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.jdon.container.pico.Startable;
+
+import java.util.Collection;
 
 public class GuavaCacheProvider implements com.jdon.controller.cache.Cache, Startable {
 
@@ -64,7 +64,6 @@ public class GuavaCacheProvider implements com.jdon.controller.cache.Cache, Star
 
 	}
 
-	@Override
 	public long size() {
 		return cache.size();
 	}
@@ -87,12 +86,10 @@ public class GuavaCacheProvider implements com.jdon.controller.cache.Cache, Star
 		return cache.asMap().keySet();
 	}
 
-	@Override
 	public long getCacheHits() {
 		return cache.stats().hitCount();
 	}
 
-	@Override
 	public long getCacheMisses() {
 		return cache.stats().missCount();
 	}
