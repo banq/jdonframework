@@ -82,6 +82,7 @@ The Saga pattern is a preferable way of solving distributed transaction problems
 Jdonframework can atomically update database and emit an event by single-Writer pattern. 
 
 ![avatar](./doc/saga.png)
+
 Every aggregate is in a transaction scope, message support transaction delivery by exactly once(Apache Kafka)，Saga can rollback all steps in one process/transcation session.
 
 A process manager acts as a conductor of orchestration, push a forward or backward process.
