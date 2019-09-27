@@ -20,7 +20,7 @@ import ship.domain.DeliverySpec;
 import ship.domain.HandlingEvent;
 import ship.domain.HandlingEvent.Type;
 
-@Component(name="handlingEventRepository")
+@Component("handlingEventRepository")
 public class HandlingEventRepositoryInMem implements HandlingEventRepository {
 
 	private final HashMap<String, List> eventDB = new HashMap<String, List>();

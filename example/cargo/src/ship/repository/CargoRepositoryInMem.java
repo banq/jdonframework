@@ -10,7 +10,7 @@ import com.jdon.annotation.Component;
 import ship.domain.Cargo;
 import static ship.repository.SampleLocations.*;
 
-@Component(name="cargoRepository")
+@Component("cargoRepository")
 public class CargoRepositoryInMem implements CargoRepository {
 
 	  private Map<String, Cargo> cargoDb;

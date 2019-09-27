@@ -8,7 +8,7 @@ import com.jdon.annotation.Component;
 import ship.domain.CarrierMovement;
 import static ship.repository.SampleLocations.*;
 
-@Component(name="carrierMovementRepository")
+@Component("carrierMovementRepository")
 public class CarrierMovementRepositoryInMem implements CarrierMovementRepository {
 	
 

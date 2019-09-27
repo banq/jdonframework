@@ -6,7 +6,7 @@ import com.jdon.annotation.Component;
 
 import ship.domain.Location;
 
-@Component(name="locationRepository")
+@Component("locationRepository")
 public class LocationRepositoryInMem implements LocationRepository {
 
 	  public Location find(String unLocode) {
