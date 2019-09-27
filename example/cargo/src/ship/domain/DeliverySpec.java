@@ -6,21 +6,21 @@ package ship.domain;
  */
 
 public class DeliverySpec {
-	private Location origin;
-	private Location destination;
+	private final Location origin;
+	private final Location destination;
+
+	public DeliverySpec(Location origin, Location destination) {
+		this.origin = origin;
+		this.destination = destination;
+	}
+
 	public Location getOrigin() {
 		return origin;
-	}
-	public void setOrigin(Location origin) {
-		this.origin = origin;
 	}
 	public Location getDestination() {
 		return destination;
 	}
-	public void setDestination(Location destination) {
-		this.destination = destination;
-	}
-	
+
 	
 
 }

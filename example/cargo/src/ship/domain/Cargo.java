@@ -44,7 +44,7 @@ public class Cargo {
 	}
 
 	public void changeDestination(final Location newDestination) {
-		lnkDeliverySpec.setDestination(newDestination);
+		lnkDeliverySpec= new DeliverySpec(this.lnkDeliverySpec.getOrigin(),newDestination);
 	}
 
 	// ���ٻ���λ��

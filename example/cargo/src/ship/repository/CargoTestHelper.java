@@ -16,9 +16,7 @@ public class CargoTestHelper {
 		    String trackingId, Location origin, Location destination,
 		    Collection<HandlingEvent> events) {
 		
-		    DeliverySpec deliverySpec = new DeliverySpec();
-		    deliverySpec.setOrigin(origin);
-		    deliverySpec.setDestination(destination);
+		    DeliverySpec deliverySpec = new DeliverySpec(origin, destination);
 
 		    final Cargo cargo = new Cargo(trackingId, deliverySpec);
 		    setDeliveryHistory(cargo, events);

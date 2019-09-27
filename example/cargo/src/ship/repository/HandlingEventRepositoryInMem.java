@@ -43,9 +43,7 @@ public class HandlingEventRepositoryInMem implements HandlingEventRepository {
 	 */
 	public void init() {
 		// CargoXYZ
-		DeliverySpec deliverySpec = new DeliverySpec();
-		deliverySpec.setOrigin(STOCKHOLM);
-		deliverySpec.setDestination(MELBOURNE);
+		DeliverySpec deliverySpec = new DeliverySpec(STOCKHOLM, MELBOURNE);
 		final Cargo cargoXYZ = new Cargo("XYZ", deliverySpec);
 		registerEvent(cargoXYZ, "2007-11-30", HandlingEvent.Type.RECEIVE, null);
 
@@ -64,9 +62,7 @@ public class HandlingEventRepositoryInMem implements HandlingEventRepository {
 				hamburgToHongKong);
 
 		// CargoZYX
-		DeliverySpec deliverySpec2 = new DeliverySpec();
-		deliverySpec.setOrigin(MELBOURNE);
-		deliverySpec.setDestination(STOCKHOLM);
+		DeliverySpec deliverySpec2 = new DeliverySpec(MELBOURNE,STOCKHOLM);
 		final Cargo cargoZYX = new Cargo("ZYX", deliverySpec2);
 		registerEvent(cargoZYX, "2007-12-09", HandlingEvent.Type.RECEIVE, null);
 
@@ -83,9 +79,7 @@ public class HandlingEventRepositoryInMem implements HandlingEventRepository {
 				tokyoToLosAngeles);
 
 		// CargoABC
-		DeliverySpec deliverySpec3 = new DeliverySpec();
-		deliverySpec.setOrigin(STOCKHOLM);
-		deliverySpec.setDestination(HELSINKI);
+		DeliverySpec deliverySpec3 = new DeliverySpec(STOCKHOLM,HELSINKI);
 		final Cargo cargoABC = new Cargo("ABC", deliverySpec3);
 		registerEvent(cargoABC, "2008-01-01", HandlingEvent.Type.RECEIVE, null);
 
@@ -99,9 +93,7 @@ public class HandlingEventRepositoryInMem implements HandlingEventRepository {
 		registerEvent(cargoABC, "2008-01-05", HandlingEvent.Type.CLAIM, null);
 
 		// CargoCBA
-		DeliverySpec deliverySpec4 = new DeliverySpec();
-		deliverySpec.setOrigin(HELSINKI);
-		deliverySpec.setDestination(STOCKHOLM);
+		DeliverySpec deliverySpec4 = new DeliverySpec(HELSINKI,STOCKHOLM);
 		final Cargo cargoCBA = new Cargo("CBA", deliverySpec4);
 		registerEvent(cargoCBA, "2008-01-10", HandlingEvent.Type.RECEIVE, null);
 	}
