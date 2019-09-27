@@ -102,6 +102,8 @@ public class BankAccount {
 	private Collection<TransferEvent> eventsources  = new ArrayList<>();
 ~~~~
 
+![avatar](./doc/ds.png)
+
 [TransferCommand](https://github.com/banq/jdonframework/blob/master/src/test/java/com/jdon/sample/test/bankaccount/command/TransferCommand.java) is a command from process mananger to all aggregates:
 ~~~~
 public class TransferCommand {
