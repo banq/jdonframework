@@ -24,7 +24,6 @@ public class SavemeEventBusHandler implements EventBusHandler {
 		this.matchListQuery = matchListQuery;
 	}
 
-	@Override
 	public void refresh(String id) {
 		matchListQuery.clearCache();
 

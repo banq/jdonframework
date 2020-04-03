@@ -15,15 +15,14 @@
  */
 package sample.domain;
 
-import java.util.Date;
-
+import com.jdon.annotation.Model;
+import com.jdon.annotation.model.Inject;
 import sample.domain.event.MatchCreatedEvent;
 import sample.domain.event.MatchFinishedEvent;
 import sample.domain.event.MatchStartedEvent;
 import sample.event.domain.publisher.EventSourcing;
 
-import com.jdon.annotation.Model;
-import com.jdon.annotation.model.Inject;
+import java.util.Date;
 
 /**
  * aggregate root
@@ -55,6 +54,7 @@ public class Match {
 	public void startMatch(Date matchDate) {
 		if (this.matchDate != null)
 			System.err.print("the match has started");
+		this.matchDate = matchDate;
 		es.started(new MatchStartedEvent(this.id, matchDate));
 	}
 

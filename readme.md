@@ -31,7 +31,7 @@ Why Jdonframework?
 ===================================
 Give you a clean architecture!
 
-![avatar](https://en.jdon.com/images/domainevents.png)
+![avatar](./doc/jdonframework.png)
 
 Jdonframework introduces reactive and event-driven into domain, using jdon, a aggregate root can act as a mailbox(similar as scala's Actors) that is a asynchronous and non-blocking event-sending and event-recipient metaphor.
 Event is a better interactive way for aggregate root with each other, instead of directly exposing behavior and hold references to others.

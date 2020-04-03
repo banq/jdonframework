@@ -33,7 +33,6 @@ public class MatchCreatedEventImpl implements DomainEventHandler {
 		this.matchRepository = matchRepository;
 	}
 
-	@Override
 	public void onEvent(EventDisruptor event, boolean arg1) throws Exception {
 		MatchCreatedEvent matchCreatedEvent = (MatchCreatedEvent) event.getDomainMessage().getEventSource();
 
