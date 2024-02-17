@@ -11,7 +11,7 @@ Jdonframework help you implement a clean and hexagonal architecture!
 
 Context
 ===================================
-Context is king: Context oriented programming(COP)
+Context is king: Context Oriented Programming(COP)
 
 * Data + Interactive => Being in Context ([DCI](https://en.wikipedia.org/wiki/Data,_context_and_interaction))
 
