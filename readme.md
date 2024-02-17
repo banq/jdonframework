@@ -13,9 +13,9 @@ Context
 ===================================
 Context is king: Context oriented programming(COP)
 
-* Data + interactive => Being in Context (DCI)
+* Data + Interactive => Being in Context ([DCI](https://en.wikipedia.org/wiki/Data,_context_and_interaction))
 
-* Data+ #SingleResponsibility = Object  => Being in   Context
+* Data+ #SingleResponsibility = Object  => Being in Context
 
 * DataStructure + Algorithm = App => Being in Context
 
