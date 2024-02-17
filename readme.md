@@ -25,7 +25,7 @@ Context is king: Context oriented programming(COP)
 
 JdonFramework:
 
-* Domain Model + Domain Events = DDD aggerates =>  Being in Bounded Context
+* Domain Model + Domain Events = DDD aggerates =>  Being in Bounded Context (COP: Context oriented programming)
 
 Why DDD?
 ===================================
