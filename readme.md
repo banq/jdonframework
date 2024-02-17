@@ -15,13 +15,13 @@ Context is king: Context oriented programming(COP)
 
 * Data + Interactive => Being in Context ([DCI](https://en.wikipedia.org/wiki/Data,_context_and_interaction))
 
-* Data+ #SingleResponsibility = Object  => Being in Context
+* Data+ #SingleResponsibility = Object  => Being in Context ([OOP](https://en.wikipedia.org/wiki/OOP))
 
 * DataStructure + Algorithm = App => Being in Context
 
-* MVC Pattern：Model + View = Controller => Being in Context
+* Model + View = Controller => Being in Context ([MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller))
 
-* struct + trait = DDD aggerates => Being in Context
+* struct + trait = DDD aggerates => Being in Context 
 
 JdonFramework:
 
