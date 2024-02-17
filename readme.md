@@ -9,6 +9,19 @@ using JdonFramework, you can build your Domain Driven Design + CQRS + EventSourc
 
 Jdonframework help you implement a clean and hexagonal architecture!
 
+Context
+===================================
+Context is king: Context oriented programming(COP)
+
+Data + interactive => Being in Context (DCI)
+Data+ #SingleResponsibility = Object  => Being in   Context
+DataStructure + Algorithm = App => Being in Context
+MVC Pattern：Model + View = Controller => Being in Context
+struct + trait = DDD aggerates => Being in Context
+
+JdonFramework:
+Domain Model + Domain Events = DDD aggerates =>  Being in Bounded Context
+
 Why DDD?
 ===================================
 Domain-driven design (DDD) is an approach to developing software for complex needs by deeply connecting the implementation to an evolving model of the core business concepts,
