@@ -21,11 +21,11 @@ Context is king: Context oriented programming(COP)
 
 * Model + View = Controller => Being in Context ([MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller))
 
-* struct + trait = DDD aggreates => Being in Context 
+* struct + trait = DDD aggregates => Being in Context 
 
 JdonFramework:
 
-* Domain Model + Domain Events = DDD Aggreate Root Entity =>  Being in Bounded Context (COP: Context oriented programming)
+* Domain Model + Domain Events = DDD aggregate root =>  Being in Bounded Context (COP: Context oriented programming)
 
 Why DDD?
 ===================================
