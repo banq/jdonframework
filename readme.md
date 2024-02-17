@@ -13,19 +13,19 @@ Context
 ===================================
 Context is king: Context oriented programming(COP)
 
-Data + interactive => Being in Context (DCI)
+* Data + interactive => Being in Context (DCI)
 
-Data+ #SingleResponsibility = Object  => Being in   Context
+* Data+ #SingleResponsibility = Object  => Being in   Context
 
-DataStructure + Algorithm = App => Being in Context
+* DataStructure + Algorithm = App => Being in Context
 
-MVC Pattern：Model + View = Controller => Being in Context
+* MVC Pattern：Model + View = Controller => Being in Context
 
-struct + trait = DDD aggerates => Being in Context
+* struct + trait = DDD aggerates => Being in Context
 
 JdonFramework:
 
-Domain Model + Domain Events = DDD aggerates =>  Being in Bounded Context
+* Domain Model + Domain Events = DDD aggerates =>  Being in Bounded Context
 
 Why DDD?
 ===================================
